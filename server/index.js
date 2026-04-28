@@ -16,7 +16,7 @@ const uploadRoutes = require('./routes/upload.routes');
 
 app.use('/api/upload', uploadRoutes);
 
-const { initKnowledgeBase } = require('./services/rag.service');
+const { initKnowledgeBase, warmupEmbedder } = require('./services/rag.service');
 
 app.get('/api/health', (req, res) => {
   res.json({
@@ -26,7 +26,26 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+const { analyzeMusicContract } = require('./services/ConsequenceEngine');
+
+app.post('/api/simulate', (req, res) => {
+  try {
+    const { buyoutOffer, monthlyStreams } = req.body;
+    if (!buyoutOffer || isNaN(buyoutOffer)) {
+      return res.status(400).json({ error: 'Valid buyoutOffer is required' });
+    }
+    const result = analyzeMusicContract(Number(buyoutOffer), Number(monthlyStreams) || 100000);
+    res.json(result);
+  } catch (err) {
+    console.error("Simulation error:", err);
+    res.status(500).json({ error: 'Simulation failed' });
+  }
+});
+
 app.listen(PORT, async () => {
-  await initKnowledgeBase();
   console.log(`Server is running on port ${PORT}`);
+  // Pre-warm the AI model so the first user request is instant
+  warmupEmbedder().catch(err => console.warn('Embedder warmup skipped:', err.message));
+  // Load ChromaDB (non-blocking — runs in background)
+  initKnowledgeBase().catch(err => console.warn('ChromaDB init failed:', err.message));
 });

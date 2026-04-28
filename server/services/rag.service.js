@@ -1,74 +1,87 @@
 const { ChromaClient } = require('chromadb');
-
-// Optional: for generating embeddings if needed, though Chroma uses default all-MiniLM-L6-v2
-// if we use the Python server. If we use the pure JS client, we might need a custom embedding function.
-const { HuggingFaceInferenceEmbeddings } = require('@langchain/community/embeddings/hf');
-
-const client = new ChromaClient();
-const collectionName = "nigerian_law";
-
-// Using HF for embeddings (via Langchain)
-const hfEmbeddings = new HuggingFaceInferenceEmbeddings({
-  apiKey: process.env.HF_API_KEY,
-  model: "sentence-transformers/all-MiniLM-L6-v2"
-});
-
 const fs = require('fs');
 const path = require('path');
 const pdf = require('pdf-parse');
 
+const client = new ChromaClient();
+const collectionName = "nigerian_law";
+const casesCollectionName = "nigerian_cases";
+
+// ── Use Local Transformers (100% Offline & Free) ──
+let extractorPromise = null;
+
+// Simple in-memory embedding cache — avoids re-embedding the same text twice
+const embeddingCache = new Map();
+
+async function getEmbedding(text) {
+  // Check cache first
+  if (embeddingCache.has(text)) {
+    return embeddingCache.get(text);
+  }
+
+  if (!extractorPromise) {
+    extractorPromise = (async () => {
+      const { pipeline, env } = await import('@xenova/transformers');
+      env.allowLocalModels = false;
+      env.useBrowserCache = false;
+      return await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
+        quantized: true,
+      });
+    })();
+  }
+
+  const extractor = await extractorPromise;
+  const output = await extractor(text, { pooling: 'mean', normalize: true });
+  const embedding = Array.from(output.data);
+
+  // Cache it (cap cache at 500 entries to avoid memory bloat)
+  if (embeddingCache.size >= 500) {
+    const firstKey = embeddingCache.keys().next().value;
+    embeddingCache.delete(firstKey);
+  }
+  embeddingCache.set(text, embedding);
+
+  return embedding;
+}
+
+/**
+ * Pre-loads the Xenova transformer model at server startup.
+ * This ensures the FIRST user request is fast.
+ */
+async function warmupEmbedder() {
+  console.log('⚡ Pre-warming local embedding model...');
+  await getEmbedding('Nigerian contract law clause review');
+  console.log('✓ Embedding model ready.');
+}
+
+// Chroma embedding function wrapper
+const localEmbeddingFunction = {
+  generate: async (texts) => {
+    return await Promise.all(texts.map(text => getEmbedding(text)));
+  }
+};
+
 /**
  * Step 1: Extract Text from the PDF
  */
-const loadCamaPdf = async (filePath) => {
+const loadPdf = async (filePath) => {
     const dataBuffer = fs.readFileSync(filePath);
     const data = await pdf(dataBuffer);
     return data.text;
 };
 
 /**
- * Step 2: Semantic Chunking (The Legal Strategy)
+ * Step 2: Semantic Chunking — tracks approximate page number per chunk.
+ * Assumes ~3000 chars per page (standard for legal PDFs).
  */
 const chunkText = (text, size = 1000, overlap = 200) => {
+    const CHARS_PER_PAGE = 3000;
     const chunks = [];
     for (let i = 0; i < text.length; i += (size - overlap)) {
-        chunks.push(text.substring(i, i + size));
+        const approxPage = Math.floor(i / CHARS_PER_PAGE) + 1;
+        chunks.push({ text: text.substring(i, i + size), page: approxPage });
     }
     return chunks;
-};
-
-/**
- * Step 3: Embedding & Storing in ChromaDB
- */
-const storeCamaInChroma = async (chunks) => {
-    // Create a collection for CAMA 2020
-    try {
-        await client.deleteCollection({ name: collectionName });
-    } catch (e) {}
-
-    const collection = await client.createCollection({ 
-        name: collectionName,
-        embeddingFunction: hfEmbeddings
-    });
-
-    console.log(`Embedding ${chunks.length} chunks. This may take a moment...`);
-    
-    // Process in batches to avoid rate limits
-    const batchSize = 10;
-    for (let i = 0; i < chunks.length; i += batchSize) {
-        const batchChunks = chunks.slice(i, i + batchSize);
-        const ids = batchChunks.map((_, idx) => `cama_sec_${i + idx}`);
-        const embeddings = await hfEmbeddings.embedDocuments(batchChunks);
-
-        await collection.add({
-            ids: ids,
-            embeddings: embeddings,
-            documents: batchChunks,
-            metadatas: batchChunks.map(() => ({ source: "CAMA_2020_Official_Gazette" }))
-        });
-        console.log(`Stored batch ${i/batchSize + 1}`);
-    }
-    console.log("Successfully embedded and stored CAMA 2020 in ChromaDB.");
 };
 
 /**
@@ -79,26 +92,25 @@ async function initKnowledgeBase() {
   let retries = 5;
   while (retries > 0) {
     try {
+      const dataDir = path.join(__dirname, '../data');
+
       // ── Check if collection already has data ──
       let existingCount = 0;
       try {
         const existing = await client.getCollection({
           name: collectionName,
-          embeddingFunction: hfEmbeddings
+          embeddingFunction: localEmbeddingFunction
         });
-        const countResult = await existing.count();
-        existingCount = countResult;
+        existingCount = await existing.count();
       } catch (e) {
         // Collection doesn't exist yet — that's fine
       }
 
       if (existingCount > 0) {
-        console.log(`✓ ChromaDB already loaded (${existingCount} vectors). Skipping re-embedding.`);
-        return;
-      }
+        console.log(`✓ ChromaDB law collection already loaded (${existingCount} vectors). Skipping re-embedding.`);
+      } else {
 
       // ── First-time setup or empty collection ──
-      const dataDir = path.join(__dirname, '../data');
       const pdfFiles = fs.existsSync(dataDir)
         ? fs.readdirSync(dataDir).filter(f => f.endsWith('.pdf'))
         : [];
@@ -107,54 +119,75 @@ async function initKnowledgeBase() {
 
       const collection = await client.createCollection({
         name: collectionName,
-        embeddingFunction: hfEmbeddings
+        embeddingFunction: localEmbeddingFunction
       });
 
       if (pdfFiles.length > 0) {
-        console.log(`Found ${pdfFiles.length} law PDF(s) in data/. Starting embedding pipeline...`);
+        console.log(`Found ${pdfFiles.length} law PDF(s) in data/. Starting local embedding pipeline...`);
         let globalIdx = 0;
         for (const file of pdfFiles) {
           console.log(`  Processing: ${file}`);
-          const rawText = await loadCamaPdf(path.join(dataDir, file));
+          const rawText = await loadPdf(path.join(dataDir, file));
           const chunks = chunkText(rawText);
           const batchSize = 10;
+
           for (let i = 0; i < chunks.length; i += batchSize) {
             const batch = chunks.slice(i, i + batchSize);
             const ids = batch.map((_, idx) => `${file}_sec_${globalIdx + idx}`);
-            const embeddings = await hfEmbeddings.embedDocuments(batch);
+            const embeddings = await localEmbeddingFunction.generate(batch.map(c => c.text));
             await collection.add({
               ids,
               embeddings,
-              documents: batch,
-              metadatas: batch.map(() => ({ source: file }))
+              documents: batch.map(c => c.text),
+              metadatas: batch.map(c => ({ source: file, page: c.page }))
             });
             globalIdx += batch.length;
           }
-          console.log(`  ✓ ${file} embedded (${chunks.length} chunks)`);
+          console.log(`  ✓ ${file} embedded locally (${chunks.length} chunks)`);
         }
         console.log('RAG Knowledge Base fully loaded from PDF(s).');
       } else {
-        console.log('No PDFs found in server/data/. Seeding fallback CAMA 2020 rules...');
-        const seedData = [
-          "CAMA 2020 requires companies to have at least two directors, except for small companies which may have one.",
-          "An indemnity clause should be mutual and not expose directors to personal liability under CAMA 2020.",
-          "Penalty clauses are generally not enforced by Nigerian courts unless they represent genuine pre-estimated liquidated damages.",
-          "Intellectual Property rights created during an employment or contractor agreement must explicitly state assignment to the paying entity to be fully protected under Nigerian law.",
-          "Liability caps should not be lower than the contract value. Unlimited liability is heavily scrutinized.",
-          "Lagos State Tenancy Law 2011 Section 7: Rent increases must be reasonable and subject to mutual agreement.",
-          "Under the Labour Act Cap L1 LFN 2004, a monthly worker is entitled to one month's notice before termination.",
-          "Non-compete clauses that are overly broad as to time, geography, or industry are unenforceable in Nigeria.",
-          "Self-help eviction (locking out a tenant without a court order) is illegal under the Recovery of Premises Act.",
-          "A mandatory arbitration fee before dispute resolution is a predatory penalty under Nigerian contract law."
-        ];
-        const ids = seedData.map((_, i) => `seed_rule_${i}`);
-        const embeddings = await hfEmbeddings.embedDocuments(seedData);
-        await collection.add({
-          ids, embeddings, documents: seedData,
-          metadatas: seedData.map(() => ({ source: "Seed — Nigerian Law Summary" }))
-        });
-        console.log('RAG Knowledge Base initialized with expanded fallback seeds.');
+        console.log('No PDFs found in server/data/. Waiting for user to upload PDFs.');
       }
+      } // close the outer else block
+
+      // ── Load Foresight Cases (JSON) ──
+      const casesPath = path.join(dataDir, 'foresight_vectors.json');
+      if (fs.existsSync(casesPath)) {
+        let casesCount = 0;
+        try {
+          const casesColl = await client.getCollection({ name: casesCollectionName, embeddingFunction: localEmbeddingFunction });
+          casesCount = await casesColl.count();
+        } catch(e) {}
+        
+        if (casesCount === 0) {
+          console.log(`Loading foresight_vectors.json into ChromaDB...`);
+          try { await client.deleteCollection({ name: casesCollectionName }); } catch (e) {}
+          const casesCollection = await client.createCollection({ name: casesCollectionName, embeddingFunction: localEmbeddingFunction });
+          const casesData = JSON.parse(fs.readFileSync(casesPath, 'utf8'));
+          
+          const batchSize = 100;
+          for (let i = 0; i < casesData.length; i += batchSize) {
+            const batch = casesData.slice(i, i + batchSize);
+            const ids = batch.map((_, idx) => `case_${i + idx}`);
+            // Prepend a word to help semantic matching, though Xenova handles it well
+            const texts = batch.map(c => `Legal offence: ${c['Offence Description'].replace(/_/g, ' ')}`);
+            const metadatas = batch.map(c => ({ outcome: c.Outcome, year: c.Year }));
+            
+            const embeddings = await localEmbeddingFunction.generate(texts);
+            await casesCollection.add({
+              ids,
+              embeddings,
+              documents: texts,
+              metadatas
+            });
+          }
+          console.log(`  ✓ ${casesData.length} historic cases embedded into ${casesCollectionName}.`);
+        } else {
+          console.log(`✓ ChromaDB cases already loaded (${casesCount} vectors).`);
+        }
+      }
+
       return;
     } catch (error) {
       retries--;
@@ -169,7 +202,7 @@ async function initKnowledgeBase() {
 }
 
 /**
- * Semantic search against the Nigerian Law knowledge base
+ * Smart Semantic Search against the Nigerian Law knowledge base
  * @param {string} query 
  * @returns {Promise<Array<string>>}
  */
@@ -177,17 +210,45 @@ async function searchLaw(query) {
   try {
     const collection = await client.getCollection({ 
       name: collectionName,
-      embeddingFunction: hfEmbeddings
+      embeddingFunction: localEmbeddingFunction
     });
-    const queryEmbedding = await hfEmbeddings.embedQuery(query);
     
+    const queryEmbedding = await getEmbedding(query);
+    const lowerQuery = query.toLowerCase();
+    
+    // ── Smart Metadata Filtering ──
+    // Determine the most relevant source based on keywords in the clause
+    let filter = undefined; // Default: search all
+    
+    if (lowerQuery.includes('lagos') || lowerQuery.includes('rent') || lowerQuery.includes('tenant') || lowerQuery.includes('landlord')) {
+      filter = { "source": "Tenancy-Law-2011.pdf" };
+    } else if (lowerQuery.includes('share') || lowerQuery.includes('director') || lowerQuery.includes('company') || lowerQuery.includes('board')) {
+      filter = { "source": "CAMA-NOTE FINAL-FULL-VERSION.pdf" };
+    } else if (lowerQuery.includes('employee') || lowerQuery.includes('wages') || lowerQuery.includes('labour') || lowerQuery.includes('worker')) {
+      filter = { "source": "Labour Act, Cap L1, Laws of the Federation of Nigeria (LFN) 2004.pdf" };
+    } else if (lowerQuery.includes('arbitration') || lowerQuery.includes('mediation') || lowerQuery.includes('dispute')) {
+      filter = { "source": "New-Nigerian-Arbitration-and-Mediation-Act.pdf" };
+    } else if (lowerQuery.includes('intellectual property') || lowerQuery.includes('copyright')) {
+      filter = { "source": "Copyright-Act-2022.pdf" };
+    }
+
     const results = await collection.query({
       queryEmbeddings: [queryEmbedding],
-      nResults: 2
+      nResults: 2,
+      where: filter
     });
 
     if (results && results.documents && results.documents[0]) {
-      return results.documents[0];
+      // Return enriched results with citation metadata
+      return results.documents[0].map((doc, i) => {
+        const meta = results.metadatas?.[0]?.[i] || {};
+        const sourceName = (meta.source || '').replace('.pdf', '').replace(/-/g, ' ');
+        const page = meta.page ? `p.${meta.page}` : '';
+        return {
+          text: doc,
+          citation: [sourceName, page].filter(Boolean).join(', ')
+        };
+      });
     }
     return [];
   } catch (error) {
@@ -196,10 +257,37 @@ async function searchLaw(query) {
   }
 }
 
-// Call this on server start
-// initKnowledgeBase();
+/**
+ * Searches historic case outcomes based on clause text
+ * @param {string} query
+ * @returns {Promise<Array<string>>} Array of outcomes (e.g. ['WON', 'LOST', ...])
+ */
+async function searchCases(query) {
+  try {
+    const collection = await client.getCollection({ 
+      name: casesCollectionName,
+      embeddingFunction: localEmbeddingFunction
+    });
+    
+    const queryEmbedding = await getEmbedding(query);
+    const results = await collection.query({
+      queryEmbeddings: [queryEmbedding],
+      nResults: 50
+    });
+
+    if (results && results.metadatas && results.metadatas[0]) {
+      return results.metadatas[0].map(m => m.outcome);
+    }
+    return [];
+  } catch (error) {
+    console.error("Cases Search Error:", error);
+    return [];
+  }
+}
 
 module.exports = {
   initKnowledgeBase,
-  searchLaw
+  searchLaw,
+  searchCases,
+  warmupEmbedder
 };

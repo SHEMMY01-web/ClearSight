@@ -30,6 +30,8 @@ router.post('/', upload.single('contract'), async (req, res) => {
     }
 
     const { buffer, mimetype, originalname } = req.file;
+    // Persona sent from the frontend dropdown: general | freelancer | founder | market_trader
+    const persona = req.body?.persona || 'general';
 
     // 1. Extract Text
     const text = await extractText(buffer, mimetype);
@@ -38,12 +40,13 @@ router.post('/', upload.single('contract'), async (req, res) => {
       return res.status(400).json({ error: 'Could not extract text from the provided file.' });
     }
 
-    // 2. Chunk & Analyze (RAG + Hugging Face)
-    const analysisResults = await chunkAndAnalyze(text);
+    // 2. Chunk & Analyze (KB + RAG + Persona + Consequence Engine)
+    const analysisResults = await chunkAndAnalyze(text, persona);
 
     res.json({
       success: true,
       filename: originalname,
+      persona,
       extractedTextPreview: text.substring(0, 500) + '...',
       analysis: analysisResults
     });

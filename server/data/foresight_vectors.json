@@ -1,0 +1,9477 @@
+[
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Civil_petition",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Damage_property",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Unlawful_termination_appointment",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Claim_for_recovery",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Trespassing",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Law_of_tort",
+    "Outcome": "WON",
+    "Year": "N/A"
+  },
+  {
+    "Offence Description": "Dispute",
+    "Outcome": "LOST",
+    "Year": "N/A"
+  }
+]

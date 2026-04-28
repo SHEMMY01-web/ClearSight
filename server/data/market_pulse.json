@@ -1,0 +1,12 @@
+{
+  "last_updated": "2026-04-28",
+  "macro": {
+    "inflation_rate": 0.1538,
+    "treasury_bill_yield": 0.1595,
+    "fx_rate": 1356.679784
+  },
+  "industry": {
+    "spotify_rpm_ngn": 474.83792439999996,
+    "apple_music_rpm_ngn": 610.5059028
+  }
+}

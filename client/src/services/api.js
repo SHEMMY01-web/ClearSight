@@ -6,15 +6,14 @@ export const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
-export const uploadContract = async (file) => {
+export const uploadContract = async (file, persona = 'general') => {
   const formData = new FormData();
   formData.append('contract', file);
+  formData.append('persona', persona);
 
   try {
     const response = await api.post('/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+      headers: { 'Content-Type': 'multipart/form-data' },
     });
     return response.data;
   } catch (error) {

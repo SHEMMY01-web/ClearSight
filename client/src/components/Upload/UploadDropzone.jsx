@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { UploadCloud, File, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react';
 import { uploadContract } from '../../services/api';
 
-const UploadDropzone = ({ onUploadComplete }) => {
+const UploadDropzone = ({ onUploadComplete, persona = 'general' }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -18,7 +18,7 @@ const UploadDropzone = ({ onUploadComplete }) => {
     setIsUploading(true);
 
     try {
-      const result = await uploadContract(file);
+      const result = await uploadContract(file, persona);
       setSuccessMessage('Contract analyzed successfully!');
       if (onUploadComplete) {
         onUploadComplete(result);
@@ -28,7 +28,7 @@ const UploadDropzone = ({ onUploadComplete }) => {
     } finally {
       setIsUploading(false);
     }
-  }, [onUploadComplete]);
+  }, [onUploadComplete, persona]);
 
   const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
     onDrop,
