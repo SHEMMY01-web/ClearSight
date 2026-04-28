@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1A3C2E">
+<title>ClearSight — 7-Day MVP Roadmap</title>
+<link rel="manifest" href="#" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0D0D0D;
+  --paper: #F5F0E8;
+  --gold: #C8A84B;
+  --gold-dim: rgba(200,168,75,0.15);
+  --green: #1A3C2E;
+  --green-mid: #2D5C43;
+  --cream: #FAF7F0;
+  --rust: #8B3A2A;
+  --gray: #6B6B6B;
+  --gray-light: #E8E4DC;
+  --done: #2D5C43;
+  --active: #C8A84B;
+  --upcoming: #6B6B6B;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'DM Mono', monospace;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* ── HEADER ── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13,13,13,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(200,168,75,0.15);
+  padding: 1rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.logo span { color: var(--gold); }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.progress-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--gold-dim);
+  border: 1px solid rgba(200,168,75,0.3);
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+}
+
+.progress-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+.progress-text {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.pwa-badge {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.4);
+  border: 1px solid rgba(245,240,232,0.1);
+  padding: 0.35rem 0.75rem;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 6rem 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(200,168,75,0.1);
+}
+
+.hero-bg-text {
+  position: absolute;
+  right: -3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(8rem, 20vw, 18rem);
+  font-weight: 900;
+  color: rgba(200,168,75,0.04);
+  line-height: 1;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.hero-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: fadeUp 0.5s ease 0.1s both;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 35px;
+  height: 1px;
+  background: var(--gold);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  max-width: 18ch;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.5s ease 0.2s both;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-meta {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  animation: fadeUp 0.5s ease 0.3s both;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.meta-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.35);
+}
+
+.meta-value {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--paper);
+}
+
+.meta-value.gold { color: var(--gold); }
+
+/* ── LEGEND ── */
+.legend {
+  display: flex;
+  gap: 2rem;
+  padding: 1.25rem 3rem;
+  border-bottom: 1px solid rgba(245,240,232,0.06);
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.45);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-dot.done { background: var(--done); }
+.legend-dot.active { background: var(--gold); }
+.legend-dot.upcoming { background: rgba(245,240,232,0.2); border: 1px solid rgba(245,240,232,0.2); }
+.legend-dot.pwa { background: var(--rust); }
+
+/* ── MAIN GRID ── */
+.roadmap-container {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── DAY CARD ── */
+.day-card {
+  border: 1px solid rgba(245,240,232,0.07);
+  background: rgba(245,240,232,0.02);
+  overflow: hidden;
+  transition: border-color 0.3s;
+  animation: fadeUp 0.5s ease both;
+}
+
+.day-card:hover { border-color: rgba(200,168,75,0.2); }
+
+.day-card.status-done { border-color: rgba(45,92,67,0.4); }
+.day-card.status-done:hover { border-color: rgba(45,92,67,0.7); }
+.day-card.status-active { border-color: rgba(200,168,75,0.4); }
+.day-card.status-active:hover { border-color: var(--gold); }
+
+.day-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.75rem 2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.day-header:hover { background: rgba(245,240,232,0.02); }
+
+.day-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(245,240,232,0.08);
+  min-width: 3.5rem;
+  transition: color 0.3s;
+}
+
+.status-done .day-number { color: rgba(45,92,67,0.3); }
+.status-active .day-number { color: rgba(200,168,75,0.25); }
+
+.day-info {}
+
+.day-phase {
+  font-size: 0.58rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+  margin-bottom: 0.35rem;
+}
+
+.status-done .day-phase { color: rgba(45,92,67,0.7); }
+.status-active .day-phase { color: var(--gold); }
+
+.day-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--paper);
+  letter-spacing: 0.02em;
+}
+
+.day-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.badge {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+.badge-done { color: #4CAF8A; border-color: rgba(76,175,138,0.3); background: rgba(76,175,138,0.06); }
+.badge-active { color: var(--gold); border-color: rgba(200,168,75,0.3); background: rgba(200,168,75,0.06); }
+.badge-upcoming { color: rgba(245,240,232,0.35); border-color: rgba(245,240,232,0.1); }
+.badge-pwa { color: #E88080; border-color: rgba(232,128,128,0.3); background: rgba(232,128,128,0.06); }
+.badge-new { color: #80B4E8; border-color: rgba(128,180,232,0.3); background: rgba(128,180,232,0.06); }
+
+.day-toggle {
+  font-size: 1.2rem;
+  color: rgba(245,240,232,0.2);
+  transition: transform 0.3s, color 0.2s;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.day-card.open .day-toggle { transform: rotate(45deg); color: var(--gold); }
+
+/* ── DAY BODY ── */
+.day-body {
+  display: none;
+  border-top: 1px solid rgba(245,240,232,0.06);
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.day-card.open .day-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  animation: fadeUp 0.3s ease both;
+}
+
+.tasks-col {}
+
+.col-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.col-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(245,240,232,0.06);
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background: rgba(245,240,232,0.02);
+  border-left: 2px solid transparent;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.task:hover { background: rgba(245,240,232,0.04); }
+.task.t-done { border-left-color: var(--done); }
+.task.t-active { border-left-color: var(--gold); }
+.task.t-upcoming { border-left-color: rgba(245,240,232,0.1); }
+.task.t-new { border-left-color: #80B4E8; }
+.task.t-pwa { border-left-color: #E88080; }
+
+.task-icon {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  min-width: 1.2rem;
+}
+
+.task-content {}
+
+.task-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--paper);
+  margin-bottom: 0.2rem;
+}
+
+.task-desc {
+  font-size: 0.68rem;
+  color: rgba(245,240,232,0.4);
+  line-height: 1.6;
+}
+
+.task-tag {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-size: 0.57rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(200,168,75,0.2);
+  color: rgba(200,168,75,0.6);
+}
+
+.task-tag.blue { border-color: rgba(128,180,232,0.2); color: rgba(128,180,232,0.6); }
+.task-tag.red { border-color: rgba(232,128,128,0.2); color: rgba(232,128,128,0.6); }
+.task-tag.green { border-color: rgba(76,175,138,0.2); color: rgba(76,175,138,0.6); }
+
+/* deliverables col */
+.deliverables-col {}
+
+.deliverable-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.deliverable {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(245,240,232,0.06);
+  background: rgba(245,240,232,0.01);
+}
+
+.deliverable-check {
+  font-size: 0.8rem;
+  min-width: 1.2rem;
+  line-height: 1.5;
+}
+
+.deliverable-text {
+  font-size: 0.72rem;
+  color: rgba(245,240,232,0.55);
+  line-height: 1.6;
+}
+
+.deliverable-text strong {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  color: var(--paper);
+  font-size: 0.75rem;
+  margin-bottom: 0.15rem;
+}
+
+.stack-tags {
+  margin-top: 1.5rem;
+}
+
+.stack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.stack-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.65rem;
+  background: rgba(245,240,232,0.04);
+  border: 1px solid rgba(245,240,232,0.08);
+  color: rgba(245,240,232,0.45);
+}
+
+/* ── MILESTONE BAR ── */
+.milestone-bar {
+  margin: 0 3rem 3rem;
+  border: 1px solid rgba(200,168,75,0.15);
+  padding: 2rem;
+  background: rgba(200,168,75,0.03);
+}
+
+.milestone-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.progress-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 1.25rem;
+}
+
+.progress-segment {
+  flex: 1;
+  height: 4px;
+  position: relative;
+}
+
+.progress-segment.filled { background: var(--done); }
+.progress-segment.active-seg { background: var(--gold); }
+.progress-segment.empty { background: rgba(245,240,232,0.08); }
+
+.progress-node {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.progress-node.done-node { background: var(--done); }
+.progress-node.active-node { background: var(--gold); box-shadow: 0 0 0 3px rgba(200,168,75,0.2); }
+.progress-node.future-node { background: rgba(245,240,232,0.12); border: 1px solid rgba(245,240,232,0.15); }
+
+.milestone-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+}
+
+.milestone-labels span.gold { color: var(--gold); }
+
+/* ── PWA CALLOUT ── */
+.pwa-callout {
+  margin: 0 3rem 2rem;
+  border: 1px solid rgba(232,128,128,0.25);
+  background: rgba(232,128,128,0.04);
+  padding: 1.75rem 2rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.pwa-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.pwa-callout-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #E88080;
+  margin-bottom: 0.4rem;
+}
+
+.pwa-callout-desc {
+  font-size: 0.72rem;
+  color: rgba(245,240,232,0.45);
+  line-height: 1.7;
+}
+
+.pwa-features {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.pwa-feat {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(232,128,128,0.7);
+  border: 1px solid rgba(232,128,128,0.2);
+  padding: 0.25rem 0.6rem;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid rgba(245,240,232,0.06);
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.footer-logo span { color: var(--gold); }
+
+.footer-note {
+  font-size: 0.65rem;
+  color: rgba(245,240,232,0.25);
+  letter-spacing: 0.1em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 800px) {
+  header { padding: 1rem 1.5rem; }
+  .hero { padding: 4rem 1.5rem 3rem; }
+  .legend { padding: 1rem 1.5rem; }
+  .roadmap-container { padding: 1.5rem; }
+  .day-body { grid-template-columns: 1fr !important; }
+  .milestone-bar, .pwa-callout { margin: 0 1.5rem 1.5rem; }
+  footer { padding: 2rem 1.5rem; }
+  .day-header { grid-template-columns: auto 1fr auto; gap: 1rem; }
+  .day-badges { display: none; }
+  .hero-meta { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Clear<span>Sight</span></div>
+  <div class="header-right">
+    <div class="pwa-badge">PWA Ready</div>
+    <div class="progress-pill">
+      <div class="progress-dot"></div>
+      <div class="progress-text">Day 1 Complete · Day 2 Active</div>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-bg-text">7 DAYS</div>
+  <div class="hero-eyebrow">MVP Roadmap · Updated</div>
+  <h1 class="hero-title">Ship in <em>7 days.</em> Pitch with confidence.</h1>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <div class="meta-label">Timeline</div>
+      <div class="meta-value gold">7 Days</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Target</div>
+      <div class="meta-value">PWA + Web MVP</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Stack</div>
+      <div class="meta-value">React · Node · Supabase</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Market</div>
+      <div class="meta-value">Nigerian SMBs</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Law Base</div>
+      <div class="meta-value gold">CAMA 2020 · CAC</div>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot done"></div>Completed</div>
+  <div class="legend-item"><div class="legend-dot active"></div>Active Today</div>
+  <div class="legend-item"><div class="legend-dot upcoming"></div>Upcoming</div>
+  <div class="legend-item"><div class="legend-dot pwa"></div>PWA Milestone</div>
+</div>
+
+<!-- MILESTONE PROGRESS BAR -->
+<div class="milestone-bar">
+  <div class="milestone-title">7-Day Progress Track</div>
+  <div class="progress-track">
+    <div class="progress-node done-node"></div>
+    <div class="progress-segment filled"></div>
+    <div class="progress-node active-node"></div>
+    <div class="progress-segment active-seg"></div>
+    <div class="progress-node future-node"></div>
+    <div class="progress-segment empty"></div>
+    <div class="progress-node future-node"></div>
+    <div class="progress-segment empty"></div>
+    <div class="progress-node future-node"></div>
+    <div class="progress-segment empty"></div>
+    <div class="progress-node future-node"></div>
+    <div class="progress-segment empty"></div>
+    <div class="progress-node future-node"></div>
+  </div>
+  <div class="milestone-labels">
+    <span>Day 1</span>
+    <span class="gold">Day 2 ← Now</span>
+    <span>Day 3</span>
+    <span>Day 4</span>
+    <span>Day 5</span>
+    <span>Day 6</span>
+    <span>Day 7 · Launch</span>
+  </div>
+</div>
+
+<!-- PWA CALLOUT -->
+<div class="pwa-callout">
+  <div class="pwa-icon">📱</div>
+  <div>
+    <div class="pwa-callout-title">Progressive Web App (PWA) — Enabled from Day 3</div>
+    <div class="pwa-callout-desc">ClearSight will be installable on any device — desktop or mobile — directly from the browser. No app store needed. Users can pin it to their home screen, use it offline for viewing saved reports, and receive push notifications for contract risk alerts.</div>
+    <div class="pwa-features">
+      <div class="pwa-feat">Installable</div>
+      <div class="pwa-feat">Offline Reports</div>
+      <div class="pwa-feat">Home Screen Icon</div>
+      <div class="pwa-feat">Service Worker</div>
+      <div class="pwa-feat">manifest.json</div>
+      <div class="pwa-feat">No App Store</div>
+    </div>
+  </div>
+</div>
+
+<!-- ROADMAP CARDS -->
+<div class="roadmap-container">
+
+  <!-- DAY 1 -->
+  <div class="day-card status-done open" style="animation-delay:0.1s">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-number">01</div>
+      <div class="day-info">
+        <div class="day-phase">Foundation · Infrastructure</div>
+        <div class="day-title">Monorepo Setup, Express Backend & React Frontend</div>
+      </div>
+      <div class="day-badges">
+        <div class="badge badge-done">✓ Complete</div>
+      </div>
+      <div class="day-toggle">+</div>
+    </div>
+    <div class="day-body">
+      <div class="tasks-col">
+        <div class="col-label">Tasks Completed</div>
+        <div class="task-list">
+          <div class="task t-done">
+            <div class="task-icon">✅</div>
+            <div class="task-content">
+              <div class="task-name">Monorepo Structure</div>
+              <div class="task-desc">/client + /server directories, root package.json with concurrent dev script</div>
+            </div>
+          </div>
+          <div class="task t-done">
+            <div class="task-icon">✅</div>
+            <div class="task-content">
+              <div class="task-name">Express Backend</div>
+              <div class="task-desc">Node.js + Express with cors, helmet, /api/health endpoint live</div>
+            </div>
+          </div>
+          <div class="task t-done">
+            <div class="task-icon">✅</div>
+            <div class="task-content">
+              <div class="task-name">React + Vite + Tailwind Frontend</div>
+              <div class="task-desc">Vite scaffold, Tailwind CSS configured, dev server running on Chromebook Linux</div>
+            </div>
+          </div>
+          <div class="task t-done">
+            <div class="task-icon">✅</div>
+            <div class="task-content">
+              <div class="task-name">Node v20 + nvm Environment</div>
+              <div class="task-desc">Stable dev environment confirmed on Chromebook via nvm</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="deliverables-col">
+        <div class="col-label">Deliverables</div>
+        <div class="deliverable-list">
+          <div class="deliverable">
+            <div class="deliverable-check">📦</div>
+            <div class="deliverable-text"><strong>Running monorepo</strong>Both /client and /server boot concurrently from root npm run dev</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">🟢</div>
+            <div class="deliverable-text"><strong>/api/health endpoint</strong>Returns 200 OK — backend confirmed live</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">⚡</div>
+            <div class="deliverable-text"><strong>React + Vite app</strong>Hot-reload frontend with Tailwind ready</div>
+          </div>
+        </div>
+        <div class="stack-tags">
+          <div class="col-label">Stack Used</div>
+          <div class="stack-list">
+            <div class="stack-tag">Node v20</div>
+            <div class="stack-tag">Express</div>
+            <div class="stack-tag">React</div>
+            <div class="stack-tag">Vite</div>
+            <div class="stack-tag">Tailwind</div>
+            <div class="stack-tag">cors</div>
+            <div class="stack-tag">helmet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-card status-active open" style="animation-delay:0.15s">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-number">02</div>
+      <div class="day-info">
+        <div class="day-phase">AI Core · Nigerian Law RAG</div>
+        <div class="day-title">Contract Upload, AI Clause Analysis & Nigerian Law Grounding</div>
+      </div>
+      <div class="day-badges">
+        <div class="badge badge-active">⚡ Active</div>
+        <div class="badge badge-new">🆕 RAG</div>
+      </div>
+      <div class="day-toggle">+</div>
+    </div>
+    <div class="day-body">
+      <div class="tasks-col">
+        <div class="col-label">Tasks · Today</div>
+        <div class="task-list">
+          <div class="task t-active">
+            <div class="task-icon">⚡</div>
+            <div class="task-content">
+              <div class="task-name">File Upload API (Multer)</div>
+              <div class="task-desc">POST /api/upload accepts PDF, image, .docx. Validates file type and size.</div>
+              <div class="task-tag">Multer · Express</div>
+            </div>
+          </div>
+          <div class="task t-active">
+            <div class="task-icon">⚡</div>
+            <div class="task-content">
+              <div class="task-name">PDF Text Extraction</div>
+              <div class="task-desc">pdf-parse for digital PDFs. Tesseract.js for scanned/image contracts.</div>
+              <div class="task-tag">pdf-parse · Tesseract.js</div>
+            </div>
+          </div>
+          <div class="task t-new">
+            <div class="task-icon">🆕</div>
+            <div class="task-content">
+              <div class="task-name">Semantic Chunking by Clause Structure</div>
+              <div class="task-desc">Split contracts by actual clause numbers (1.1, Section A) — not fixed token counts. Tag each chunk with Clause_Type, Risk_Level, Jurisdiction metadata.</div>
+              <div class="task-tag blue">Advanced RAG</div>
+            </div>
+          </div>
+          <div class="task t-new">
+            <div class="task-icon">🆕</div>
+            <div class="task-content">
+              <div class="task-name">Nigerian Law Knowledge Base</div>
+              <div class="task-desc">Seed RAG database with CAMA 2020, Evidence Act, CAC guidelines. Hybrid search: vector (semantic) + BM25 (keyword) so specific legal terms are never missed.</div>
+              <div class="task-tag blue">CAMA 2020 · CAC</div>
+            </div>
+          </div>
+          <div class="task t-active">
+            <div class="task-icon">⚡</div>
+            <div class="task-content">
+              <div class="task-name">BART-Large-MNLI Clause Flagging</div>
+              <div class="task-desc">Hugging Face zero-shot classification. Flag: indemnity, IP ownership, liability caps, termination traps, penalty clauses.</div>
+              <div class="task-tag">Hugging Face · MNLI</div>
+            </div>
+          </div>
+          <div class="task t-new">
+            <div class="task-icon">🆕</div>
+            <div class="task-content">
+              <div class="task-name">Advocate-Critic Agent Pattern</div>
+              <div class="task-desc">Two AI calls per high-risk clause: Advocate finds commercial upside, Critic surfaces the legal trap under Nigerian law using Chain-of-Thought reasoning.</div>
+              <div class="task-tag blue">Agentic · CoT</div>
+            </div>
+          </div>
+          <div class="task t-active">
+            <div class="task-icon">⚡</div>
+            <div class="task-content">
+              <div class="task-name">Upload UI Component</div>
+              <div class="task-desc">Drag-and-drop uploader in React. Shows processing state, progress bar, extracted text preview.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="deliverables-col">
+        <div class="col-label">End-of-Day Deliverables</div>
+        <div class="deliverable-list">
+          <div class="deliverable">
+            <div class="deliverable-check">📄</div>
+            <div class="deliverable-text"><strong>Working upload → extract → flag pipeline</strong>Upload any contract, get back a list of flagged clauses with risk scores</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">⚖️</div>
+            <div class="deliverable-text"><strong>Advocate-Critic output per clause</strong>Each flagged clause shows both sides of the argument before a final risk verdict</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">🇳🇬</div>
+            <div class="deliverable-text"><strong>Nigerian law grounded analysis</strong>Results cite CAMA 2020 / CAC — not generic US/UK advice</div>
+          </div>
+        </div>
+        <div class="stack-tags">
+          <div class="col-label">Stack</div>
+          <div class="stack-list">
+            <div class="stack-tag">Multer</div>
+            <div class="stack-tag">pdf-parse</div>
+            <div class="stack-tag">Tesseract.js</div>
+            <div class="stack-tag">BART-MNLI</div>
+            <div class="stack-tag">Hybrid RAG</div>
+            <div class="stack-tag">BM25</div>
+            <div class="stack-tag">CAMA 2020</div>
+            <div class="stack-tag">Zod</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-card" style="animation-delay:0.2s">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-number">03</div>
+      <div class="day-info">
+        <div class="day-phase">UI · PWA Setup</div>
+        <div class="day-title">Risk Report UI, Contract Templates & PWA Installation</div>
+      </div>
+      <div class="day-badges">
+        <div class="badge badge-upcoming">Upcoming</div>
+        <div class="badge badge-pwa">📱 PWA</div>
+      </div>
+      <div class="day-toggle">+</div>
+    </div>
+    <div class="day-body">
+      <div class="tasks-col">
+        <div class="col-label">Tasks</div>
+        <div class="task-list">
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Risk Report Dashboard</div>
+              <div class="task-desc">Visual risk score (0–100), clause-by-clause breakdown, Advocate vs Critic side-by-side view, recommended actions in plain English.</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Nigerian Contract Templates</div>
+              <div class="task-desc">NDA, Service Agreement, Employment Letter, Supplier Contract — all grounded in CAMA 2020. Generate → edit → download as PDF.</div>
+              <div class="task-tag">jsPDF · Nigerian Law</div>
+            </div>
+          </div>
+          <div class="task t-pwa">
+            <div class="task-icon">📱</div>
+            <div class="task-content">
+              <div class="task-name">PWA: manifest.json + Service Worker</div>
+              <div class="task-desc">Add manifest.json with app icons, name, theme color. Register service worker for offline caching of saved reports. App becomes installable from browser.</div>
+              <div class="task-tag red">PWA Core</div>
+            </div>
+          </div>
+          <div class="task t-pwa">
+            <div class="task-icon">📱</div>
+            <div class="task-content">
+              <div class="task-name">Offline Report Caching</div>
+              <div class="task-desc">Service worker caches completed contract analysis so users can review offline. IndexedDB stores report history locally.</div>
+              <div class="task-tag red">Service Worker</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">PDF Export</div>
+              <div class="task-desc">One-click export of the full risk report as a branded ClearSight PDF. Ready to share with partners or consultants.</div>
+              <div class="task-tag">jsPDF</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="deliverables-col">
+        <div class="col-label">End-of-Day Deliverables</div>
+        <div class="deliverable-list">
+          <div class="deliverable">
+            <div class="deliverable-check">📊</div>
+            <div class="deliverable-text"><strong>Full risk report UI</strong>Beautiful, readable clause analysis dashboard — pitch-ready screenshot</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">📱</div>
+            <div class="deliverable-text"><strong>Installable PWA</strong>App installable from Chrome on desktop + mobile with home screen icon</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">📝</div>
+            <div class="deliverable-text"><strong>4 Nigerian contract templates</strong>Generate → download in under 30 seconds</div>
+          </div>
+        </div>
+        <div class="stack-tags">
+          <div class="col-label">Stack</div>
+          <div class="stack-list">
+            <div class="stack-tag">manifest.json</div>
+            <div class="stack-tag">Service Worker</div>
+            <div class="stack-tag">IndexedDB</div>
+            <div class="stack-tag">jsPDF</div>
+            <div class="stack-tag">Vite PWA Plugin</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day-card" style="animation-delay:0.25s">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-number">04</div>
+      <div class="day-info">
+        <div class="day-phase">Database · Auth</div>
+        <div class="day-title">Supabase Integration, User Auth & Contract History</div>
+      </div>
+      <div class="day-badges">
+        <div class="badge badge-upcoming">Upcoming</div>
+      </div>
+      <div class="day-toggle">+</div>
+    </div>
+    <div class="day-body">
+      <div class="tasks-col">
+        <div class="col-label">Tasks</div>
+        <div class="task-list">
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Supabase Project Setup</div>
+              <div class="task-desc">PostgreSQL database, environment variables, Supabase client in both /client and /server.</div>
+              <div class="task-tag">Supabase · PostgreSQL</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">User Auth (Email + Google OAuth)</div>
+              <div class="task-desc">Supabase Auth for sign up, login, session management. Protected routes on frontend. JWT middleware on backend.</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Contract History Table</div>
+              <div class="task-desc">Store every uploaded contract, extracted text, risk score, flagged clauses. User sees full history dashboard.</div>
+            </div>
+          </div>
+          <div class="task t-new">
+            <div class="task-icon">🆕</div>
+            <div class="task-content">
+              <div class="task-name">Strategy Playbook Table</div>
+              <div class="task-desc">Per-user risk appetite settings: "Always prioritize IP ownership", "Flag unlimited liability clauses immediately". AI consults this before generating analysis.</div>
+              <div class="task-tag blue">New · From Brief</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Input Sanitization</div>
+              <div class="task-desc">DOMPurify on all user-submitted text. Zod schema validation on all API endpoints.</div>
+              <div class="task-tag">DOMPurify · Zod</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="deliverables-col">
+        <div class="col-label">End-of-Day Deliverables</div>
+        <div class="deliverable-list">
+          <div class="deliverable">
+            <div class="deliverable-check">🔐</div>
+            <div class="deliverable-text"><strong>Working auth flow</strong>Sign up → login → protected dashboard with contract history</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">🗄️</div>
+            <div class="deliverable-text"><strong>Persistent contract storage</strong>All analyses saved to Supabase — accessible across sessions and devices</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">⚙️</div>
+            <div class="deliverable-text"><strong>Strategy Playbook</strong>User sets risk preferences — AI adapts its analysis accordingly</div>
+          </div>
+        </div>
+        <div class="stack-tags">
+          <div class="col-label">Stack</div>
+          <div class="stack-list">
+            <div class="stack-tag">Supabase</div>
+            <div class="stack-tag">PostgreSQL</div>
+            <div class="stack-tag">JWT</div>
+            <div class="stack-tag">DOMPurify</div>
+            <div class="stack-tag">Zod</div>
+            <div class="stack-tag">Row Level Security</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="day-card" style="animation-delay:0.3s">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-number">05</div>
+      <div class="day-info">
+        <div class="day-phase">Trust Index · Community</div>
+        <div class="day-title">Community Trust Index — The Defensible Differentiator</div>
+      </div>
+      <div class="day-badges">
+        <div class="badge badge-upcoming">Upcoming</div>
+        <div class="badge badge-new">🆕 Trust Index</div>
+      </div>
+      <div class="day-toggle">+</div>
+    </div>
+    <div class="day-body">
+      <div class="tasks-col">
+        <div class="col-label">Tasks</div>
+        <div class="task-list">
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Trust Index Database Schema</div>
+              <div class="task-desc">Table: flagged_clauses. Columns: clause_text, company_name, risk_type, flagged_by (user count), ethics_score, created_at.</div>
+              <div class="task-tag">Supabase · PostgreSQL</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Flag-a-Clause Flow</div>
+              <div class="task-desc">After any analysis, user can flag a clause as predatory. Anonymized and added to Trust Index. Upvote system for clauses others have flagged.</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Company Ethics Score</div>
+              <div class="task-desc">Aggregate ethics rating per company based on community flags. Public leaderboard. Searchable by company name before signing.</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Trust Index Search UI</div>
+              <div class="task-desc">"Search before you sign" — user types company name, sees community-flagged clauses and overall ethics score.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="deliverables-col">
+        <div class="col-label">End-of-Day Deliverables</div>
+        <div class="deliverable-list">
+          <div class="deliverable">
+            <div class="deliverable-check">🏛️</div>
+            <div class="deliverable-text"><strong>Live Trust Index</strong>Community clause flagging working end-to-end</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">🔍</div>
+            <div class="deliverable-text"><strong>Search before you sign</strong>Type any company name, see their ethics rating and flagged clauses</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">📈</div>
+            <div class="deliverable-text"><strong>Ethics leaderboard</strong>Public ranking of most/least trusted companies — shareable, viral-ready</div>
+          </div>
+        </div>
+        <div class="stack-tags">
+          <div class="col-label">Stack</div>
+          <div class="stack-list">
+            <div class="stack-tag">Supabase RLS</div>
+            <div class="stack-tag">PostgreSQL</div>
+            <div class="stack-tag">Zustand</div>
+            <div class="stack-tag">Real-time Subs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 6 -->
+  <div class="day-card" style="animation-delay:0.35s">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-number">06</div>
+      <div class="day-info">
+        <div class="day-phase">Polish · Human-in-the-Loop</div>
+        <div class="day-title">Escalation Flow, Mobile UX Polish & Vercel Deployment</div>
+      </div>
+      <div class="day-badges">
+        <div class="badge badge-upcoming">Upcoming</div>
+      </div>
+      <div class="day-toggle">+</div>
+    </div>
+    <div class="day-body">
+      <div class="tasks-col">
+        <div class="col-label">Tasks</div>
+        <div class="task-list">
+          <div class="task t-new">
+            <div class="task-icon">🆕</div>
+            <div class="task-content">
+              <div class="task-name">Human-in-the-Loop Escalation</div>
+              <div class="task-desc">When AI confidence is below threshold or clause complexity is too high, system flags for human review. Request sent to vetted consultant queue. 97%+ AI handles rest.</div>
+              <div class="task-tag blue">New · From Brief</div>
+            </div>
+          </div>
+          <div class="task t-pwa">
+            <div class="task-icon">📱</div>
+            <div class="task-content">
+              <div class="task-name">PWA: Push Notifications</div>
+              <div class="task-desc">Notify user when their human escalation review is complete. Also: "Contract risk alert" push when a company they've dealt with gets new community flags.</div>
+              <div class="task-tag red">PWA Push API</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Mobile UX Audit</div>
+              <div class="task-desc">Full mobile responsiveness pass. Test PWA install flow on Android Chrome and iOS Safari. Ensure all upload + review flows work on small screens.</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Deploy to Vercel (Frontend) + Render (Backend)</div>
+              <div class="task-desc">Frontend → Vercel. Backend → Render. Environment variables configured. HTTPS live. PWA works on production domain.</div>
+              <div class="task-tag">Vercel · Render</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="deliverables-col">
+        <div class="col-label">End-of-Day Deliverables</div>
+        <div class="deliverable-list">
+          <div class="deliverable">
+            <div class="deliverable-check">🌍</div>
+            <div class="deliverable-text"><strong>Live public URL</strong>ClearSight deployed and accessible at clearsight.vercel.app or custom domain</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">📲</div>
+            <div class="deliverable-text"><strong>Full PWA on production</strong>Installable, push-enabled, offline-capable on real devices</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">👤</div>
+            <div class="deliverable-text"><strong>Human escalation queue</strong>Complex contracts route to human review — closing the 1–3% AI gap</div>
+          </div>
+        </div>
+        <div class="stack-tags">
+          <div class="col-label">Stack</div>
+          <div class="stack-list">
+            <div class="stack-tag">Vercel</div>
+            <div class="stack-tag">Render</div>
+            <div class="stack-tag">Push API</div>
+            <div class="stack-tag">HTTPS</div>
+            <div class="stack-tag">Railway (alt)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 7 -->
+  <div class="day-card" style="animation-delay:0.4s">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-number">07</div>
+      <div class="day-info">
+        <div class="day-phase">Launch · Pitch Day</div>
+        <div class="day-title">End-to-End Testing, Demo Script & Pitch-Ready MVP</div>
+      </div>
+      <div class="day-badges">
+        <div class="badge badge-upcoming">Launch Day</div>
+        <div class="badge badge-pwa">🎯 Pitch Ready</div>
+      </div>
+      <div class="day-toggle">+</div>
+    </div>
+    <div class="day-body">
+      <div class="tasks-col">
+        <div class="col-label">Tasks</div>
+        <div class="task-list">
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">End-to-End Demo Flow</div>
+              <div class="task-desc">Upload a real Nigerian supplier contract → AI flags risk clauses → Advocate-Critic analysis → Trust Index check → PDF report exported. Full flow under 60 seconds.</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Seed Trust Index with Demo Data</div>
+              <div class="task-desc">Pre-populate Trust Index with 10–20 realistic flagged clauses from known Nigerian company contract types. Makes demo feel alive and real.</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">PWA Install Demo</div>
+              <div class="task-desc">Show judges the "Add to Home Screen" prompt live. Open ClearSight as an installed app on phone — no browser chrome visible. This is the "wow" moment.</div>
+              <div class="task-tag red">PWA Wow Factor</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Bug Sweep + Error Boundaries</div>
+              <div class="task-desc">React error boundaries, graceful API failure states, loading skeletons. App must not crash during pitch.</div>
+            </div>
+          </div>
+          <div class="task t-upcoming">
+            <div class="task-icon">○</div>
+            <div class="task-content">
+              <div class="task-name">Pitch Narrative Alignment</div>
+              <div class="task-desc">Ensure every screen reinforces the brand story: 40M Nigerian SMBs, no legal access, ClearSight fixes it. Every click tells that story.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="deliverables-col">
+        <div class="col-label">Final Deliverables · Day 7</div>
+        <div class="deliverable-list">
+          <div class="deliverable">
+            <div class="deliverable-check">🚀</div>
+            <div class="deliverable-text"><strong>Live MVP at public URL</strong>Working, deployed, shareable — judges can use it themselves</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">📱</div>
+            <div class="deliverable-text"><strong>Installable PWA on any device</strong>Demo on phone, show "Add to Home Screen" — no app store, instant wow</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">🇳🇬</div>
+            <div class="deliverable-text"><strong>Nigerian law grounded analysis</strong>Real CAMA 2020 references in output — not generic AI advice</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">🏛️</div>
+            <div class="deliverable-text"><strong>Live Trust Index with seed data</strong>Community intelligence layer that no competitor has</div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-check">📊</div>
+            <div class="deliverable-text"><strong>Exported PDF risk report</strong>Show judges a real contract analysis output — tangible, shareable</div>
+          </div>
+        </div>
+        <div class="stack-tags">
+          <div class="col-label">Full Stack Summary</div>
+          <div class="stack-list">
+            <div class="stack-tag">React + Vite</div>
+            <div class="stack-tag">Tailwind</div>
+            <div class="stack-tag">Zustand</div>
+            <div class="stack-tag">Node + Express</div>
+            <div class="stack-tag">Supabase</div>
+            <div class="stack-tag">Tesseract.js</div>
+            <div class="stack-tag">BART-MNLI</div>
+            <div class="stack-tag">Hybrid RAG</div>
+            <div class="stack-tag">jsPDF</div>
+            <div class="stack-tag">PWA</div>
+            <div class="stack-tag">Vercel</div>
+            <div class="stack-tag">Render</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Clear<span>Sight</span> · 7-Day Roadmap</div>
+  <div class="footer-note">Nigerian SMB Legal AI · CAMA 2020 Grounded · PWA-First MVP</div>
+</footer>
+
+<script>
+function toggle(header) {
+  const card = header.parentElement;
+  card.classList.toggle('open');
+}
+
+// Auto-open Day 2 (active) on load, collapse others except Day 1
+document.addEventListener('DOMContentLoaded', () => {
+  // stagger animation delays
+  document.querySelectorAll('.day-card').forEach((card, i) => {
+    card.style.animationDelay = `${0.1 + i * 0.05}s`;
+  });
+});
+</script>
+</body>
+</html>

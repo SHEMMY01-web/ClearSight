@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearSight — Brand Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0D0D0D;
+    --paper: #F5F0E8;
+    --gold: #C8A84B;
+    --gold-light: #E8D08A;
+    --green: #1A3C2E;
+    --green-mid: #2D5C43;
+    --cream: #FAF7F0;
+    --rust: #8B3A2A;
+    --gray: #6B6B6B;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--green);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+    overflow: hidden;
+    padding: 2.5rem 3rem;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(200,168,75,0.12) 0%, transparent 70%),
+      repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.03) 60px),
+      repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.03) 60px);
+    pointer-events: none;
+  }
+
+  .hero-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .logo-icon::after {
+    content: '';
+    width: 14px;
+    height: 14px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: absolute;
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.6; }
+  }
+
+  .logo-text {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--paper);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .logo-text span {
+    color: var(--gold);
+  }
+
+  .hero-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,240,232,0.45);
+    text-transform: uppercase;
+  }
+
+  .hero-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
+    padding: 4rem 0 2rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--paper);
+    max-width: 14ch;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.5);
+    letter-spacing: 0.1em;
+    margin-top: 1.5rem;
+    max-width: 42ch;
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--ink);
+    padding: 0.85rem 2rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-ghost {
+    color: var(--paper);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  .btn-ghost:hover { opacity: 1; }
+
+  .hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 2;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 3rem;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .stat-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: rgba(245,240,232,0.4);
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  .scroll-hint {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,240,232,0.3);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 6rem 3rem;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--green-mid);
+  }
+
+  /* ── WHAT ── */
+  .what-section {
+    background: var(--paper);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .what-left {}
+
+  .what-body {
+    font-size: 0.85rem;
+    line-height: 2;
+    color: var(--gray);
+    max-width: 44ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .what-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .feature-card {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem 1.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .feature-card:hover {
+    transform: translateX(6px);
+    box-shadow: -6px 0 0 var(--green);
+  }
+
+  .feature-card-num {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .feature-card-desc {
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: var(--gray);
+  }
+
+  /* ── HOW ── */
+  .how-section {
+    background: var(--green);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .how-section::before {
+    content: 'HOW';
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 20rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .how-section .section-title { color: var(--paper); }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .how-step {
+    position: relative;
+    padding: 2rem;
+    border: 1px solid rgba(200,168,75,0.2);
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .how-step:hover {
+    border-color: var(--gold);
+    background: rgba(200,168,75,0.05);
+  }
+
+  .how-step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(200,168,75,0.15);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .how-step-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .how-step-desc {
+    font-size: 0.78rem;
+    line-height: 1.85;
+    color: rgba(245,240,232,0.6);
+  }
+
+  .how-step-tag {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(200,168,75,0.3);
+    padding: 0.3rem 0.7rem;
+  }
+
+  /* ── WHY ── */
+  .why-section {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .why-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--green);
+    border-left: 4px solid var(--gold);
+    padding-left: 2rem;
+    margin: 2rem 0;
+  }
+
+  .why-body {
+    font-size: 0.82rem;
+    line-height: 2;
+    color: var(--gray);
+  }
+
+  .why-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .why-stat {
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .why-stat:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+
+  .why-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 5rem;
+  }
+
+  .why-stat-text {
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--gray);
+    padding-top: 0.2rem;
+  }
+
+  .why-stat-text strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+  }
+
+  /* ── WHO ── */
+  .who-section {
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .who-section .section-title { color: var(--paper); }
+  .who-section .section-label { color: var(--gold); }
+
+  .who-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .who-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 2rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s, border-color 0.3s;
+    cursor: default;
+  }
+
+  .who-card:hover {
+    background: rgba(200,168,75,0.08);
+    border-color: rgba(200,168,75,0.3);
+  }
+
+  .who-card::before {
+    content: attr(data-icon);
+    position: absolute;
+    top: -0.5rem;
+    right: 1rem;
+    font-size: 4rem;
+    opacity: 0.07;
+    transition: opacity 0.3s;
+  }
+
+  .who-card:hover::before { opacity: 0.15; }
+
+  .who-card-type {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .who-card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--paper);
+    margin-bottom: 0.75rem;
+  }
+
+  .who-card-desc {
+    font-size: 0.73rem;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.5);
+  }
+
+  .who-card-pain {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.68rem;
+    color: var(--rust);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* ── BRAND IDENTITY ── */
+  .brand-section {
+    background: var(--paper);
+  }
+
+  .brand-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 4rem;
+  }
+
+  .brand-block-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .brand-block-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(0,0,0,0.1);
+  }
+
+  /* Color palette */
+  .palette {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 70px;
+  }
+
+  .swatch-color {
+    height: 70px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .swatch-color::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+  }
+
+  .swatch-name {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    text-transform: uppercase;
+  }
+
+  .swatch-hex {
+    font-size: 0.65rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* Typography display */
+  .type-samples {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .type-sample {}
+
+  .type-sample-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 0.4rem;
+  }
+
+  .type-display {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .type-display em { font-style: italic; color: var(--green-mid); }
+
+  .type-ui {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .type-body-sample {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--gray);
+  }
+
+  /* Values */
+  .values-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .value-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .value-item:first-child { border-top: 1px solid rgba(0,0,0,0.06); }
+
+  .value-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    min-width: 2rem;
+  }
+
+  .value-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+
+  .value-desc {
+    font-size: 0.72rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* Taglines */
+  .taglines {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tagline-item {
+    padding: 1.25rem 1.5rem;
+    background: var(--cream);
+    border-left: 3px solid transparent;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ink);
+    transition: border-color 0.2s;
+    cursor: default;
+  }
+
+  .tagline-item:hover { border-color: var(--gold); }
+  .tagline-item.primary { border-color: var(--gold); background: rgba(200,168,75,0.06); }
+
+  .tagline-item small {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-style: normal;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 0.3rem;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--green);
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--paper);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .footer-logo span { color: var(--gold); }
+
+  .footer-tagline {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: rgba(245,240,232,0.4);
+    text-transform: uppercase;
+  }
+
+  .footer-mission {
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.4);
+    max-width: 30ch;
+    text-align: right;
+    line-height: 1.7;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow { animation: fadeUp 0.6s ease 0.2s both; }
+  .hero-headline { animation: fadeUp 0.6s ease 0.4s both; }
+  .hero-sub { animation: fadeUp 0.6s ease 0.6s both; }
+  .hero-cta { animation: fadeUp 0.6s ease 0.8s both; }
+  .stat-row { animation: fadeUp 0.6s ease 1s both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 2rem 1.5rem; }
+    .what-section, .why-section { grid-template-columns: 1fr; gap: 3rem; }
+    .how-grid { grid-template-columns: 1fr; }
+    .who-grid { grid-template-columns: 1fr 1fr; }
+    .brand-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .footer-mission { text-align: center; }
+    .stat-row { gap: 2rem; }
+  }
+
+  @media (max-width: 600px) {
+    .who-grid { grid-template-columns: 1fr; }
+    .hero-headline { font-size: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <nav class="hero-nav">
+    <div class="logo-mark">
+      <div class="logo-icon"></div>
+      <div class="logo-text">Clear<span>Sight</span></div>
+    </div>
+    <div class="hero-tag">Nigeria · LegalTech · SMB</div>
+  </nav>
+
+  <div class="hero-center">
+    <div class="hero-eyebrow">Brand Identity Document</div>
+    <h1 class="hero-headline">Legal <em>clarity</em> for every Nigerian business.</h1>
+    <p class="hero-sub">ClearSight is AI-powered legal document infrastructure for Nigerian SMBs — draft, review, and understand contracts without hiring a lawyer.</p>
+    <div class="hero-cta">
+      <a href="#what" class="btn-primary">Explore the Brand</a>
+      <a href="#who" class="btn-ghost">Who we serve →</a>
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-num">40M+</div>
+        <div class="stat-label">Nigerian SMBs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">₦500k</div>
+        <div class="stat-label">Avg. legal retainer</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Core products</div>
+      </div>
+    </div>
+    <div class="scroll-hint">Scroll to explore</div>
+  </div>
+</section>
+
+<!-- ── WHAT ── -->
+<section class="what-section" id="what">
+  <div class="what-left">
+    <div class="section-label">What ClearSight Does</div>
+    <h2 class="section-title">Your AI legal <em>co-pilot</em> — built for Nigeria.</h2>
+    <p class="what-body">ClearSight gives Nigerian SMBs three things they've never had access to: the ability to generate legally sound contracts in seconds, an AI that reads the fine print so you don't have to, and a community intelligence layer that shows what other businesses flagged as predatory.</p>
+    <p class="what-body">We are not a law firm. We are the infrastructure that puts legal power back in the hands of the people running this economy.</p>
+  </div>
+  <div class="what-right">
+    <div class="feature-card">
+      <div class="feature-card-num">01 · Draft</div>
+      <div class="feature-card-title">Contract Generation</div>
+      <div class="feature-card-desc">Generate NDAs, service agreements, employment letters, and supplier contracts grounded in CAMA 2020 and Nigerian law — in seconds, not days.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-num">02 · Review</div>
+      <div class="feature-card-title">AI Clause Analysis</div>
+      <div class="feature-card-desc">Upload any contract — digital or scanned paper. ClearSight flags high-risk clauses in plain English using an Advocate-Critic AI debate model.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-num">03 · Trust</div>
+      <div class="feature-card-title">Community Trust Index</div>
+      <div class="feature-card-desc">A live database of clauses Nigerian businesses have flagged as unfair, predatory, or deceptive — crowdsourced intelligence that gets smarter over time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW ── -->
+<section class="how-section" id="how">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">Powered by advanced AI. <em>Grounded in Nigerian law.</em></h2>
+
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="how-step-num">01</div>
+      <div class="how-step-title">Upload or Generate</div>
+      <div class="how-step-desc">Upload a scanned paper contract, a PDF, or a photo. Or select a contract type and let ClearSight generate a template from scratch — localized to your industry and jurisdiction.</div>
+      <div class="how-step-tag">OCR · Vision AI · Template Engine</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">02</div>
+      <div class="how-step-title">Advocate-Critic Analysis</div>
+      <div class="how-step-desc">Two AI agents debate every high-risk clause. The Advocate finds the commercial upside. The Critic surfaces the legal trap. You see both sides — then decide.</div>
+      <div class="how-step-tag">Agentic RAG · Chain-of-Thought</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">03</div>
+      <div class="how-step-title">Plain English Report</div>
+      <div class="how-step-desc">Receive a risk-scored summary — no legalese. Every flagged clause explained with its risk level, what it means for your business, and a recommended action.</div>
+      <div class="how-step-tag">Risk Scoring · PDF Export</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">04</div>
+      <div class="how-step-title">Nigerian Law Grounding</div>
+      <div class="how-step-desc">All analysis runs against a curated RAG knowledge base of CAMA 2020, the Evidence Act, CAC guidelines, and Nigerian case law — not generic US/UK legal advice.</div>
+      <div class="how-step-tag">Advanced RAG · Hybrid Search</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">05</div>
+      <div class="how-step-title">Community Intelligence</div>
+      <div class="how-step-desc">Flag a clause as predatory. See if others flagged the same clause from the same company. The Trust Index aggregates this into a public ethics rating per organization.</div>
+      <div class="how-step-tag">Trust Index · Crowd Intelligence</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">06</div>
+      <div class="how-step-title">Human-in-the-Loop</div>
+      <div class="how-step-desc">ClearSight handles 97–99% of the analysis. For complex decisions, it escalates to a vetted human consultant. AI does the heavy lifting; humans make final calls.</div>
+      <div class="how-step-tag">Hybrid Intelligence · Escalation</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY ── -->
+<section class="why-section" id="why">
+  <div class="why-left">
+    <div class="section-label">Why ClearSight Exists</div>
+    <h2 class="section-title">A legal system built for <em>the few</em> — we're changing that.</h2>
+    <blockquote class="why-quote">"A Lagos tailor signs a supplier agreement. Hidden inside: an indemnity clause that makes her liable for the supplier's losses. She finds out when it's too late."</blockquote>
+    <p class="why-body">This happens every day across Nigeria. Not because SMB owners are careless — but because legal counsel costs ₦50,000–₦500,000 per engagement. For a market trader, a freelance developer, a growing logistics startup — that's not an option.</p>
+    <p class="why-body" style="margin-top:1rem;">ClearSight exists because 40 million Nigerian businesses deserve the same legal protection that only corporations and wealthy individuals have had access to. We are democratizing legal intelligence — not replacing lawyers, but giving every SMB a fighting chance before they sign.</p>
+  </div>
+  <div class="why-right">
+    <div class="why-stat">
+      <div class="why-stat-num">40M+</div>
+      <div class="why-stat-text">
+        <strong>SMBs in Nigeria</strong>
+        Registered with CAC or operating informally — nearly all without any legal support infrastructure.
+      </div>
+    </div>
+    <div class="why-stat">
+      <div class="why-stat-num">0</div>
+      <div class="why-stat-text">
+        <strong>Serious local competitors</strong>
+        DIYlaw focuses on incorporation only. LegalNaija is an attorney marketplace. No one owns AI-powered contract analysis for Nigerian SMBs.
+      </div>
+    </div>
+    <div class="why-stat">
+      <div class="why-stat-num">₦0</div>
+      <div class="why-stat-text">
+        <strong>Legal budget for most SMBs</strong>
+        The vast majority of Nigerian small businesses have no budget for ongoing legal support — they sign and hope for the best.
+      </div>
+    </div>
+    <div class="why-stat">
+      <div class="why-stat-num">97%</div>
+      <div class="why-stat-text">
+        <strong>Target AI accuracy</strong>
+        ClearSight's human-in-the-loop model targets 97–99% accuracy — doing the heavy lifting so consultants and users can make confident decisions fast.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHO ── -->
+<section class="who-section" id="who">
+  <div class="section-label">Who ClearSight Serves</div>
+  <h2 class="section-title">Built for the <em>backbone</em> of the Nigerian economy.</h2>
+
+  <div class="who-grid">
+    <div class="who-card" data-icon="🧵">
+      <div class="who-card-type">Primary User</div>
+      <div class="who-card-title">The Founder / SMB Owner</div>
+      <div class="who-card-desc">Lagos tailor, Abuja tech startup, Port Harcourt logistics company. Growing fast, signing contracts regularly, no legal team.</div>
+      <div class="who-card-pain">"I signed it because I had to. I didn't understand half of it."</div>
+    </div>
+    <div class="who-card" data-icon="💻">
+      <div class="who-card-type">Primary User</div>
+      <div class="who-card-title">The Freelancer / Creative</div>
+      <div class="who-card-desc">Nigerian developers, designers, and consultants signing client contracts — often with IP traps, unlimited liability clauses, and unpaid scope creep provisions baked in.</div>
+      <div class="who-card-pain">"The client owned everything I built. I had no idea."</div>
+    </div>
+    <div class="who-card" data-icon="🏪">
+      <div class="who-card-type">Secondary User</div>
+      <div class="who-card-title">The Market Trader / Supplier</div>
+      <div class="who-card-desc">Informal economy operators entering supplier or distribution agreements, often with larger corporates who have legal teams on their side of the table.</div>
+      <div class="who-card-pain">"They had a lawyer. I had a pen and a prayer."</div>
+    </div>
+    <div class="who-card" data-icon="⚖️">
+      <div class="who-card-type">Partner Channel</div>
+      <div class="who-card-title">The Human Consultant</div>
+      <div class="who-card-desc">Legal professionals and business advisors who use ClearSight as a force multiplier — handling more clients with AI doing the first 97% of the analysis work.</div>
+      <div class="who-card-pain">"I can only take 10 clients. With ClearSight, I can serve 50."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BRAND IDENTITY ── -->
+<section class="brand-section" id="brand">
+  <div class="section-label">Brand Identity System</div>
+  <h2 class="section-title">Precise. <em>Trustworthy.</em> Distinctly Nigerian.</h2>
+
+  <div class="brand-grid">
+    <!-- Color Palette -->
+    <div>
+      <div class="brand-block-title">Color Palette</div>
+      <div class="palette">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#1A3C2E;"></div>
+          <div class="swatch-name">Forest</div>
+          <div class="swatch-hex">#1A3C2E</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#C8A84B;"></div>
+          <div class="swatch-name">Gold</div>
+          <div class="swatch-hex">#C8A84B</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#F5F0E8;"></div>
+          <div class="swatch-name">Paper</div>
+          <div class="swatch-hex">#F5F0E8</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#0D0D0D;"></div>
+          <div class="swatch-name">Ink</div>
+          <div class="swatch-hex">#0D0D0D</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#8B3A2A;"></div>
+          <div class="swatch-name">Risk</div>
+          <div class="swatch-hex">#8B3A2A</div>
+        </div>
+      </div>
+
+      <div style="margin-top:2.5rem;">
+        <div class="brand-block-title">Brand Voice</div>
+        <div class="values-list">
+          <div class="value-item">
+            <div class="value-num">I</div>
+            <div>
+              <div class="value-name">Clear, not clever</div>
+              <div class="value-desc">Plain language always. Legal complexity is the enemy — ClearSight defeats it with simplicity.</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-num">II</div>
+            <div>
+              <div class="value-name">Confident, not arrogant</div>
+              <div class="value-desc">We speak with authority on the law but humility about the limits of AI. We escalate when needed.</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-num">III</div>
+            <div>
+              <div class="value-name">Local, not generic</div>
+              <div class="value-desc">CAMA 2020, CAC, Nigerian courts — not LegalZoom's US playbook transplanted across the ocean.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Typography + Taglines -->
+    <div>
+      <div class="brand-block-title">Typography</div>
+      <div class="type-samples">
+        <div class="type-sample">
+          <div class="type-sample-label">Display — Playfair Display</div>
+          <div class="type-display">Legal <em>clarity</em>.</div>
+        </div>
+        <div class="type-sample">
+          <div class="type-sample-label">UI — Syne</div>
+          <div class="type-ui">CLEARSIGHT NIGERIA</div>
+        </div>
+        <div class="type-sample">
+          <div class="type-sample-label">Body — DM Mono</div>
+          <div class="type-body-sample">AI-powered contract review grounded in Nigerian law. Precise, affordable, accessible to every SMB.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:2.5rem;">
+        <div class="brand-block-title">Brand Taglines</div>
+        <div class="taglines">
+          <div class="tagline-item primary">
+            "Read the fine print — so you don't have to."
+            <small>Primary tagline</small>
+          </div>
+          <div class="tagline-item">
+            "Legal power for the people running this economy."
+            <small>Mission statement</small>
+          </div>
+          <div class="tagline-item">
+            "Every Nigerian business deserves a lawyer."
+            <small>Campaign line</small>
+          </div>
+          <div class="tagline-item">
+            "Sign with confidence. Not with hope."
+            <small>Product CTA</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div>
+    <div class="footer-logo">Clear<span>Sight</span></div>
+    <div class="footer-tagline" style="margin-top:0.5rem;">Nigeria · Legal AI Infrastructure</div>
+  </div>
+  <div class="footer-mission">
+    Democratizing legal access for 40 million Nigerian SMBs — one contract at a time.
+  </div>
+</footer>
+
+</body>
+</html>

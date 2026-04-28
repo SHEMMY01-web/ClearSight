@@ -1,0 +1,192 @@
+{
+  "tenancy_law": [
+    {
+      "topic": "Rent Increase",
+      "statute": "Lagos State Tenancy Law 2011, Section 7",
+      "severity": "HIGH",
+      "rule": "Rent increases must be reasonable and subject to mutual agreement. Unilateral increases without notice are generally unenforceable. Courts have held that increases beyond 10-15% per annum without justification are unconscionable.",
+      "negotiation_tip": "Negotiate a fixed rent review cap tied to Nigeria's CPI/inflation rate, not landlord discretion. A mutual 90-day notice period is standard.",
+      "red_flags": [
+        "50% increase",
+        "at any time",
+        "without notice",
+        "unilateral",
+        "without prior written notice",
+        "based solely on",
+        "landlord's assessment",
+        "increase the annual rent",
+        "rent review",
+        "increase rent by"
+      ]
+    },
+    {
+      "topic": "Structural Repairs",
+      "statute": "Common Law & Lagos State Tenancy Law 2011",
+      "severity": "HIGH",
+      "rule": "The Landlord is responsible for all external, structural, and major repairs. This includes the roof, load-bearing walls, foundation, and external plumbing. A clause shifting this burden to the tenant without compensatory rent reduction is void.",
+      "negotiation_tip": "Reject clauses that assign structural repairs to the Tenant. If accepted, negotiate a significant rent reduction or a one-time capital allowance.",
+      "red_flags": [
+        "tenant responsible for roof",
+        "structural repairs",
+        "foundation",
+        "external plumbing",
+        "solely responsible for all structural",
+        "waives all rights to claim",
+        "notwithstanding local laws"
+      ]
+    },
+    {
+      "topic": "Notice to Quit",
+      "statute": "Recovery of Premises Act Cap R4 LFN 2004 & Lagos State Tenancy Law 2011",
+      "severity": "MEDIUM",
+      "rule": "A yearly tenant is entitled to 6 months' notice to quit. A half-yearly tenant gets 3 months, a quarterly tenant gets 1.5 months, and a monthly tenant gets 1 month. Any clause waiving this statutory right is void and unenforceable.",
+      "negotiation_tip": "Ensure the notice period in the contract aligns with the Recovery of Premises Act. Do not sign any clause that says the Landlord can require immediate vacation.",
+      "red_flags": [
+        "immediate eviction",
+        "waives right to notice",
+        "7 days notice",
+        "immediate possession",
+        "forfeit the property",
+        "vacate immediately"
+      ]
+    },
+    {
+      "topic": "Unlawful Eviction",
+      "statute": "Recovery of Premises Act & Criminal Code Act",
+      "severity": "HIGH",
+      "rule": "Self-help eviction (locking the tenant out, removing belongings) is illegal in Nigeria. The Landlord must obtain a court order. A clause purporting to authorize self-help eviction is void.",
+      "negotiation_tip": "Flag any clause that allows the Landlord to 're-enter' the premises without a court order. This is a criminal offense under Nigerian law.",
+      "red_flags": [
+        "re-enter the premises",
+        "retake possession",
+        "remove the tenant's belongings",
+        "landlord may lock",
+        "forfeit lease without court"
+      ]
+    }
+  ],
+  "commercial_law": [
+    {
+      "topic": "Penalty Clauses",
+      "statute": "Nigerian Contract Law (Common Law principles applied by Nigerian courts)",
+      "severity": "HIGH",
+      "rule": "A clause is a void penalty if it imposes a payment on breach disproportionate to the innocent party's loss. Only 'Liquidated Damages' — a genuine pre-estimate of loss — are enforceable. Nigerian courts consistently strike down punitive penalties.",
+      "negotiation_tip": "Replace 'penalty' with 'Liquidated Damages' language. Both parties should agree on a reasonable daily rate tied to actual project costs, not a punitive multiplier.",
+      "red_flags": [
+        "penalty",
+        "non-refundable fee",
+        "legal facilitation fee",
+        "punitive",
+        "forfeit all payments",
+        "100% fine",
+        "500,000 fee",
+        "pay a fee before",
+        "dispute fee",
+        "mediation fee"
+      ]
+    },
+    {
+      "topic": "Unbalanced Liability / Indemnity",
+      "statute": "Companies and Allied Matters Act (CAMA) 2020, Section 301",
+      "severity": "HIGH",
+      "rule": "Any provision exempting a company director from liability for negligence or breach of duty is void. A one-sided indemnity that only protects the Landlord exposes the Tenant to unlimited risk and is contrary to natural justice principles applied by Nigerian courts.",
+      "negotiation_tip": "Demand mutual indemnity clauses. Any waiver of rights for 'Landlord negligence' must be removed — this is a void provision under CAMA 2020 principles.",
+      "red_flags": [
+        "landlord negligence",
+        "waives all rights to claim damages",
+        "tenant indemnifies",
+        "hold harmless for all claims",
+        "no liability for negligence",
+        "tenant bears all risk"
+      ]
+    },
+    {
+      "topic": "Intellectual Property Assignment",
+      "statute": "Copyright Act 2022 (Nigeria)",
+      "severity": "MEDIUM",
+      "rule": "Copyright ownership initially vests in the author/creator. For commissioned works, an explicit written assignment is required to transfer full ownership. A vague 'work-for-hire' clause may not transfer copyright under the Nigerian Copyright Act 2022.",
+      "negotiation_tip": "Ensure the IP clause explicitly states: (a) what IP is being assigned, (b) that it covers future works created during the contract, and (c) that you retain your pre-existing tools, frameworks, and background IP.",
+      "red_flags": [
+        "retains all rights",
+        "non-exclusive license",
+        "work for hire",
+        "all deliverables shall be owned",
+        "irrevocable license"
+      ]
+    },
+    {
+      "topic": "Termination for Convenience",
+      "statute": "Standard Nigerian Commercial Practice & Common Law",
+      "severity": "MEDIUM",
+      "rule": "Contracts should provide mutual termination rights. A clause allowing only the stronger party (e.g., Landlord or Client) to terminate at will, while locking in the other party, creates an unconscionable imbalance that courts may refuse to enforce.",
+      "negotiation_tip": "Insist on a mutual 30-day 'termination for convenience' clause. If the other party terminates early, you should be entitled to pro-rata payment for work done plus a break fee.",
+      "red_flags": [
+        "irrevocable",
+        "may not be terminated",
+        "tenant cannot terminate",
+        "only landlord may terminate",
+        "no right of termination"
+      ]
+    },
+    {
+      "topic": "Jurisdiction & Governing Law",
+      "statute": "Nigerian Arbitration and Conciliation Act 2023",
+      "severity": "MEDIUM",
+      "rule": "A clause specifying a foreign jurisdiction (e.g., UK, US) for dispute resolution for a contract fully performed in Nigeria is practically unenforceable and extremely costly to litigate. The new Nigerian Arbitration and Conciliation Act 2023 promotes local arbitration.",
+      "negotiation_tip": "Ensure the governing law is 'Federal Republic of Nigeria' and dispute resolution specifies Lagos Multi-Door Courthouse (LMDC) or Lagos Court of Arbitration (LCA) for cost-effective resolution.",
+      "red_flags": [
+        "governed by the laws of england",
+        "jurisdiction of uk courts",
+        "new york arbitration",
+        "foreign arbitration",
+        "courts of england and wales"
+      ]
+    },
+    {
+      "topic": "Exclusivity / Non-Compete",
+      "statute": "Nigerian Contract Law & Restraint of Trade Doctrine",
+      "severity": "MEDIUM",
+      "rule": "An overly broad non-compete clause is unenforceable in Nigeria if it is unreasonable as to geographic scope, time duration, or the activity restricted. Nigerian courts will not enforce restraints that effectively prevent a person from earning a living.",
+      "negotiation_tip": "Non-compete clauses should be limited to 6-12 months, within a defined geographic radius, and restricted to only directly competing businesses — not entire industries.",
+      "red_flags": [
+        "non-compete",
+        "shall not engage in any business",
+        "exclusivity clause",
+        "not compete for 5 years",
+        "restraint of trade",
+        "exclusively engaged"
+      ]
+    }
+  ],
+  "employment_law": [
+    {
+      "topic": "Wrongful Termination",
+      "statute": "Labour Act Cap L1 LFN 2004",
+      "severity": "HIGH",
+      "rule": "Under the Nigerian Labour Act, a worker is entitled to minimum notice before termination (1 day for daily workers, 1 week for monthly workers, etc). Summary dismissal is only justified for gross misconduct. Contracts cannot lawfully exclude this right.",
+      "negotiation_tip": "Ensure your employment contract specifies at least 1-month notice for senior roles, and clearly defines what constitutes 'gross misconduct' to avoid arbitrary termination.",
+      "red_flags": [
+        "terminate without notice",
+        "at-will termination",
+        "immediate dismissal",
+        "no severance",
+        "summary termination",
+        "without cause or notice"
+      ]
+    },
+    {
+      "topic": "Deduction from Wages",
+      "statute": "Labour Act Cap L1 LFN 2004, Section 7",
+      "severity": "HIGH",
+      "rule": "Deductions from wages are only lawful if authorized by statute, court order, or written agreement with the employee specifying the purpose. Unauthorized deductions constitute a criminal offence under the Labour Act.",
+      "negotiation_tip": "Do not sign any clause allowing blanket deductions. Any deduction clause must specify the exact amount, purpose, and your right to dispute.",
+      "red_flags": [
+        "deduct from salary",
+        "withhold wages",
+        "deduction for damages",
+        "training cost clawback",
+        "bonds and deductions"
+      ]
+    }
+  ]
+}
