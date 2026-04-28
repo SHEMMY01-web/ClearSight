@@ -24,6 +24,9 @@ __pycache__/
 # ─── ChromaDB Data (persisted locally, not in git) ───
 server/chroma_db/
 
+# ─── Python Virtual Environment ───
+server/data/venv/
+
 # ─── Law PDFs (large binary files — store separately) ─
 server/data/*.pdf
 
