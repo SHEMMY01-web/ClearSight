@@ -3,7 +3,18 @@ const fs = require('fs');
 const path = require('path');
 const pdf = require('pdf-parse');
 
-const client = new ChromaClient();
+const client = new ChromaClient({
+  host: process.env.CHROMA_HOST || "localhost",
+  port: process.env.CHROMA_PORT ? parseInt(process.env.CHROMA_PORT) : (process.env.CHROMA_HOST ? 443 : 8000),
+  ssl: process.env.CHROMA_HOST ? true : false,
+  tenant: process.env.CHROMA_TENANT || 'default_tenant',
+  database: process.env.CHROMA_DATABASE || 'default_database',
+  auth: process.env.CHROMA_API_KEY ? {
+    provider: "token",
+    token: process.env.CHROMA_API_KEY,
+    header: "X-Chroma-Token"
+  } : undefined
+});
 const collectionName = "nigerian_law";
 const casesCollectionName = "nigerian_cases";
 
