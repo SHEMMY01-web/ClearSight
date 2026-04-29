@@ -10,7 +10,8 @@ const Tesseract = require('tesseract.js');
 async function extractText(buffer, mimetype) {
   if (mimetype === 'application/pdf') {
     try {
-      const data = await pdfParse(buffer);
+      // Limit to 20 pages for demo stability
+      const data = await pdfParse(buffer, { max: 20 });
       let text = data.text;
       
       // If pdf-parse returns very little text, it might be a scanned PDF

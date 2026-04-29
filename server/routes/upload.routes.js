@@ -32,6 +32,7 @@ router.post('/', upload.single('contract'), async (req, res) => {
     const { buffer, mimetype, originalname } = req.file;
     // Persona sent from the frontend dropdown: general | freelancer | founder | market_trader
     const persona = req.body?.persona || 'general';
+    const strategySettings = req.body?.strategySettings ? JSON.parse(req.body.strategySettings) : null;
 
     // 1. Extract Text
     const text = await extractText(buffer, mimetype);
@@ -41,7 +42,7 @@ router.post('/', upload.single('contract'), async (req, res) => {
     }
 
     // 2. Chunk & Analyze (KB + RAG + Persona + Consequence Engine)
-    const analysisResults = await chunkAndAnalyze(text, persona);
+    const analysisResults = await chunkAndAnalyze(text, persona, strategySettings);
 
     res.json({
       success: true,

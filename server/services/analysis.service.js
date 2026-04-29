@@ -199,12 +199,21 @@ function buildAdvocate(clauseText, topMatch) {
 /**
  * Dynamically builds the Critic voice directly from the KB rule, making it clause-specific.
  */
-function buildCritic(clauseText, topMatch) {
+function buildCritic(clauseText, topMatch, riskAppetite = 'balanced') {
   if (!topMatch) {
     return 'This clause contains potentially unfair terms. A detailed review against applicable Nigerian statutes is strongly advised before signing.';
   }
   const severityPrefix = topMatch.severity === 'HIGH' ? '🚨 HIGH RISK: ' : '⚠️ MEDIUM RISK: ';
-  return `${severityPrefix}${topMatch.rule}\n\nApplicable Law: ${topMatch.statute}`;
+  let tone = '';
+  if (riskAppetite === 'conservative') {
+    tone = "🛡️ CONSERVATIVE ADVISORY: This clause is considered non-standard and presents a high liability profile that should be rejected or heavily modified to ensure zero exposure.";
+  } else if (riskAppetite === 'aggressive') {
+    tone = "🚀 STRATEGIC NOTE: While this is a risk, it may be acceptable if the commercial upside is high. Ensure you have secondary leverage elsewhere.";
+  } else {
+    tone = "⚖️ BALANCED VIEW: This clause deviates from industry standards and should be neutralized through negotiation.";
+  }
+  
+  return `${severityPrefix}${topMatch.rule}\n\n${tone}\n\nApplicable Law: ${topMatch.statute}`;
 }
 
 /**
@@ -330,17 +339,46 @@ function buildForesight(topMatch, persona = 'general', historicalOutcomes = []) 
 }
 
 /**
- * Main pipeline: chunks text, flags risks, runs advocate-critic.
- * Stage 1: KB flagging is synchronous and instant (all clauses at once).
- * Stage 2: RAG searches run in one parallel batch for ALL flagged clauses.
+ * Systematic Constraint Layer: Grounds AI in Nigerian Legal Standards
+ * and Strategy Playbook goals.
  */
-async function chunkAndAnalyze(fullText, persona = 'general') {
+function buildSystematicHeader(strategySettings) {
+  const { riskAppetite, industryContext, strategicGoal } = strategySettings || {
+    riskAppetite: 'balanced',
+    industryContext: 'General Commercial',
+    strategicGoal: 'liquidity'
+  };
+
+  const baseline = `
+⚖️ SYSTEMATIC CONSTRAINT LAYER (NIGERIAN LAW BASELINE)
+- All analysis MUST be grounded in the Companies and Allied Matters Act (CAMA 2020) and Evidence Act.
+- Flag any clause deviating from Nigerian 'Reasonableness' tests (e.g., excessive non-competes).
+- If a clause conflicts with mandatory CAMA 2020 provisions, cite it as a 'CRITICAL RISK'.
+`;
+
+  const personalization = `
+🎯 STRATEGIC PROFILE OVERRIDE [${riskAppetite.toUpperCase()} | ${strategicGoal.toUpperCase()}]
+- Industry Focus: ${industryContext.toUpperCase()}.
+- Goal: ${strategicGoal === 'protection' ? 'Prioritize IP retention and absolute liability protection over immediate commercial gains.' : 'Prioritize immediate cash flow and rapid deal execution, identifying only catastrophic risks.'}
+- Appetite: ${riskAppetite === 'conservative' ? 'Flag even minor ambiguities as high risk.' : riskAppetite === 'aggressive' ? 'Only flag deal-breakers; suggest ways to weaponize clauses for growth.' : 'Balance safety with market standards.'}
+`;
+
+  return `${baseline}\n${personalization}\n`;
+}
+
+/**
+ * Main pipeline: chunks text, flags risks, runs advocate-critic.
+ */
+async function chunkAndAnalyze(fullText, persona = 'general', strategySettings = null) {
   const t0 = Date.now();
   const chunks = chunkByClauses(fullText);
 
   // Detect contract type once from the full text — used to prevent hallucinations
   const contractType = detectContractType(fullText);
   console.log(`[Analysis] Contract type detected: ${contractType}`);
+
+  // Build Systematic Constraint Header
+  const strategyHeader = buildSystematicHeader(strategySettings);
 
   // Filter short chunks, cap at 20 clauses for very large contracts
   const validChunks = chunks.filter(c => c.clauseText.length >= 50).slice(0, 20);
@@ -367,9 +405,17 @@ async function chunkAndAnalyze(fullText, persona = 'general') {
       const ragHits = ragResults[idx] || [];
       const caseHits = casesResults[idx] || [];
       const topMatch = risk.allMatches?.[0] || null;
+      const riskAppetite = strategySettings?.riskAppetite || 'balanced';
 
-      const advocate = buildAdvocate(chunk.clauseText, topMatch);
-      let critic = buildCritic(chunk.clauseText, topMatch);
+      let advocate = buildAdvocate(chunk.clauseText, topMatch);
+      let critic = buildCritic(chunk.clauseText, topMatch, riskAppetite);
+
+      // Final contextual refinement based on strategic goal
+      if (strategySettings?.strategicGoal === 'protection') {
+        critic = `🛡️ PROTECTION FOCUS: ${critic}`;
+      } else if (strategySettings?.strategicGoal === 'liquidity') {
+        advocate = `💰 CASH-FIRST FOCUS: ${advocate}`;
+      }
 
       // Add RAG results to critic output — best sentence + citation
       let ragBestSentence = null;
@@ -394,8 +440,13 @@ async function chunkAndAnalyze(fullText, persona = 'general') {
       }
 
       // Build Plain English + Foresight
-      const plainEnglish = buildPlainEnglish(topMatch, ragBestSentence);
-      const foresight = buildForesight(topMatch, persona, caseHits);
+      let plainEnglish = buildPlainEnglish(topMatch, ragBestSentence);
+      let foresight = buildForesight(topMatch, persona, caseHits);
+
+      if (strategyHeader) {
+        if (plainEnglish) plainEnglish = `${strategyHeader}${plainEnglish}`;
+        if (foresight) foresight = `${strategyHeader}${foresight}`;
+      }
 
       return {
         id: chunk.id,

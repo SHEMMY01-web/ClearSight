@@ -19,6 +19,7 @@ export default {
         syne: ['Syne', 'sans-serif'],
         mono: ['DM Mono', 'monospace'],
         lora: ['Lora', 'Georgia', 'serif'],
+        playfair: ['Playfair Display', 'serif'],
       }
     },
   },

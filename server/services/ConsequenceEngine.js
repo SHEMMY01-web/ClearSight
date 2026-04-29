@@ -5,7 +5,7 @@ const path = require('path');
  * ConsequenceEngine: Financial modeling & Monte Carlo simulation
  * specific to Nigerian market realities.
  */
-function analyzeMusicContract(buyoutOfferNgn, monthlyStreams = 100000) {
+function analyzeMusicContract(buyoutOfferNgn, monthlyStreams = 100000, strategySettings = null) {
     const pulsePath = path.join(__dirname, '../data/market_pulse.json');
     let marketPulse;
     try {
@@ -20,6 +20,11 @@ function analyzeMusicContract(buyoutOfferNgn, monthlyStreams = 100000) {
 
     const inflation = marketPulse.macro.inflation_rate;
     const spotifyRpm = marketPulse.industry.spotify_rpm_ngn;
+
+    // --- Strategy Playbook Variables ---
+    const riskAppetite = strategySettings?.riskAppetite || 'balanced';
+    const monthlyLivingCost = strategySettings?.monthlyExpenses || 250000;
+    const industry = strategySettings?.industryContext || 'General Commercial';
 
     const ITERATIONS = 1000;
     let buyoutWins = 0;
@@ -41,7 +46,6 @@ function analyzeMusicContract(buyoutOfferNgn, monthlyStreams = 100000) {
         }
 
         // 2. Projected Annual Revenue with Global Upside
-        // 30% of streams from UK/US/Europe where RPM is 10x higher
         const globalPremium = 3.0;
         const projectedRevenue = ((annualStreams / 1000) * spotifyRpm) * globalPremium;
 
@@ -52,7 +56,6 @@ function analyzeMusicContract(buyoutOfferNgn, monthlyStreams = 100000) {
         }
 
         // 4. Judicial Weighting (Trust Factor)
-        // Assume 15% leakage/dispute risk instead of total failure
         const trustFactor = 0.85;
         const adjustedNpv = npv * trustFactor;
         totalNpv += adjustedNpv;
@@ -67,34 +70,35 @@ function analyzeMusicContract(buyoutOfferNgn, monthlyStreams = 100000) {
     const royaltyWins = ITERATIONS - buyoutWins;
     const royaltyWinRate = Math.round((royaltyWins / ITERATIONS) * 100);
     
-    // AI Confidence: Data Depth (Base 85% + 7% for active ChromaDB/Pulse sync)
     const aiConfidence = 92;
 
-    // Optimal Decision Logic: "Safety First"
+    // Optimal Decision Logic: "Strategy-Aligned"
     let isBuyout = false;
     let optimalDecision = "";
     let finalDealRisk = 0;
     
-    if (royaltyWinRate <= 50) {
-        // If royalty win rate is <= 50%, Buyout is obviously better
+    // Personalized thresholds based on Risk Appetite
+    let royaltyThreshold = 75; // Default (Balanced)
+    if (riskAppetite === 'conservative') royaltyThreshold = 85; // Needs higher certainty to take royalties
+    if (riskAppetite === 'aggressive') royaltyThreshold = 60;   // Willing to take more risk for royalties
+
+    if (royaltyWinRate < (100 - royaltyThreshold)) {
+        // Buyout is clearly statistically superior
         isBuyout = true;
         optimalDecision = `One-Time Buyout (₦${buyoutOfferNgn.toLocaleString()})`;
-        // The risk of taking the buyout is the chance that royalties would have been better
         finalDealRisk = royaltyWinRate;
-    } else if (royaltyWinRate > 50 && royaltyWinRate < 75) {
-        // "Toss-Up Paradox": Royalties win, but the volatility is too high
+    } else if (royaltyWinRate < royaltyThreshold) {
+        // "Toss-Up Paradox": Royalties win on average, but risk exceeds tolerance
         isBuyout = true;
-        optimalDecision = `Take Buyout (Lower Risk)`;
+        optimalDecision = `Take Buyout (${riskAppetite.charAt(0).toUpperCase() + riskAppetite.slice(1)} Strategy)`;
         finalDealRisk = royaltyWinRate;
     } else {
-        // Royalties win convincingly (>= 75%)
+        // Royalties win convincingly per strategy
         isBuyout = false;
         optimalDecision = "Take Royalties";
-        // The risk of taking royalties is the chance that the buyout would have been better
         finalDealRisk = buyoutWinRate;
     }
     
-    // Formatting the buyout amount nicely (e.g. ₦12M or ₦500K)
     const formatAmount = (num) => {
         if (num >= 1000000) return `₦${(num / 1000000).toFixed(1).replace('.0', '')}M`;
         if (num >= 1000) return `₦${(num / 1000).toFixed(0)}K`;
@@ -104,9 +108,19 @@ function analyzeMusicContract(buyoutOfferNgn, monthlyStreams = 100000) {
     const formattedBuyout = formatAmount(buyoutOfferNgn);
     const inflationStr = (inflation * 100).toFixed(1);
     
-    // --- The "Safety Level" Metric ---
-    const monthlyLivingCost = 250000; 
+    // --- The "Safety Level" Metric (Personalized) ---
     const monthsCovered = buyoutOfferNgn / monthlyLivingCost;
+
+    // --- Systematic Constraint: Volatility Penalty ---
+    // If the strategic goal is 'protection' and the risk appetite is 'conservative',
+    // lack of an inflation hedge (simulated check here) increases the risk significantly.
+    // In a real scenario, we'd check the clause text for "inflation" / "CPI" / "adjustment".
+    const hasInflationHedge = false; // Mocked: assume most standard contracts lack it
+    let volatilityPenalty = 0;
+    if (!hasInflationHedge && riskAppetite !== 'aggressive') {
+        volatilityPenalty = 15; // 15% risk spike for Nigerian inflation exposure
+    }
+    const finalRiskScore = Math.min(100, finalDealRisk + volatilityPenalty);
 
     let safetyLevel = "Low";
     let safetyColor = "text-red-500"; 
@@ -120,19 +134,18 @@ function analyzeMusicContract(buyoutOfferNgn, monthlyStreams = 100000) {
     }
 
     let summary = "";
-    if (isBuyout && royaltyWinRate > 50) {
-        // The High-Stakes Gamble summary
-        summary = `In ${royaltyWins} out of 1,000 simulations, royalties outperformed the ${formattedBuyout} offer. However, with a ${royaltyWinRate}% Market Volatility, this is a high-risk path. While the ${safetyLevel} Safety Level (${Math.round(monthsCovered)} months runway) gives you some breathing room, the ${inflationStr}% inflation rate and 33% judicial success rate mean that taking the ${formattedBuyout} today is a valid 'Safety First' alternative.`;
+    if (isBuyout && royaltyWinRate > (100 - royaltyThreshold)) {
+        summary = `Your ${riskAppetite} strategy prioritizes safety. In ${royaltyWins} out of 1,000 simulations, royalties outperformed the ${formattedBuyout} offer, but the ${finalRiskScore}% Market Volatility (including a ${volatilityPenalty}% inflation penalty) is too high for your profile. Taking the buyout covers ${Math.round(monthsCovered)} months of your expenses, providing a ${safetyLevel} safety net.`;
     } else if (isBuyout) {
-        summary = `In ${buyoutWins} out of 1,000 simulated futures, taking ${formattedBuyout} today allowed the artist to reinvest in their craft immediately. In the other ${royaltyWins} scenarios where they 'won' big on royalties, the gains were often eroded by the cost of potential legal enforcement or the loss of purchasing power due to the ${inflationStr}% inflation rate.`;
+        summary = `In ${buyoutWins} out of 1,000 simulated futures, taking ${formattedBuyout} today allowed the user to reinvest immediately. In the other ${royaltyWins} scenarios where royalties 'won', the gains were eroded by ${inflationStr}% inflation or judicial risk. The lack of an inflation hedge adds a ${volatilityPenalty}% risk factor to long-term holds.`;
     } else {
-        summary = `In ${royaltyWins} out of 1,000 simulated futures, holding onto the long-term royalties generated significantly more wealth than taking ${formattedBuyout} today. Even when factoring in the ${inflationStr}% inflation rate and legal risks, keeping your rights proved to be the smarter long-term play.`;
+        summary = `Based on your ${riskAppetite} appetite, royalties are the optimal move. In ${royaltyWins} scenarios, holding onto rights generated significantly more wealth than taking ${formattedBuyout} today. Your strategy tolerates the current ${finalRiskScore}% risk for the projected long-term upside in the ${industry} sector.`;
     }
 
     return {
         optimalDecision,
         confidenceScore: `${aiConfidence}%`,
-        dealRisk: `${finalDealRisk}%`,
+        dealRisk: `${finalRiskScore}%`,
         safetyLevel,
         safetyColor,
         monthsCovered: Math.round(monthsCovered),

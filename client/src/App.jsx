@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import UploadDropzone from './components/Upload/UploadDropzone'
+import { supabase } from './supabaseClient'
 
 // Fix OCR encoding artifact: â‚¦ → ₦ (Naira)
 const fixEncoding = (str = '') => str.replace(/â‚¦/g, '₦').replace(/â‚¦/g, '₦');
@@ -13,15 +14,88 @@ const PERSONAS = [
 ]
 
 function App() {
+  console.log('App Component Rendering...');
   const [analysisResult, setAnalysisResult] = useState(null)
   const [healthStatus, setHealthStatus]     = useState('Checking...')
   const [persona, setPersona]               = useState('general')
+
+  // Strategy Playbook State
+  const [riskAppetite, setRiskAppetite] = useState('balanced')
+  const [monthlyExpenses, setMonthlyExpenses] = useState('250000')
+  const [industryContext, setIndustryContext] = useState('General Commercial')
+  const [strategicGoal, setStrategicGoal] = useState('liquidity') // liquidity | protection
+  const [isSavingPlaybook, setIsSavingPlaybook] = useState(false)
+  const [user, setUser] = useState(null)
 
   // Financial Simulation State
   const [buyoutOffer, setBuyoutOffer] = useState('')
   const [monthlyStreams, setMonthlyStreams] = useState('')
   const [simResult, setSimResult] = useState(null)
   const [isSimulating, setIsSimulating] = useState(false)
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/health')
+      .then(r => setHealthStatus(r.data.status === 'ok' ? 'OK' : 'Error'))
+      .catch(() => setHealthStatus('Disconnected'))
+
+    // Supabase Auth Listener (Simple for Demo)
+    const checkUser = async () => {
+      try {
+        console.log('Checking Supabase User...');
+        const { data } = await supabase.auth.getUser();
+        if (data?.user) {
+          console.log('User found:', data.user.id);
+          setUser(data.user);
+          fetchPlaybook(data.user.id);
+        }
+      } catch (err) {
+        console.error('Supabase Auth error:', err);
+      }
+    };
+    checkUser();
+  }, [])
+
+  const fetchPlaybook = async (userId) => {
+    try {
+      const { data, error } = await supabase
+        .from('strategy_playbooks')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+
+      if (data && !error) {
+        setRiskAppetite(data.risk_appetite);
+        setMonthlyExpenses(data.monthly_expenses.toString());
+        setIndustryContext(data.industry_context);
+        if (data.strategic_goal) setStrategicGoal(data.strategic_goal);
+      }
+    } catch (err) {
+      console.warn('Playbook fetch failed:', err);
+    }
+  };
+
+  const savePlaybook = async () => {
+    if (!user) {
+      alert('Please sign in to save your playbook.');
+      return;
+    }
+
+    setIsSavingPlaybook(true);
+    const { error } = await supabase
+      .from('strategy_playbooks')
+      .upsert({
+        user_id: user.id,
+        risk_appetite: riskAppetite,
+        monthly_expenses: Number(monthlyExpenses),
+        industry_context: industryContext,
+        strategic_goal: strategicGoal,
+        updated_at: new Date()
+      });
+
+    setIsSavingPlaybook(false);
+    if (error) alert('Error saving playbook: ' + error.message);
+    else alert('Strategy Playbook saved successfully!');
+  };
 
   const handleSimulate = async () => {
     if (!buyoutOffer || isNaN(buyoutOffer)) return;
@@ -30,7 +104,13 @@ function App() {
     try {
       const payload = { 
         buyoutOffer: Number(buyoutOffer),
-        monthlyStreams: monthlyStreams ? Number(monthlyStreams) : 100000 
+        monthlyStreams: monthlyStreams ? Number(monthlyStreams) : 100000,
+        strategySettings: {
+          riskAppetite,
+          monthlyExpenses: Number(monthlyExpenses),
+          industryContext,
+          strategicGoal
+        }
       };
       const res = await axios.post('http://localhost:5000/api/simulate', payload);
       setSimResult(res.data);
@@ -41,12 +121,6 @@ function App() {
       setIsSimulating(false);
     }
   }
-
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/health')
-      .then(r => setHealthStatus(r.data.status === 'ok' ? 'OK' : 'Error'))
-      .catch(() => setHealthStatus('Disconnected'))
-  }, [])
 
   return (
     <div className="min-h-screen bg-cream text-ink font-mono pb-12">
@@ -63,6 +137,101 @@ function App() {
         <div className="text-center mb-10">
           <h2 className="font-playfair text-4xl md:text-5xl font-black mb-4">Analyze any contract.<br/><em>In seconds.</em></h2>
           <p className="text-mid max-w-2xl mx-auto">Upload a PDF or image of a contract. Our AI will extract the clauses, flag hidden risks, and provide Advocate-Critic analysis grounded in Nigerian Law.</p>
+        </div>
+
+        {/* ── Strategy Playbook Settings ── */}
+        <div className="mb-8 bg-white border border-ink/10 p-6 rounded shadow-sm">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h3 className="font-syne font-bold text-lg">Strategy Playbook</h3>
+              <p className="text-xs text-mid">Personalize how the AI filters risks and calculates foresight.</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={savePlaybook}
+                disabled={isSavingPlaybook}
+                className="text-[10px] font-bold uppercase tracking-widest bg-ink text-white px-3 py-1 rounded hover:bg-ink/80 transition-colors disabled:opacity-50"
+              >
+                {isSavingPlaybook ? 'Saving...' : 'Save to Cloud'}
+              </button>
+              <div className="bg-gold/5 border border-gold/20 px-3 py-1 rounded">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-gold">Day 4 Roadmap Feature</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {/* Risk Appetite */}
+            <div>
+              <label className="block text-[10px] uppercase tracking-widest text-mid mb-2 font-bold">Risk Appetite</label>
+              <div className="flex flex-col gap-2">
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="2" 
+                  step="1"
+                  value={riskAppetite === 'conservative' ? 0 : riskAppetite === 'balanced' ? 1 : 2}
+                  onChange={(e) => {
+                    const vals = ['conservative', 'balanced', 'aggressive'];
+                    setRiskAppetite(vals[e.target.value]);
+                  }}
+                  className="w-full accent-gold"
+                />
+                <div className="flex justify-between text-[9px] uppercase tracking-tighter font-bold">
+                  <span className={riskAppetite === 'conservative' ? 'text-gold' : 'text-mid'}>Conservative</span>
+                  <span className={riskAppetite === 'balanced' ? 'text-gold' : 'text-mid'}>Balanced</span>
+                  <span className={riskAppetite === 'aggressive' ? 'text-gold' : 'text-mid'}>Aggressive</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Strategic Goal */}
+            <div>
+              <label className="block text-[10px] uppercase tracking-widest text-mid mb-2 font-bold">Strategic Goal</label>
+              <div className="flex gap-1 bg-cream/50 p-1 rounded border border-ink/10">
+                <button 
+                  onClick={() => setStrategicGoal('liquidity')}
+                  className={`flex-1 text-[10px] uppercase font-bold py-1.5 px-2 rounded transition-all ${strategicGoal === 'liquidity' ? 'bg-gold text-ink shadow-sm' : 'text-mid hover:bg-gold/10'}`}
+                >
+                  Immediate Cash
+                </button>
+                <button 
+                  onClick={() => setStrategicGoal('protection')}
+                  className={`flex-1 text-[10px] uppercase font-bold py-1.5 px-2 rounded transition-all ${strategicGoal === 'protection' ? 'bg-gold text-ink shadow-sm' : 'text-mid hover:bg-gold/10'}`}
+                >
+                  IP Protection
+                </button>
+              </div>
+            </div>
+
+            {/* Monthly Expenses */}
+            <div>
+              <label className="block text-[10px] uppercase tracking-widest text-mid mb-2 font-bold">Monthly Expenses (₦)</label>
+              <input 
+                type="number" 
+                value={monthlyExpenses} 
+                onChange={e => setMonthlyExpenses(e.target.value)}
+                placeholder="250000"
+                className="w-full border border-ink/10 p-2 text-sm rounded focus:outline-none focus:border-gold"
+              />
+            </div>
+
+            {/* Industry Context */}
+            <div>
+              <label className="block text-[10px] uppercase tracking-widest text-mid mb-2 font-bold">Industry Context</label>
+              <select 
+                value={industryContext}
+                onChange={e => setIndustryContext(e.target.value)}
+                className="w-full border border-ink/10 p-2 text-sm rounded focus:outline-none focus:border-gold bg-white"
+              >
+                <option value="General Commercial">General Commercial</option>
+                <option value="Software Engineering">Software Engineering</option>
+                <option value="Afrobeats Music">Afrobeats Music</option>
+                <option value="Real Estate">Real Estate</option>
+                <option value="Retail / Trading">Retail / Trading</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         {/* ── Persona Selector ── */}
@@ -88,6 +257,12 @@ function App() {
 
         <UploadDropzone
           persona={persona}
+          strategySettings={{
+            riskAppetite,
+            monthlyExpenses: Number(monthlyExpenses),
+            industryContext,
+            strategicGoal
+          }}
           onUploadComplete={(result) => setAnalysisResult(result)}
         />
 

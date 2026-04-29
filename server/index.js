@@ -30,11 +30,11 @@ const { analyzeMusicContract } = require('./services/ConsequenceEngine');
 
 app.post('/api/simulate', (req, res) => {
   try {
-    const { buyoutOffer, monthlyStreams } = req.body;
+    const { buyoutOffer, monthlyStreams, strategySettings } = req.body;
     if (!buyoutOffer || isNaN(buyoutOffer)) {
       return res.status(400).json({ error: 'Valid buyoutOffer is required' });
     }
-    const result = analyzeMusicContract(Number(buyoutOffer), Number(monthlyStreams) || 100000);
+    const result = analyzeMusicContract(Number(buyoutOffer), Number(monthlyStreams) || 100000, strategySettings);
     res.json(result);
   } catch (err) {
     console.error("Simulation error:", err);
