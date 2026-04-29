@@ -4,14 +4,13 @@ const path = require('path');
 const pdf = require('pdf-parse');
 
 const client = new ChromaClient({
-  host: process.env.CHROMA_HOST || "localhost",
-  port: process.env.CHROMA_PORT ? parseInt(process.env.CHROMA_PORT) : (process.env.CHROMA_HOST ? 443 : 8000),
-  ssl: process.env.CHROMA_HOST ? true : false,
+  path: process.env.CHROMA_URL || (process.env.CHROMA_HOST ? `https://${process.env.CHROMA_HOST}` : "http://localhost:8000"),
   tenant: process.env.CHROMA_TENANT || 'default_tenant',
   database: process.env.CHROMA_DATABASE || 'default_database',
   fetchOptions: {
     headers: process.env.CHROMA_API_KEY ? {
-      "X-Chroma-Token": process.env.CHROMA_API_KEY.trim()
+      "X-Chroma-Token": process.env.CHROMA_API_KEY.trim(),
+      "Authorization": `Bearer ${process.env.CHROMA_API_KEY.trim()}`
     } : {}
   }
 });
