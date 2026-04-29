@@ -9,9 +9,11 @@ const client = new ChromaClient({
   ssl: process.env.CHROMA_HOST ? true : false,
   tenant: process.env.CHROMA_TENANT || 'default_tenant',
   database: process.env.CHROMA_DATABASE || 'default_database',
-  additionalHeaders: process.env.CHROMA_API_KEY ? {
-    "X-Chroma-Token": process.env.CHROMA_API_KEY
-  } : undefined
+  fetchOptions: {
+    headers: process.env.CHROMA_API_KEY ? {
+      "X-Chroma-Token": process.env.CHROMA_API_KEY.trim()
+    } : {}
+  }
 });
 const collectionName = "nigerian_law";
 const casesCollectionName = "nigerian_cases";
