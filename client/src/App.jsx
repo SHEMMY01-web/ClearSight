@@ -61,7 +61,8 @@ function App() {
       setDeferredPrompt(e);
     });
 
-    axios.get('http://localhost:5000/api/health')
+    const API_URL = import.meta.env.VITE_API_URL || 'https://clearsight-backend.onrender.com';
+    axios.get(`${API_URL}/api/health`)
       .then(r => setHealthStatus(r.data.status === 'ok' ? 'OK' : 'Error'))
       .catch(() => setHealthStatus('Disconnected'))
 
@@ -193,7 +194,8 @@ function App() {
           strategicGoal
         }
       };
-      const res = await axios.post('http://localhost:5000/api/simulate', payload);
+      const API_URL = import.meta.env.VITE_API_URL || 'https://clearsight-backend.onrender.com';
+      const res = await axios.post(`${API_URL}/api/simulate`, payload);
       setSimResult(res.data);
     } catch (err) {
       console.error(err);
