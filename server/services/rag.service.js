@@ -4,14 +4,14 @@ const path = require('path');
 const pdf = require('pdf-parse');
 
 const client = new ChromaClient({
-  path: process.env.CHROMA_URL || (process.env.CHROMA_HOST ? `https://${process.env.CHROMA_HOST}` : "http://localhost:8000"),
-  tenant: process.env.CHROMA_TENANT || 'default_tenant',
-  database: process.env.CHROMA_DATABASE || 'default_database',
-  fetchOptions: {
-    headers: process.env.CHROMA_API_KEY ? {
-      "X-Chroma-Token": process.env.CHROMA_API_KEY.trim(),
-      "Authorization": `Bearer ${process.env.CHROMA_API_KEY.trim()}`
-    } : {}
+  // Use the Host variable (e.g., europe-west1.gcp.trychroma.com)
+  path: `https://${process.env.CHROMA_HOST}`, 
+  tenant: process.env.CHROMA_TENANT, // From your dashboard: 3a00273d...
+  database: process.env.CHROMA_DATABASE, // From your dashboard: Clear-Sight
+  auth: {
+    provider: "token",
+    credentials: process.env.CHROMA_API_KEY, // The ck-... key
+    header: "X-Chroma-Token"
   }
 });
 const collectionName = "nigerian_law";
