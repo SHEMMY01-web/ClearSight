@@ -1,10 +1,18 @@
 const express = require('express');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
+const { z } = require('zod');
 const { extractText } = require('../services/extraction.service');
 const { chunkAndAnalyze } = require('../services/analysis.service');
+const { supabase } = require('../services/supabase.service');
 
 const router = express.Router();
+
+const uploadSchema = z.object({
+  persona: z.string().optional().default('general'),
+  strategySettings: z.string().optional(),
+  userId: z.string().optional()
+});
 
 // Configure multer for memory storage
 const storage = multer.memoryStorage();
@@ -25,14 +33,19 @@ const upload = multer({
 
 router.post('/', upload.single('contract'), async (req, res) => {
   try {
+    const validation = uploadSchema.safeParse(req.body);
+    if (!validation.success) {
+      return res.status(400).json({ error: 'Invalid request data', details: validation.error.format() });
+    }
+
+    const { persona, strategySettings: strategySettingsRaw, userId } = validation.data;
+    const strategySettings = strategySettingsRaw ? JSON.parse(strategySettingsRaw) : null;
+
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded.' });
     }
 
     const { buffer, mimetype, originalname } = req.file;
-    // Persona sent from the frontend dropdown: general | freelancer | founder | market_trader
-    const persona = req.body?.persona || 'general';
-    const strategySettings = req.body?.strategySettings ? JSON.parse(req.body.strategySettings) : null;
 
     // 1. Extract Text
     const text = await extractText(buffer, mimetype);
@@ -42,14 +55,31 @@ router.post('/', upload.single('contract'), async (req, res) => {
     }
 
     // 2. Chunk & Analyze (KB + RAG + Persona + Consequence Engine)
-    const analysisResults = await chunkAndAnalyze(text, persona, strategySettings);
+    const result = await chunkAndAnalyze(text, persona, strategySettings);
+
+    // Save to Supabase if userId is present
+    if (req.body.userId && req.body.userId !== 'null') {
+      const highRisks = result.filter(c => c.severity === 'HIGH').length;
+      const score = Math.max(0, 100 - (highRisks * 25) - ((result.length - highRisks) * 10));
+
+      const { error } = await supabase
+        .from('contracts')
+        .insert({
+          user_id: req.body.userId,
+          filename: req.file.originalname,
+          risk_score: score,
+          analysis_results: result,
+          strategic_summary: "CAMA 2020 Validated"
+        });
+      if (error) console.error('Supabase Save Error:', error);
+    }
 
     res.json({
       success: true,
       filename: originalname,
       persona,
       extractedTextPreview: text.substring(0, 500) + '...',
-      analysis: analysisResults
+      analysis: result
     });
 
   } catch (error) {

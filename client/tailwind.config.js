@@ -7,20 +7,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#0d0d0f',
-        paper: '#f5f2eb',
-        cream: '#ede9df',
-        accent: '#c8392b',
-        gold: '#b8973a',
-        teal: '#1a6b6b',
-        mid: '#6b6660',
+        ink: '#0D0D0D',
+        paper: '#F5F0E8',
+        gold: '#C8A84B',
+        'gold-light': '#E8D08A',
+        green: '#1A3C2E',
+        'green-mid': '#2D5C43',
+        cream: '#FAF7F0',
+        rust: '#8B3A2A',
+        gray: '#6B6B6B',
       },
       fontFamily: {
         syne: ['Syne', 'sans-serif'],
-        mono: ['DM Mono', 'monospace'],
-        lora: ['Lora', 'Georgia', 'serif'],
         playfair: ['Playfair Display', 'serif'],
-      }
+        mono: ['DM Mono', 'monospace'],
+      },
     },
   },
   plugins: [],

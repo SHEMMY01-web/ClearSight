@@ -6,12 +6,15 @@ export const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
-export const uploadContract = async (file, persona = 'general', strategySettings = null) => {
+export const uploadContract = async (file, persona = 'general', strategySettings = null, userId = null) => {
   const formData = new FormData();
   formData.append('contract', file);
   formData.append('persona', persona);
   if (strategySettings) {
     formData.append('strategySettings', JSON.stringify(strategySettings));
+  }
+  if (userId) {
+    formData.append('userId', userId);
   }
 
   try {

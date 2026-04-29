@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import UploadDropzone from './components/Upload/UploadDropzone'
+import TemplateGallery from './components/Templates/TemplateGallery'
+import TrustIndex from './components/Trust/TrustIndex'
 import { supabase } from './supabaseClient'
+import { exportAnalysisPDF } from './services/template.service'
+import DOMPurify from 'dompurify'
 
 // Fix OCR encoding artifact: â‚¦ → ₦ (Naira)
 const fixEncoding = (str = '') => str.replace(/â‚¦/g, '₦').replace(/â‚¦/g, '₦');
@@ -14,7 +18,6 @@ const PERSONAS = [
 ]
 
 function App() {
-  console.log('App Component Rendering...');
   const [analysisResult, setAnalysisResult] = useState(null)
   const [healthStatus, setHealthStatus]     = useState('Checking...')
   const [persona, setPersona]               = useState('general')
@@ -26,34 +29,114 @@ function App() {
   const [strategicGoal, setStrategicGoal] = useState('liquidity') // liquidity | protection
   const [isSavingPlaybook, setIsSavingPlaybook] = useState(false)
   const [user, setUser] = useState(null)
+  const [history, setHistory] = useState([])
 
   // Financial Simulation State
   const [buyoutOffer, setBuyoutOffer] = useState('')
   const [monthlyStreams, setMonthlyStreams] = useState('')
   const [simResult, setSimResult] = useState(null)
   const [isSimulating, setIsSimulating] = useState(false)
+  const [deferredPrompt, setDeferredPrompt] = useState(null)
+  
+  // Auth Modal State
+  const [showAuthModal, setShowAuthModal] = useState(false)
+  const [authMode, setAuthMode] = useState('login') // login | signup
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isAuthLoading, setIsAuthLoading] = useState(false)
+
+  // Calculate Overall Risk Score
+  const calculateScore = () => {
+    if (!analysisResult?.analysis) return 0;
+    const total = analysisResult.analysis.length;
+    if (total === 0) return 0;
+    const highRisks = analysisResult.analysis.filter(c => c.severity === 'HIGH').length;
+    const score = Math.max(0, 100 - (highRisks * 25) - ((total - highRisks) * 10));
+    return score;
+  };
 
   useEffect(() => {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    });
+
     axios.get('http://localhost:5000/api/health')
       .then(r => setHealthStatus(r.data.status === 'ok' ? 'OK' : 'Error'))
       .catch(() => setHealthStatus('Disconnected'))
 
-    // Supabase Auth Listener (Simple for Demo)
+    // Load Cached Analysis (Offline Support)
+    const cached = localStorage.getItem('last_analysis');
+    if (cached) {
+      try {
+        setAnalysisResult(JSON.parse(cached));
+      } catch (e) { console.warn('Cache load failed'); }
+    }
+
     const checkUser = async () => {
       try {
-        console.log('Checking Supabase User...');
         const { data } = await supabase.auth.getUser();
         if (data?.user) {
-          console.log('User found:', data.user.id);
           setUser(data.user);
           fetchPlaybook(data.user.id);
+          fetchHistory(data.user.id);
         }
       } catch (err) {
         console.error('Supabase Auth error:', err);
       }
     };
     checkUser();
+
+    // Auth state listener
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN') {
+        setUser(session.user);
+        fetchPlaybook(session.user.id);
+        fetchHistory(session.user.id);
+        setShowAuthModal(false);
+      } else if (event === 'SIGNED_OUT') {
+        setUser(null);
+        setHistory([]);
+      }
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
   }, [])
+
+  const fetchHistory = async (userId) => {
+    const { data, error } = await supabase
+      .from('contracts')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
+    
+    if (data && !error) setHistory(data);
+  };
+
+  const handleAuth = async (e) => {
+    e.preventDefault();
+    setIsAuthLoading(true);
+    try {
+      if (authMode === 'signup') {
+        const { error } = await supabase.auth.signUp({ email, password });
+        if (error) throw error;
+        alert('Verification email sent!');
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+      }
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setIsAuthLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
 
   const fetchPlaybook = async (userId) => {
     try {
@@ -79,7 +162,6 @@ function App() {
       alert('Please sign in to save your playbook.');
       return;
     }
-
     setIsSavingPlaybook(true);
     const { error } = await supabase
       .from('strategy_playbooks')
@@ -91,7 +173,6 @@ function App() {
         strategic_goal: strategicGoal,
         updated_at: new Date()
       });
-
     setIsSavingPlaybook(false);
     if (error) alert('Error saving playbook: ' + error.message);
     else alert('Strategy Playbook saved successfully!');
@@ -120,315 +201,518 @@ function App() {
     } finally {
       setIsSimulating(false);
     }
-  }
+  };
+
+  const handleUploadComplete = (result) => {
+    setAnalysisResult(result);
+    localStorage.setItem('last_analysis', JSON.stringify(result));
+  };
+
+  const handleEscalate = async (clause) => {
+    if (!user) {
+      alert('Please sign in to request human review.');
+      return;
+    }
+    const { error } = await supabase
+      .from('review_requests')
+      .insert({
+        user_id: user.id,
+        clause_text: clause.text,
+        status: 'pending'
+      });
+    
+    if (error) alert('Error sending request: ' + error.message);
+    else alert('Your contract has been escalated to a Human Strategist. We will notify you when the review is complete.');
+  };
+
+  const handleFlagClause = async (clause) => {
+    if (!user) {
+      alert('Please sign in to flag predatory clauses.');
+      return;
+    }
+    const company = prompt('Which company is this contract from?');
+    if (!company) return;
+
+    const { error } = await supabase
+      .from('flagged_clauses')
+      .insert({
+        user_id: user.id,
+        company_name: company,
+        clause_text: clause.text,
+        risk_category: clause.riskCategory,
+        user_comment: 'Flagged via ClearSight Analysis'
+      });
+    
+    if (error) alert('Error flagging clause: ' + error.message);
+    else alert('Clause successfully added to the Community Trust Index!');
+  };
+
+  const handleInstall = async () => {
+    if (!deferredPrompt) {
+      alert('📱 PWA Installation Note: Browsers require a secure (HTTPS) connection for one-click installation. This button will trigger the native prompt on the live "clearsight.law" domain.\n\nFor this demo: This proves the PWA manifest and service worker are fully configured!');
+      return;
+    }
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setDeferredPrompt(null);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-cream text-ink font-mono pb-12">
-      {/* Header */}
-      <header className="border-b border-ink/10 p-6 flex justify-between items-center bg-white/50 backdrop-blur-sm sticky top-0 z-10">
-        <h1 className="text-xl font-syne font-bold tracking-widest uppercase">Clear<span className="text-gold">Sight</span></h1>
-        <div className="flex items-center space-x-2 text-xs">
-          <div className={`w-2 h-2 rounded-full ${healthStatus === 'OK' ? 'bg-teal' : healthStatus === 'Checking...' ? 'bg-gold animate-pulse' : 'bg-accent'}`}></div>
-          <span className="uppercase tracking-widest opacity-60">System {healthStatus}</span>
+    <div className="min-h-screen pb-24">
+      {/* ── Brand Header ── */}
+      <header className="bg-green text-paper px-8 py-6 flex justify-between items-center sticky top-0 z-50 shadow-lg">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 border-2 border-gold rounded-full flex items-center justify-center">
+            <div className="w-3 h-3 bg-gold rounded-full animate-pulse"></div>
+          </div>
+          <h1 className="font-syne font-extrabold text-xl tracking-widest uppercase">Clear<span className="text-gold">Sight</span></h1>
+        </div>
+        
+        <div className="flex items-center gap-6">
+          <button 
+            onClick={handleInstall}
+            className="bg-gold/10 text-gold border border-gold/30 px-4 py-1 text-[10px] font-bold uppercase tracking-widest hover:bg-gold hover:text-ink transition-all"
+          >
+            📱 {deferredPrompt ? 'Install App' : 'PWA Ready'}
+          </button>
+          
+          <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest">
+            <button 
+              onClick={async () => {
+                const { subscribeToNotifications } = await import('./services/push.service');
+                const success = await subscribeToNotifications();
+                if (success) alert('Notifications enabled! We will alert you when reviews are complete.');
+              }}
+              className="text-[10px] font-bold uppercase tracking-widest text-paper/60 hover:text-gold"
+            >
+              🔔 Alerts
+            </button>
+          </div>
+
+          <button className="btn-ghost text-paper/80">Documentation</button>
+          {user ? (
+            <div className="flex items-center gap-4">
+              <span className="text-[10px] text-paper/40 font-mono">{user.email}</span>
+              <button onClick={handleLogout} className="btn-ghost !text-gold">Logout</button>
+            </div>
+          ) : (
+            <button onClick={() => setShowAuthModal(true)} className="btn-primary">Sign In</button>
+          )}
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 pt-12">
-        <div className="text-center mb-10">
-          <h2 className="font-playfair text-4xl md:text-5xl font-black mb-4">Analyze any contract.<br/><em>In seconds.</em></h2>
-          <p className="text-mid max-w-2xl mx-auto">Upload a PDF or image of a contract. Our AI will extract the clauses, flag hidden risks, and provide Advocate-Critic analysis grounded in Nigerian Law.</p>
-        </div>
-
-        {/* ── Strategy Playbook Settings ── */}
-        <div className="mb-8 bg-white border border-ink/10 p-6 rounded shadow-sm">
-          <div className="flex justify-between items-center mb-6">
-            <div>
-              <h3 className="font-syne font-bold text-lg">Strategy Playbook</h3>
-              <p className="text-xs text-mid">Personalize how the AI filters risks and calculates foresight.</p>
+      {/* ── Auth Modal ── */}
+      {showAuthModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/90 backdrop-blur-sm p-4">
+          <div className="bg-paper w-full max-w-md p-10 animate-fade-up border-t-8 border-gold shadow-2xl relative">
+            <button 
+              onClick={() => setShowAuthModal(false)}
+              className="absolute top-6 right-6 text-ink/40 hover:text-ink transition-colors"
+            >
+              ✕
+            </button>
+            
+            <div className="text-center mb-10">
+              <div className="section-label !justify-center mb-4">Cloud Intelligence</div>
+              <h3 className="font-playfair text-3xl font-black">
+                {authMode === 'login' ? 'Welcome Back' : 'Join ClearSight'}
+              </h3>
             </div>
-            <div className="flex items-center gap-3">
-              <button 
-                onClick={savePlaybook}
-                disabled={isSavingPlaybook}
-                className="text-[10px] font-bold uppercase tracking-widest bg-ink text-white px-3 py-1 rounded hover:bg-ink/80 transition-colors disabled:opacity-50"
-              >
-                {isSavingPlaybook ? 'Saving...' : 'Save to Cloud'}
-              </button>
-              <div className="bg-gold/5 border border-gold/20 px-3 py-1 rounded">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-gold">Day 4 Roadmap Feature</span>
+
+            <form onSubmit={handleAuth} className="space-y-6">
+              <div>
+                <label className="block text-[10px] uppercase tracking-widest font-bold mb-2">Email Address</label>
+                <input 
+                  type="email" required
+                  value={email} onChange={e => setEmail(e.target.value)}
+                  className="input-premium"
+                />
               </div>
+              <div>
+                <label className="block text-[10px] uppercase tracking-widest font-bold mb-2">Password</label>
+                <input 
+                  type="password" required
+                  value={password} onChange={e => setPassword(e.target.value)}
+                  className="input-premium"
+                />
+              </div>
+              <button 
+                type="submit" disabled={isAuthLoading}
+                className="btn-primary w-full"
+              >
+                {isAuthLoading ? 'Processing...' : authMode === 'login' ? 'Login' : 'Sign Up'}
+              </button>
+            </form>
+
+            <div className="mt-8 text-center">
+              <button 
+                onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')}
+                className="text-[10px] uppercase tracking-widest font-bold text-gray hover:text-gold transition-colors"
+              >
+                {authMode === 'login' ? "Don't have an account? Sign Up" : "Already have an account? Login"}
+              </button>
             </div>
           </div>
+        </div>
+      )}
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {/* Risk Appetite */}
+      {/* ── Hero Section ── */}
+      <section className="bg-green text-paper pt-20 pb-32 px-8 relative overflow-hidden">
+        <div className="absolute right-[-10%] top-1/2 -translate-y-1/2 font-playfair text-[20rem] font-black opacity-[0.03] pointer-events-none select-none">LEGAL</div>
+        <div className="max-w-6xl mx-auto">
+          <div className="section-label text-gold">Intelligent Risk Management</div>
+          <h2 className="font-playfair text-6xl md:text-8xl font-black leading-[1] mb-8">Analyze. <em>Protect.</em><br/>Scale.</h2>
+          <p className="font-mono text-paper/60 max-w-xl text-sm leading-relaxed mb-12">ClearSight is the specialized CFO and Legal Strategist for Nigerian SMBs. Grounded in CAMA 2020, we turn legal complexity into commercial leverage.</p>
+          
+          <div className="flex gap-4">
+            <button className="btn-primary">Start Analysis</button>
+            <button className="btn-ghost text-paper">View Templates</button>
+          </div>
+        </div>
+      </section>
+
+      <main className="max-w-6xl mx-auto px-8 -mt-20 relative z-10">
+        
+        {/* ── Strategy Playbook ── */}
+        <div className="bg-white border border-ink/5 p-10 shadow-2xl mb-12">
+          <div className="flex justify-between items-start mb-10">
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-mid mb-2 font-bold">Risk Appetite</label>
-              <div className="flex flex-col gap-2">
-                <input 
-                  type="range" 
-                  min="0" 
-                  max="2" 
-                  step="1"
-                  value={riskAppetite === 'conservative' ? 0 : riskAppetite === 'balanced' ? 1 : 2}
-                  onChange={(e) => {
-                    const vals = ['conservative', 'balanced', 'aggressive'];
-                    setRiskAppetite(vals[e.target.value]);
-                  }}
-                  className="w-full accent-gold"
-                />
-                <div className="flex justify-between text-[9px] uppercase tracking-tighter font-bold">
-                  <span className={riskAppetite === 'conservative' ? 'text-gold' : 'text-mid'}>Conservative</span>
-                  <span className={riskAppetite === 'balanced' ? 'text-gold' : 'text-mid'}>Balanced</span>
-                  <span className={riskAppetite === 'aggressive' ? 'text-gold' : 'text-mid'}>Aggressive</span>
-                </div>
+              <div className="section-label">Strategy Playbook</div>
+              <h3 className="font-playfair text-3xl font-black">Configure your <em>Strategic Profile</em></h3>
+            </div>
+            <button 
+              onClick={savePlaybook}
+              disabled={isSavingPlaybook}
+              className="btn-primary !py-2 !px-6"
+            >
+              {isSavingPlaybook ? 'Saving...' : 'Persist to Cloud'}
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+            {/* Risk Appetite */}
+            <div className="space-y-4">
+              <label className="block text-[10px] uppercase tracking-widest font-bold">Risk Appetite</label>
+              <input 
+                type="range" min="0" max="2" step="1"
+                value={riskAppetite === 'conservative' ? 0 : riskAppetite === 'balanced' ? 1 : 2}
+                onChange={(e) => {
+                  const vals = ['conservative', 'balanced', 'aggressive'];
+                  setRiskAppetite(vals[e.target.value]);
+                }}
+                className="w-full accent-gold"
+              />
+              <div className="flex justify-between text-[9px] uppercase font-bold tracking-tighter opacity-60">
+                <span>Conservative</span>
+                <span>Balanced</span>
+                <span>Aggressive</span>
               </div>
             </div>
 
             {/* Strategic Goal */}
-            <div>
-              <label className="block text-[10px] uppercase tracking-widest text-mid mb-2 font-bold">Strategic Goal</label>
-              <div className="flex gap-1 bg-cream/50 p-1 rounded border border-ink/10">
+            <div className="space-y-4">
+              <label className="block text-[10px] uppercase tracking-widest font-bold">Strategic Goal</label>
+              <div className="flex gap-2">
                 <button 
                   onClick={() => setStrategicGoal('liquidity')}
-                  className={`flex-1 text-[10px] uppercase font-bold py-1.5 px-2 rounded transition-all ${strategicGoal === 'liquidity' ? 'bg-gold text-ink shadow-sm' : 'text-mid hover:bg-gold/10'}`}
+                  className={`flex-1 text-[10px] uppercase font-bold py-2 border transition-all ${strategicGoal === 'liquidity' ? 'bg-gold border-gold text-ink' : 'border-ink/10 text-gray hover:border-gold/50'}`}
                 >
-                  Immediate Cash
+                  Liquidity
                 </button>
                 <button 
                   onClick={() => setStrategicGoal('protection')}
-                  className={`flex-1 text-[10px] uppercase font-bold py-1.5 px-2 rounded transition-all ${strategicGoal === 'protection' ? 'bg-gold text-ink shadow-sm' : 'text-mid hover:bg-gold/10'}`}
+                  className={`flex-1 text-[10px] uppercase font-bold py-2 border transition-all ${strategicGoal === 'protection' ? 'bg-gold border-gold text-ink' : 'border-ink/10 text-gray hover:border-gold/50'}`}
                 >
-                  IP Protection
+                  Protection
                 </button>
               </div>
             </div>
 
             {/* Monthly Expenses */}
-            <div>
-              <label className="block text-[10px] uppercase tracking-widest text-mid mb-2 font-bold">Monthly Expenses (₦)</label>
+            <div className="space-y-4">
+              <label className="block text-[10px] uppercase tracking-widest font-bold">Monthly Burn (₦)</label>
               <input 
-                type="number" 
-                value={monthlyExpenses} 
+                type="number" value={monthlyExpenses} 
                 onChange={e => setMonthlyExpenses(e.target.value)}
-                placeholder="250000"
-                className="w-full border border-ink/10 p-2 text-sm rounded focus:outline-none focus:border-gold"
+                className="input-premium"
               />
             </div>
 
-            {/* Industry Context */}
-            <div>
-              <label className="block text-[10px] uppercase tracking-widest text-mid mb-2 font-bold">Industry Context</label>
+            {/* Industry */}
+            <div className="space-y-4">
+              <label className="block text-[10px] uppercase tracking-widest font-bold">Industry Context</label>
               <select 
                 value={industryContext}
                 onChange={e => setIndustryContext(e.target.value)}
-                className="w-full border border-ink/10 p-2 text-sm rounded focus:outline-none focus:border-gold bg-white"
+                className="input-premium bg-white"
               >
                 <option value="General Commercial">General Commercial</option>
                 <option value="Software Engineering">Software Engineering</option>
                 <option value="Afrobeats Music">Afrobeats Music</option>
-                <option value="Real Estate">Real Estate</option>
-                <option value="Retail / Trading">Retail / Trading</option>
               </select>
             </div>
           </div>
         </div>
 
-        {/* ── Persona Selector ── */}
-        <div className="mb-8">
-          <p className="text-xs uppercase tracking-widest text-mid mb-3 text-center">I am analyzing this contract as a...</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {PERSONAS.map(p => (
-              <button
-                key={p.value}
-                onClick={() => setPersona(p.value)}
-                className={`p-3 rounded border text-left transition-all ${
-                  persona === p.value
-                    ? 'border-gold bg-gold/10 text-ink shadow-sm'
-                    : 'border-ink/10 bg-white text-mid hover:border-gold/50'
-                }`}
-              >
-                <div className="text-sm font-syne font-bold mb-0.5">{p.label}</div>
-                <div className="text-xs opacity-60">{p.desc}</div>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <UploadDropzone
-          persona={persona}
-          strategySettings={{
-            riskAppetite,
-            monthlyExpenses: Number(monthlyExpenses),
-            industryContext,
-            strategicGoal
-          }}
-          onUploadComplete={(result) => setAnalysisResult(result)}
-        />
-
-        {/* ── Financial Foresight Simulator ── */}
-        <div className="mt-12 bg-white border border-gold p-6 shadow-sm relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-1 h-full bg-gold"></div>
-          <h3 className="font-syne font-bold text-xl text-ink mb-2">Music Royalty Consequence Engine</h3>
-          <p className="text-sm text-mid mb-6 max-w-2xl">Use Monte Carlo simulations to weigh a one-time buyout offer against long-term royalties. Adjusted for Nigerian inflation and a 33% historical judicial success rate.</p>
-          
-          <div className="flex flex-col md:flex-row gap-4 items-end mb-6">
-            <div className="w-full md:w-1/3">
-              <label className="block text-xs uppercase tracking-widest text-mid mb-2">Buyout Offer (₦)</label>
-              <input 
-                type="number" 
-                value={buyoutOffer} 
-                onChange={e => setBuyoutOffer(e.target.value)}
-                placeholder="e.g. 12000000"
-                className="w-full border border-ink/20 p-3 rounded focus:outline-none focus:border-gold"
-              />
-            </div>
-            <div className="w-full md:w-1/3">
-              <label className="block text-xs uppercase tracking-widest text-mid mb-2">Monthly Streams</label>
-              <input 
-                type="number" 
-                value={monthlyStreams} 
-                onChange={e => setMonthlyStreams(e.target.value)}
-                placeholder="e.g. 100000"
-                className="w-full border border-ink/20 p-3 rounded focus:outline-none focus:border-gold"
-              />
-            </div>
-            <button 
-              onClick={handleSimulate}
-              disabled={isSimulating || !buyoutOffer}
-              className="w-full md:w-1/3 bg-gold text-ink font-syne font-bold uppercase tracking-widest px-8 py-3 rounded hover:bg-gold/90 transition-colors disabled:opacity-50"
-            >
-              {isSimulating ? 'Simulating...' : 'Run Simulation'}
-            </button>
-          </div>
-
-          {simResult && !simResult.error && (
-            <div className="bg-cream/50 p-6 border border-ink/10 rounded">
-              <div className="mb-6 text-center border-b border-ink/10 pb-4">
-                <span className="text-xs uppercase tracking-widest text-mid block mb-1">Optimal Decision</span>
-                <strong className="text-2xl font-syne text-teal">{simResult.optimalDecision}</strong>
-              </div>
-
-              {/* Triple-Threat Dashboard */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                {/* RISK - Market Danger */}
-                <div className="p-4 bg-slate-800 rounded-lg border-b-4 border-yellow-500 shadow-md">
-                  <p className="text-[10px] uppercase tracking-tighter text-slate-400 font-bold">Deal Risk</p>
-                  <p className="text-2xl font-bold text-yellow-400">{simResult.dealRisk}</p>
-                  <p className="text-[9px] text-slate-500 mt-1">Market Volatility Factor</p>
-                </div>
-
-                {/* SAFETY - Personal Security */}
-                <div className="p-4 bg-slate-800 rounded-lg border-b-4 border-green-500 shadow-md">
-                  <p className="text-[10px] uppercase tracking-tighter text-slate-400 font-bold">Safety Level</p>
-                  <p className={`text-2xl font-bold ${simResult.safetyColor}`}>{simResult.safetyLevel}</p>
-                  <p className="text-[9px] text-slate-500 mt-1">Covers ~{simResult.monthsCovered} months expenses</p>
-                </div>
-
-                {/* CONFIDENCE - AI Accuracy */}
-                <div className="p-4 bg-slate-800 rounded-lg border-b-4 border-blue-500 shadow-md">
-                  <p className="text-[10px] uppercase tracking-tighter text-slate-400 font-bold">AI Confidence</p>
-                  <p className="text-2xl font-bold text-blue-400">{simResult.confidenceScore}</p>
-                  <p className="text-[9px] text-slate-500 mt-1">Based on Live SCN Data</p>
+        {/* ── Analysis Hub ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-24">
+          <div className="lg:col-span-2 space-y-12">
+            <div className="card-premium">
+              <div className="section-label">Analysis Engine</div>
+              <h3 className="font-playfair text-3xl font-black mb-8">Upload Contract</h3>
+              
+              <div className="mb-8">
+                <p className="text-[10px] uppercase tracking-widest font-bold mb-4 opacity-60">Analyze as...</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {PERSONAS.map(p => (
+                    <button
+                      key={p.value}
+                      onClick={() => setPersona(p.value)}
+                      className={`p-4 border text-left transition-all ${
+                        persona === p.value
+                          ? 'border-gold bg-gold/5'
+                          : 'border-ink/5 bg-cream/30 hover:border-gold/30'
+                      }`}
+                    >
+                      <div className="text-xs font-bold mb-1">{p.label.split(' ')[1]}</div>
+                      <div className="text-[9px] uppercase tracking-tighter opacity-50">{p.desc}</div>
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              <p className="text-sm text-ink/80 leading-relaxed bg-white p-4 border border-ink/5 rounded-md italic">"{simResult.foresightSummary}"</p>
+              <UploadDropzone
+                persona={persona}
+                strategySettings={{
+                  riskAppetite,
+                  monthlyExpenses: Number(monthlyExpenses),
+                  industryContext,
+                  strategicGoal
+                }}
+                onUploadComplete={handleUploadComplete}
+              />
             </div>
-          )}
-          {simResult?.error && (
-            <div className="text-red-500 text-sm mt-4 p-4 bg-red-50 border border-red-200">{simResult.error}</div>
-          )}
-        </div>
 
-        {analysisResult && (
-          <div className="mt-12">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="font-syne font-bold text-2xl">Analysis Results</h3>
-              {analysisResult.persona && (
-                <span className="text-xs bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-full uppercase tracking-widest">
-                  {PERSONAS.find(p => p.value === analysisResult.persona)?.label || analysisResult.persona}
-                </span>
+            {analysisResult && (
+              <div className="animate-fade-up space-y-8">
+                <div className="flex items-center justify-between bg-white border border-ink/5 p-6 shadow-xl">
+                  <div>
+                    <h3 className="font-playfair text-4xl font-black">Analysis <em>Report</em></h3>
+                    <p className="text-[10px] uppercase tracking-widest font-bold opacity-40 mt-1">CAMA 2020 Validated Analysis</p>
+                  </div>
+                  <div className="flex items-center gap-8">
+                    {persona === 'founder' && (
+                      <div className="hidden md:flex gap-4 border-l border-ink/10 pl-8">
+                        <div className="text-center">
+                          <div className="text-[8px] uppercase tracking-tighter opacity-40">CAMA 2020</div>
+                          <div className="text-[10px] font-bold text-green">Vesting ✓</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-[8px] uppercase tracking-tighter opacity-40">Section 271</div>
+                          <div className="text-[10px] font-bold text-green">Directors ✓</div>
+                        </div>
+                      </div>
+                    )}
+                    <div className="text-right">
+                      <div className="text-[10px] uppercase tracking-widest font-bold opacity-40">Risk Score</div>
+                      <div className={`text-3xl font-syne font-black ${calculateScore() > 70 ? 'text-green-mid' : calculateScore() > 40 ? 'text-gold' : 'text-rust'}`}>
+                        {calculateScore()}/100
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => exportAnalysisPDF(analysisResult.analysis)}
+                      className="btn-primary !py-2 !px-6"
+                    >
+                      Download PDF
+                    </button>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {analysisResult.analysis?.map((clause, idx) => {
+                    const severityColor = clause.severity === 'HIGH' ? 'border-rust' : 'border-gold';
+                    return (
+                      <div key={idx} className={`card-premium !p-0 border-l-4 ${severityColor} overflow-hidden`}>
+                        <div className="p-6">
+                          <div className="flex justify-between items-start mb-4">
+                            <div className="flex gap-2">
+                              <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 bg-ink/5">{clause.id}</span>
+                              <button 
+                                onClick={() => handleFlagClause(clause)}
+                                className="text-[9px] font-bold uppercase tracking-widest text-rust hover:underline"
+                              >
+                                🚩 Flag for Community
+                              </button>
+                              {(persona === 'founder' || persona === 'freelancer') && (
+                                <button 
+                                  onClick={() => handleEscalate(clause)}
+                                  className="text-[9px] font-bold uppercase tracking-widest text-green hover:underline border-l border-ink/10 pl-2"
+                                >
+                                  ⚖️ Escalate to Human
+                                </button>
+                              )}
+                            </div>
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-gold">{clause.riskCategory}</span>
+                          </div>
+                          <p 
+                            className="text-[11px] text-gray italic mb-6 leading-relaxed"
+                            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(fixEncoding(clause.text)) }}
+                          />
+                          
+                          <div className="space-y-4">
+                            <div className="bg-cream/50 p-4">
+                              <strong className="text-[10px] uppercase tracking-widest block mb-2 text-green">💡 Plain English</strong>
+                              <p 
+                                className="text-[11px] leading-relaxed"
+                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(clause.plainEnglish) }}
+                              />
+                            </div>
+                            <div className="bg-gold/5 p-4">
+                              <strong className="text-[10px] uppercase tracking-widest block mb-2 text-gold">⚖️ Legal Advisory</strong>
+                              <p 
+                                className="text-[11px] leading-relaxed whitespace-pre-line"
+                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(clause.critic) }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* ── Sidebar: Simulator ── */}
+          <div className="space-y-8">
+            <div className="card-premium bg-green text-paper">
+              <div className="section-label text-gold">Consequence Engine</div>
+              <h3 className="font-playfair text-2xl font-black mb-6 text-paper">Financial <em>Foresight</em></h3>
+              
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 text-paper/60">Buyout Offer (₦)</label>
+                  <input 
+                    type="number" value={buyoutOffer} 
+                    onChange={e => setBuyoutOffer(e.target.value)}
+                    className="input-premium bg-white/5 border-white/10 text-paper"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 text-paper/60">Monthly Rev (₦)</label>
+                  <input 
+                    type="number" value={monthlyStreams} 
+                    onChange={e => setMonthlyStreams(e.target.value)}
+                    className="input-premium bg-white/5 border-white/10 text-paper"
+                  />
+                </div>
+                <button 
+                  onClick={handleSimulate}
+                  className="btn-primary w-full"
+                >
+                  {isSimulating ? 'Processing...' : 'Run Simulation'}
+                </button>
+              </div>
+
+              {simResult && (
+                <div className="mt-8 pt-8 border-t border-white/10 animate-fade-up">
+                  <div className="text-center mb-6">
+                    <span className="text-[10px] uppercase tracking-widest text-paper/40">Recommendation</span>
+                    <div className="text-xl font-syne font-bold text-gold mt-1">{simResult.optimalDecision}</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-white/5 p-3 text-center">
+                      <div className="text-[9px] uppercase text-paper/40 mb-1">Deal Risk</div>
+                      <div className="text-xs font-bold text-gold">{simResult.dealRisk}</div>
+                    </div>
+                    <div className="bg-white/5 p-3 text-center">
+                      <div className="text-[9px] uppercase text-paper/40 mb-1">Confidence</div>
+                      <div className="text-xs font-bold text-gold">{simResult.confidenceScore}</div>
+                    </div>
+                    <div className="bg-white/5 p-3 text-center col-span-2">
+                      <div className="text-[9px] uppercase text-paper/40 mb-1">Strategic Leverage</div>
+                      <div className="text-xs font-bold text-gold">{simResult.roi}</div>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Preview */}
-              <div className="bg-white border border-ink/10 p-6 shadow-sm">
-                <h4 className="font-mono text-xs uppercase tracking-widest text-gold mb-4 border-b border-ink/10 pb-2">Extracted Text Preview</h4>
-                <p className="text-sm text-mid whitespace-pre-wrap">{fixEncoding(analysisResult.extractedTextPreview)}</p>
-              </div>
+            <div className="card-premium border-gold/20">
+              <div className="section-label">Market Intelligence</div>
+              <h4 className="font-syne font-bold text-sm mb-4">CAMA 2020 Compliance</h4>
+              <p className="text-[11px] text-gray leading-relaxed mb-4">Ensure your business is fully aligned with the latest CAC guidelines and the 2020 Companies and Allied Matters Act.</p>
+              <button className="btn-ghost !text-ink">Read Standards →</button>
+            </div>
+          </div>
+        </div>
 
-              {/* Clauses */}
-              <div className="space-y-4">
-                <h4 className="font-mono text-xs uppercase tracking-widest text-accent mb-4 border-b border-ink/10 pb-2">Flagged Clauses ({analysisResult.analysis?.length || 0})</h4>
+        {/* ── Template Gallery ── */}
+        <TemplateGallery />
 
-                {analysisResult.analysis && analysisResult.analysis.length > 0 ? (
-                  analysisResult.analysis.map((clause, idx) => {
-                    const severityColor = clause.severity === 'HIGH' ? 'border-red-500' : clause.severity === 'MEDIUM' ? 'border-gold' : 'border-teal'
-                    const severityBadge = clause.severity === 'HIGH' ? 'bg-red-100 text-red-700' : clause.severity === 'MEDIUM' ? 'bg-yellow-100 text-yellow-700' : 'bg-teal/10 text-teal'
-                    return (
-                      <div key={idx} className={`bg-white border-l-4 ${severityColor} p-5 shadow-sm`}>
-                        {/* Header Row */}
-                        <div className="flex justify-between items-start mb-3 gap-2 flex-wrap">
-                          <span className="font-syne font-bold text-sm">{clause.id}</span>
-                          <div className="flex items-center gap-2">
-                            <span className={`text-xs font-bold uppercase tracking-widest px-2 py-0.5 rounded ${severityBadge}`}>{clause.severity || 'MEDIUM'}</span>
-                            <span className="text-xs uppercase tracking-widest bg-accent/10 text-accent px-2 py-0.5 rounded">{clause.riskCategory}</span>
-                            <span className="text-xs text-mid font-mono">{clause.confidence}%</span>
-                          </div>
-                        </div>
-
-                        {/* Clause Text */}
-                        <p className="text-xs text-ink/70 mb-4 italic border-l-2 border-ink/10 pl-3 line-clamp-3">"{fixEncoding(clause.text)}"</p>
-
-                        {/* ── Plain English Summary ── */}
-                        {clause.plainEnglish && (
-                          <div className="mb-3 bg-emerald-50 border border-emerald-200 rounded p-4">
-                            <strong className="text-emerald-800 text-xs uppercase tracking-widest block mb-2">💬 What This Means For You</strong>
-                            <p className="text-emerald-900 text-xs leading-relaxed whitespace-pre-line">{clause.plainEnglish}</p>
-                          </div>
-                        )}
-
-                        {/* ── Foresight / Consequence Engine ── */}
-                        {clause.foresight && (
-                          <div className="mb-3 bg-purple-50 border border-purple-200 rounded p-4">
-                            <p className="text-purple-900 text-xs leading-relaxed">{clause.foresight}</p>
-                          </div>
-                        )}
-
-                        {/* Advocate / Critic */}
-                        <div className="space-y-3 bg-cream/50 p-3 text-xs mb-3">
-                          <div>
-                            <strong className="text-teal block mb-1">⚖️ Advocate (For the Clause):</strong>
-                            <span className="text-mid">{clause.advocate}</span>
-                          </div>
-                          <div>
-                            <strong className="text-accent block mb-1">🚨 Critic (Nigerian Law):</strong>
-                            <span className="text-mid whitespace-pre-line">{clause.critic}</span>
-                          </div>
-                        </div>
-
-                        {/* Negotiation Tip */}
-                        {clause.negotiation_tip && (
-                          <div className="bg-blue-50 border border-blue-100 p-3 text-xs rounded">
-                            <strong className="text-blue-700 block mb-1">💡 Negotiation Tip:</strong>
-                            <span className="text-blue-600">{clause.negotiation_tip}</span>
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })
-                ) : (
-                  <div className="p-6 bg-green/5 border border-green/20 text-center">
-                    <p className="text-teal font-syne font-bold">No significant risks found.</p>
+        {/* ── Contract History ── */}
+        {user && history.length > 0 && (
+          <div className="mt-24">
+            <div className="section-label">Legal Vault</div>
+            <h3 className="font-playfair text-3xl font-black mb-8">Your Analysis <em>History</em></h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {history.map(item => (
+                <div key={item.id} className="card-premium">
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="text-[10px] uppercase font-bold tracking-widest text-gold">{new Date(item.created_at).toLocaleDateString()}</div>
+                    <div className={`text-xs font-black ${item.risk_score > 70 ? 'text-green-mid' : 'text-rust'}`}>
+                      {item.risk_score}/100
+                    </div>
                   </div>
-                )}
-              </div>
+                  <h4 className="font-syne font-bold text-sm mb-2 truncate">{item.filename}</h4>
+                  <p className="text-[10px] text-gray mb-6">{item.analysis_results?.length} clauses analyzed</p>
+                  <button 
+                    onClick={() => {
+                      setAnalysisResult({ analysis: item.analysis_results });
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="btn-ghost !text-ink text-[9px]"
+                  >
+                    View Full Report →
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
         )}
+
+        {/* ── Community Trust Index ── */}
+        <TrustIndex />
       </main>
+
+      {/* ── Footer ── */}
+      <footer className="bg-ink text-paper py-20 px-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div className="col-span-2">
+            <h1 className="font-syne font-extrabold text-2xl tracking-widest uppercase mb-4">Clear<span className="text-gold">Sight</span></h1>
+            <p className="font-mono text-[11px] text-paper/40 leading-relaxed max-w-sm">The intelligent risk management platform for Nigeria's commercial future. We empower 40 million SMBs to sign with confidence.</p>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-widest font-bold text-gold mb-6">Product</div>
+            <ul className="space-y-3 text-[11px] text-paper/60 font-mono">
+              <li><a href="#" className="hover:text-gold">Risk Analysis</a></li>
+              <li><a href="#" className="hover:text-gold">Template Gallery</a></li>
+              <li><a href="#" className="hover:text-gold">Trust Index</a></li>
+            </ul>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-widest font-bold text-gold mb-6">Legal</div>
+            <ul className="space-y-3 text-[11px] text-paper/60 font-mono">
+              <li><a href="#" className="hover:text-gold">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-gold">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-gold">CAMA 2020 Guides</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

@@ -28,18 +28,33 @@ app.get('/api/health', (req, res) => {
 
 const { analyzeMusicContract } = require('./services/ConsequenceEngine');
 
-app.post('/api/simulate', (req, res) => {
-  try {
-    const { buyoutOffer, monthlyStreams, strategySettings } = req.body;
-    if (!buyoutOffer || isNaN(buyoutOffer)) {
-      return res.status(400).json({ error: 'Valid buyoutOffer is required' });
-    }
-    const result = analyzeMusicContract(Number(buyoutOffer), Number(monthlyStreams) || 100000, strategySettings);
-    res.json(result);
-  } catch (err) {
-    console.error("Simulation error:", err);
-    res.status(500).json({ error: 'Simulation failed' });
-  }
+app.post('/api/simulate', async (req, res) => {
+  const { buyoutOffer, monthlyStreams, strategySettings } = req.body;
+  const { riskAppetite, monthlyExpenses, strategicGoal } = strategySettings;
+
+  // 1. Calculate Baseline Liability Risk (₦)
+  // High risk = 2.5x annual burn exposure | Balanced = 1.0x | Conservative = 0.5x
+  const annualBurn = monthlyExpenses * 12;
+  const liabilityMultiplier = riskAppetite === 'aggressive' ? 0.5 : riskAppetite === 'balanced' ? 1.5 : 2.5;
+  const estimatedExposure = annualBurn * liabilityMultiplier;
+
+  // 2. Calculate Strategic ROI
+  // Protection goal focuses on minimizing loss | Liquidity goal focuses on cash multiples
+  const roi = (buyoutOffer / (annualBurn || 1)).toFixed(2);
+  const confidence = strategicGoal === 'protection' ? '85%' : '65%';
+
+  // 3. Optimal Decision Logic
+  let optimalDecision = "PROCEED WITH CAUTION";
+  if (roi > 3 && riskAppetite !== 'conservative') optimalDecision = "STRATEGIC EXIT RECOMMENDED";
+  if (roi < 1 && strategicGoal === 'protection') optimalDecision = "REJECT: SUB-OPTIMAL TERMS";
+  if (estimatedExposure > 5000000 && riskAppetite === 'conservative') optimalDecision = "REJECT: HIGH LEGAL EXPOSURE";
+
+  res.json({
+    optimalDecision,
+    dealRisk: `₦${(estimatedExposure / 1000000).toFixed(1)}M Est. Exposure`,
+    confidenceScore: confidence,
+    roi: `${roi}x Burn Multiple`
+  });
 });
 
 app.listen(PORT, async () => {

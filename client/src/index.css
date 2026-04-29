@@ -1,9 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-paper text-ink font-lora antialiased;
+:root {
+  --ink: #0D0D0D;
+  --paper: #F5F0E8;
+  --gold: #C8A84B;
+  --gold-light: #E8D08A;
+  --green: #1A3C2E;
+  --green-mid: #2D5C43;
+  --cream: #FAF7F0;
+  --rust: #8B3A2A;
+  --gray: #6B6B6B;
+}
+
+body {
+  @apply bg-cream text-ink font-mono;
+  cursor: default;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.3;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gold text-ink px-8 py-3 font-syne font-bold uppercase tracking-widest text-[11px] transition-all hover:bg-gold-light hover:-translate-y-0.5 active:translate-y-0;
   }
+
+  .btn-ghost {
+    @apply text-ink/60 font-syne font-bold uppercase tracking-widest text-[11px] transition-all hover:text-ink;
+  }
+
+  .card-premium {
+    @apply bg-white border border-ink/5 p-6 shadow-sm transition-all hover:shadow-md hover:border-gold/30;
+  }
+
+  .section-label {
+    @apply text-gold text-[10px] uppercase tracking-[0.3em] font-bold flex items-center gap-3 mb-4;
+  }
+
+  .section-label::before {
+    content: '';
+    @apply w-8 h-[1px] bg-gold;
+  }
+
+  .input-premium {
+    @apply w-full bg-white border border-ink/10 p-3 text-sm rounded-none focus:outline-none focus:border-gold transition-colors;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-dim);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease forwards;
 }
