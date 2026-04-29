@@ -59,8 +59,24 @@ app.post('/api/simulate', async (req, res) => {
 
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
-  // Pre-warm the AI model so the first user request is instant
-  warmupEmbedder().catch(err => console.warn('Embedder warmup skipped:', err.message));
-  // Load ChromaDB (non-blocking — runs in background)
-  initKnowledgeBase().catch(err => console.warn('ChromaDB init failed:', err.message));
+  
+  console.log('⚡ Pre-warming local embedding model...');
+  try {
+    const { warmupEmbedder } = require('./services/rag.service');
+    await warmupEmbedder();
+    console.log('✓ Embedding model ready.');
+  } catch (err) {
+    console.warn('⚠️ Embedding model failed to load, but server is continuing.');
+  }
+
+  // Initialize ChromaDB asynchronously so it doesn't block startup
+  initializeChroma().catch(err => {
+    console.error('❌ ChromaDB Initialization Failed:', err.message);
+    console.warn('🛡️ ClearSight is running in "Direct-AI" mode (No RAG).');
+  });
 });
+
+async function initializeChroma() {
+  const { initKnowledgeBase } = require('./services/rag.service');
+  await initKnowledgeBase();
+}
