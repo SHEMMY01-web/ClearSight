@@ -96,6 +96,12 @@ function getAllMatchingStatutes(clauseText, contractType = null) {
     const categoryType = CATEGORY_TYPE_MAP[category];
     const isPrimary = !contractType || !categoryType || categoryType === contractType;
 
+    // Strict Filtering: Skip tenancy laws for employment docs and vice-versa.
+    // commercial_law is always allowed as it contains general contract principles.
+    if (contractType && categoryType && categoryType !== contractType && category !== 'commercial_law') {
+      continue;
+    }
+
     for (const law of knowledgeBase[category]) {
       for (const flag of law.red_flags) {
         const flagLower = flag.toLowerCase();
