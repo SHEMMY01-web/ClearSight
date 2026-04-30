@@ -33,6 +33,7 @@ function chunkByClauses(text) {
 const fs = require('fs');
 const path = require('path');
 const { searchLaw, searchCases } = require('./rag.service');
+const { generatePlainEnglish, generateDynamicForesight } = require('./llm.service');
 
 // Load Knowledge Base
 const kbPath = path.join(__dirname, '../knowledge_base.json');
@@ -218,12 +219,22 @@ function buildCritic(clauseText, topMatch, riskAppetite = 'balanced') {
 
 /**
  * Builds a "Plain English" summary for a small business owner.
- * Synthesizes the KB topic data + RAG context into a simple, grounded explanation.
- * No secondary model needed — grounded in Nigerian law data we already have.
+ * Dynamically generates text using an LLM, with a hardcoded fallback.
  */
-function buildPlainEnglish(topMatch, ragBestSentence) {
+async function buildPlainEnglish(topMatch, ragBestSentence, clauseText = null, persona = 'general') {
   if (!topMatch) return null;
 
+  // ── Stage 1: Dynamic LLM Generation (Preferred) ──
+  if (clauseText) {
+    try {
+      const dynamicResult = await generatePlainEnglish(clauseText, topMatch.rule, topMatch.statute, persona);
+      if (dynamicResult) return dynamicResult;
+    } catch (e) {
+      console.warn("[Analysis] Dynamic Plain English failed, falling back to map.");
+    }
+  }
+
+  // ── Stage 2: Deterministic Fallback ──
   const INTRO_MAP = {
     'Rent Increase':
       'The landlord can raise your rent by any amount, at any time, without your agreement.',
@@ -263,10 +274,35 @@ function buildPlainEnglish(topMatch, ragBestSentence) {
  * Predicts real-world consequences for the user in 3–12 months,
  * tailored to their persona (freelancer, founder, market_trader, general).
  */
-function buildForesight(topMatch, persona = 'general', historicalOutcomes = []) {
+/**
+ * Consequence Engine — "Foresight Layer"
+ * Dynamically predicts consequences using an LLM, with a hardcoded fallback.
+ */
+async function buildForesight(topMatch, persona = 'general', historicalOutcomes = [], clauseText = null) {
   if (!topMatch) return null;
-  const topic = topMatch.topic;
 
+  // ── Stage 1: Dynamic LLM Generation (Preferred) ──
+  if (clauseText) {
+    try {
+      const dynamicResult = await generateDynamicForesight(clauseText, topMatch.rule, persona);
+      if (dynamicResult) {
+         // Append court data if available
+         let statsStr = '';
+         if (historicalOutcomes && historicalOutcomes.length > 0) {
+           const wins = historicalOutcomes.filter(o => o === 'WON').length;
+           const total = historicalOutcomes.length;
+           const winRate = Math.round((wins / total) * 100);
+           statsStr = `\n\n📊 Real Court Data: Based on ${total} similar historical appeal cases in Nigerian courts, businesses won only ${winRate}% of the time.`;
+         }
+         return `${dynamicResult}${statsStr}`;
+      }
+    } catch (e) {
+      console.warn("[Analysis] Dynamic Foresight failed, falling back to map.");
+    }
+  }
+
+  // ── Stage 2: Deterministic Fallback ──
+  const topic = topMatch.topic;
   const FORESIGHT = {
     'Rent Increase': {
       general:      'In 12 months, uncapped rent could increase your costs by ₦500K–₦1M with no legal grounds to object.',
@@ -440,8 +476,8 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
       }
 
       // Build Plain English + Foresight
-      let plainEnglish = buildPlainEnglish(topMatch, ragBestSentence);
-      let foresight = buildForesight(topMatch, persona, caseHits);
+      let plainEnglish = await buildPlainEnglish(topMatch, ragBestSentence, chunk.clauseText, persona);
+      let foresight = await buildForesight(topMatch, persona, caseHits, chunk.clauseText);
 
       // Do not prepend the strategyHeader to the plainEnglish or foresight 
       // as it makes them too technical for the end-user.
