@@ -231,15 +231,15 @@ async function searchLaw(query) {
     // Determine the most relevant source based on keywords in the clause
     let filter = undefined; // Default: search all
     
-    if (lowerQuery.includes('lagos') || lowerQuery.includes('rent') || lowerQuery.includes('tenant') || lowerQuery.includes('landlord')) {
+    if (/\b(rent|tenant|landlord|tenancy|premises|occupation|lease)\b/.test(lowerQuery)) {
       filter = { "source": "Tenancy-Law-2011.pdf" };
-    } else if (lowerQuery.includes('share') || lowerQuery.includes('director') || lowerQuery.includes('company') || lowerQuery.includes('board')) {
+    } else if (/\b(share|director|company|board|dividend|cama)\b/.test(lowerQuery)) {
       filter = { "source": "CAMA-NOTE FINAL-FULL-VERSION.pdf" };
-    } else if (lowerQuery.includes('employee') || lowerQuery.includes('wages') || lowerQuery.includes('labour') || lowerQuery.includes('worker')) {
+    } else if (/\b(employee|employer|wages|salary|labour|worker|intern|volunteer|dismissal|redundancy)\b/.test(lowerQuery)) {
       filter = { "source": "Labour Act, Cap L1, Laws of the Federation of Nigeria (LFN) 2004.pdf" };
-    } else if (lowerQuery.includes('arbitration') || lowerQuery.includes('mediation') || lowerQuery.includes('dispute')) {
+    } else if (/\b(arbitration|mediation|dispute|conciliat)\b/.test(lowerQuery)) {
       filter = { "source": "New-Nigerian-Arbitration-and-Mediation-Act.pdf" };
-    } else if (lowerQuery.includes('intellectual property') || lowerQuery.includes('copyright')) {
+    } else if (/\b(intellectual property|copyright|trademark|patent)\b/.test(lowerQuery)) {
       filter = { "source": "Copyright-Act-2022.pdf" };
     }
 

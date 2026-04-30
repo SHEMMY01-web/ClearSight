@@ -54,21 +54,31 @@ function detectContractType(text) {
   const lower = text.toLowerCase();
   const scores = { tenancy: 0, employment: 0, corporate: 0, ip: 0, arbitration: 0 };
 
-  if (/tenant|landlord|rent|lease|premises|tenancy/.test(lower)) scores.tenancy += 3;
-  if (/lagos|abuja|victoria island|ikeja/.test(lower)) scores.tenancy += 1;
-  if (/employee|employer|salary|wages|dismissal|termination of employment/.test(lower)) scores.employment += 3;
-  if (/director|shareholder|company|board of directors|shares/.test(lower)) scores.corporate += 3;
-  if (/intellectual property|copyright|trademark|patent/.test(lower)) scores.ip += 3;
-  if (/arbitration|mediation|dispute resolution/.test(lower)) scores.arbitration += 2;
+  // Tenancy Keywords
+  if (/\b(tenant|landlord|rent|lease|tenancy|premises|occupation of premises)\b/.test(lower)) scores.tenancy += 4;
+  if (/\b(lagos|abuja|victoria island|ikeja)\b/.test(lower)) scores.tenancy += 1;
 
-  return Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0]; // top-scoring type
+  // Employment Keywords
+  if (/\b(employee|employer|salary|wages|dismissal|termination|intern|volunteer|internship|offer letter|probation)\b/.test(lower)) scores.employment += 5;
+  
+  // Corporate Keywords
+  if (/\b(director|shareholder|company|board|trustee|trustees|management|cama|memorandum|articles)\b/.test(lower)) scores.corporate += 4;
+
+  // IP Keywords
+  if (/\b(intellectual property|copyright|trademark|patent|invention|disclosure)\b/.test(lower)) scores.ip += 4;
+
+  // Arbitration Keywords
+  if (/\b(arbitration|mediation|dispute resolution|conciliation)\b/.test(lower)) scores.arbitration += 3;
+
+  const topType = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+  return scores[topType] > 0 ? topType : 'general';
 }
 
 // Category → contract type alignment map
 const CATEGORY_TYPE_MAP = {
   tenancy_law: 'tenancy',
-  labour_law: 'employment',
-  corporate_law: 'corporate',
+  employment_law: 'employment',
+  commercial_law: 'corporate',
   ip_law: 'ip',
   arbitration_law: 'arbitration'
 };
@@ -88,9 +98,13 @@ function getAllMatchingStatutes(clauseText, contractType = null) {
 
     for (const law of knowledgeBase[category]) {
       for (const flag of law.red_flags) {
-        if (lowerText.includes(flag.toLowerCase())) {
-          // Anti-hallucination: skip cross-category MEDIUM matches
-          if (!isPrimary && law.severity !== 'HIGH') break;
+        const flagLower = flag.toLowerCase();
+        // Use word boundary check to avoid partial matches (e.g., "Foundation" organization vs "foundation" building)
+        const flagRegex = new RegExp(`\\b${flagLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+        
+        if (flagRegex.test(lowerText)) {
+          // Anti-hallucination: skip cross-category matches unless severity is HIGH
+          if (!isPrimary && law.severity !== 'HIGH') continue;
           matches.push({
             statute: law.statute,
             rule: law.rule,
