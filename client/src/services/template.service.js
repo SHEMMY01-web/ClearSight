@@ -98,51 +98,122 @@ export const generatePDF = (title, content) => {
 
 export const exportAnalysisPDF = (analysis) => {
   const doc = new jsPDF();
-  let y = 35;
+  let y = 45;
   let pageCount = 1;
 
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(16);
-  doc.text('ClearSight Contract Risk Report', 20, 20);
-  
-  doc.setFont("times", "normal");
-  analysis.forEach((clause, index) => {
-    if (y > 250) {
-      addFooter(doc, pageCount++);
-      doc.addPage();
-      y = 20;
-    }
+  // ── Branding Header ──
+  const drawHeader = (doc) => {
+    doc.setFillColor(26, 32, 44); // Dark Ink
+    doc.rect(0, 0, 210, 35, 'F');
     
     doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.setTextColor(255, 255, 255);
+    doc.text('ClearSight', 20, 22);
+    
     doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
     doc.setTextColor(196, 160, 82); // Gold
-    doc.text(`${clause.riskCategory || 'Legal Risk'} - ${clause.severity}`, 20, y);
-    y += 7;
+    doc.text('LEGAL STRATEGIST & RISK AUDIT', 20, 28);
+    
+    doc.setTextColor(200, 200, 200);
+    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 155, 22);
+  };
 
+  const cleanText = (text) => {
+    if (!text) return "";
+    return text
+      .replace(/[✅🚩💡⚖️📖🔮🚨⚠️🔍💰🛡️🎯🚀]/g, "") // Strip emojis jsPDF can't handle
+      .replace(/WHAT THIS MEANS:/g, "ANALYSIS:")
+      .replace(/The Law:/g, "STATUTE:")
+      .replace(/Legal Fact:/g, "PRECEDENT:")
+      .trim();
+  };
+
+  drawHeader(doc);
+
+  analysis.forEach((clause, index) => {
+    // Check for page break
+    if (y > 230) {
+      addFooter(doc, pageCount++);
+      doc.addPage();
+      drawHeader(doc);
+      y = 45;
+    }
+
+    const severityColor = clause.severity === 'HIGH' ? [190, 30, 45] : [210, 160, 50];
+    
+    // 1. Risk Badge
+    doc.setDrawColor(...severityColor);
+    doc.setLineWidth(0.5);
+    doc.setFillColor(...severityColor);
+    doc.rect(20, y, 170, 8, 'F');
+    
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(255, 255, 255);
+    doc.text(`FLAG #${index + 1}: ${clause.riskCategory.toUpperCase()} [${clause.severity} RISK]`, 25, y + 5.5);
+    y += 12;
+
+    // 2. Original Clause Box
+    doc.setFillColor(245, 245, 245);
+    const clauseLines = doc.splitTextToSize(`"${clause.text}"`, 160);
+    doc.rect(20, y, 170, (clauseLines.length * 5) + 5, 'F');
+    
     doc.setFont("times", "italic");
     doc.setFontSize(9);
-    doc.setTextColor(100, 100, 100);
-    const splitText = doc.splitTextToSize(`"${clause.text}"`, 170);
-    doc.text(splitText, 20, y);
-    y += (splitText.length * 5) + 5;
+    doc.setTextColor(80, 80, 80);
+    doc.text(clauseLines, 25, y + 5);
+    y += (clauseLines.length * 5) + 10;
 
-    doc.setFont("helvetica", "normal");
+    // 3. The "Plain English" Insight (Primary Card)
+    doc.setDrawColor(230, 230, 230);
+    doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
-    const splitCritic = doc.splitTextToSize(`Advisory: ${clause.critic}`, 170);
+    doc.text("EXECUTIVE SUMMARY", 20, y);
+    y += 5;
+
+    doc.setFont("helvetica", "normal");
+    const plainText = cleanText(clause.plainEnglish || "No summary available.");
+    const splitPlain = doc.splitTextToSize(plainText, 170);
+    doc.text(splitPlain, 20, y);
+    y += (splitPlain.length * 5) + 8;
+
+    // 4. Detailed Advisory
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(100, 100, 100);
+    doc.text("STRATEGIC ADVISORY", 20, y);
+    y += 5;
+
+    doc.setFont("times", "normal");
+    const criticText = cleanText(clause.critic);
+    const splitCritic = doc.splitTextToSize(criticText, 170);
     doc.text(splitCritic, 20, y);
     y += (splitCritic.length * 5) + 15;
+    
+    // Separator line
+    doc.setDrawColor(240, 240, 240);
+    doc.line(20, y - 5, 190, y - 5);
   });
 
   addFooter(doc, pageCount);
-  doc.save(`ClearSight_Analysis_${new Date().getTime()}.pdf`);
+  doc.save(`ClearSight_Audit_${new Date().getTime()}.pdf`);
 };
 
 const addFooter = (doc, pageNum) => {
   const pageHeight = doc.internal.pageSize.height;
-  doc.setFont("helvetica", "italic");
+  doc.setDrawColor(196, 160, 82);
+  doc.setLineWidth(0.5);
+  doc.line(20, pageHeight - 15, 190, pageHeight - 15);
+
+  doc.setFont("helvetica", "bold");
   doc.setFontSize(8);
+  doc.setTextColor(26, 32, 44);
+  doc.text(`CAMA 2020 VALIDATED REPORT`, 20, pageHeight - 10);
+  
+  doc.setFont("helvetica", "normal");
   doc.setTextColor(150, 150, 150);
-  doc.text(`ClearSight Legal Strategist | CAMA 2020 Validated | Page ${pageNum}`, 20, pageHeight - 10);
-  doc.text(`Confidential - For Strategic Use Only`, 140, pageHeight - 10);
+  doc.text(`Page ${pageNum} | Strictly Confidential`, 170, pageHeight - 10, { align: 'right' });
 };
