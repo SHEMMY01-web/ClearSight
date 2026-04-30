@@ -252,10 +252,10 @@ function buildPlainEnglish(topMatch, ragBestSentence) {
   };
 
   const intro = INTRO_MAP[topMatch.topic] || 'This clause contains terms that could be unfair or illegal under Nigerian law.';
-  const law = `\n\n⚖️ Under ${topMatch.statute}, ${topMatch.rule.replace(/^[A-Z]/, c => c.toLowerCase())}`;
-  const rag = ragBestSentence ? `\n\n📖 From the law: "${ragBestSentence}"` : '';
+  const law = `\n\n⚖️ The Law: Under ${topMatch.statute}, ${topMatch.rule.replace(/^[A-Z]/, c => c.toLowerCase())}`;
+  const rag = ragBestSentence ? `\n\n📖 Legal Fact: "${ragBestSentence}"` : '';
 
-  return `${intro}${law}${rag}`;
+  return `✅ WHAT THIS MEANS:\n${intro}${law}${rag}`;
 }
 
 /**
@@ -443,11 +443,9 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
       let plainEnglish = buildPlainEnglish(topMatch, ragBestSentence);
       let foresight = buildForesight(topMatch, persona, caseHits);
 
-      if (strategyHeader) {
-        if (plainEnglish) plainEnglish = `${strategyHeader}${plainEnglish}`;
-        if (foresight) foresight = `${strategyHeader}${foresight}`;
-      }
-
+      // Do not prepend the strategyHeader to the plainEnglish or foresight 
+      // as it makes them too technical for the end-user.
+      
       return {
         id: chunk.id,
         text: chunk.clauseText,
