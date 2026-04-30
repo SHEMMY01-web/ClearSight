@@ -4,13 +4,16 @@ const path = require('path');
 const pdf = require('pdf-parse');
 
 const client = new ChromaClient({
-  // Use the Host variable (e.g., europe-west1.gcp.trychroma.com)
-  path: `https://${process.env.CHROMA_HOST}`, 
-  tenant: process.env.CHROMA_TENANT, // From your dashboard: 3a00273d...
-  database: process.env.CHROMA_DATABASE, // From your dashboard: Clear-Sight
+  // Split the host from the protocol
+  host: process.env.CHROMA_HOST, 
+  port: 443,
+  ssl: true,
+  tenant: process.env.CHROMA_TENANT,
+  database: process.env.CHROMA_DATABASE,
+  // 2026 SDK uses 'auth' object or direct headers
   auth: {
     provider: "token",
-    credentials: process.env.CHROMA_API_KEY, // The ck-... key
+    credentials: process.env.CHROMA_API_KEY.trim(),
     header: "X-Chroma-Token"
   }
 });
