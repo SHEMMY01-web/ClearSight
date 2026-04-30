@@ -4,17 +4,15 @@ const path = require('path');
 const pdf = require('pdf-parse');
 
 const client = new ChromaClient({
-  // Split the host from the protocol
+  // Use the host without any 'https://' prefix
   host: process.env.CHROMA_HOST, 
   port: 443,
   ssl: true,
   tenant: process.env.CHROMA_TENANT,
   database: process.env.CHROMA_DATABASE,
-  // 2026 SDK uses 'auth' object or direct headers
-  auth: {
-    provider: "token",
-    credentials: process.env.CHROMA_API_KEY.trim(),
-    header: "X-Chroma-Token"
+  // The SDK now wants the token directly in a top-level headers object
+  headers: {
+    "X-Chroma-Token": process.env.CHROMA_API_KEY.trim()
   }
 });
 const collectionName = "nigerian_law";
