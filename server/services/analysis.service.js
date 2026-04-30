@@ -277,10 +277,9 @@ async function buildPlainEnglish(topMatch, ragBestSentence, clauseText = null, p
   };
 
   const intro = INTRO_MAP[topMatch.topic] || 'This clause contains terms that could be unfair or illegal under Nigerian law.';
-  const law = `\n\n⚖️ The Law: Under ${topMatch.statute}, ${topMatch.rule.replace(/^[A-Z]/, c => c.toLowerCase())}`;
-  const rag = ragBestSentence ? `\n\n📖 Legal Fact: "${ragBestSentence}"` : '';
-
-  return `✅ WHAT THIS MEANS:\n${intro}${law}${rag}`;
+  
+  // Return ONLY the advice for Plain English
+  return `✅ WHAT THIS MEANS: ${intro}`;
 }
 
 /**
@@ -493,8 +492,14 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
       let plainEnglish = await buildPlainEnglish(topMatch, ragBestSentence, chunk.clauseText, persona);
       let foresight = await buildForesight(topMatch, persona, caseHits, chunk.clauseText);
 
-      // Do not prepend the strategyHeader to the plainEnglish or foresight 
-      // as it makes them too technical for the end-user.
+      // Technical Analysis (Toggleable in UI)
+      const technicalAnalysis = {
+        statute: topMatch?.statute,
+        rule: topMatch?.rule,
+        citation: ragCitation,
+        precedent: ragBestSentence,
+        constraintLayer: strategyHeader // Move the header here
+      };
       
       return {
         id: chunk.id,
@@ -506,6 +511,7 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
         critic,
         plainEnglish,
         foresight,
+        technicalAnalysis,
         negotiation_tip: risk.negotiation_tip || '💡 Request a legal review before signing. Negotiate mutual obligations and cap all financial exposure.'
       };
     })

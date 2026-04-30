@@ -571,12 +571,34 @@ function App() {
                                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(clause.plainEnglish) }}
                               />
                             </div>
-                            <div className="bg-gold/5 p-4">
-                              <strong className="text-[10px] uppercase tracking-widest block mb-2 text-gold">⚖️ Legal Advisory</strong>
-                              <p 
-                                className="text-[11px] leading-relaxed whitespace-pre-line"
-                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(clause.critic) }}
-                              />
+                            
+                            <div className="bg-gold/5 p-4 relative group">
+                              <div className="flex justify-between items-center mb-2">
+                                <strong className="text-[10px] uppercase tracking-widest block text-gold">⚖️ Legal Advisory</strong>
+                                <button 
+                                  onClick={(e) => {
+                                    const details = e.currentTarget.parentElement.nextElementSibling;
+                                    if (details) details.classList.toggle('hidden');
+                                  }}
+                                  className="text-[9px] font-bold uppercase tracking-widest text-gold hover:underline"
+                                >
+                                  Deep Dive →
+                                </button>
+                              </div>
+                              <div className="hidden mt-4 space-y-4 border-t border-gold/10 pt-4 animate-fade-down">
+                                <div className="bg-white/50 p-3 rounded text-[10px] leading-relaxed whitespace-pre-line font-mono text-gray">
+                                  {clause.technicalAnalysis?.constraintLayer}
+                                </div>
+                                <div className="text-[11px] leading-relaxed whitespace-pre-line">
+                                  {clause.critic}
+                                </div>
+                                {clause.technicalAnalysis?.precedent && (
+                                  <div className="mt-2 text-[10px] italic border-l-2 border-gold/30 pl-3 py-1 bg-white/30">
+                                    <strong>Precedent:</strong> "{clause.technicalAnalysis.precedent}" 
+                                    <span className="opacity-50 ml-1">[{clause.technicalAnalysis.citation}]</span>
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
