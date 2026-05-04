@@ -80,12 +80,16 @@ app.listen(PORT, () => {
     
     try {
       const { warmupEmbedder, initKnowledgeBase } = require('./services/rag.service');
+      const { warmupLLM } = require('./services/llm.service');
       
-      // 1. Pre-warm model
+      // 1. Pre-warm embedding model
       await warmupEmbedder();
       
       // 2. Init ChromaDB
       await initKnowledgeBase();
+      
+      // 3. Pre-warm LLM (downloads ~300MB on first run)
+      await warmupLLM();
       
       console.log('🚀 All systems ready in background.');
     } catch (err) {

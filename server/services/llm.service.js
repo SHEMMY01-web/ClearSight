@@ -5,6 +5,7 @@ env.allowLocalModels = false;
 env.useBrowserCache = false;
 
 let generatorPromise = null;
+let modelReady = false;
 
 /**
  * Initializes the local text generation pipeline.
@@ -14,15 +15,53 @@ let generatorPromise = null;
 async function getGenerator() {
     if (!generatorPromise) {
         console.log('[LLM] Loading local dynamic generation model (LaMini-Flan-T5-77M)...');
-        generatorPromise = pipeline('text2text-generation', 'Xenova/LaMini-Flan-T5-77M');
+        generatorPromise = pipeline('text2text-generation', 'Xenova/LaMini-Flan-T5-77M')
+            .then(gen => {
+                modelReady = true;
+                console.log('[LLM] ✓ Model ready.');
+                return gen;
+            })
+            .catch(err => {
+                console.error('[LLM] ✗ Model failed to load:', err.message);
+                generatorPromise = null; // Allow retry on next request
+                throw err;
+            });
     }
     return generatorPromise;
 }
 
 /**
+ * Pre-warm the model during server startup (non-blocking).
+ */
+async function warmupLLM() {
+    try {
+        await getGenerator();
+    } catch (e) {
+        console.warn('[LLM] Warmup failed, will retry on first request.');
+    }
+}
+
+/**
+ * Helper: Run a promise with a timeout. Returns null if it takes too long.
+ */
+function withTimeout(promise, ms) {
+    return Promise.race([
+        promise,
+        new Promise(resolve => setTimeout(() => resolve(null), ms))
+    ]);
+}
+
+/**
  * Dynamically generates a Plain English summary using a local transformer.
+ * Returns null (triggering fallback) if the model isn't ready or times out.
  */
 async function generatePlainEnglish(clause, rule, statute, persona = 'general') {
+    // Skip if model isn't loaded yet (first request after cold start)
+    if (!modelReady) {
+        console.log('[LLM] Model not ready yet, using fallback.');
+        return null;
+    }
+
     try {
         const generator = await getGenerator();
         
@@ -31,15 +70,19 @@ async function generatePlainEnglish(clause, rule, statute, persona = 'general') 
 Legal Clause: "${clause}"
 Plain English Summary:`;
 
-        const output = await generator(prompt, {
+        const output = await withTimeout(generator(prompt, {
             max_new_tokens: 80,
-            temperature: 0.2, // Lower temperature for more deterministic/stable output
+            temperature: 0.2,
             repetition_penalty: 1.5,
             no_repeat_ngram_size: 3
-        });
+        }), 15000); // 15 second timeout
+
+        if (!output) {
+            console.warn('[LLM] Generation timed out.');
+            return null;
+        }
 
         let result = output[0]?.generated_text || "";
-        // Clean up common T5 artifacts
         result = result.replace(/^Plain English:/i, '').trim();
         
         return result ? `✅ WHAT THIS MEANS: ${result}` : null;
@@ -51,19 +94,29 @@ Plain English Summary:`;
 
 /**
  * Dynamically generates foresight consequences for a local transformer.
+ * Returns null (triggering fallback) if the model isn't ready or times out.
  */
 async function generateDynamicForesight(clause, rule, persona = 'general') {
+    if (!modelReady) {
+        return null;
+    }
+
     try {
         const generator = await getGenerator();
         
         const prompt = `Predict a 6-month consequence for a ${persona} given this clause: "${clause}". Risk: ${rule}. Consequence:`;
 
-        const output = await generator(prompt, {
+        const output = await withTimeout(generator(prompt, {
             max_new_tokens: 60,
             temperature: 0.5,
             repetition_penalty: 1.5,
             no_repeat_ngram_size: 3
-        });
+        }), 15000);
+
+        if (!output) {
+            console.warn('[LLM] Foresight timed out.');
+            return null;
+        }
 
         let result = output[0]?.generated_text || "";
         result = result.replace(/^Consequence:/i, '').trim();
@@ -77,5 +130,6 @@ async function generateDynamicForesight(clause, rule, persona = 'general') {
 
 module.exports = {
     generatePlainEnglish,
-    generateDynamicForesight
+    generateDynamicForesight,
+    warmupLLM
 };
