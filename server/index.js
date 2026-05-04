@@ -6,9 +6,19 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(helmet());
-app.use(cors());
+// Middleware — CORS must come BEFORE helmet
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://clear-sight-five.vercel.app',
+    /\.vercel\.app$/   // Allow all Vercel preview deployments
+  ],
+  credentials: true
+}));
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' }
+}));
 app.use(express.json());
 
 // Routes
