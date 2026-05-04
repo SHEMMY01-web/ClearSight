@@ -10,6 +10,37 @@ import DOMPurify from 'dompurify'
 // Fix OCR encoding artifact: â‚¦ → ₦ (Naira)
 const fixEncoding = (str = '') => str.replace(/â‚¦/g, '₦').replace(/â‚¦/g, '₦');
 
+// Cache version — bump this to invalidate stale localStorage results
+const CACHE_VERSION = 'v2';
+const CACHE_KEY = `last_analysis_${CACHE_VERSION}`;
+
+/**
+ * Frontend safety net: strip any SYSTEMATIC CONSTRAINT LAYER boilerplate
+ * that may have leaked into plainEnglish from old cached data or old backend code.
+ */
+const sanitizePlainEnglish = (text) => {
+  if (!text) return '';
+  // Remove everything before the actual advice ("✅ WHAT THIS MEANS:" or the INTRO_MAP text)
+  const constraintIdx = text.indexOf('SYSTEMATIC CONSTRAINT LAYER');
+  if (constraintIdx !== -1) {
+    // Find the actual advice — it starts with known patterns
+    const adviceMarkers = ['This clause', 'The landlord', 'You could', 'The other party', 'Every piece', 'Your employer', 'If anything goes wrong', 'After this contract', 'Any dispute'];
+    for (const marker of adviceMarkers) {
+      const markerIdx = text.indexOf(marker);
+      if (markerIdx > constraintIdx) {
+        // Extract just the advice sentence(s) and stop at legal citations
+        let advice = text.substring(markerIdx);
+        // Strip trailing legal citations (⚖️, 📖, From the law:, etc.)
+        advice = advice.replace(/[⚖️📖].*/s, '').trim();
+        return `✅ WHAT THIS MEANS: ${advice}`;
+      }
+    }
+    // If we can't find the advice, return a generic message
+    return '✅ WHAT THIS MEANS: This clause contains terms that could be unfair or illegal under Nigerian law.';
+  }
+  return text;
+};
+
 const PERSONAS = [
   { value: 'general',      label: '👤 General User',    desc: 'Standard risk analysis' },
   { value: 'freelancer',   label: '💼 Freelancer',       desc: 'IP, kill fees, scope creep' },
@@ -66,8 +97,9 @@ function App() {
       .then(r => setHealthStatus(r.data.status === 'ok' ? 'OK' : 'Error'))
       .catch(() => setHealthStatus('Disconnected'))
 
-    // Load Cached Analysis (Offline Support)
-    const cached = localStorage.getItem('last_analysis');
+    // Load Cached Analysis (Offline Support) — versioned to prevent stale data
+    localStorage.removeItem('last_analysis'); // Clear old unversioned cache
+    const cached = localStorage.getItem(CACHE_KEY);
     if (cached) {
       try {
         setAnalysisResult(JSON.parse(cached));
@@ -207,7 +239,7 @@ function App() {
 
   const handleUploadComplete = (result) => {
     setAnalysisResult(result);
-    localStorage.setItem('last_analysis', JSON.stringify(result));
+    localStorage.setItem(CACHE_KEY, JSON.stringify(result));
   };
 
   const handleEscalate = async (clause) => {
@@ -568,7 +600,7 @@ function App() {
                               <strong className="text-[10px] uppercase tracking-widest block mb-2 text-green">💡 Plain English</strong>
                               <p 
                                 className="text-[11px] leading-relaxed"
-                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(clause.plainEnglish) }}
+                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(sanitizePlainEnglish(clause.plainEnglish)) }}
                               />
                             </div>
                             
