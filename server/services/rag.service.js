@@ -5,14 +5,14 @@ const pdf = require('pdf-parse');
 
 const client = new ChromaClient({
   // Use the host without any 'https://' prefix
-  host: process.env.CHROMA_HOST,
+  host: process.env.CHROMA_HOST || 'localhost',
   port: 443,
   ssl: true,
-  tenant: process.env.CHROMA_TENANT,
-  database: process.env.CHROMA_DATABASE,
+  tenant: process.env.CHROMA_TENANT || 'default_tenant',
+  database: process.env.CHROMA_DATABASE || 'default_database',
   // The SDK now wants the token directly in a top-level headers object
   headers: {
-    "X-Chroma-Token": process.env.CHROMA_API_KEY.trim()
+    "X-Chroma-Token": (process.env.CHROMA_API_KEY || '').trim()
   }
 });
 const collectionName = "nigerian_law";
