@@ -5,7 +5,7 @@ const pdf = require('pdf-parse');
 
 const client = new ChromaClient({
   // Use the host without any 'https://' prefix
-  host: process.env.CHROMA_HOST, 
+  host: process.env.CHROMA_HOST,
   port: 443,
   ssl: true,
   tenant: process.env.CHROMA_TENANT,
@@ -76,9 +76,9 @@ const localEmbeddingFunction = {
  * Step 1: Extract Text from the PDF
  */
 const loadPdf = async (filePath) => {
-    const dataBuffer = fs.readFileSync(filePath);
-    const data = await pdf(dataBuffer);
-    return data.text;
+  const dataBuffer = fs.readFileSync(filePath);
+  const data = await pdf(dataBuffer);
+  return data.text;
 };
 
 /**
@@ -86,13 +86,13 @@ const loadPdf = async (filePath) => {
  * Assumes ~3000 chars per page (standard for legal PDFs).
  */
 const chunkText = (text, size = 1000, overlap = 200) => {
-    const CHARS_PER_PAGE = 3000;
-    const chunks = [];
-    for (let i = 0; i < text.length; i += (size - overlap)) {
-        const approxPage = Math.floor(i / CHARS_PER_PAGE) + 1;
-        chunks.push({ text: text.substring(i, i + size), page: approxPage });
-    }
-    return chunks;
+  const CHARS_PER_PAGE = 3000;
+  const chunks = [];
+  for (let i = 0; i < text.length; i += (size - overlap)) {
+    const approxPage = Math.floor(i / CHARS_PER_PAGE) + 1;
+    chunks.push({ text: text.substring(i, i + size), page: approxPage });
+  }
+  return chunks;
 };
 
 /**
@@ -121,45 +121,45 @@ async function initKnowledgeBase() {
         console.log(`✓ ChromaDB law collection already loaded (${existingCount} vectors). Skipping re-embedding.`);
       } else {
 
-      // ── First-time setup or empty collection ──
-      const pdfFiles = fs.existsSync(dataDir)
-        ? fs.readdirSync(dataDir).filter(f => f.endsWith('.pdf'))
-        : [];
+        // ── First-time setup or empty collection ──
+        const pdfFiles = fs.existsSync(dataDir)
+          ? fs.readdirSync(dataDir).filter(f => f.endsWith('.pdf'))
+          : [];
 
-      try { await client.deleteCollection({ name: collectionName }); } catch (e) {}
+        try { await client.deleteCollection({ name: collectionName }); } catch (e) { }
 
-      const collection = await client.createCollection({
-        name: collectionName,
-        embeddingFunction: localEmbeddingFunction
-      });
+        const collection = await client.createCollection({
+          name: collectionName,
+          embeddingFunction: localEmbeddingFunction
+        });
 
-      if (pdfFiles.length > 0) {
-        console.log(`Found ${pdfFiles.length} law PDF(s) in data/. Starting local embedding pipeline...`);
-        let globalIdx = 0;
-        for (const file of pdfFiles) {
-          console.log(`  Processing: ${file}`);
-          const rawText = await loadPdf(path.join(dataDir, file));
-          const chunks = chunkText(rawText);
-          const batchSize = 10;
+        if (pdfFiles.length > 0) {
+          console.log(`Found ${pdfFiles.length} law PDF(s) in data/. Starting local embedding pipeline...`);
+          let globalIdx = 0;
+          for (const file of pdfFiles) {
+            console.log(`  Processing: ${file}`);
+            const rawText = await loadPdf(path.join(dataDir, file));
+            const chunks = chunkText(rawText);
+            const batchSize = 10;
 
-          for (let i = 0; i < chunks.length; i += batchSize) {
-            const batch = chunks.slice(i, i + batchSize);
-            const ids = batch.map((_, idx) => `${file}_sec_${globalIdx + idx}`);
-            const embeddings = await localEmbeddingFunction.generate(batch.map(c => c.text));
-            await collection.add({
-              ids,
-              embeddings,
-              documents: batch.map(c => c.text),
-              metadatas: batch.map(c => ({ source: file, page: c.page }))
-            });
-            globalIdx += batch.length;
+            for (let i = 0; i < chunks.length; i += batchSize) {
+              const batch = chunks.slice(i, i + batchSize);
+              const ids = batch.map((_, idx) => `${file}_sec_${globalIdx + idx}`);
+              const embeddings = await localEmbeddingFunction.generate(batch.map(c => c.text));
+              await collection.add({
+                ids,
+                embeddings,
+                documents: batch.map(c => c.text),
+                metadatas: batch.map(c => ({ source: file, page: c.page }))
+              });
+              globalIdx += batch.length;
+            }
+            console.log(`  ✓ ${file} embedded locally (${chunks.length} chunks)`);
           }
-          console.log(`  ✓ ${file} embedded locally (${chunks.length} chunks)`);
+          console.log('RAG Knowledge Base fully loaded from PDF(s).');
+        } else {
+          console.log('No PDFs found in server/data/. Waiting for user to upload PDFs.');
         }
-        console.log('RAG Knowledge Base fully loaded from PDF(s).');
-      } else {
-        console.log('No PDFs found in server/data/. Waiting for user to upload PDFs.');
-      }
       } // close the outer else block
 
       // ── Load Foresight Cases (JSON) ──
@@ -169,14 +169,14 @@ async function initKnowledgeBase() {
         try {
           const casesColl = await client.getCollection({ name: casesCollectionName, embeddingFunction: localEmbeddingFunction });
           casesCount = await casesColl.count();
-        } catch(e) {}
-        
+        } catch (e) { }
+
         if (casesCount === 0) {
           console.log(`Loading foresight_vectors.json into ChromaDB...`);
-          try { await client.deleteCollection({ name: casesCollectionName }); } catch (e) {}
+          try { await client.deleteCollection({ name: casesCollectionName }); } catch (e) { }
           const casesCollection = await client.createCollection({ name: casesCollectionName, embeddingFunction: localEmbeddingFunction });
           const casesData = JSON.parse(fs.readFileSync(casesPath, 'utf8'));
-          
+
           const batchSize = 100;
           for (let i = 0; i < casesData.length; i += batchSize) {
             const batch = casesData.slice(i, i + batchSize);
@@ -184,7 +184,7 @@ async function initKnowledgeBase() {
             // Prepend a word to help semantic matching, though Xenova handles it well
             const texts = batch.map(c => `Legal offence: ${c['Offence Description'].replace(/_/g, ' ')}`);
             const metadatas = batch.map(c => ({ outcome: c.Outcome, year: c.Year }));
-            
+
             const embeddings = await localEmbeddingFunction.generate(texts);
             await casesCollection.add({
               ids,
@@ -219,18 +219,18 @@ async function initKnowledgeBase() {
  */
 async function searchLaw(query) {
   try {
-    const collection = await client.getCollection({ 
+    const collection = await client.getCollection({
       name: collectionName,
       embeddingFunction: localEmbeddingFunction
     });
-    
+
     const queryEmbedding = await getEmbedding(query);
     const lowerQuery = query.toLowerCase();
-    
+
     // ── Smart Metadata Filtering ──
     // Determine the most relevant source based on keywords in the clause
     let filter = undefined; // Default: search all
-    
+
     if (/\b(rent|tenant|landlord|tenancy|premises|occupation|lease)\b/.test(lowerQuery)) {
       filter = { "source": "Tenancy-Law-2011.pdf" };
     } else if (/\b(share|director|company|board|dividend|cama)\b/.test(lowerQuery)) {
@@ -275,11 +275,11 @@ async function searchLaw(query) {
  */
 async function searchCases(query) {
   try {
-    const collection = await client.getCollection({ 
+    const collection = await client.getCollection({
       name: casesCollectionName,
       embeddingFunction: localEmbeddingFunction
     });
-    
+
     const queryEmbedding = await getEmbedding(query);
     const results = await collection.query({
       queryEmbeddings: [queryEmbedding],

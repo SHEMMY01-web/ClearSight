@@ -198,7 +198,7 @@ function flagClause(clauseText, contractType = null) {
 /**
  * Dynamically builds the Advocate voice from the clause text and the matched KB topic.
  */
-function buildAdvocate(clauseText, topMatch) {
+function buildAdvocate(topMatch) {
   const topic = topMatch?.topic || '';
   const advocateMap = {
     'Rent Increase': 'This clause is framed to give the Landlord predictable revenue growth and the ability to respond to real estate market conditions. Landlords argue this protects long-term asset value.',
@@ -220,7 +220,7 @@ function buildAdvocate(clauseText, topMatch) {
 /**
  * Dynamically builds the Critic voice directly from the KB rule, making it clause-specific.
  */
-function buildCritic(clauseText, topMatch, riskAppetite = 'balanced') {
+function buildCritic(topMatch, riskAppetite = 'balanced') {
   if (!topMatch) {
     return 'This clause contains potentially unfair terms. A detailed review against applicable Nigerian statutes is strongly advised before signing.';
   }
@@ -241,7 +241,7 @@ function buildCritic(clauseText, topMatch, riskAppetite = 'balanced') {
  * Builds a "Plain English" summary for a small business owner.
  * Dynamically generates text using an LLM, with a hardcoded fallback.
  */
-async function buildPlainEnglish(topMatch, ragBestSentence, clauseText = null, persona = 'general') {
+async function buildPlainEnglish(topMatch, clauseText = null, persona = 'general') {
   if (!topMatch) return null;
 
   // ── Stage 1: Dynamic LLM Generation (Preferred) ──
@@ -462,8 +462,8 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
       const topMatch = risk.allMatches?.[0] || null;
       const riskAppetite = strategySettings?.riskAppetite || 'balanced';
 
-      let advocate = buildAdvocate(chunk.clauseText, topMatch);
-      let critic = buildCritic(chunk.clauseText, topMatch, riskAppetite);
+      let advocate = buildAdvocate(topMatch);
+      let critic = buildCritic(topMatch, riskAppetite);
 
       // Final contextual refinement based on strategic goal
       if (strategySettings?.strategicGoal === 'protection') {
@@ -495,7 +495,7 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
       }
 
       // Build Plain English + Foresight
-      let plainEnglish = await buildPlainEnglish(topMatch, ragBestSentence, chunk.clauseText, persona);
+      let plainEnglish = await buildPlainEnglish(topMatch, chunk.clauseText, persona);
       let foresight = await buildForesight(topMatch, persona, caseHits, chunk.clauseText);
 
       // Technical Analysis (Toggleable in UI)
