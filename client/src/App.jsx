@@ -10,9 +10,7 @@ import DOMPurify from 'dompurify'
 // Fix OCR encoding artifact: â‚¦ → ₦ (Naira)
 const fixEncoding = (str = '') => str.replace(/â‚¦/g, '₦').replace(/â‚¦/g, '₦');
 
-// Cache version — bump this to invalidate stale localStorage results
-const CACHE_VERSION = 'v2';
-const CACHE_KEY = `last_analysis_${CACHE_VERSION}`;
+
 
 /**
  * Frontend safety net: strip any SYSTEMATIC CONSTRAINT LAYER boilerplate
@@ -97,14 +95,9 @@ function App() {
       .then(r => setHealthStatus(r.data.status === 'ok' ? 'OK' : 'Error'))
       .catch(() => setHealthStatus('Disconnected'))
 
-    // Load Cached Analysis (Offline Support) — versioned to prevent stale data
-    localStorage.removeItem('last_analysis'); // Clear old unversioned cache
-    const cached = localStorage.getItem(CACHE_KEY);
-    if (cached) {
-      try {
-        setAnalysisResult(JSON.parse(cached));
-      } catch (e) { console.warn('Cache load failed'); }
-    }
+    // Clean up any old localStorage cache from previous versions
+    localStorage.removeItem('last_analysis');
+    localStorage.removeItem('last_analysis_v2');
 
     const checkUser = async () => {
       try {
@@ -239,7 +232,8 @@ function App() {
 
   const handleUploadComplete = (result) => {
     setAnalysisResult(result);
-    localStorage.setItem(CACHE_KEY, JSON.stringify(result));
+    // Refresh history from Supabase so the new result appears in the vault
+    if (user) fetchHistory(user.id);
   };
 
   const handleEscalate = async (clause) => {
