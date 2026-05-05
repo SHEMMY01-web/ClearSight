@@ -73,24 +73,24 @@ app.post('/api/simulate', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  
+
   // Lazy-load heavy tasks to avoid blocking the port binding health check
   setTimeout(async () => {
     console.log('⚡ Starting background AI initialization...');
-    
+
     try {
       const { warmupEmbedder, initKnowledgeBase } = require('./services/rag.service');
       const { warmupLLM } = require('./services/llm.service');
-      
+
       // 1. Pre-warm embedding model
       await warmupEmbedder();
-      
+
       // 2. Init ChromaDB
       await initKnowledgeBase();
-      
-      // 3. Pre-warm LLM (downloads ~300MB on first run)
+
+      // 3. Pre-warm LLM (Now uses Cloud API, no memory overhead)
       await warmupLLM();
-      
+
       console.log('🚀 All systems ready in background.');
     } catch (err) {
       console.error('❌ Background Initialization Failed:', err.message);

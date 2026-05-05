@@ -10,6 +10,8 @@ import DOMPurify from 'dompurify'
 // Fix OCR encoding artifact: â‚¦ → ₦ (Naira)
 const fixEncoding = (str = '') => str.replace(/â‚¦/g, '₦').replace(/â‚¦/g, '₦');
 
+import LandingPage from './components/LandingPage';
+
 
 
 /**
@@ -67,12 +69,12 @@ function App() {
   const [isSimulating, setIsSimulating] = useState(false)
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   
-  // Auth Modal State
-  const [showAuthModal, setShowAuthModal] = useState(false)
-  const [authMode, setAuthMode] = useState('login') // login | signup
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isAuthLoading, setIsAuthLoading] = useState(false)
+  // Auth Modal State (Moved to LandingPage)
+  // const [showAuthModal, setShowAuthModal] = useState(false)
+  // const [authMode, setAuthMode] = useState('login')
+  // const [email, setEmail] = useState('')
+  // const [password, setPassword] = useState('')
+  // const [isAuthLoading, setIsAuthLoading] = useState(false)
 
   // Calculate Overall Risk Score
   const calculateScore = () => {
@@ -119,7 +121,6 @@ function App() {
         setUser(session.user);
         fetchPlaybook(session.user.id);
         fetchHistory(session.user.id);
-        setShowAuthModal(false);
       } else if (event === 'SIGNED_OUT') {
         setUser(null);
         setHistory([]);
@@ -139,25 +140,6 @@ function App() {
       .order('created_at', { ascending: false });
     
     if (data && !error) setHistory(data);
-  };
-
-  const handleAuth = async (e) => {
-    e.preventDefault();
-    setIsAuthLoading(true);
-    try {
-      if (authMode === 'signup') {
-        const { error } = await supabase.auth.signUp({ email, password });
-        if (error) throw error;
-        alert('Verification email sent!');
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-      }
-    } catch (err) {
-      alert(err.message);
-    } finally {
-      setIsAuthLoading(false);
-    }
   };
 
   const handleLogout = async () => {
@@ -287,6 +269,10 @@ function App() {
     }
   };
 
+  if (!user) {
+    return <LandingPage onAuthSuccess={() => {}} />;
+  }
+
   return (
     <div className="min-h-screen pb-24">
       {/* ── Brand Header ── */}
@@ -320,71 +306,12 @@ function App() {
           </div>
 
           <button className="btn-ghost text-paper/80">Documentation</button>
-          {user ? (
-            <div className="flex items-center gap-4">
-              <span className="text-[10px] text-paper/40 font-mono">{user.email}</span>
-              <button onClick={handleLogout} className="btn-ghost !text-gold">Logout</button>
-            </div>
-          ) : (
-            <button onClick={() => setShowAuthModal(true)} className="btn-primary">Sign In</button>
-          )}
-        </div>
-      </header>
-
-      {/* ── Auth Modal ── */}
-      {showAuthModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/90 backdrop-blur-sm p-4">
-          <div className="bg-paper w-full max-w-md p-10 animate-fade-up border-t-8 border-gold shadow-2xl relative">
-            <button 
-              onClick={() => setShowAuthModal(false)}
-              className="absolute top-6 right-6 text-ink/40 hover:text-ink transition-colors"
-            >
-              ✕
-            </button>
-            
-            <div className="text-center mb-10">
-              <div className="section-label !justify-center mb-4">Cloud Intelligence</div>
-              <h3 className="font-playfair text-3xl font-black">
-                {authMode === 'login' ? 'Welcome Back' : 'Join ClearSight'}
-              </h3>
-            </div>
-
-            <form onSubmit={handleAuth} className="space-y-6">
-              <div>
-                <label className="block text-[10px] uppercase tracking-widest font-bold mb-2">Email Address</label>
-                <input 
-                  type="email" required
-                  value={email} onChange={e => setEmail(e.target.value)}
-                  className="input-premium"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] uppercase tracking-widest font-bold mb-2">Password</label>
-                <input 
-                  type="password" required
-                  value={password} onChange={e => setPassword(e.target.value)}
-                  className="input-premium"
-                />
-              </div>
-              <button 
-                type="submit" disabled={isAuthLoading}
-                className="btn-primary w-full"
-              >
-                {isAuthLoading ? 'Processing...' : authMode === 'login' ? 'Login' : 'Sign Up'}
-              </button>
-            </form>
-
-            <div className="mt-8 text-center">
-              <button 
-                onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')}
-                className="text-[10px] uppercase tracking-widest font-bold text-gray hover:text-gold transition-colors"
-              >
-                {authMode === 'login' ? "Don't have an account? Sign Up" : "Already have an account? Login"}
-              </button>
-            </div>
+          <div className="flex items-center gap-4">
+            <span className="text-[10px] text-paper/40 font-mono">{user.email}</span>
+            <button onClick={handleLogout} className="btn-ghost !text-gold">Logout</button>
           </div>
         </div>
-      )}
+      </header>
 
       {/* ── Hero Section ── */}
       <section className="bg-green text-paper pt-20 pb-32 px-8 relative overflow-hidden">
