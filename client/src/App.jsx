@@ -143,7 +143,14 @@ function App() {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.warn('Logout error:', err);
+    } finally {
+      setUser(null);
+      setHistory([]);
+    }
   };
 
   const fetchPlaybook = async (userId) => {
