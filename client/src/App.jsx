@@ -276,23 +276,23 @@ function App() {
   return (
     <div className="min-h-screen pb-24">
       {/* ── Brand Header ── */}
-      <header className="bg-green text-paper px-4 md:px-8 py-4 md:py-6 flex justify-between items-center sticky top-0 z-50 shadow-lg">
-        <div className="flex items-center gap-3 md:gap-4 shrink-0">
-          <div className="w-8 h-8 md:w-10 md:h-10 border-2 border-gold rounded-full flex items-center justify-center">
+      <header className="bg-green text-paper px-4 md:px-8 py-4 md:py-6 flex flex-wrap justify-between items-center gap-4 sticky top-0 z-50 shadow-lg w-full box-border overflow-hidden">
+        <div className="flex items-center gap-3 md:gap-4">
+          <div className="w-8 h-8 md:w-10 md:h-10 border-2 border-gold rounded-full flex items-center justify-center shrink-0">
             <div className="w-2 h-2 md:w-3 md:h-3 bg-gold rounded-full animate-pulse"></div>
           </div>
-          <h1 className="font-syne font-extrabold text-lg md:text-xl tracking-widest uppercase">Clear<span className="text-gold">Sight</span></h1>
+          <h1 className="font-syne font-extrabold text-lg md:text-xl tracking-widest uppercase truncate">Clear<span className="text-gold">Sight</span></h1>
         </div>
         
-        <div className="flex items-center gap-4 md:gap-6 flex-wrap justify-end">
+        <div className="flex items-center gap-4 md:gap-6 flex-wrap justify-end flex-1 min-w-[200px]">
           <button 
             onClick={handleInstall}
-            className="hidden sm:block bg-gold/10 text-gold border border-gold/30 px-3 py-1 text-[9px] md:text-[10px] font-bold uppercase tracking-widest hover:bg-gold hover:text-ink transition-all"
+            className="hidden sm:block bg-gold/10 text-gold border border-gold/30 px-3 py-1 text-[9px] md:text-[10px] font-bold uppercase tracking-widest hover:bg-gold hover:text-ink transition-all shrink-0"
           >
             📱 {deferredPrompt ? 'Install' : 'PWA'}
           </button>
           
-          <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest">
+          <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest shrink-0">
             <button 
               onClick={async () => {
                 const { subscribeToNotifications } = await import('./services/push.service');
@@ -305,10 +305,10 @@ function App() {
             </button>
           </div>
 
-          <button className="hidden md:block btn-ghost text-paper/80">Documentation</button>
-          <div className="flex items-center gap-3 md:gap-4">
-            <span className="hidden sm:inline text-[9px] md:text-[10px] text-paper/40 font-mono">{user.email}</span>
-            <button onClick={handleLogout} className="btn-ghost !text-gold text-[10px] md:text-[11px]">Logout</button>
+          <button className="hidden md:block btn-ghost text-paper/80 shrink-0">Documentation</button>
+          <div className="flex items-center gap-3 md:gap-4 shrink-0">
+            <span className="hidden sm:inline text-[9px] md:text-[10px] text-paper/40 font-mono truncate max-w-[120px] md:max-w-xs">{user.email}</span>
+            <button onClick={handleLogout} className="btn-ghost !text-gold text-[10px] md:text-[11px] shrink-0">Logout</button>
           </div>
         </div>
       </header>
