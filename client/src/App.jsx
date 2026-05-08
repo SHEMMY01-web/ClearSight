@@ -276,20 +276,20 @@ function App() {
   return (
     <div className="min-h-screen pb-24">
       {/* ── Brand Header ── */}
-      <header className="bg-green text-paper px-8 py-6 flex justify-between items-center sticky top-0 z-50 shadow-lg">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 border-2 border-gold rounded-full flex items-center justify-center">
-            <div className="w-3 h-3 bg-gold rounded-full animate-pulse"></div>
+      <header className="bg-green text-paper px-4 md:px-8 py-4 md:py-6 flex justify-between items-center sticky top-0 z-50 shadow-lg">
+        <div className="flex items-center gap-3 md:gap-4 shrink-0">
+          <div className="w-8 h-8 md:w-10 md:h-10 border-2 border-gold rounded-full flex items-center justify-center">
+            <div className="w-2 h-2 md:w-3 md:h-3 bg-gold rounded-full animate-pulse"></div>
           </div>
-          <h1 className="font-syne font-extrabold text-xl tracking-widest uppercase">Clear<span className="text-gold">Sight</span></h1>
+          <h1 className="font-syne font-extrabold text-lg md:text-xl tracking-widest uppercase">Clear<span className="text-gold">Sight</span></h1>
         </div>
         
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 md:gap-6 flex-wrap justify-end">
           <button 
             onClick={handleInstall}
-            className="bg-gold/10 text-gold border border-gold/30 px-4 py-1 text-[10px] font-bold uppercase tracking-widest hover:bg-gold hover:text-ink transition-all"
+            className="hidden sm:block bg-gold/10 text-gold border border-gold/30 px-3 py-1 text-[9px] md:text-[10px] font-bold uppercase tracking-widest hover:bg-gold hover:text-ink transition-all"
           >
-            📱 {deferredPrompt ? 'Install App' : 'PWA Ready'}
+            📱 {deferredPrompt ? 'Install' : 'PWA'}
           </button>
           
           <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest">
@@ -305,10 +305,10 @@ function App() {
             </button>
           </div>
 
-          <button className="btn-ghost text-paper/80">Documentation</button>
-          <div className="flex items-center gap-4">
-            <span className="text-[10px] text-paper/40 font-mono">{user.email}</span>
-            <button onClick={handleLogout} className="btn-ghost !text-gold">Logout</button>
+          <button className="hidden md:block btn-ghost text-paper/80">Documentation</button>
+          <div className="flex items-center gap-3 md:gap-4">
+            <span className="hidden sm:inline text-[9px] md:text-[10px] text-paper/40 font-mono">{user.email}</span>
+            <button onClick={handleLogout} className="btn-ghost !text-gold text-[10px] md:text-[11px]">Logout</button>
           </div>
         </div>
       </header>
@@ -452,12 +452,12 @@ function App() {
 
             {analysisResult && (
               <div className="animate-fade-up space-y-8">
-                <div className="flex items-center justify-between bg-white border border-ink/5 p-6 shadow-xl">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white border border-ink/5 p-6 shadow-xl">
                   <div>
                     <h3 className="font-playfair text-4xl font-black">Analysis <em>Report</em></h3>
                     <p className="text-[10px] uppercase tracking-widest font-bold opacity-40 mt-1">CAMA 2020 Validated Analysis</p>
                   </div>
-                  <div className="flex items-center gap-8">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 md:gap-8">
                     {persona === 'founder' && (
                       <div className="hidden md:flex gap-4 border-l border-ink/10 pl-8">
                         <div className="text-center">
@@ -470,7 +470,7 @@ function App() {
                         </div>
                       </div>
                     )}
-                    <div className="text-right">
+                    <div className="text-left sm:text-right">
                       <div className="text-[10px] uppercase tracking-widest font-bold opacity-40">Risk Score</div>
                       <div className={`text-3xl font-syne font-black ${calculateScore() > 70 ? 'text-green-mid' : calculateScore() > 40 ? 'text-gold' : 'text-rust'}`}>
                         {calculateScore()}/100
@@ -478,7 +478,7 @@ function App() {
                     </div>
                     <button 
                       onClick={() => exportAnalysisPDF(analysisResult.analysis)}
-                      className="btn-primary !py-2 !px-6"
+                      className="btn-primary !py-2 !px-6 w-full sm:w-auto"
                     >
                       Download PDF
                     </button>

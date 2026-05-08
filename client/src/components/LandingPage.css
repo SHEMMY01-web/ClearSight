@@ -609,6 +609,27 @@ html {
   .hero-headline {
     font-size: 3rem;
   }
+
+  .hero-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .stat-row {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .scroll-hint {
+    writing-mode: horizontal-tb;
+    transform: none;
+    align-self: flex-start;
+  }
+
+  .auth-modal-overlay > div {
+    padding: 2rem 1.5rem !important;
+  }
 }
 
 /* Auth Modal Styles */
