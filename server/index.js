@@ -44,16 +44,26 @@ const { analyzeMusicContract } = require('./services/ConsequenceEngine');
 
 app.post('/api/simulate', async (req, res) => {
   const { buyoutOffer, monthlyStreams, strategySettings } = req.body;
-  const { riskAppetite, monthlyExpenses, strategicGoal } = strategySettings;
+  const { riskAppetite, monthlyExpenses, strategicGoal, industryContext } = strategySettings;
 
+  // Route to the advanced Monte Carlo simulator if the user is a Musician
+  if (industryContext === 'Afrobeats Music') {
+    const musicResult = analyzeMusicContract(buyoutOffer, monthlyStreams, strategySettings);
+    return res.json({
+      optimalDecision: musicResult.optimalDecision,
+      dealRisk: musicResult.dealRisk,
+      confidenceScore: musicResult.confidenceScore,
+      roi: musicResult.foresightSummary // We'll display the advanced summary here
+    });
+  }
+
+  // Generic M&A Business Logic
   // 1. Calculate Baseline Liability Risk (₦)
-  // High risk = 2.5x annual burn exposure | Balanced = 1.0x | Conservative = 0.5x
   const annualBurn = monthlyExpenses * 12;
   const liabilityMultiplier = riskAppetite === 'aggressive' ? 0.5 : riskAppetite === 'balanced' ? 1.5 : 2.5;
   const estimatedExposure = annualBurn * liabilityMultiplier;
 
   // 2. Calculate Strategic ROI
-  // Protection goal focuses on minimizing loss | Liquidity goal focuses on cash multiples
   const roi = (buyoutOffer / (annualBurn || 1)).toFixed(2);
   const confidence = strategicGoal === 'protection' ? '85%' : '65%';
 

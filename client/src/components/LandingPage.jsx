@@ -48,14 +48,14 @@ export default function LandingPage({ onAuthSuccess }) {
           </div>
           <div className="flex items-center gap-4">
             <div className="hero-tag hidden md:block mr-4">Nigeria · LegalTech · SMB</div>
-            <button 
-              onClick={() => openAuth('login')} 
+            <button
+              onClick={() => openAuth('login')}
               className="text-[10px] font-bold uppercase tracking-widest text-paper/80 hover:text-gold transition-colors"
             >
               Log In
             </button>
-            <button 
-              onClick={() => openAuth('signup')} 
+            <button
+              onClick={() => openAuth('signup')}
               className="bg-gold text-ink px-4 py-2 font-syne font-bold uppercase tracking-widest text-[10px] transition-all hover:bg-gold-light"
             >
               Sign Up
@@ -66,30 +66,12 @@ export default function LandingPage({ onAuthSuccess }) {
         <div className="hero-center">
           <div className="hero-eyebrow">Brand Identity Document</div>
           <h1 className="hero-headline">Legal <em>clarity</em> for every Nigerian business.</h1>
-          <p className="hero-sub">ClearSight is AI-powered legal document infrastructure for Nigerian SMBs — draft, review, and
-            understand contracts without hiring a lawyer.</p>
+          <p className="hero-sub">ClearSight is AI-powered legal document reviewer for Nigerian SMBs. Draft, review, and
+            understand contracts.</p>
           <div className="hero-cta">
             <button onClick={() => openAuth('signup')} className="btn-primary" style={{ padding: '0.85rem 2rem', border: 'none', background: 'var(--gold)', color: 'var(--ink)' }}>Start Analysis</button>
-            <a href="#what" className="btn-ghost" style={{ opacity: 0.6 }}>Explore the Brand →</a>
+            <a href="#what" className="btn-ex">Explore the Brand →</a>
           </div>
-        </div>
-
-        <div className="hero-bottom">
-          <div className="stat-row">
-            <div className="stat">
-              <div className="stat-num">40M+</div>
-              <div className="stat-label">Nigerian SMBs</div>
-            </div>
-            <div className="stat">
-              <div className="stat-num">₦500k</div>
-              <div className="stat-label">Avg. legal retainer</div>
-            </div>
-            <div className="stat">
-              <div className="stat-num">3</div>
-              <div className="stat-label">Core products</div>
-            </div>
-          </div>
-          <div className="scroll-hint">Scroll to explore</div>
         </div>
       </section>
 
@@ -277,11 +259,11 @@ export default function LandingPage({ onAuthSuccess }) {
       {/* ── AUTH MODAL ── */}
       {showAuthModal && (
         <div className="auth-modal-overlay" onClick={() => setShowAuthModal(false)}>
-          <div 
+          <div
             className="card-premium max-w-md w-full mx-auto relative group bg-paper border-none"
             onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
-            style={{ 
-              backgroundColor: 'var(--cream)', 
+            style={{
+              backgroundColor: 'var(--cream)',
               borderRadius: '8px',
               padding: '3rem 2rem',
               color: 'var(--ink)',
@@ -289,8 +271,8 @@ export default function LandingPage({ onAuthSuccess }) {
             }}
           >
             <div className="absolute inset-0 bg-gold/5 blur-xl rounded-lg -z-10 pointer-events-none"></div>
-            
-            <button 
+
+            <button
               onClick={() => setShowAuthModal(false)}
               className="absolute top-4 right-4 text-gray hover:text-ink text-xl"
             >
@@ -315,24 +297,24 @@ export default function LandingPage({ onAuthSuccess }) {
                   {errorMsg}
                 </div>
               )}
-              
+
               <div>
                 <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 text-gray">Email Address</label>
-                <input 
-                  type="email" 
-                  required 
+                <input
+                  type="email"
+                  required
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   className="w-full bg-transparent border-b border-ink/20 focus:border-ink pb-2 outline-none transition-colors text-sm text-ink"
                   placeholder="founder@startup.com.ng"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 text-gray">Password</label>
-                <input 
-                  type="password" 
-                  required 
+                <input
+                  type="password"
+                  required
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   className="w-full bg-transparent border-b border-ink/20 focus:border-ink pb-2 outline-none transition-colors text-sm text-ink"
@@ -340,8 +322,8 @@ export default function LandingPage({ onAuthSuccess }) {
                 />
               </div>
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={isAuthLoading}
                 className="w-full flex justify-center items-center py-4 mt-8 transition-transform bg-gold text-ink font-syne font-bold uppercase tracking-widest text-[11px]"
                 style={{ background: 'var(--gold)', color: 'var(--ink)', border: 'none' }}
@@ -351,7 +333,7 @@ export default function LandingPage({ onAuthSuccess }) {
             </form>
 
             <div className="mt-8 text-center pt-6 border-t border-ink/10">
-              <button 
+              <button
                 type="button"
                 onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')}
                 className="text-[10px] uppercase font-bold tracking-widest text-gray hover:text-gold transition-colors"
