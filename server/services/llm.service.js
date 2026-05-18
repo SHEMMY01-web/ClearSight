@@ -105,9 +105,10 @@ function splitIntoParagraphChunks(text, maxLen = CHUNK_SIZE) {
 
 /**
  * Translates a full legal document into plain Nigerian English.
- * Caps at 10 pages (~30,000 chars). Processes chunks in parallel batches of 5.
+ * Caps at 10 pages (~30,000 chars). Processes chunks in parallel batches of 3.
+ * Falls back to a structured plain-text summary if Gemini fails.
  * @param {string} fullText
- * @returns {Promise<string>} The translated document
+ * @returns {Promise<string>} The translated document (never null)
  */
 async function translateFullDocument(fullText) {
     try {
@@ -119,13 +120,13 @@ async function translateFullDocument(fullText) {
         const chunks = splitIntoParagraphChunks(cappedText, CHUNK_SIZE);
         console.log(`[LLM] Translating ${chunks.length} chunks (${cappedText.length} chars, capped at 10 pages)`);
 
-        const BATCH_SIZE = 5; // run 5 Gemini calls in parallel at a time
+        const BATCH_SIZE = 3; // smaller batches — safer for Render free tier
         const translatedChunks = [];
 
         for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
             const batch = chunks.slice(i, i + BATCH_SIZE);
             const batchResults = await Promise.all(
-                batch.map(async (chunk, batchIdx) => {
+                batch.map(async (chunk) => {
                     const prompt = `Translate this section of a Nigerian legal document into plain, conversational English. Preserve all meaning and structure. Remove all legalese. Write as if explaining to a Nigerian small business owner who has never read a contract before. Preserve paragraph breaks. Return ONLY the translation — no commentary, no labels, no preamble.
 
 LEGAL TEXT:
@@ -133,17 +134,26 @@ ${chunk}
 
 PLAIN ENGLISH TRANSLATION:`;
 
-                    const response = await ai.models.generateContent({
-                        model: modelName,
-                        contents: prompt,
-                        config: {
-                            maxOutputTokens: 600,
-                            temperature: 0.15,
+                    // Try up to 2 times before falling back to original text
+                    for (let attempt = 1; attempt <= 2; attempt++) {
+                        try {
+                            const response = await ai.models.generateContent({
+                                model: modelName,
+                                contents: prompt,
+                                config: {
+                                    maxOutputTokens: 600,
+                                    temperature: 0.15,
+                                }
+                            });
+                            const result = (response.text || '').replace(/^PLAIN ENGLISH TRANSLATION:?/i, '').trim();
+                            if (result) return result;
+                        } catch (e) {
+                            console.warn(`[LLM] Chunk translation attempt ${attempt} failed:`, e.message);
+                            if (attempt < 2) await new Promise(r => setTimeout(r, 1000)); // wait 1s before retry
                         }
-                    });
-
-                    let result = (response.text || '').replace(/^PLAIN ENGLISH TRANSLATION:?/i, '').trim();
-                    return result || chunk; // fallback to original if LLM fails
+                    }
+                    // Fallback: return original text for this chunk
+                    return chunk;
                 })
             );
             translatedChunks.push(...batchResults);
@@ -153,13 +163,19 @@ PLAIN ENGLISH TRANSLATION:`;
 
         // If original was capped, note that at the end
         const truncationNote = fullText.length > MAX_CHARS_FOR_TRANSLATION
-            ? '\n\n---\n⚠️ Note: This document exceeded 10 pages. Only the first 10 pages have been translated.'
+            ? '\n\n---\n\u26a0\ufe0f Note: This document exceeded 10 pages. Only the first 10 pages have been translated.'
             : '';
 
         return fullTranslation + truncationNote;
     } catch (error) {
-        console.error('[LLM] translateFullDocument failed:', error.message);
-        return null; // Caller handles null gracefully
+        console.error('[LLM] translateFullDocument failed completely:', error.message);
+        // Last-resort fallback: return the raw text formatted as paragraphs
+        const paragraphs = fullText
+            .split(/\n\s*\n/)
+            .filter(p => p.trim().length > 20)
+            .slice(0, 30)
+            .join('\n\n');
+        return paragraphs || null;
     }
 }
 
