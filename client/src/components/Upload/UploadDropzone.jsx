@@ -1,9 +1,9 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { UploadCloud, File, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react';
 
 const UPLOAD_PHASES = [
-  { label: 'Translating document into plain English…', sub: 'Gemini is reading every clause' },
+  { label: 'Translating document into plain English…', sub: 'Analyzing every clause' },
   { label: 'Scanning for predatory clauses…', sub: 'Checking against CAMA 2020 & Nigerian Law' },
   { label: 'Building legal advisory…', sub: 'Advocate-Critic analysis in progress' },
 ];
@@ -98,9 +98,12 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
     }
   }, [onUploadComplete, persona, strategySettings]);
 
+  const fileInputRef = useRef(null);
+
   const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
     onDrop,
-    noClick: true, // We disable react-dropzone's click to use our native overlay
+    noClick: true, // We disable react-dropzone's buggy click handler
+    noKeyboard: true,
     accept: {
       'application/pdf': ['.pdf'],
       'image/jpeg': ['.jpeg', '.jpg'],
@@ -110,11 +113,22 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
     multiple: false
   });
 
+  const handleManualClick = (e) => {
+    e.stopPropagation();
+    if (fileInputRef.current) {
+      // Clear value so the browser always registers a change even if same file is selected
+      fileInputRef.current.value = null; 
+      fileInputRef.current.click();
+    }
+  };
+
   return (
-    <div className="w-full max-w-2xl mx-auto mt-8 relative">
+    <div className="w-full max-w-2xl mx-auto mt-8">
       <div
-        {...getRootProps()}
-        className={`border-2 border-dashed p-10 flex flex-col items-center justify-center transition-colors w-full relative
+        {...getRootProps({
+          onClick: handleManualClick
+        })}
+        className={`border-2 border-dashed p-10 flex flex-col items-center justify-center transition-colors w-full cursor-pointer
           ${isDragActive ? 'border-accent bg-accent/5' : 'border-ink/20 hover:border-gold hover:bg-gold/5'}
           ${isDragReject ? 'border-red-500 bg-red-50' : ''}
           ${isUploading ? 'opacity-50 pointer-events-none' : ''}
@@ -122,21 +136,18 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
       >
         <input {...getInputProps()} />
         
-        {/* 100% Bulletproof Native HTML Overlay */}
-        {!isUploading && (
-          <input 
-            type="file"
-            accept=".pdf,.jpeg,.jpg,.png"
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-50"
-            onChange={(e) => {
-              if (e.target.files && e.target.files.length > 0) {
-                onDrop(Array.from(e.target.files));
-              }
-            }}
-            onClick={(e) => { e.target.value = null; }}
-            title="Click to upload"
-          />
-        )}
+        {/* Our custom fail-safe input to bypass react-dropzone bugs */}
+        <input 
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          accept=".pdf,.jpeg,.jpg,.png"
+          onChange={(e) => {
+            if (e.target.files && e.target.files.length > 0) {
+              onDrop(Array.from(e.target.files));
+            }
+          }}
+        />
         
         {isUploading ? (
           <div className="flex flex-col items-center gap-3">
