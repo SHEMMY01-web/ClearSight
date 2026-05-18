@@ -28,7 +28,7 @@ Plain English Summary:`;
             model: modelName,
             contents: prompt,
             config: {
-                maxOutputTokens: 80,
+                maxOutputTokens: 2000,
                 temperature: 0.2, // Lower temperature for more deterministic/stable output
             }
         });
@@ -56,7 +56,7 @@ Consequence:`;
             model: modelName,
             contents: prompt,
             config: {
-                maxOutputTokens: 60,
+                maxOutputTokens: 2000,
                 temperature: 0.5,
             }
         });
@@ -141,7 +141,7 @@ PLAIN ENGLISH TRANSLATION:`;
                                 model: modelName,
                                 contents: prompt,
                                 config: {
-                                    maxOutputTokens: 600,
+                                    maxOutputTokens: 8000,
                                     temperature: 0.15,
                                 }
                             });
