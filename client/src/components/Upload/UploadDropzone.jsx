@@ -109,6 +109,8 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
     multiple: false
   });
 
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   return (
     <div className="w-full max-w-2xl mx-auto mt-8">
       <div
@@ -119,7 +121,7 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
           ${isUploading ? 'opacity-50 pointer-events-none' : ''}
         `}
       >
-        <input {...getInputProps({ capture: 'environment' })} />
+        <input {...getInputProps(isMobile ? { capture: 'environment' } : {})} />
         
         {isUploading ? (
           <div className="flex flex-col items-center gap-3">
