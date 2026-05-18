@@ -98,8 +98,6 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
     }
   }, [onUploadComplete, persona, strategySettings]);
 
-  const fileInputRef = useRef(null);
-
   const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
     onDrop,
     noClick: true, // We disable react-dropzone's buggy click handler
@@ -113,21 +111,11 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
     multiple: false
   });
 
-  const handleManualClick = (e) => {
-    e.stopPropagation();
-    if (fileInputRef.current) {
-      // Must be an empty string, setting to null throws a DOMException on file inputs
-      fileInputRef.current.value = ''; 
-      fileInputRef.current.click();
-    }
-  };
-
   return (
     <div className="w-full max-w-2xl mx-auto mt-8">
       <div
         {...getRootProps()}
-        onClick={handleManualClick}
-        className={`border-2 border-dashed p-10 flex flex-col items-center justify-center transition-colors w-full cursor-pointer
+        className={`border-2 border-dashed p-10 flex flex-col items-center justify-center transition-colors w-full relative overflow-hidden cursor-pointer
           ${isDragActive ? 'border-accent bg-accent/5' : 'border-ink/20 hover:border-gold hover:bg-gold/5'}
           ${isDragReject ? 'border-red-500 bg-red-50' : ''}
           ${isUploading ? 'opacity-50 pointer-events-none' : ''}
@@ -135,18 +123,28 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
       >
         <input {...getInputProps()} />
         
-        {/* Our custom fail-safe input to bypass react-dropzone bugs */}
-        <input 
-          type="file"
-          ref={fileInputRef}
-          className="hidden"
-          accept=".pdf,.jpeg,.jpg,.png"
-          onChange={(e) => {
-            if (e.target.files && e.target.files.length > 0) {
-              onDrop(Array.from(e.target.files));
-            }
-          }}
-        />
+        {/* Bulletproof Native Overlay: Physical clicks bypass Chrome's Cancel lock */}
+        {!isUploading && (
+          <input 
+            type="file"
+            accept=".pdf,.jpeg,.jpg,.png"
+            className="absolute opacity-0 cursor-pointer z-50"
+            style={{ 
+              fontSize: '10000px', 
+              right: 0, 
+              top: 0, 
+              minWidth: '100%', 
+              minHeight: '100%' 
+            }}
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                onDrop(Array.from(e.target.files));
+              }
+            }}
+            onClick={(e) => { e.target.value = ''; }}
+            title="Click to upload"
+          />
+        )}
         
         {isUploading ? (
           <div className="flex flex-col items-center gap-3">
