@@ -140,8 +140,9 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
               if (e.target.files && e.target.files.length > 0) {
                 onDrop(Array.from(e.target.files));
               }
+              // Safely reset value AFTER processing, never during onClick!
+              e.target.value = '';
             }}
-            onClick={(e) => { e.target.value = ''; }}
             title="Click to upload"
           />
         )}
