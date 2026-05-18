@@ -15,7 +15,7 @@ const client = new ChromaClient({
     "X-Chroma-Token": (process.env.CHROMA_API_KEY || '').trim()
   }
 });
-const collectionName = "nigerian_law";
+const collectionName = "nigerian_law_v2"; // Renamed to force re-index with semantic chunking
 const casesCollectionName = "nigerian_cases";
 
 // ── Use Local Transformers (100% Offline & Free) ──
@@ -82,16 +82,45 @@ const loadPdf = async (filePath) => {
 };
 
 /**
- * Step 2: Semantic Chunking — tracks approximate page number per chunk.
- * Assumes ~3000 chars per page (standard for legal PDFs).
+ * Step 2: Semantic Chunking
+ * Splits text into paragraphs and groups them up to a max chunk size.
+ * This preserves sentence boundaries and legal context much better than blind character splitting.
  */
-const chunkText = (text, size = 1000, overlap = 200) => {
+const chunkText = (text, maxChars = 1500) => {
   const CHARS_PER_PAGE = 3000;
   const chunks = [];
-  for (let i = 0; i < text.length; i += (size - overlap)) {
-    const approxPage = Math.floor(i / CHARS_PER_PAGE) + 1;
-    chunks.push({ text: text.substring(i, i + size), page: approxPage });
+  
+  // Split by double newlines or significant line breaks
+  const paragraphs = text.split(/\n\s*\n/).map(p => p.trim()).filter(p => p.length > 20);
+  
+  let currentChunk = '';
+  let startCharIdx = 0;
+
+  for (let i = 0; i < paragraphs.length; i++) {
+    const p = paragraphs[i];
+    if (currentChunk.length + p.length > maxChars && currentChunk.length > 0) {
+      // Push the current chunk
+      const approxPage = Math.floor(startCharIdx / CHARS_PER_PAGE) + 1;
+      chunks.push({ text: currentChunk.trim(), page: approxPage });
+      
+      // Start a new chunk, but carry over the last paragraph for semantic overlap (sliding window)
+      const overlapPara = paragraphs[i - 1] || '';
+      currentChunk = (overlapPara.length < 500 ? overlapPara + '\n\n' : '') + p + '\n\n';
+      startCharIdx += currentChunk.length; // rough approximation
+    } else {
+      currentChunk += p + '\n\n';
+      if (currentChunk.length === p.length + 2) {
+        startCharIdx = text.indexOf(p.substring(0, 50)); // Sync page tracking occasionally
+        if (startCharIdx === -1) startCharIdx = chunks.length * maxChars;
+      }
+    }
   }
+
+  if (currentChunk.trim().length > 0) {
+    const approxPage = Math.floor(startCharIdx / CHARS_PER_PAGE) + 1;
+    chunks.push({ text: currentChunk.trim(), page: approxPage });
+  }
+
   return chunks;
 };
 
@@ -227,26 +256,9 @@ async function searchLaw(query) {
     const queryEmbedding = await getEmbedding(query);
     const lowerQuery = query.toLowerCase();
 
-    // ── Smart Metadata Filtering ──
-    // Determine the most relevant source based on keywords in the clause
-    let filter = undefined; // Default: search all
-
-    if (/\b(rent|tenant|landlord|tenancy|premises|occupation|lease)\b/.test(lowerQuery)) {
-      filter = { "source": "Tenancy-Law-2011.pdf" };
-    } else if (/\b(share|director|company|board|dividend|cama)\b/.test(lowerQuery)) {
-      filter = { "source": "CAMA-NOTE FINAL-FULL-VERSION.pdf" };
-    } else if (/\b(employee|employer|wages|salary|labour|worker|intern|volunteer|dismissal|redundancy)\b/.test(lowerQuery)) {
-      filter = { "source": "Labour Act, Cap L1, Laws of the Federation of Nigeria (LFN) 2004.pdf" };
-    } else if (/\b(arbitration|mediation|dispute|conciliat)\b/.test(lowerQuery)) {
-      filter = { "source": "New-Nigerian-Arbitration-and-Mediation-Act.pdf" };
-    } else if (/\b(intellectual property|copyright|trademark|patent)\b/.test(lowerQuery)) {
-      filter = { "source": "Copyright-Act-2022.pdf" };
-    }
-
     const results = await collection.query({
       queryEmbeddings: [queryEmbedding],
-      nResults: 2,
-      where: filter
+      nResults: 5 // Increased from 2 to 5 for better cross-referencing and context
     });
 
     if (results && results.documents && results.documents[0]) {

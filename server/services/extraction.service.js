@@ -1,5 +1,40 @@
 const pdfParse = require('pdf-parse');
 const Tesseract = require('tesseract.js');
+const sharp = require('sharp');
+
+/**
+ * Pre-processes an uploaded image buffer to maximize OCR accuracy.
+ * Performs: Grayscale, Contrast Normalization, Sharpening, and Auto-rotation.
+ * @param {Buffer} imageBuffer 
+ * @returns {Promise<Buffer>} Processed Image Buffer
+ */
+async function preprocessImageForOCR(imageBuffer) {
+  try {
+    return await sharp(imageBuffer)
+      // 1. Auto-orient based on EXIF data (fixes upside-down phone uploads)
+      .rotate() 
+      
+      // 2. Convert to grayscale (removes color noise)
+      .greyscale() 
+      
+      // 3. Normalize contrast (stretches luminance to make text pop against background)
+      .normalize() 
+      
+      // 4. Sharpen edges (enhances text characters for easier character recognition)
+      .sharpen({
+        sigma: 1.5,
+        m1: 0.5,
+        m2: 2.0
+      })
+      
+      // 5. Output as a clean, uncompressed PNG buffer for Tesseract
+      .toFormat('png')
+      .toBuffer();
+  } catch (error) {
+    console.error("Image pre-processing failed, falling back to raw buffer:", error);
+    return imageBuffer; // Fallback to raw if processing fails
+  }
+}
 
 /**
  * Extracts text from a file buffer based on its mimetype.
@@ -14,11 +49,6 @@ async function extractText(buffer, mimetype) {
       const data = await pdfParse(buffer, { max: 20 });
       let text = data.text;
       
-      // If pdf-parse returns very little text, it might be a scanned PDF
-      // For MVP, we use pdf-parse first. If we wanted to handle scanned PDFs with Tesseract,
-      // we would convert the PDF to images first (e.g. using pdf2pic) and then run Tesseract.
-      // Since that requires Ghostscript, we'll rely on pdf-parse for PDFs for now, and Tesseract for direct images.
-      
       return text;
     } catch (error) {
       console.error('PDF Parse Error Details:', error);
@@ -26,8 +56,11 @@ async function extractText(buffer, mimetype) {
     }
   } else if (mimetype.startsWith('image/')) {
     try {
-      // Run Tesseract.js on the image buffer
-      const result = await Tesseract.recognize(buffer, 'eng');
+      // Phase 1: Heavy lifting preprocessing
+      const cleanImageBuffer = await preprocessImageForOCR(buffer);
+      
+      // Phase 2: Perform OCR
+      const result = await Tesseract.recognize(cleanImageBuffer, 'eng');
       return result.data.text;
     } catch (error) {
       console.error('Tesseract Error:', error);
@@ -41,3 +74,4 @@ async function extractText(buffer, mimetype) {
 module.exports = {
   extractText
 };
+
