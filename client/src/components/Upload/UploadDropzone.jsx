@@ -100,8 +100,7 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
 
   const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
     onDrop,
-    noClick: true,
-    noKeyboard: true,
+    noClick: true, // We disable react-dropzone's click to use our native overlay
     accept: {
       'application/pdf': ['.pdf'],
       'image/jpeg': ['.jpeg', '.jpg'],
@@ -112,25 +111,32 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
   });
 
   return (
-    <div className="w-full max-w-2xl mx-auto mt-8">
-      <label
+    <div className="w-full max-w-2xl mx-auto mt-8 relative">
+      <div
         {...getRootProps()}
-        htmlFor="native-file-upload"
-        className={`border-2 border-dashed p-10 flex flex-col items-center justify-center cursor-pointer transition-colors w-full
+        className={`border-2 border-dashed p-10 flex flex-col items-center justify-center transition-colors w-full relative
           ${isDragActive ? 'border-accent bg-accent/5' : 'border-ink/20 hover:border-gold hover:bg-gold/5'}
           ${isDragReject ? 'border-red-500 bg-red-50' : ''}
           ${isUploading ? 'opacity-50 pointer-events-none' : ''}
         `}
       >
-        <input 
-          {...getInputProps({ id: 'native-file-upload' })} 
-          onClick={(e) => {
-            // Ensure the input click doesn't bubble up and trigger the label again
-            e.stopPropagation();
-            // Reset the value so the same file can be selected twice if needed
-            e.target.value = null;
-          }} 
-        />
+        <input {...getInputProps()} />
+        
+        {/* 100% Bulletproof Native HTML Overlay */}
+        {!isUploading && (
+          <input 
+            type="file"
+            accept=".pdf,.jpeg,.jpg,.png"
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-50"
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                onDrop(Array.from(e.target.files));
+              }
+            }}
+            onClick={(e) => { e.target.value = null; }}
+            title="Click to upload"
+          />
+        )}
         
         {isUploading ? (
           <div className="flex flex-col items-center gap-3">
@@ -165,7 +171,7 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
             </p>
           </>
         )}
-      </label>
+      </div>
 
       {error && (
         <div className="mt-4 p-4 bg-red-50 border border-red-200 flex items-start gap-3">
