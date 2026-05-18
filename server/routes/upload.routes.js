@@ -51,7 +51,14 @@ router.post('/', upload.single('contract'), async (req, res) => {
     const text = await extractText(buffer, mimetype);
 
     if (!text || text.trim() === '') {
-      return res.status(400).json({ error: 'Could not extract text from the provided file.' });
+      return res.status(400).json({ error: 'Could not extract text from the provided file. Please ensure the image is clear.' });
+    }
+
+    // Validation: Ensure the image/document actually contains meaningful text
+    // This filters out photos of faces or objects where OCR might extract a few random garbage characters
+    const wordCount = (text.match(/\b[a-zA-Z]{3,}\b/g) || []).length;
+    if (wordCount < 5) {
+      return res.status(400).json({ error: 'This does not appear to be a document. Please upload a clear photo or PDF containing readable text.' });
     }
 
     // 2. Chunk & Analyze (KB + RAG + Translation + Persona + Consequence Engine)
