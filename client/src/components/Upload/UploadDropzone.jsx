@@ -116,8 +116,8 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
   const handleManualClick = (e) => {
     e.stopPropagation();
     if (fileInputRef.current) {
-      // Clear value so the browser always registers a change even if same file is selected
-      fileInputRef.current.value = null; 
+      // Must be an empty string, setting to null throws a DOMException on file inputs
+      fileInputRef.current.value = ''; 
       fileInputRef.current.click();
     }
   };
@@ -125,9 +125,8 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
   return (
     <div className="w-full max-w-2xl mx-auto mt-8">
       <div
-        {...getRootProps({
-          onClick: handleManualClick
-        })}
+        {...getRootProps()}
+        onClick={handleManualClick}
         className={`border-2 border-dashed p-10 flex flex-col items-center justify-center transition-colors w-full cursor-pointer
           ${isDragActive ? 'border-accent bg-accent/5' : 'border-ink/20 hover:border-gold hover:bg-gold/5'}
           ${isDragReject ? 'border-red-500 bg-red-50' : ''}
