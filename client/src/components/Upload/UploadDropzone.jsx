@@ -100,6 +100,8 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
 
   const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
     onDrop,
+    noClick: true,
+    noKeyboard: true,
     accept: {
       'application/pdf': ['.pdf'],
       'image/jpeg': ['.jpeg', '.jpg'],
@@ -111,15 +113,16 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-8">
-      <div
+      <label
         {...getRootProps()}
-        className={`border-2 border-dashed p-10 flex flex-col items-center justify-center cursor-pointer transition-colors
+        htmlFor="native-file-upload"
+        className={`border-2 border-dashed p-10 flex flex-col items-center justify-center cursor-pointer transition-colors w-full
           ${isDragActive ? 'border-accent bg-accent/5' : 'border-ink/20 hover:border-gold hover:bg-gold/5'}
           ${isDragReject ? 'border-red-500 bg-red-50' : ''}
           ${isUploading ? 'opacity-50 pointer-events-none' : ''}
         `}
       >
-        <input {...getInputProps()} />
+        <input {...getInputProps()} id="native-file-upload" />
         
         {isUploading ? (
           <div className="flex flex-col items-center gap-3">
@@ -154,7 +157,7 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
             </p>
           </>
         )}
-      </div>
+      </label>
 
       {error && (
         <div className="mt-4 p-4 bg-red-50 border border-red-200 flex items-start gap-3">
