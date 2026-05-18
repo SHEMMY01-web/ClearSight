@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import UploadDropzone from './components/Upload/UploadDropzone'
 import TemplateGallery from './components/Templates/TemplateGallery'
 import TrustIndex from './components/Trust/TrustIndex'
+import ResultsBadge from './components/Results/ResultsBadge'
+import PlainTranslationPanel from './components/Results/PlainTranslationPanel'
 import { supabase } from './supabaseClient'
-import { exportAnalysisPDF } from './services/template.service'
+import { exportAnalysisPDF, exportClarityPDF } from './services/template.service'
 import DOMPurify from 'dompurify'
 
 // Fix OCR encoding artifact: â‚¦ → ₦ (Naira)
@@ -52,6 +54,7 @@ function App() {
   const [analysisResult, setAnalysisResult] = useState(null)
   const [healthStatus, setHealthStatus]     = useState('Checking...')
   const [persona, setPersona]               = useState('general')
+  const riskCardsRef = useRef(null)
 
   // Strategy Playbook State
   const [riskAppetite, setRiskAppetite] = useState('balanced')
@@ -220,6 +223,7 @@ function App() {
   };
 
   const handleUploadComplete = (result) => {
+    // Backend now returns { success, filename, riskStatus, plainTranslation, analysis }
     setAnalysisResult(result);
     // Refresh history from Supabase so the new result appears in the vault
     if (user) fetchHistory(user.id);
@@ -457,8 +461,11 @@ function App() {
               />
             </div>
 
+            {/* ── Dual-Mode Results Panel ── */}
             {analysisResult && (
-              <div className="animate-fade-up space-y-8">
+              <div className="animate-fade-up space-y-8" id="results-panel">
+
+                {/* Report Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white border border-ink/5 p-6 shadow-xl">
                   <div>
                     <h3 className="font-playfair text-4xl font-black">Analysis <em>Report</em></h3>
@@ -483,89 +490,128 @@ function App() {
                         {calculateScore()}/100
                       </div>
                     </div>
-                    <button 
-                      onClick={() => exportAnalysisPDF(analysisResult.analysis)}
-                      className="btn-primary !py-2 !px-6 w-full sm:w-auto"
-                    >
-                      Download PDF
-                    </button>
+                    {/* Conditional download button */}
+                    {analysisResult.riskStatus === 'clean' ? (
+                      <button
+                        onClick={() => exportClarityPDF(analysisResult.plainTranslation, analysisResult.filename)}
+                        className="btn-primary !py-2 !px-6 w-full sm:w-auto !bg-emerald-600 hover:!bg-emerald-700"
+                      >
+                        📄 Download Certificate of Clarity
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => exportAnalysisPDF(analysisResult.analysis)}
+                        className="btn-primary !py-2 !px-6 w-full sm:w-auto"
+                      >
+                        Download Risk Audit PDF
+                      </button>
+                    )}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {analysisResult.analysis?.map((clause, idx) => {
-                    const severityColor = clause.severity === 'HIGH' ? 'border-rust' : 'border-gold';
-                    return (
-                      <div key={idx} className={`card-premium !p-0 border-l-4 ${severityColor} overflow-hidden`}>
-                        <div className="p-6">
-                          <div className="flex justify-between items-start mb-4">
-                            <div className="flex gap-2">
-                              <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 bg-ink/5">{clause.id}</span>
-                              <button 
-                                onClick={() => handleFlagClause(clause)}
-                                className="text-[9px] font-bold uppercase tracking-widest text-rust hover:underline"
-                              >
-                                🚩 Flag for Community
-                              </button>
-                              {(persona === 'founder' || persona === 'freelancer') && (
-                                <button 
-                                  onClick={() => handleEscalate(clause)}
-                                  className="text-[9px] font-bold uppercase tracking-widest text-green hover:underline border-l border-ink/10 pl-2"
-                                >
-                                  ⚖️ Escalate to Human
-                                </button>
-                              )}
-                            </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-gold">{clause.riskCategory}</span>
-                          </div>
-                          <p 
-                            className="text-[11px] text-gray italic mb-6 leading-relaxed"
-                            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(fixEncoding(clause.text)) }}
-                          />
-                          
-                          <div className="space-y-4">
-                            <div className="bg-cream/50 p-4">
-                              <strong className="text-[10px] uppercase tracking-widest block mb-2 text-green">💡 Plain English</strong>
-                              <p 
-                                className="text-[11px] leading-relaxed"
-                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(sanitizePlainEnglish(clause.plainEnglish)) }}
+                {/* Status Badge */}
+                <ResultsBadge
+                  riskStatus={analysisResult.riskStatus || (analysisResult.analysis?.length > 0 ? 'flagged' : 'clean')}
+                  flagCount={analysisResult.analysis?.length || 0}
+                />
+
+                {/* Plain Translation Panel — always shown */}
+                {analysisResult.plainTranslation && (
+                  <div className="bg-white border border-ink/5 p-8 shadow-xl">
+                    <PlainTranslationPanel
+                      plainTranslation={analysisResult.plainTranslation}
+                      flaggedClauses={analysisResult.analysis || []}
+                      riskStatus={analysisResult.riskStatus || 'clean'}
+                      onJumpToRisks={() =>
+                        riskCardsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      }
+                    />
+                  </div>
+                )}
+
+                {/* Risk Cards — only shown when flagged */}
+                {analysisResult.analysis?.length > 0 && (
+                  <div ref={riskCardsRef}>
+                    <div className="mb-6">
+                      <div className="section-label text-rust">Flagged Clauses</div>
+                      <h3 className="font-playfair text-3xl font-black">Detailed <em>Risk Report</em></h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {analysisResult.analysis?.map((clause, idx) => {
+                        const severityColor = clause.severity === 'HIGH' ? 'border-rust' : 'border-gold';
+                        return (
+                          <div key={idx} className={`card-premium !p-0 border-l-4 ${severityColor} overflow-hidden`}>
+                            <div className="p-6">
+                              <div className="flex justify-between items-start mb-4">
+                                <div className="flex gap-2">
+                                  <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 bg-ink/5">{clause.id}</span>
+                                  <button
+                                    onClick={() => handleFlagClause(clause)}
+                                    className="text-[9px] font-bold uppercase tracking-widest text-rust hover:underline"
+                                  >
+                                    🚩 Flag for Community
+                                  </button>
+                                  {(persona === 'founder' || persona === 'freelancer') && (
+                                    <button
+                                      onClick={() => handleEscalate(clause)}
+                                      className="text-[9px] font-bold uppercase tracking-widest text-green hover:underline border-l border-ink/10 pl-2"
+                                    >
+                                      ⚖️ Escalate to Human
+                                    </button>
+                                  )}
+                                </div>
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-gold">{clause.riskCategory}</span>
+                              </div>
+                              <p
+                                className="text-[11px] text-gray italic mb-6 leading-relaxed"
+                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(fixEncoding(clause.text)) }}
                               />
-                            </div>
-                            
-                            <div className="bg-gold/5 p-4 relative group">
-                              <div className="flex justify-between items-center mb-2">
-                                <strong className="text-[10px] uppercase tracking-widest block text-gold">⚖️ Legal Advisory</strong>
-                                <button 
-                                  onClick={(e) => {
-                                    const details = e.currentTarget.parentElement.nextElementSibling;
-                                    if (details) details.classList.toggle('hidden');
-                                  }}
-                                  className="text-[9px] font-bold uppercase tracking-widest text-gold hover:underline"
-                                >
-                                  Deep Dive →
-                                </button>
-                              </div>
-                              <div className="hidden mt-4 space-y-4 border-t border-gold/10 pt-4 animate-fade-down">
-                                <div className="bg-white/50 p-3 rounded text-[10px] leading-relaxed whitespace-pre-line font-mono text-gray">
-                                  {clause.technicalAnalysis?.constraintLayer}
+
+                              <div className="space-y-4">
+                                <div className="bg-cream/50 p-4">
+                                  <strong className="text-[10px] uppercase tracking-widest block mb-2 text-green">💡 Plain English</strong>
+                                  <p
+                                    className="text-[11px] leading-relaxed"
+                                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(sanitizePlainEnglish(clause.plainEnglish)) }}
+                                  />
                                 </div>
-                                <div className="text-[11px] leading-relaxed whitespace-pre-line">
-                                  {clause.critic}
-                                </div>
-                                {clause.technicalAnalysis?.precedent && (
-                                  <div className="mt-2 text-[10px] italic border-l-2 border-gold/30 pl-3 py-1 bg-white/30">
-                                    <strong>Precedent:</strong> "{clause.technicalAnalysis.precedent}" 
-                                    <span className="opacity-50 ml-1">[{clause.technicalAnalysis.citation}]</span>
+
+                                <div className="bg-gold/5 p-4 relative group">
+                                  <div className="flex justify-between items-center mb-2">
+                                    <strong className="text-[10px] uppercase tracking-widest block text-gold">⚖️ Legal Advisory</strong>
+                                    <button
+                                      onClick={(e) => {
+                                        const details = e.currentTarget.parentElement.nextElementSibling;
+                                        if (details) details.classList.toggle('hidden');
+                                      }}
+                                      className="text-[9px] font-bold uppercase tracking-widest text-gold hover:underline"
+                                    >
+                                      Deep Dive →
+                                    </button>
                                   </div>
-                                )}
+                                  <div className="hidden mt-4 space-y-4 border-t border-gold/10 pt-4 animate-fade-down">
+                                    <div className="bg-white/50 p-3 rounded text-[10px] leading-relaxed whitespace-pre-line font-mono text-gray">
+                                      {clause.technicalAnalysis?.constraintLayer}
+                                    </div>
+                                    <div className="text-[11px] leading-relaxed whitespace-pre-line">
+                                      {clause.critic}
+                                    </div>
+                                    {clause.technicalAnalysis?.precedent && (
+                                      <div className="mt-2 text-[10px] italic border-l-2 border-gold/30 pl-3 py-1 bg-white/30">
+                                        <strong>Precedent:</strong> "{clause.technicalAnalysis.precedent}"
+                                        <span className="opacity-50 ml-1">[{clause.technicalAnalysis.citation}]</span>
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

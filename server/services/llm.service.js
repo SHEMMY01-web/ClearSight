@@ -3,6 +3,10 @@ const { GoogleGenAI } = require('@google/genai');
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 const modelName = 'gemini-2.5-flash';
 
+// ~3000 chars per page; 10-page cap = 30,000 chars
+const MAX_CHARS_FOR_TRANSLATION = 30_000;
+const CHUNK_SIZE = 2000; // ~half a page per Gemini call
+
 /**
  * Pre-warm the model during server startup (no longer needed for Cloud API).
  */
@@ -67,8 +71,101 @@ Consequence:`;
     }
 }
 
+/**
+ * Splits text into paragraph-aligned chunks of at most `maxLen` characters.
+ * Tries to break at double-newlines (paragraph boundaries) first.
+ * @param {string} text
+ * @param {number} maxLen
+ * @returns {string[]}
+ */
+function splitIntoParagraphChunks(text, maxLen = CHUNK_SIZE) {
+    const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+    const chunks = [];
+    let current = '';
+
+    for (const para of paragraphs) {
+        // If a single paragraph exceeds maxLen, hard-split it
+        if (para.length > maxLen) {
+            if (current.trim()) { chunks.push(current.trim()); current = ''; }
+            for (let i = 0; i < para.length; i += maxLen) {
+                chunks.push(para.substring(i, i + maxLen).trim());
+            }
+            continue;
+        }
+        if ((current + '\n\n' + para).length > maxLen) {
+            if (current.trim()) chunks.push(current.trim());
+            current = para;
+        } else {
+            current = current ? current + '\n\n' + para : para;
+        }
+    }
+    if (current.trim()) chunks.push(current.trim());
+    return chunks;
+}
+
+/**
+ * Translates a full legal document into plain Nigerian English.
+ * Caps at 10 pages (~30,000 chars). Processes chunks in parallel batches of 5.
+ * @param {string} fullText
+ * @returns {Promise<string>} The translated document
+ */
+async function translateFullDocument(fullText) {
+    try {
+        // Apply 10-page cap
+        const cappedText = fullText.length > MAX_CHARS_FOR_TRANSLATION
+            ? fullText.substring(0, MAX_CHARS_FOR_TRANSLATION)
+            : fullText;
+
+        const chunks = splitIntoParagraphChunks(cappedText, CHUNK_SIZE);
+        console.log(`[LLM] Translating ${chunks.length} chunks (${cappedText.length} chars, capped at 10 pages)`);
+
+        const BATCH_SIZE = 5; // run 5 Gemini calls in parallel at a time
+        const translatedChunks = [];
+
+        for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
+            const batch = chunks.slice(i, i + BATCH_SIZE);
+            const batchResults = await Promise.all(
+                batch.map(async (chunk, batchIdx) => {
+                    const prompt = `Translate this section of a Nigerian legal document into plain, conversational English. Preserve all meaning and structure. Remove all legalese. Write as if explaining to a Nigerian small business owner who has never read a contract before. Preserve paragraph breaks. Return ONLY the translation — no commentary, no labels, no preamble.
+
+LEGAL TEXT:
+${chunk}
+
+PLAIN ENGLISH TRANSLATION:`;
+
+                    const response = await ai.models.generateContent({
+                        model: modelName,
+                        contents: prompt,
+                        config: {
+                            maxOutputTokens: 600,
+                            temperature: 0.15,
+                        }
+                    });
+
+                    let result = (response.text || '').replace(/^PLAIN ENGLISH TRANSLATION:?/i, '').trim();
+                    return result || chunk; // fallback to original if LLM fails
+                })
+            );
+            translatedChunks.push(...batchResults);
+        }
+
+        const fullTranslation = translatedChunks.join('\n\n');
+
+        // If original was capped, note that at the end
+        const truncationNote = fullText.length > MAX_CHARS_FOR_TRANSLATION
+            ? '\n\n---\n⚠️ Note: This document exceeded 10 pages. Only the first 10 pages have been translated.'
+            : '';
+
+        return fullTranslation + truncationNote;
+    } catch (error) {
+        console.error('[LLM] translateFullDocument failed:', error.message);
+        return null; // Caller handles null gracefully
+    }
+}
+
 module.exports = {
     generatePlainEnglish,
     generateDynamicForesight,
+    translateFullDocument,
     warmupLLM
 };

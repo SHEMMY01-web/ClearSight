@@ -1,5 +1,124 @@
 import { jsPDF } from 'jspdf';
 
+/**
+ * Exports a "Certificate of Clarity" PDF for clean documents.
+ * Uses a minimal, friendly green layout — not the risk-heavy audit template.
+ * @param {string} plainTranslation - The full plain English translation
+ * @param {string} filename - Original contract filename
+ */
+export const exportClarityPDF = (plainTranslation, filename = 'contract') => {
+  const doc = new jsPDF();
+  const pageWidth = doc.internal.pageSize.width;
+  const pageHeight = doc.internal.pageSize.height;
+  let y = 0;
+  let pageNum = 1;
+
+  const drawClarityHeader = () => {
+    // Green header band
+    doc.setFillColor(34, 139, 87); // ClearSight green
+    doc.rect(0, 0, pageWidth, 40, 'F');
+
+    // Brand name
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(20);
+    doc.setTextColor(255, 255, 255);
+    doc.text('ClearSight', 20, 18);
+
+    // Subtitle
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(200, 240, 220);
+    doc.text('VERIFIED · YOUR CONTRACT IN PLAIN ENGLISH', 20, 26);
+
+    // Date top-right
+    doc.setFontSize(8);
+    doc.setTextColor(200, 240, 220);
+    doc.text(`Generated: ${new Date().toLocaleDateString()}`, pageWidth - 20, 26, { align: 'right' });
+
+    // Verified badge line
+    doc.setFillColor(255, 255, 255);
+    doc.roundedRect(pageWidth - 65, 6, 45, 12, 3, 3, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(34, 139, 87);
+    doc.text('✓ NO RISKS FOUND', pageWidth - 42.5, 14, { align: 'center' });
+  };
+
+  const drawClarityFooter = (pNum) => {
+    doc.setDrawColor(34, 139, 87);
+    doc.setLineWidth(0.3);
+    doc.line(20, pageHeight - 14, pageWidth - 20, pageHeight - 14);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.setTextColor(150, 150, 150);
+    doc.text('ClearSight — No Predatory Clauses Detected · CAMA 2020 Validated', 20, pageHeight - 9);
+    doc.text(`Page ${pNum}`, pageWidth - 20, pageHeight - 9, { align: 'right' });
+  };
+
+  drawClarityHeader();
+  y = 52;
+
+  // Document title
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(13);
+  doc.setTextColor(26, 32, 44);
+  doc.text(`Document: ${filename.replace(/\.(pdf|png|jpg|jpeg)$/i, '')}`, 20, y);
+  y += 8;
+
+  // Green "all clear" strip
+  doc.setFillColor(240, 253, 244);
+  doc.setDrawColor(34, 139, 87);
+  doc.setLineWidth(0.4);
+  doc.roundedRect(20, y, pageWidth - 40, 14, 2, 2, 'FD');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.setTextColor(34, 139, 87);
+  doc.text('✅  ClearSight found no predatory clauses in this document. It has been translated below for your reference.', 26, y + 9);
+  y += 22;
+
+  // Section label
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.setTextColor(100, 100, 100);
+  doc.text('PLAIN ENGLISH TRANSLATION', 20, y);
+  y += 7;
+
+  doc.setDrawColor(200, 200, 200);
+  doc.line(20, y, pageWidth - 20, y);
+  y += 6;
+
+  // Render paragraphs
+  const paragraphs = (plainTranslation || '')
+    .split(/\n\n+/)
+    .map(p => p.trim())
+    .filter(p => p.length > 0);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(40, 40, 40);
+
+  for (const para of paragraphs) {
+    const lines = doc.splitTextToSize(para, pageWidth - 40);
+    const blockHeight = lines.length * 5.5 + 4;
+
+    if (y + blockHeight > pageHeight - 20) {
+      drawClarityFooter(pageNum++);
+      doc.addPage();
+      drawClarityHeader();
+      y = 50;
+    }
+
+    doc.text(lines, 20, y);
+    y += blockHeight;
+  }
+
+  drawClarityFooter(pageNum);
+  const safeName = filename.replace(/\.(pdf|png|jpg|jpeg)$/i, '').replace(/\s+/g, '_');
+  doc.save(`ClearSight_CertificateOfClarity_${safeName}.pdf`);
+};
+
+
 const templates = [
   {
     id: 'nda',

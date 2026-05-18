@@ -33,7 +33,7 @@ function chunkByClauses(text) {
 const fs = require('fs');
 const path = require('path');
 const { searchLaw, searchCases } = require('./rag.service');
-const { generatePlainEnglish, generateDynamicForesight } = require('./llm.service');
+const { generatePlainEnglish, generateDynamicForesight, translateFullDocument } = require('./llm.service');
 
 // Load Knowledge Base
 const kbPath = path.join(__dirname, '../knowledge_base.json');
@@ -446,13 +446,24 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
 
   console.log(`[Analysis] KB flagged ${flagged.length} risky clauses in ${Date.now() - t0}ms`);
 
-  // ── Stage 2: RAG searches & Case Data searches run in parallel for ALL flagged clauses ──
+  // ── Stage 2: Run Translation + RAG + Case Data ALL in parallel ──
   const t1 = Date.now();
-  const [ragResults, casesResults] = await Promise.all([
+  const [
+    plainTranslationResult,
+    ragResults,
+    casesResults
+  ] = await Promise.all([
+    // Global Translation Pass (new — runs regardless of risk flags)
+    translateFullDocument(fullText).catch(err => {
+      console.warn('[Analysis] Translation failed, continuing without it:', err.message);
+      return null;
+    }),
+    // Semantic Law Search for each flagged clause
     Promise.all(flagged.map(({ chunk }) => searchLaw(chunk.clauseText).catch(() => []))),
+    // Historic Case Data for each flagged clause
     Promise.all(flagged.map(({ chunk }) => searchCases(chunk.clauseText).catch(() => [])))
   ]);
-  console.log(`[Analysis] Semantic Search (Laws + Cases) completed in ${Date.now() - t1}ms`);
+  console.log(`[Analysis] Translation + Semantic Search completed in ${Date.now() - t1}ms`);
 
   // ── Stage 3: Build the final rich objects (Advocate, Critic, Plain English, Foresight) ──
   const flaggedClauses = await Promise.all(
@@ -504,7 +515,7 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
         rule: topMatch?.rule,
         citation: ragCitation,
         precedent: ragBestSentence,
-        constraintLayer: strategyHeader // Move the header here
+        constraintLayer: strategyHeader
       };
       
       return {
@@ -523,8 +534,14 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
     })
   );
 
-  console.log(`[Analysis] Total pipeline: ${Date.now() - t0}ms for ${flaggedClauses.length} flagged clauses`);
-  return flaggedClauses;
+  const riskStatus = flaggedClauses.length > 0 ? 'flagged' : 'clean';
+  console.log(`[Analysis] Total pipeline: ${Date.now() - t0}ms | Status: ${riskStatus} | ${flaggedClauses.length} flags | Translation: ${plainTranslationResult ? 'OK' : 'skipped'}`);
+
+  return {
+    flaggedClauses,
+    plainTranslation: plainTranslationResult,
+    riskStatus
+  };
 }
 
 module.exports = { chunkAndAnalyze };

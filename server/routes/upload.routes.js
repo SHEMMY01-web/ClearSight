@@ -54,13 +54,13 @@ router.post('/', upload.single('contract'), async (req, res) => {
       return res.status(400).json({ error: 'Could not extract text from the provided file.' });
     }
 
-    // 2. Chunk & Analyze (KB + RAG + Persona + Consequence Engine)
-    const result = await chunkAndAnalyze(text, persona, strategySettings);
+    // 2. Chunk & Analyze (KB + RAG + Translation + Persona + Consequence Engine)
+    const { flaggedClauses, plainTranslation, riskStatus } = await chunkAndAnalyze(text, persona, strategySettings);
 
     // Save to Supabase if userId is present
     if (req.body.userId && req.body.userId !== 'null') {
-      const highRisks = result.filter(c => c.severity === 'HIGH').length;
-      const score = Math.max(0, 100 - (highRisks * 25) - ((result.length - highRisks) * 10));
+      const highRisks = flaggedClauses.filter(c => c.severity === 'HIGH').length;
+      const score = Math.max(0, 100 - (highRisks * 25) - ((flaggedClauses.length - highRisks) * 10));
 
       const { error } = await supabase
         .from('contracts')
@@ -68,7 +68,9 @@ router.post('/', upload.single('contract'), async (req, res) => {
           user_id: req.body.userId,
           filename: req.file.originalname,
           risk_score: score,
-          analysis_results: result,
+          analysis_results: flaggedClauses,
+          plain_translation: plainTranslation,
+          risk_status: riskStatus,
           strategic_summary: "CAMA 2020 Validated"
         });
       if (error) console.error('Supabase Save Error:', error);
@@ -78,8 +80,10 @@ router.post('/', upload.single('contract'), async (req, res) => {
       success: true,
       filename: originalname,
       persona,
+      riskStatus,
+      plainTranslation,
       extractedTextPreview: text.substring(0, 500) + '...',
-      analysis: result
+      analysis: flaggedClauses
     });
 
   } catch (error) {

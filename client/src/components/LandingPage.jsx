@@ -64,7 +64,7 @@ export default function LandingPage({ onAuthSuccess }) {
         </nav>
 
         <div className="hero-center">
-          <div className="hero-eyebrow">Brand Identity Document</div>
+          
           <h1 className="hero-headline">Legal <em>clarity</em> for every Nigerian business.</h1>
           <p className="hero-sub">ClearSight is AI-powered legal document reviewer for Nigerian SMBs. Draft, review, and
             understand contracts.</p>
@@ -79,7 +79,7 @@ export default function LandingPage({ onAuthSuccess }) {
       <section className="landing-section what-section" id="what">
         <div className="what-left">
           <div className="section-label-custom">What ClearSight Does</div>
-          <h2 className="section-title">Your AI legal <em>co-pilot</em> — built for Nigeria.</h2>
+          <h2 className="section-title">Your AI legal <em>co-pilot</em>built for Nigerians.</h2>
           <p className="what-body">ClearSight gives Nigerian SMBs three things they've never had access to: the ability to
             generate legally sound contracts in seconds, an AI that reads the fine print so you don't have to, and a
             community intelligence layer that shows what other businesses flagged as predatory.</p>
@@ -96,14 +96,14 @@ export default function LandingPage({ onAuthSuccess }) {
           <div className="feature-card">
             <div className="feature-card-num">02 · Review</div>
             <div className="feature-card-title">AI Clause Analysis</div>
-            <div className="feature-card-desc">Upload any contract — digital or scanned paper. ClearSight flags high-risk
+            <div className="feature-card-desc">Upload any contract, digital or scanned paper. ClearSight flags high-risk
               clauses in plain English using an Advocate-Critic AI debate model.</div>
           </div>
           <div className="feature-card">
             <div className="feature-card-num">03 · Trust</div>
             <div className="feature-card-title">Community Trust Index</div>
             <div className="feature-card-desc">A live database of clauses Nigerian businesses have flagged as unfair, predatory,
-              or deceptive — crowdsourced intelligence that gets smarter over time.</div>
+              or deceptive this is a crowdsourced intelligence that gets smarter over time.</div>
           </div>
         </div>
       </section>
@@ -131,7 +131,7 @@ export default function LandingPage({ onAuthSuccess }) {
           <div className="how-step">
             <div className="how-step-num">03</div>
             <div className="how-step-title">Plain English Report</div>
-            <div className="how-step-desc">Receive a risk-scored summary — no legalese. Every flagged clause explained with its
+            <div className="how-step-desc">Receive a risk-scored summary. Every flagged clause explained with its
               risk level, what it means for your business, and a recommended action.</div>
             <div className="how-step-tag">Risk Scoring · PDF Export</div>
           </div>
@@ -306,7 +306,7 @@ export default function LandingPage({ onAuthSuccess }) {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   className="w-full bg-transparent border-b border-ink/20 focus:border-ink pb-2 outline-none transition-colors text-sm text-ink"
-                  placeholder="founder@startup.com.ng"
+                  placeholder="email@startup.com.ng"
                 />
               </div>
 

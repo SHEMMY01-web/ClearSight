@@ -1,12 +1,28 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { UploadCloud, File, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react';
+
+const UPLOAD_PHASES = [
+  { label: 'Translating document into plain English…', sub: 'Gemini is reading every clause' },
+  { label: 'Scanning for predatory clauses…', sub: 'Checking against CAMA 2020 & Nigerian Law' },
+  { label: 'Building legal advisory…', sub: 'Advocate-Critic analysis in progress' },
+];
 import { uploadContract } from '../../services/api';
 
 const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySettings = null, userId = null }) => {
   const [isUploading, setIsUploading] = useState(false);
+  const [phaseIndex, setPhaseIndex] = useState(0);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+
+  // Cycle phase messages every 3 seconds while uploading
+  useEffect(() => {
+    if (!isUploading) { setPhaseIndex(0); return; }
+    const interval = setInterval(() => {
+      setPhaseIndex(prev => (prev + 1) % UPLOAD_PHASES.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isUploading]);
 
   const onDrop = useCallback(async (acceptedFiles) => {
     setError(null);
@@ -54,10 +70,26 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
         <input {...getInputProps()} />
         
         {isUploading ? (
-          <div className="flex flex-col items-center">
-            <Loader2 className="w-12 h-12 text-gold animate-spin mb-4" />
-            <p className="font-syne font-bold text-lg">Analyzing Contract...</p>
-            <p className="font-mono text-xs text-mid mt-2">Extracting clauses and checking against Nigerian Law</p>
+          <div className="flex flex-col items-center gap-3">
+            <Loader2 className="w-12 h-12 text-gold animate-spin" />
+            <div className="text-center">
+              <p className="font-syne font-bold text-lg transition-all">
+                {UPLOAD_PHASES[phaseIndex].label}
+              </p>
+              <p className="font-mono text-xs text-mid mt-1">
+                {UPLOAD_PHASES[phaseIndex].sub}
+              </p>
+            </div>
+            <div className="flex gap-1.5 mt-2">
+              {UPLOAD_PHASES.map((_, i) => (
+                <span
+                  key={i}
+                  className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                    i === phaseIndex ? 'bg-gold scale-125' : 'bg-ink/20'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         ) : (
           <>
