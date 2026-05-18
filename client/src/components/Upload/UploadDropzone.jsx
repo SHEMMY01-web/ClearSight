@@ -122,7 +122,15 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
           ${isUploading ? 'opacity-50 pointer-events-none' : ''}
         `}
       >
-        <input {...getInputProps()} id="native-file-upload" />
+        <input 
+          {...getInputProps({ id: 'native-file-upload' })} 
+          onClick={(e) => {
+            // Ensure the input click doesn't bubble up and trigger the label again
+            e.stopPropagation();
+            // Reset the value so the same file can be selected twice if needed
+            e.target.value = null;
+          }} 
+        />
         
         {isUploading ? (
           <div className="flex flex-col items-center gap-3">
