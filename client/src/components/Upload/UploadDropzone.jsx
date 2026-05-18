@@ -9,6 +9,48 @@ const UPLOAD_PHASES = [
 ];
 import { uploadContract } from '../../services/api';
 
+/**
+ * Captures an image from a native file/camera input and downscales it via HTML5 Canvas
+ * to save network bandwidth and server processing power.
+ */
+async function optimizeImageBeforeUpload(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 1600; // Optimal width for high-accuracy OCR text
+        let width = img.width;
+        let height = img.height;
+
+        if (width > MAX_WIDTH) {
+          height *= MAX_WIDTH / width;
+          width = MAX_WIDTH;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Compress image to JPEG at 85% quality to drastically reduce payload size
+        canvas.toBlob((blob) => {
+          const optimizedFile = new File([blob], file.name, {
+            type: 'image/jpeg',
+            lastModified: Date.now()
+          });
+          resolve(optimizedFile);
+        }, 'image/jpeg', 0.85);
+      };
+      img.onerror = () => reject(new Error('Failed to load image for optimization.'));
+    };
+    reader.onerror = (error) => reject(error);
+  });
+}
+
 const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySettings = null, userId = null }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [phaseIndex, setPhaseIndex] = useState(0);
@@ -34,7 +76,17 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
     setIsUploading(true);
 
     try {
-      const result = await uploadContract(file, persona, strategySettings, userId);
+      let finalFile = file;
+      // Native downscaling if the file is an image
+      if (file.type.startsWith('image/')) {
+        try {
+          finalFile = await optimizeImageBeforeUpload(file);
+        } catch (e) {
+          console.error("Downscaling failed, falling back to raw file:", e);
+        }
+      }
+
+      const result = await uploadContract(finalFile, persona, strategySettings, userId);
       setSuccessMessage('Contract analyzed successfully!');
       if (onUploadComplete) {
         onUploadComplete(result);
@@ -67,7 +119,7 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
           ${isUploading ? 'opacity-50 pointer-events-none' : ''}
         `}
       >
-        <input {...getInputProps()} />
+        <input {...getInputProps({ capture: 'environment' })} />
         
         {isUploading ? (
           <div className="flex flex-col items-center gap-3">
