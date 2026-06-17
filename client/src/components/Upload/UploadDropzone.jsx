@@ -8,6 +8,7 @@ const UPLOAD_PHASES = [
   { label: 'Building legal advisory…', sub: 'Advocate-Critic analysis in progress' },
 ];
 import { uploadContract } from '../../services/api';
+import { supabase } from '../../supabaseClient';
 
 /**
  * Captures an image from a native file/camera input and downscales it via HTML5 Canvas
@@ -87,9 +88,59 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
       }
 
       const result = await uploadContract(finalFile, persona, strategySettings, userId);
-      setSuccessMessage('Contract analyzed successfully!');
-      if (onUploadComplete) {
-        onUploadComplete(result);
+      
+      if (result.jobId) {
+        // Polling loop
+        let isDone = false;
+        let attempts = 0;
+        
+        while (!isDone && attempts < 60) { // Max 5 minutes (5s * 60)
+          await new Promise(resolve => setTimeout(resolve, 5000));
+          attempts++;
+          
+          const { data, error } = await supabase
+            .from('contracts')
+            .select('*')
+            .eq('id', result.jobId)
+            .single();
+            
+          if (error) {
+            console.error("Polling error:", error);
+            continue;
+          }
+          
+          if (data && data.risk_status && data.risk_status !== 'processing') {
+            isDone = true;
+            if (data.risk_status === 'failed') {
+              throw new Error(data.strategic_summary || 'Analysis failed. Please try again.');
+            }
+            
+            // Format to match what the old API returned
+            const finalResult = {
+              success: true,
+              filename: data.filename,
+              persona: persona,
+              riskStatus: data.risk_status,
+              plainTranslation: data.plain_translation,
+              extractedTextPreview: result.extractedTextPreview,
+              analysis: data.analysis_results
+            };
+            
+            setSuccessMessage('Contract analyzed successfully!');
+            if (onUploadComplete) {
+              onUploadComplete(finalResult);
+            }
+          }
+        }
+        
+        if (!isDone) {
+          throw new Error('Analysis timed out. Please refresh the page to view your results later.');
+        }
+      } else {
+        setSuccessMessage('Contract analyzed successfully!');
+        if (onUploadComplete) {
+          onUploadComplete(result);
+        }
       }
     } catch (err) {
       setError(err.message || 'An error occurred during upload.');

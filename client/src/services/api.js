@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { supabase } from '../supabaseClient';
 
 const API_BASE_URL = (import.meta.env.VITE_API_URL || 'https://clearsight-backend.onrender.com') + '/api';
 
@@ -13,13 +14,20 @@ export const uploadContract = async (file, persona = 'general', strategySettings
   if (strategySettings) {
     formData.append('strategySettings', JSON.stringify(strategySettings));
   }
-  if (userId) {
-    formData.append('userId', userId);
+
+  const { data: { session } } = await supabase.auth.getSession();
+  const token = session?.access_token;
+
+  if (!token) {
+    throw new Error('Authentication required. Please log in.');
   }
 
   try {
     const response = await api.post('/upload', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: { 
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`
+      },
     });
     return response.data;
   } catch (error) {

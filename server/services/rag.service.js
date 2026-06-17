@@ -15,11 +15,12 @@ const client = new ChromaClient({
     "X-Chroma-Token": (process.env.CHROMA_API_KEY || '').trim()
   }
 });
-const collectionName = "nigerian_law_v2"; // Renamed to force re-index with semantic chunking
-const casesCollectionName = "nigerian_cases";
+const collectionName = "nigerian_law_v3"; // Renamed to force re-index with Gemini 768d semantic chunking
+const casesCollectionName = "nigerian_cases_v2";
 
-// ── Use Local Transformers (100% Offline & Free) ──
-let extractorPromise = null;
+const { GoogleGenAI } = require('@google/genai');
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const embeddingModel = 'text-embedding-004';
 
 // Simple in-memory embedding cache — avoids re-embedding the same text twice
 const embeddingCache = new Map();
@@ -30,37 +31,33 @@ async function getEmbedding(text) {
     return embeddingCache.get(text);
   }
 
-  if (!extractorPromise) {
-    extractorPromise = (async () => {
-      const { pipeline, env } = await import('@xenova/transformers');
-      env.allowLocalModels = false;
-      env.useBrowserCache = false;
-      return await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
-        quantized: true,
-      });
-    })();
+  try {
+    const response = await ai.models.embedContent({
+      model: embeddingModel,
+      contents: text
+    });
+    
+    const embedding = response.embeddings[0].values;
+
+    // Cache it (cap cache at 500 entries to avoid memory bloat)
+    if (embeddingCache.size >= 500) {
+      const firstKey = embeddingCache.keys().next().value;
+      embeddingCache.delete(firstKey);
+    }
+    embeddingCache.set(text, embedding);
+
+    return embedding;
+  } catch (error) {
+    console.error("Embedding generation failed:", error.message);
+    throw error;
   }
-
-  const extractor = await extractorPromise;
-  const output = await extractor(text, { pooling: 'mean', normalize: true });
-  const embedding = Array.from(output.data);
-
-  // Cache it (cap cache at 500 entries to avoid memory bloat)
-  if (embeddingCache.size >= 500) {
-    const firstKey = embeddingCache.keys().next().value;
-    embeddingCache.delete(firstKey);
-  }
-  embeddingCache.set(text, embedding);
-
-  return embedding;
 }
 
 /**
- * Pre-loads the Xenova transformer model at server startup.
- * This ensures the FIRST user request is fast.
+ * Pre-loads the embedding model at server startup.
  */
 async function warmupEmbedder() {
-  console.log('⚡ Pre-warming local embedding model...');
+  console.log('⚡ Pre-warming Gemini embedding model...');
   await getEmbedding('Nigerian contract law clause review');
   console.log('✓ Embedding model ready.');
 }
