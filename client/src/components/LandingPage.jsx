@@ -50,13 +50,13 @@ export default function LandingPage({ onAuthSuccess }) {
             <div className="hero-tag hidden md:block mr-4">Nigeria · LegalTech · SMB</div>
             <button
               onClick={() => openAuth('login')}
-              className="text-[10px] font-bold uppercase tracking-widest text-paper/80 hover:text-gold transition-colors"
+              className="text-[10px] font-bold uppercase tracking-widest text-white/80 hover:text-gold transition-colors"
             >
               Log In
             </button>
             <button
               onClick={() => openAuth('signup')}
-              className="bg-gold text-ink px-4 py-2 font-syne font-bold uppercase tracking-widest text-[10px] transition-all hover:bg-gold-light"
+              className="bg-gold text-ink px-4 py-2 font-sans font-bold uppercase tracking-widest text-[10px] transition-all hover:bg-gold-light"
             >
               Sign Up
             </button>
@@ -267,7 +267,7 @@ export default function LandingPage({ onAuthSuccess }) {
               borderRadius: '8px',
               padding: '3rem 2rem',
               color: 'var(--ink)',
-              fontFamily: 'var(--font-mono)'
+              fontFamily: 'var(--font-sans)'
             }}
           >
             <div className="absolute inset-0 bg-gold/5 blur-xl rounded-lg -z-10 pointer-events-none"></div>
@@ -283,7 +283,7 @@ export default function LandingPage({ onAuthSuccess }) {
               <div className="w-12 h-12 mx-auto mb-4 border-2 border-gold rounded-full flex items-center justify-center relative">
                 <div className="w-4 h-4 bg-gold rounded-full animate-pulse"></div>
               </div>
-              <h3 className="font-playfair text-3xl font-black mb-2" style={{ color: 'var(--ink)' }}>
+              <h3 className="font-sans text-3xl font-black mb-2" style={{ color: 'var(--ink)' }}>
                 {authMode === 'login' ? 'Welcome Back.' : 'Create Account.'}
               </h3>
               <p className="text-xs text-gray uppercase tracking-widest">
@@ -293,7 +293,7 @@ export default function LandingPage({ onAuthSuccess }) {
 
             <form onSubmit={handleAuth} className="space-y-6">
               {errorMsg && (
-                <div className="bg-rust/10 text-rust p-3 text-[10px] uppercase font-bold border-l-2 border-rust tracking-widest">
+                <div className="bg-red-700/10 text-red-700 p-3 text-[10px] uppercase font-bold border-l-2 border-red-700 tracking-widest">
                   {errorMsg}
                 </div>
               )}
@@ -325,7 +325,7 @@ export default function LandingPage({ onAuthSuccess }) {
               <button
                 type="submit"
                 disabled={isAuthLoading}
-                className="w-full flex justify-center items-center py-4 mt-8 transition-transform bg-gold text-ink font-syne font-bold uppercase tracking-widest text-[11px]"
+                className="w-full flex justify-center items-center py-4 mt-8 transition-transform bg-gold text-ink font-sans font-bold uppercase tracking-widest text-[11px]"
                 style={{ background: 'var(--gold)', color: 'var(--ink)', border: 'none' }}
               >
                 <span>{isAuthLoading ? 'Authenticating...' : (authMode === 'login' ? 'Sign In →' : 'Create Account →')}</span>

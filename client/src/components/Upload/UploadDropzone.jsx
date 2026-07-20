@@ -202,10 +202,10 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
           <div className="flex flex-col items-center gap-3">
             <Loader2 className="w-12 h-12 text-gold animate-spin" />
             <div className="text-center">
-              <p className="font-syne font-bold text-lg transition-all">
+              <p className="font-sans font-bold text-lg transition-all">
                 {UPLOAD_PHASES[phaseIndex].label}
               </p>
-              <p className="font-mono text-xs text-mid mt-1">
+              <p className="font-sans text-xs text-mid mt-1">
                 {UPLOAD_PHASES[phaseIndex].sub}
               </p>
             </div>
@@ -223,10 +223,10 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
         ) : (
           <>
             <UploadCloud className={`w-12 h-12 mb-4 ${isDragActive ? 'text-accent' : 'text-mid'}`} />
-            <p className="font-syne font-bold text-lg mb-2 text-center">
+            <p className="font-sans font-bold text-lg mb-2 text-center">
               {isDragActive ? 'Drop contract here' : 'Drag & drop contract, or click to select'}
             </p>
-            <p className="font-mono text-xs text-mid text-center">
+            <p className="font-sans text-xs text-mid text-center">
               Supports PDF, PNG, JPG up to 10MB
             </p>
           </>
@@ -236,14 +236,14 @@ const UploadDropzone = ({ onUploadComplete, persona = 'general', strategySetting
       {error && (
         <div className="mt-4 p-4 bg-red-50 border border-red-200 flex items-start gap-3">
           <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-          <p className="text-sm text-red-700 font-mono">{error}</p>
+          <p className="text-sm text-red-700 font-sans">{error}</p>
         </div>
       )}
 
       {successMessage && !isUploading && (
         <div className="mt-4 p-4 bg-teal/10 border border-teal flex items-start gap-3">
           <CheckCircle2 className="w-5 h-5 text-teal shrink-0 mt-0.5" />
-          <p className="text-sm text-teal-800 font-mono">{successMessage}</p>
+          <p className="text-sm text-teal-800 font-sans">{successMessage}</p>
         </div>
       )}
     </div>

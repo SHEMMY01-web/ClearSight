@@ -5,6 +5,7 @@ import TemplateGallery from './components/Templates/TemplateGallery'
 import TrustIndex from './components/Trust/TrustIndex'
 import ResultsBadge from './components/Results/ResultsBadge'
 import PlainTranslationPanel from './components/Results/PlainTranslationPanel'
+import ClauseCard from './components/Results/ClauseCard'
 import { supabase } from './supabaseClient'
 import { exportAnalysisPDF, exportClarityPDF } from './services/template.service'
 import DOMPurify from 'dompurify'
@@ -284,467 +285,358 @@ function App() {
     return <LandingPage onAuthSuccess={() => {}} />;
   }
 
-  return (
-    <div className="min-h-screen pb-24">
-      {/* ── Brand Header ── */}
-      <header className="bg-green text-paper px-4 md:px-8 py-4 md:py-6 flex flex-wrap justify-between items-center gap-4 sticky top-0 z-50 shadow-lg w-full box-border overflow-hidden">
-        <div className="flex items-center gap-3 md:gap-4">
-          <div className="w-8 h-8 md:w-10 md:h-10 border-2 border-gold rounded-full flex items-center justify-center shrink-0">
-            <div className="w-2 h-2 md:w-3 md:h-3 bg-gold rounded-full animate-pulse"></div>
-          </div>
-          <h1 className="font-syne font-extrabold text-lg md:text-xl tracking-widest uppercase truncate">Clear<span className="text-gold">Sight</span></h1>
-        </div>
-        
-        <div className="flex items-center gap-4 md:gap-6 flex-wrap justify-end flex-1 min-w-[200px]">
-          <button 
-            onClick={handleInstall}
-            className="hidden sm:block bg-gold/10 text-gold border border-gold/30 px-3 py-1 text-[9px] md:text-[10px] font-bold uppercase tracking-widest hover:bg-gold hover:text-ink transition-all shrink-0"
-          >
-            📱 {deferredPrompt ? 'Install' : 'PWA'}
-          </button>
-          
-          <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest shrink-0">
-            <button 
-              onClick={async () => {
-                const { subscribeToNotifications } = await import('./services/push.service');
-                const success = await subscribeToNotifications();
-                if (success) alert('Notifications enabled! We will alert you when reviews are complete.');
-              }}
-              className="text-[10px] font-bold uppercase tracking-widest text-paper/60 hover:text-gold"
-            >
-              🔔 Alerts
-            </button>
-          </div>
+  const score = calculateScore();
+  const scoreColor = score > 70 ? 'text-ink-mid' : score > 40 ? 'text-gold' : 'text-red-700';
 
-          <button className="hidden md:block btn-ghost text-paper/80 shrink-0">Documentation</button>
-          <div className="flex items-center gap-3 md:gap-4 shrink-0">
-            <span className="hidden sm:inline text-[9px] md:text-[10px] text-paper/40 font-mono truncate max-w-[120px] md:max-w-xs">{user.email}</span>
-            <button onClick={handleLogout} className="btn-ghost !text-gold text-[10px] md:text-[11px] shrink-0">Logout</button>
+  return (
+    <div className="min-h-screen bg-white flex flex-col">
+
+      {/* ── TOP NAVIGATION BAR ── */}
+      <header className="bg-ink text-white h-14 flex items-center justify-between px-6 sticky top-0 z-50 shadow-lg shrink-0">
+        {/* Brand */}
+        <div className="flex items-center gap-3">
+          <div className="w-7 h-7 border-2 border-gold rounded-full flex items-center justify-center shrink-0">
+            <div className="w-2 h-2 bg-gold rounded-full animate-pulse" />
           </div>
+          <span className="font-sans font-extrabold text-base tracking-widest uppercase">
+            Clear<span className="text-gold">Sight</span>
+          </span>
+          <span className="hidden md:inline text-[9px] font-sans text-white/30 border-l border-paper/10 pl-3 ml-1">
+            CAMA 2020 · Legal Intelligence
+          </span>
+        </div>
+
+        {/* Nav Links — Hick's Law: only the essential links */}
+        <nav className="hidden md:flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest">
+          <button onClick={() => setAnalysisResult(null)} className="text-white/50 hover:text-gold transition-colors">Dashboard</button>
+          <a href="#history" className="text-white/50 hover:text-gold transition-colors">Legal Vault</a>
+          <a href="#trust" className="text-white/50 hover:text-gold transition-colors">Trust Index</a>
+        </nav>
+
+        {/* User actions */}
+        <div className="flex items-center gap-4">
+          <span className="hidden sm:inline text-[9px] font-sans text-white/30 truncate max-w-[140px]">{user.email}</span>
+          <button
+            onClick={handleLogout}
+            className="text-[10px] font-bold uppercase tracking-widest text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-ink transition-all"
+          >
+            Logout
+          </button>
         </div>
       </header>
 
-      {/* ── Hero Section ── */}
-      <section className="bg-green text-paper pt-20 pb-32 px-8 relative overflow-hidden">
-        <div className="absolute right-[-10%] top-1/2 -translate-y-1/2 font-playfair text-[20rem] font-black opacity-[0.03] pointer-events-none select-none">LEGAL</div>
-        <div className="max-w-6xl mx-auto">
-          <div className="section-label text-gold">Intelligent Risk Management</div>
-          <h2 className="font-playfair text-6xl md:text-8xl font-black leading-[1] mb-8">Analyze. <em>Protect.</em><br/>Scale.</h2>
-          <p className="font-mono text-paper/60 max-w-xl text-sm leading-relaxed mb-12">ClearSight is the specialized CFO and Legal Strategist for Nigerian SMBs. Grounded in CAMA 2020, we turn legal complexity into commercial leverage.</p>
-          
-          <div className="flex gap-4">
-            <button className="btn-primary">Start Analysis</button>
-            <button className="btn-ghost text-paper">View Templates</button>
-          </div>
-        </div>
-      </section>
+      {/* ── 3-COLUMN APP SHELL ── */}
+      <div className="flex flex-1 overflow-hidden max-h-[calc(100vh-56px)]">
 
-      <main className="max-w-6xl mx-auto px-8 -mt-20 relative z-10">
-        
-        {/* ── Strategy Playbook ── */}
-        <div className="bg-white border border-ink/5 p-10 shadow-2xl mb-12">
-          <div className="flex justify-between items-start mb-10">
-            <div>
-              <div className="section-label">Strategy Playbook</div>
-              <h3 className="font-playfair text-3xl font-black">Configure your <em>Strategic Profile</em></h3>
+        {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            LEFT SIDEBAR — Context & History
+            Law of Proximity: settings near the upload tool
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+        <aside className="hidden lg:flex flex-col w-72 shrink-0 bg-white border-r border-ink/5 overflow-y-auto">
+
+          {/* Strategy Playbook — context that shapes the analysis */}
+          <div className="p-6 border-b border-ink/5">
+            <div className="section-label mb-5">Strategy Playbook</div>
+
+            {/* Persona — most impactful choice first (Hick's Law) */}
+            <div className="mb-6">
+              <label className="block text-[9px] uppercase tracking-widest font-bold mb-3 opacity-60">Analyze As</label>
+              <div className="grid grid-cols-2 gap-1.5">
+                {PERSONAS.map(p => (
+                  <button
+                    key={p.value}
+                    onClick={() => setPersona(p.value)}
+                    className={`p-2.5 border text-left transition-all text-[9px] font-bold uppercase tracking-tighter leading-tight ${
+                      persona === p.value ? 'border-gold bg-gold/10 text-ink' : 'border-ink/5 text-gray hover:border-gold/30'
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
             </div>
-            <button 
-              onClick={savePlaybook}
-              disabled={isSavingPlaybook}
-              className="btn-primary !py-2 !px-6"
-            >
-              {isSavingPlaybook ? 'Saving...' : 'Persist to Cloud'}
-            </button>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             {/* Risk Appetite */}
-            <div className="space-y-4">
-              <label className="block text-[10px] uppercase tracking-widest font-bold">Risk Appetite</label>
-              <input 
+            <div className="mb-5">
+              <label className="block text-[9px] uppercase tracking-widest font-bold mb-2 opacity-60">Risk Appetite</label>
+              <input
                 type="range" min="0" max="2" step="1"
                 value={riskAppetite === 'conservative' ? 0 : riskAppetite === 'balanced' ? 1 : 2}
-                onChange={(e) => {
-                  const vals = ['conservative', 'balanced', 'aggressive'];
-                  setRiskAppetite(vals[e.target.value]);
-                }}
+                onChange={(e) => { const v = ['conservative','balanced','aggressive']; setRiskAppetite(v[e.target.value]); }}
                 className="w-full accent-gold"
               />
-              <div className="flex justify-between text-[9px] uppercase font-bold tracking-tighter opacity-60">
-                <span>Conservative</span>
-                <span>Balanced</span>
-                <span>Aggressive</span>
+              <div className="flex justify-between text-[8px] uppercase font-bold tracking-tighter opacity-40 mt-1">
+                <span>Safe</span><span>Balanced</span><span>Bold</span>
               </div>
             </div>
 
             {/* Strategic Goal */}
-            <div className="space-y-4">
-              <label className="block text-[10px] uppercase tracking-widest font-bold">Strategic Goal</label>
-              <div className="flex gap-2">
-                <button 
-                  onClick={() => setStrategicGoal('liquidity')}
-                  className={`flex-1 text-[10px] uppercase font-bold py-2 border transition-all ${strategicGoal === 'liquidity' ? 'bg-gold border-gold text-ink' : 'border-ink/10 text-gray hover:border-gold/50'}`}
-                >
-                  Liquidity
-                </button>
-                <button 
-                  onClick={() => setStrategicGoal('protection')}
-                  className={`flex-1 text-[10px] uppercase font-bold py-2 border transition-all ${strategicGoal === 'protection' ? 'bg-gold border-gold text-ink' : 'border-ink/10 text-gray hover:border-gold/50'}`}
-                >
-                  Protection
-                </button>
+            <div className="mb-5">
+              <label className="block text-[9px] uppercase tracking-widest font-bold mb-2 opacity-60">Strategic Goal</label>
+              <div className="flex gap-1.5">
+                {['liquidity','protection'].map(g => (
+                  <button
+                    key={g}
+                    onClick={() => setStrategicGoal(g)}
+                    className={`flex-1 text-[9px] uppercase font-bold py-2 border transition-all ${strategicGoal === g ? 'bg-gold border-gold text-ink' : 'border-ink/10 text-gray hover:border-gold/40'}`}
+                  >
+                    {g === 'liquidity' ? '💰 Cash' : '🛡️ IP'}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Monthly Expenses */}
-            <div className="space-y-4">
-              <label className="block text-[10px] uppercase tracking-widest font-bold">Monthly Burn (₦)</label>
-              <input 
-                type="number" value={monthlyExpenses} 
-                onChange={e => setMonthlyExpenses(e.target.value)}
-                className="input-premium"
-              />
+            {/* Monthly Burn */}
+            <div className="mb-5">
+              <label className="block text-[9px] uppercase tracking-widest font-bold mb-2 opacity-60">Monthly Burn (₦)</label>
+              <input type="number" value={monthlyExpenses} onChange={e => setMonthlyExpenses(e.target.value)} className="input-premium text-sm" />
             </div>
 
             {/* Industry */}
-            <div className="space-y-4">
-              <label className="block text-[10px] uppercase tracking-widest font-bold">Industry Context</label>
-              <select 
-                value={industryContext}
-                onChange={e => setIndustryContext(e.target.value)}
-                className="input-premium bg-white"
-              >
+            <div className="mb-6">
+              <label className="block text-[9px] uppercase tracking-widest font-bold mb-2 opacity-60">Industry</label>
+              <select value={industryContext} onChange={e => setIndustryContext(e.target.value)} className="input-premium bg-white text-sm">
                 <option value="General Commercial">General Commercial</option>
                 <option value="Software Engineering">Software Engineering</option>
                 <option value="Afrobeats Music">Afrobeats Music</option>
               </select>
             </div>
-          </div>
-        </div>
 
-        {/* ── Analysis Hub ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-24">
-          <div className="lg:col-span-2 space-y-12">
-            <div className="card-premium">
-              <div className="section-label">Analysis Engine</div>
-              <h3 className="font-playfair text-3xl font-black mb-8">Upload Contract</h3>
-              
-              <div className="mb-8">
-                <p className="text-[10px] uppercase tracking-widest font-bold mb-4 opacity-60">Analyze as...</p>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {PERSONAS.map(p => (
-                    <button
-                      key={p.value}
-                      onClick={() => setPersona(p.value)}
-                      className={`p-4 border text-left transition-all ${
-                        persona === p.value
-                          ? 'border-gold bg-gold/5'
-                          : 'border-ink/5 bg-cream/30 hover:border-gold/30'
-                      }`}
-                    >
-                      <div className="text-xs font-bold mb-1">{p.label.split(' ')[1]}</div>
-                      <div className="text-[9px] uppercase tracking-tighter opacity-50">{p.desc}</div>
+            {/* Save — Fitts's Law: full-width primary action */}
+            <button onClick={savePlaybook} disabled={isSavingPlaybook} className="btn-primary w-full text-center">
+              {isSavingPlaybook ? 'Saving...' : 'Save Playbook'}
+            </button>
+          </div>
+
+          {/* Legal Vault (History) */}
+          {history.length > 0 && (
+            <div className="p-6" id="history">
+              <div className="section-label mb-4">Legal Vault</div>
+              <div className="space-y-2">
+                {history.slice(0, 8).map(item => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setAnalysisResult({ analysis: item.analysis_results, plainTranslation: item.plain_translation, riskStatus: item.risk_status, filename: item.filename });
+                      window.scrollTo({ top: 0 });
+                    }}
+                    className="w-full text-left p-3 hover:bg-white/80 border border-transparent hover:border-gold/20 transition-all group"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className={`text-[9px] font-black ${item.risk_score > 70 ? 'text-ink-mid' : 'text-red-700'}`}>{item.risk_score}/100</span>
+                      <span className="text-[8px] font-sans text-gray">{new Date(item.created_at).toLocaleDateString()}</span>
+                    </div>
+                    <p className="text-[10px] font-bold text-ink truncate group-hover:text-gold transition-colors">{item.filename}</p>
+                    <p className="text-[9px] text-gray">{item.analysis_results?.length || 0} clauses</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </aside>
+
+        {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            CENTRE MAIN PANEL — Upload + Results
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+        <main className="flex-1 overflow-y-auto px-4 md:px-8 py-8">
+
+          {/* ── Upload Zone (always visible when no result) ── */}
+          {!analysisResult && (
+            <div className="max-w-2xl mx-auto animate-fade-up">
+              <div className="mb-8 text-center">
+                <div className="section-label justify-center">Analysis Engine</div>
+                <h2 className="font-sans text-4xl font-black mt-2">Upload Your <em>Contract</em></h2>
+                <p className="font-sans text-sm text-gray mt-2">Drag and drop or click to select a PDF or image up to 10MB.</p>
+              </div>
+              <UploadDropzone
+                persona={persona}
+                strategySettings={{ riskAppetite, monthlyExpenses: Number(monthlyExpenses), industryContext, strategicGoal }}
+                onUploadComplete={handleUploadComplete}
+              />
+              {/* Mobile-only playbook summary below upload */}
+              <div className="lg:hidden mt-8 bg-white border border-ink/5 p-5">
+                <div className="section-label mb-3">Current Profile</div>
+                <div className="flex flex-wrap gap-3 text-[10px] font-bold uppercase">
+                  <span className="px-2 py-1 bg-gold/10 text-gold border border-gold/30">{persona.replace('_',' ')}</span>
+                  <span className="px-2 py-1 bg-ink/5">{riskAppetite}</span>
+                  <span className="px-2 py-1 bg-ink/5">{strategicGoal}</span>
+                  <span className="px-2 py-1 bg-ink/5">{industryContext}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ── Results Panel ── */}
+          {analysisResult && (
+            <div className="animate-fade-up space-y-6 max-w-4xl mx-auto" id="results-panel">
+
+              {/* Results Header Bar — Law of Proximity: score + actions close together */}
+              <div className="bg-white border border-ink/5 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm sticky top-0 z-10">
+                <div>
+                  <p className="text-[9px] font-sans text-gray uppercase tracking-widest mb-1">{analysisResult.filename || 'Analyzed Document'}</p>
+                  <h2 className="font-sans text-2xl font-black">Analysis <em>Report</em></h2>
+                </div>
+                <div className="flex items-center gap-6">
+                  {/* Score — visually dominant, Fitts's Law */}
+                  <div className="text-center">
+                    <p className="text-[8px] uppercase tracking-widest opacity-40 mb-0.5">Risk Score</p>
+                    <p className={`text-3xl font-sans font-black ${scoreColor}`}>{score}<span className="text-base font-sans opacity-40">/100</span></p>
+                  </div>
+                  {/* Download */}
+                  {analysisResult.riskStatus === 'clean' ? (
+                    <button onClick={() => exportClarityPDF(analysisResult.plainTranslation, analysisResult.filename)} className="btn-primary !py-2 !px-5 !bg-ink !text-white whitespace-nowrap">
+                      📄 Download Certificate
                     </button>
-                  ))}
+                  ) : (
+                    <button onClick={() => exportAnalysisPDF(analysisResult.analysis)} className="btn-primary !py-2 !px-5 whitespace-nowrap">
+                      ⬇ Risk Audit PDF
+                    </button>
+                  )}
+                  {/* Re-analyze (reset) */}
+                  <button
+                    onClick={() => setAnalysisResult(null)}
+                    className="text-[9px] font-bold uppercase tracking-widest text-gray hover:text-ink border border-ink/10 px-3 py-2 transition-all"
+                  >
+                    ↩ New
+                  </button>
                 </div>
               </div>
 
-              <UploadDropzone
-                persona={persona}
-                strategySettings={{
-                  riskAppetite,
-                  monthlyExpenses: Number(monthlyExpenses),
-                  industryContext,
-                  strategicGoal
-                }}
-                onUploadComplete={handleUploadComplete}
+              {/* Status Badge */}
+              <ResultsBadge
+                riskStatus={analysisResult.riskStatus || (analysisResult.analysis?.length > 0 ? 'flagged' : 'clean')}
+                flagCount={analysisResult.analysis?.length || 0}
               />
-            </div>
 
-            {/* ── Dual-Mode Results Panel ── */}
-            {analysisResult && (
-              <div className="animate-fade-up space-y-8" id="results-panel">
+              {/* Plain Translation Panel */}
+              {analysisResult.plainTranslation && (
+                <div className="bg-white border border-ink/5 p-6 shadow-sm">
+                  <PlainTranslationPanel
+                    plainTranslation={analysisResult.plainTranslation}
+                    flaggedClauses={analysisResult.analysis || []}
+                    riskStatus={analysisResult.riskStatus || 'clean'}
+                    onJumpToRisks={() => riskCardsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                  />
+                </div>
+              )}
 
-                {/* Report Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white border border-ink/5 p-6 shadow-xl">
-                  <div>
-                    <h3 className="font-playfair text-4xl font-black">Analysis <em>Report</em></h3>
-                    <p className="text-[10px] uppercase tracking-widest font-bold opacity-40 mt-1">CAMA 2020 Validated Analysis</p>
-                  </div>
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 md:gap-8">
-                    {persona === 'founder' && (
-                      <div className="hidden md:flex gap-4 border-l border-ink/10 pl-8">
-                        <div className="text-center">
-                          <div className="text-[8px] uppercase tracking-tighter opacity-40">CAMA 2020</div>
-                          <div className="text-[10px] font-bold text-green">Vesting ✓</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-[8px] uppercase tracking-tighter opacity-40">Section 271</div>
-                          <div className="text-[10px] font-bold text-green">Directors ✓</div>
-                        </div>
-                      </div>
-                    )}
-                    <div className="text-left sm:text-right">
-                      <div className="text-[10px] uppercase tracking-widest font-bold opacity-40">Risk Score</div>
-                      <div className={`text-3xl font-syne font-black ${calculateScore() > 70 ? 'text-green-mid' : calculateScore() > 40 ? 'text-gold' : 'text-rust'}`}>
-                        {calculateScore()}/100
-                      </div>
+              {/* Flagged Clauses — single column list for better readability */}
+              {analysisResult.analysis?.length > 0 && (
+                <div ref={riskCardsRef}>
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <div className="section-label text-red-700">Flagged Clauses</div>
+                      <h3 className="font-sans text-2xl font-black">Detailed <em>Risk Report</em></h3>
                     </div>
-                    {/* Conditional download button */}
-                    {analysisResult.riskStatus === 'clean' ? (
-                      <button
-                        onClick={() => exportClarityPDF(analysisResult.plainTranslation, analysisResult.filename)}
-                        className="btn-primary !py-2 !px-6 w-full sm:w-auto !bg-emerald-600 hover:!bg-emerald-700"
-                      >
-                        📄 Download Certificate of Clarity
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => exportAnalysisPDF(analysisResult.analysis)}
-                        className="btn-primary !py-2 !px-6 w-full sm:w-auto"
-                      >
-                        Download Risk Audit PDF
-                      </button>
-                    )}
+                    <span className="text-[10px] font-sans text-gray">{analysisResult.analysis.length} clause{analysisResult.analysis.length !== 1 ? 's' : ''} flagged</span>
+                  </div>
+                  <div className="space-y-4">
+                    {analysisResult.analysis.map((clause, idx) => (
+                      <ClauseCard
+                        key={idx}
+                        index={idx}
+                        clause={clause}
+                        persona={persona}
+                        onFlag={handleFlagClause}
+                        onEscalate={handleEscalate}
+                      />
+                    ))}
                   </div>
                 </div>
+              )}
 
-                {/* Status Badge */}
-                <ResultsBadge
-                  riskStatus={analysisResult.riskStatus || (analysisResult.analysis?.length > 0 ? 'flagged' : 'clean')}
-                  flagCount={analysisResult.analysis?.length || 0}
-                />
+              {/* Template Gallery + Trust Index below results */}
+              <TemplateGallery />
+              <div id="trust"><TrustIndex /></div>
+            </div>
+          )}
 
-                {/* Plain Translation Panel — always shown */}
-                {analysisResult.plainTranslation && (
-                  <div className="bg-white border border-ink/5 p-8 shadow-xl">
-                    <PlainTranslationPanel
-                      plainTranslation={analysisResult.plainTranslation}
-                      flaggedClauses={analysisResult.analysis || []}
-                      riskStatus={analysisResult.riskStatus || 'clean'}
-                      onJumpToRisks={() =>
-                        riskCardsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                      }
-                    />
+          {/* If no result yet — show galleries below the upload zone */}
+          {!analysisResult && (
+            <div className="max-w-2xl mx-auto mt-16">
+              <TemplateGallery />
+              <div id="trust" className="mt-8"><TrustIndex /></div>
+            </div>
+          )}
+        </main>
+
+        {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            RIGHT SIDEBAR — Financial Simulator
+            Law of Proximity: foresight data near results
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+        <aside className="hidden xl:flex flex-col w-72 shrink-0 bg-ink text-white border-l border-white/5 overflow-y-auto">
+          <div className="p-6">
+            <div className="section-label text-gold mb-5">Consequence Engine</div>
+            <h3 className="font-sans text-xl font-black mb-1 text-white">Financial <em>Foresight</em></h3>
+            <p className="text-[10px] font-sans text-white/40 mb-6 leading-relaxed">Simulate a buyout or deal to see the real financial impact.</p>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-[9px] uppercase tracking-widest font-bold mb-2 text-white/50">Buyout Offer (₦)</label>
+                <input type="number" value={buyoutOffer} onChange={e => setBuyoutOffer(e.target.value)} className="input-premium bg-white/5 border-white/10 text-white w-full" />
+              </div>
+              <div>
+                <label className="block text-[9px] uppercase tracking-widest font-bold mb-2 text-white/50">Monthly Revenue (₦)</label>
+                <input type="number" value={monthlyStreams} onChange={e => setMonthlyStreams(e.target.value)} className="input-premium bg-white/5 border-white/10 text-white w-full" />
+              </div>
+              {/* Fitts's Law: wide primary button */}
+              <button onClick={handleSimulate} disabled={isSimulating} className="btn-primary w-full">
+                {isSimulating ? 'Simulating...' : 'Run Simulation'}
+              </button>
+            </div>
+
+            {simResult && !simResult.error && (
+              <div className="mt-8 pt-6 border-t border-white/10 animate-fade-up space-y-4">
+                <div className="text-center">
+                  <p className="text-[9px] uppercase tracking-widest text-white/40 mb-1">Recommendation</p>
+                  <p className="text-lg font-sans font-bold text-gold">{simResult.optimalDecision}</p>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="bg-white/5 p-3 text-center">
+                    <p className="text-[8px] uppercase text-white/40 mb-1">Deal Risk</p>
+                    <p className="text-[11px] font-bold text-gold">{simResult.dealRisk}</p>
                   </div>
-                )}
-
-                {/* Risk Cards — only shown when flagged */}
-                {analysisResult.analysis?.length > 0 && (
-                  <div ref={riskCardsRef}>
-                    <div className="mb-6">
-                      <div className="section-label text-rust">Flagged Clauses</div>
-                      <h3 className="font-playfair text-3xl font-black">Detailed <em>Risk Report</em></h3>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      {analysisResult.analysis?.map((clause, idx) => {
-                        const severityColor = clause.severity === 'HIGH' ? 'border-rust' : 'border-gold';
-                        return (
-                          <div key={idx} className={`card-premium !p-0 border-l-4 ${severityColor} overflow-hidden`}>
-                            <div className="p-6">
-                              <div className="flex justify-between items-start mb-4">
-                                <div className="flex gap-2">
-                                  <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 bg-ink/5">{clause.id}</span>
-                                  <button
-                                    onClick={() => handleFlagClause(clause)}
-                                    className="text-[9px] font-bold uppercase tracking-widest text-rust hover:underline"
-                                  >
-                                    🚩 Flag for Community
-                                  </button>
-                                  {(persona === 'founder' || persona === 'freelancer') && (
-                                    <button
-                                      onClick={() => handleEscalate(clause)}
-                                      className="text-[9px] font-bold uppercase tracking-widest text-green hover:underline border-l border-ink/10 pl-2"
-                                    >
-                                      ⚖️ Escalate to Human
-                                    </button>
-                                  )}
-                                </div>
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-gold">{clause.riskCategory}</span>
-                              </div>
-                              <p
-                                className="text-[11px] text-gray italic mb-6 leading-relaxed"
-                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(fixEncoding(clause.text)) }}
-                              />
-
-                              <div className="space-y-4">
-                                <div className="bg-cream/50 p-4">
-                                  <strong className="text-[10px] uppercase tracking-widest block mb-2 text-green">💡 Plain English</strong>
-                                  <p
-                                    className="text-[11px] leading-relaxed"
-                                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(sanitizePlainEnglish(clause.plainEnglish)) }}
-                                  />
-                                </div>
-
-                                <div className="bg-gold/5 p-4 relative group">
-                                  <div className="flex justify-between items-center mb-2">
-                                    <strong className="text-[10px] uppercase tracking-widest block text-gold">⚖️ Legal Advisory</strong>
-                                    <button
-                                      onClick={(e) => {
-                                        const details = e.currentTarget.parentElement.nextElementSibling;
-                                        if (details) details.classList.toggle('hidden');
-                                      }}
-                                      className="text-[9px] font-bold uppercase tracking-widest text-gold hover:underline"
-                                    >
-                                      Deep Dive →
-                                    </button>
-                                  </div>
-                                  <div className="hidden mt-4 space-y-4 border-t border-gold/10 pt-4 animate-fade-down">
-                                    <div className="bg-white/50 p-3 rounded text-[10px] leading-relaxed whitespace-pre-line font-mono text-gray">
-                                      {clause.technicalAnalysis?.constraintLayer}
-                                    </div>
-                                    <div className="text-[11px] leading-relaxed whitespace-pre-line">
-                                      {clause.critic}
-                                    </div>
-                                    {clause.technicalAnalysis?.precedent && (
-                                      <div className="mt-2 text-[10px] italic border-l-2 border-gold/30 pl-3 py-1 bg-white/30">
-                                        <strong>Precedent:</strong> "{clause.technicalAnalysis.precedent}"
-                                        <span className="opacity-50 ml-1">[{clause.technicalAnalysis.citation}]</span>
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      })}
-                    </div>
+                  <div className="bg-white/5 p-3 text-center">
+                    <p className="text-[8px] uppercase text-white/40 mb-1">Confidence</p>
+                    <p className="text-[11px] font-bold text-gold">{simResult.confidenceScore}</p>
                   </div>
-                )}
+                  <div className="bg-white/5 p-3 text-center col-span-2">
+                    <p className="text-[8px] uppercase text-white/40 mb-1">Strategic Leverage</p>
+                    <p className="text-[11px] font-bold text-gold">{simResult.roi}</p>
+                  </div>
+                </div>
               </div>
             )}
           </div>
 
-          {/* ── Sidebar: Simulator ── */}
-          <div className="space-y-8">
-            <div className="card-premium bg-green text-paper">
-              <div className="section-label text-gold">Consequence Engine</div>
-              <h3 className="font-playfair text-2xl font-black mb-6 text-paper">Financial <em>Foresight</em></h3>
-              
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 text-paper/60">Buyout Offer (₦)</label>
-                  <input 
-                    type="number" value={buyoutOffer} 
-                    onChange={e => setBuyoutOffer(e.target.value)}
-                    className="input-premium bg-white/5 border-white/10 text-paper"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] uppercase tracking-widest font-bold mb-2 text-paper/60">Monthly Rev (₦)</label>
-                  <input 
-                    type="number" value={monthlyStreams} 
-                    onChange={e => setMonthlyStreams(e.target.value)}
-                    className="input-premium bg-white/5 border-white/10 text-paper"
-                  />
-                </div>
-                <button 
-                  onClick={handleSimulate}
-                  className="btn-primary w-full"
-                >
-                  {isSimulating ? 'Processing...' : 'Run Simulation'}
-                </button>
-              </div>
-
-              {simResult && (
-                <div className="mt-8 pt-8 border-t border-white/10 animate-fade-up">
-                  <div className="text-center mb-6">
-                    <span className="text-[10px] uppercase tracking-widest text-paper/40">Recommendation</span>
-                    <div className="text-xl font-syne font-bold text-gold mt-1">{simResult.optimalDecision}</div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white/5 p-3 text-center">
-                      <div className="text-[9px] uppercase text-paper/40 mb-1">Deal Risk</div>
-                      <div className="text-xs font-bold text-gold">{simResult.dealRisk}</div>
-                    </div>
-                    <div className="bg-white/5 p-3 text-center">
-                      <div className="text-[9px] uppercase text-paper/40 mb-1">Confidence</div>
-                      <div className="text-xs font-bold text-gold">{simResult.confidenceScore}</div>
-                    </div>
-                    <div className="bg-white/5 p-3 text-center col-span-2">
-                      <div className="text-[9px] uppercase text-paper/40 mb-1">Strategic Leverage</div>
-                      <div className="text-xs font-bold text-gold">{simResult.roi}</div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="card-premium border-gold/20">
-              <div className="section-label">Market Intelligence</div>
-              <h4 className="font-syne font-bold text-sm mb-4">CAMA 2020 Compliance</h4>
-              <p className="text-[11px] text-gray leading-relaxed mb-4">Ensure your business is fully aligned with the latest CAC guidelines and the 2020 Companies and Allied Matters Act.</p>
-              <button className="btn-ghost !text-ink">Read Standards →</button>
-            </div>
+          {/* CAMA Compliance Info */}
+          <div className="mt-auto p-6 border-t border-white/10">
+            <div className="section-label text-gold mb-3">Market Intelligence</div>
+            <h4 className="font-sans font-bold text-sm mb-2 text-white">CAMA 2020 Compliance</h4>
+            <p className="text-[10px] font-sans text-white/40 leading-relaxed">
+              All analysis is grounded in the Companies and Allied Matters Act (CAMA 2020) and Nigerian Evidence Act.
+            </p>
           </div>
-        </div>
+        </aside>
+      </div>
 
-        {/* ── Template Gallery ── */}
-        <TemplateGallery />
-
-        {/* ── Contract History ── */}
-        {user && history.length > 0 && (
-          <div className="mt-24">
-            <div className="section-label">Legal Vault</div>
-            <h3 className="font-playfair text-3xl font-black mb-8">Your Analysis <em>History</em></h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {history.map(item => (
-                <div key={item.id} className="card-premium">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="text-[10px] uppercase font-bold tracking-widest text-gold">{new Date(item.created_at).toLocaleDateString()}</div>
-                    <div className={`text-xs font-black ${item.risk_score > 70 ? 'text-green-mid' : 'text-rust'}`}>
-                      {item.risk_score}/100
-                    </div>
-                  </div>
-                  <h4 className="font-syne font-bold text-sm mb-2 truncate">{item.filename}</h4>
-                  <p className="text-[10px] text-gray mb-6">{item.analysis_results?.length} clauses analyzed</p>
-                  <button 
-                    onClick={() => {
-                      setAnalysisResult({ analysis: item.analysis_results });
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="btn-ghost !text-ink text-[9px]"
-                  >
-                    View Full Report →
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* ── Community Trust Index ── */}
-        <TrustIndex />
-      </main>
-
-      {/* ── Footer ── */}
-      <footer className="bg-ink text-paper py-20 px-8">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div className="col-span-2">
-            <h1 className="font-syne font-extrabold text-2xl tracking-widest uppercase mb-4">Clear<span className="text-gold">Sight</span></h1>
-            <p className="font-mono text-[11px] text-paper/40 leading-relaxed max-w-sm">The intelligent risk management platform for Nigeria's commercial future. We empower 40 million SMBs to sign with confidence.</p>
-          </div>
+      {/* ── FOOTER ── */}
+      <footer className="bg-ink text-white py-10 px-8 shrink-0">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <div className="text-[10px] uppercase tracking-widest font-bold text-gold mb-6">Product</div>
-            <ul className="space-y-3 text-[11px] text-paper/60 font-mono">
-              <li><a href="#" className="hover:text-gold">Risk Analysis</a></li>
-              <li><a href="#" className="hover:text-gold">Template Gallery</a></li>
-              <li><a href="#" className="hover:text-gold">Trust Index</a></li>
-            </ul>
+            <span className="font-sans font-extrabold text-lg tracking-widest uppercase">Clear<span className="text-gold">Sight</span></span>
+            <p className="font-sans text-[10px] text-white/30 mt-1">The legal intelligence platform for Nigeria's commercial future.</p>
           </div>
-          <div>
-            <div className="text-[10px] uppercase tracking-widest font-bold text-gold mb-6">Legal</div>
-            <ul className="space-y-3 text-[11px] text-paper/60 font-mono">
-              <li><a href="#" className="hover:text-gold">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-gold">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-gold">CAMA 2020 Guides</a></li>
-            </ul>
+          <div className="flex gap-8 text-[10px] font-sans text-white/40">
+            <a href="#" className="hover:text-gold">Privacy Policy</a>
+            <a href="#" className="hover:text-gold">Terms of Service</a>
+            <a href="#" className="hover:text-gold">CAMA 2020 Guides</a>
           </div>
         </div>
       </footer>
     </div>
   )
 }
+
 
 export default App

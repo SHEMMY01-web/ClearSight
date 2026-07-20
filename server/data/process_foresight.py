@@ -1,63 +1,138 @@
 import pandas as pd
 import json
-import warnings
-warnings.filterwarnings('ignore')
+import os
+import time
+import re
+from google import genai
+from google.genai import types
+from dotenv import load_dotenv
 
-df = pd.read_excel('scn_appeal_cases_data.xlsx')
+# Load environment variables (mostly for GEMINI_API_KEY)
+load_dotenv(dotenv_path='../.env')
 
-def map_category(offence):
-    offence = str(offence).lower()
+API_KEY = os.getenv('GEMINI_API_KEY')
+if not API_KEY:
+    raise ValueError("GEMINI_API_KEY is not set in ../.env")
+
+# Initialize Gemini Client
+client = genai.Client(api_key=API_KEY)
+MODEL_ID = 'gemini-2.5-flash'
+EMBEDDING_MODEL_ID = 'text-embedding-004'
+
+def extract_case_details_with_llm(offence, decision):
+    prompt = f"""
+    You are a legal data extractor. Analyze the following court case details:
+    Offence: "{offence}"
+    Decision: "{decision}"
+    -;
     
-    # Criminal
-    if 'murder' in offence or 'robbery' in offence or 'rape' in offence:
-        return 'CRIMINAL'
+    Extract the following information and return ONLY a valid JSON object with these exact keys:
+    {{
+      "Business_Category": "One of: Criminal, Real Estate & Tenancy, Labour & Employment, Liability & Risk, General Commercial, Other",
+      "Outcome": "WON or LOST (From the perspective of the business/appellant/defendant against the state)",
+      "Year": "Extract the year from the text (e.g., 2021) if present, otherwise 'N/A'",
+      "Summary": "A concise 1-sentence summary of the case and its result"
+    }}
+    Ensure the output is pure JSON. Do not include markdown code block syntax (like ```json).
+    """
+    try:
+        response = client.models.generate_content(
+            model=MODEL_ID,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                temperature=0.1
+            )
+        )
+        text = response.text.strip()
+        # Clean markdown if present
+        if text.startswith('```json'):
+            text = text[7:]
+        if text.endswith('```'):
+            text = text[:-3]
+            
+        return json.loads(text.strip())
+    except Exception as e:
+        print(f"Error during LLM extraction: {e}")
+        return None
+
+def generate_embedding(text):
+    try:
+        response = client.models.embed_content(
+            model=EMBEDDING_MODEL_ID,
+            contents=text
+        )
+        # GenAI Python SDK returns an object with `embeddings` property.
+        return response.embeddings[0].values
+    except Exception as e:
+        print(f"Error during embedding generation: {e}")
+        return None
+
+def main():
+    print("🚀 Starting Foresight ETL Pipeline...")
+    try:
+        df = pd.read_excel('scn_appeal_cases_data.xlsx')
+    except Exception as e:
+        print(f"Failed to load Excel file: {e}")
+        return
+
+    print(f"Loaded {len(df)} cases from Excel.")
+    
+    # We will process a subset if the file is massive to avoid high API costs during dev
+    # Assuming this dataset is small (e.g. 50-100 rows). 
+    # For production, we'll process all of them.
+    max_cases = 100
+    df_subset = df.head(max_cases).copy()
+    
+    processed_cases = []
+    
+    for index, row in df_subset.iterrows():
+        offence = str(row.get('offence', ''))
+        decision = str(row.get('scn_decision', ''))
         
-    # Real Estate & Tenancy
-    if 'claim_for_recovery' in offence or 'civil_petition' in offence or 'trespassing' in offence:
-        return 'Real Estate & Tenancy'
+        print(f"Processing case {index + 1}/{len(df_subset)}...")
         
-    # Labour & Employment
-    if 'termination' in offence:
-        return 'Labour & Employment'
+        # 1. AI Categorization & Extraction
+        extracted_data = extract_case_details_with_llm(offence, decision)
+        time.sleep(1) # Basic rate limiting
         
-    # Liability & Risk
-    if 'tort' in offence or 'damage' in offence:
-        return 'Liability & Risk'
+        if not extracted_data:
+            continue
+            
+        category = extracted_data.get('Business_Category', 'Other')
+        outcome = extracted_data.get('Outcome', 'LOST')
+        year = extracted_data.get('Year', 'N/A')
+        summary = extracted_data.get('Summary', '')
         
-    # General Commercial
-    if 'dispute' in offence:
-        return 'General Commercial'
+        # We drop criminal/other cases from the RAG db as per previous logic
+        if category in ['CRIMINAL', 'Other']:
+            continue
+            
+        # 2. Vector Embedding Generation
+        # We embed the offence + summary for rich semantic retrieval
+        embed_text = f"Legal issue: {offence}. Context: {summary}"
+        vector = generate_embedding(embed_text)
+        time.sleep(0.5) # Basic rate limiting
         
-    return 'Other'
+        if not vector:
+            continue
+            
+        processed_cases.append({
+            "id": f"case_{index}",
+            "Offence Description": offence,
+            "Business_Category": category,
+            "Outcome": outcome,
+            "Year": year,
+            "Summary": summary,
+            "embedding": vector
+        })
 
-df['Business_Category'] = df['offence'].apply(map_category)
+    print(f"Successfully processed {len(processed_cases)} valid business cases.")
+    
+    output_file = 'foresight_vectors_v2.json'
+    with open(output_file, 'w') as f:
+        json.dump(processed_cases, f, indent=2)
+        
+    print(f"✅ Materialized data and vectors saved to {output_file}")
 
-# Filter out Criminal and Other
-df_mapped = df[(df['Business_Category'] != 'CRIMINAL') & (df['Business_Category'] != 'Other')].copy()
-
-# Outcome Decoding
-def decode_outcome(decision):
-    decision = str(decision).lower()
-    if 'granted' in decision or 'approved' in decision or 'allowed' in decision:
-        return 'WON'
-    return 'LOST'
-
-df_mapped['Outcome'] = df_mapped['scn_decision'].apply(decode_outcome)
-
-# Summary table: Win Rate (% Appeals Allowed)
-df_mapped['Won_Num'] = df_mapped['Outcome'].apply(lambda x: 1 if x == 'WON' else 0)
-summary = df_mapped.groupby('Business_Category').agg(
-    Total_Appeals=('Outcome', 'count'),
-    Wins=('Won_Num', 'sum')
-)
-summary['Win Rate (%)'] = ((summary['Wins'] / summary['Total_Appeals']) * 100).round(2)
-
-print(summary.to_markdown())
-
-# Export JSON
-export_df = df_mapped[['offence', 'Outcome']].rename(columns={'offence': 'Offence Description'})
-export_df['Year'] = 'N/A'  # Year column missing from dataset
-export_list = export_df.to_dict(orient='records')
-
-with open('foresight_vectors.json', 'w') as f:
-    json.dump(export_list, f, indent=2)
+if __name__ == "__main__":
+    main()

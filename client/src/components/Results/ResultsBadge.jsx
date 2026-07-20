@@ -42,7 +42,7 @@ const ResultsBadge = ({ riskStatus, flagCount = 0 }) => {
         </span>
         <div>
           <p
-            className={`font-syne font-extrabold text-xl tracking-tight
+            className={`font-sans font-extrabold text-xl tracking-tight
               ${isClean ? 'text-emerald-800' : 'text-red-800'}`}
           >
             {isClean
@@ -50,7 +50,7 @@ const ResultsBadge = ({ riskStatus, flagCount = 0 }) => {
               : `${flagCount} Predatory Clause${flagCount !== 1 ? 's' : ''} Detected`}
           </p>
           <p
-            className={`font-mono text-xs mt-0.5
+            className={`font-sans text-xs mt-0.5
               ${isClean ? 'text-emerald-600' : 'text-red-600'}`}
           >
             {isClean

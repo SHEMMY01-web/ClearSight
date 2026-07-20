@@ -21,13 +21,13 @@ const TemplateGallery = () => {
   return (
     <div className="mt-12">
       <div className="section-label">Legal Template Gallery</div>
-      <h3 className="font-playfair text-3xl font-black mb-8">Deploy vetted contracts <em>in seconds.</em></h3>
+      <h3 className="font-sans text-3xl font-black mb-8">Deploy vetted contracts <em>in seconds.</em></h3>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {templates.map(t => (
           <div key={t.id} className="card-premium flex flex-col h-full">
             <div className="text-[10px] text-gold font-bold uppercase tracking-widest mb-2">CAMA 2020 Compliant</div>
-            <h4 className="font-syne font-bold text-lg mb-2">{t.name}</h4>
+            <h4 className="font-sans font-bold text-lg mb-2">{t.name}</h4>
             <p className="text-gray text-xs mb-6 flex-grow">{t.desc}</p>
             <button 
               onClick={() => setSelectedTemplate(t)}
@@ -42,7 +42,7 @@ const TemplateGallery = () => {
       {selectedTemplate && (
         <div className="animate-fade-up bg-white border-l-4 border-gold p-8 shadow-lg">
           <div className="flex justify-between items-start mb-8">
-            <h4 className="font-playfair text-2xl font-bold">Configure {selectedTemplate.name}</h4>
+            <h4 className="font-sans text-2xl font-bold">Configure {selectedTemplate.name}</h4>
             <button onClick={() => setSelectedTemplate(null)} className="text-gray hover:text-ink">✕</button>
           </div>
 

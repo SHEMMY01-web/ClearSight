@@ -49,3 +49,14 @@ logs/
 
 # ─── Uploads (temporary files) ───────────────────────
 server/uploads/
+
+note.md
+docs/
+clearsight.pdf
+clearsight-brand.html
+clearsight-roadmap-1.html
+clearsight-roadmap.html
+migrate_chroma.js
+
+# ─── Scripts & Tests ─────────────────────────────────
+test*.js

@@ -50,8 +50,8 @@ const PlainTranslationPanel = ({
 
   if (!plainTranslation) {
     return (
-      <div className="bg-cream/40 border border-ink/5 p-10 text-center">
-        <p className="font-mono text-xs text-gray">
+      <div className="bg-white/40 border border-ink/5 p-10 text-center">
+        <p className="font-sans text-xs text-gray">
           Translation unavailable. The document text may be too short or in an unsupported format.
         </p>
       </div>
@@ -70,7 +70,7 @@ const PlainTranslationPanel = ({
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="section-label">Plain English Translation</div>
-          <h3 className="font-playfair text-3xl font-black">
+          <h3 className="font-sans text-3xl font-black">
             Your Contract, <em>Simplified</em>
           </h3>
         </div>
@@ -107,7 +107,7 @@ const PlainTranslationPanel = ({
                   <span className="text-white text-[9px] font-bold uppercase tracking-widest">
                     {isCritical ? '🚨 HIGH RISK' : '⚠️ MEDIUM RISK'} — {clause.riskCategory}
                   </span>
-                  <span className="ml-auto text-white/70 text-[9px] font-mono">{clause.id}</span>
+                  <span className="ml-auto text-white/70 text-[9px] font-sans">{clause.id}</span>
                 </div>
 
                 {/* Split body */}
@@ -129,7 +129,7 @@ const PlainTranslationPanel = ({
 
                   {/* Right: Plain English */}
                   <div className="bg-white p-5">
-                    <p className="text-[9px] font-bold uppercase tracking-widest mb-3 text-green opacity-80">
+                    <p className="text-[9px] font-bold uppercase tracking-widest mb-3 text-ink opacity-80">
                       ✅ ClearSight Plain English
                     </p>
                     <p className="font-sans text-[13px] leading-relaxed text-ink">
@@ -163,7 +163,7 @@ const PlainTranslationPanel = ({
 
       {/* Truncation note */}
       {plainTranslation.includes('Only the first 10 pages') && (
-        <div className="mt-8 p-4 bg-amber-50 border border-amber-200 text-[11px] font-mono text-amber-700">
+        <div className="mt-8 p-4 bg-amber-50 border border-amber-200 text-[11px] font-sans text-amber-700">
           ⚠️ This document exceeded 10 pages. Only the first 10 pages have been translated. Upload a shorter document or contact us for extended analysis.
         </div>
       )}

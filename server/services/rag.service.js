@@ -189,29 +189,34 @@ async function initKnowledgeBase() {
       } // close the outer else block
 
       // ── Load Foresight Cases (JSON) ──
-      const casesPath = path.join(dataDir, 'foresight_vectors.json');
+      const casesPath = path.join(dataDir, 'foresight_vectors_v2.json');
       if (fs.existsSync(casesPath)) {
         let casesCount = 0;
         try {
-          const casesColl = await client.getCollection({ name: casesCollectionName, embeddingFunction: localEmbeddingFunction });
+          const casesColl = await client.getCollection({ name: casesCollectionName });
           casesCount = await casesColl.count();
         } catch (e) { }
 
         if (casesCount === 0) {
-          console.log(`Loading foresight_vectors.json into ChromaDB...`);
+          console.log(`Loading foresight_vectors_v2.json into ChromaDB...`);
           try { await client.deleteCollection({ name: casesCollectionName }); } catch (e) { }
-          const casesCollection = await client.createCollection({ name: casesCollectionName, embeddingFunction: localEmbeddingFunction });
+          const casesCollection = await client.createCollection({ name: casesCollectionName });
           const casesData = JSON.parse(fs.readFileSync(casesPath, 'utf8'));
 
           const batchSize = 100;
           for (let i = 0; i < casesData.length; i += batchSize) {
             const batch = casesData.slice(i, i + batchSize);
-            const ids = batch.map((_, idx) => `case_${i + idx}`);
-            // Prepend a word to help semantic matching, though Xenova handles it well
-            const texts = batch.map(c => `Legal offence: ${c['Offence Description'].replace(/_/g, ' ')}`);
-            const metadatas = batch.map(c => ({ outcome: c.Outcome, year: c.Year }));
+            const ids = batch.map((c, idx) => c.id || `case_${i + idx}`);
+            const texts = batch.map(c => c['Offence Description'] || '');
+            const metadatas = batch.map(c => ({ 
+              outcome: c.Outcome, 
+              year: c.Year,
+              category: c.Business_Category,
+              summary: c.Summary 
+            }));
 
-            const embeddings = await localEmbeddingFunction.generate(texts);
+            // Extract pre-computed embeddings directly from the JSON
+            const embeddings = batch.map(c => c.embedding);
             await casesCollection.add({
               ids,
               embeddings,
@@ -285,8 +290,7 @@ async function searchLaw(query) {
 async function searchCases(query) {
   try {
     const collection = await client.getCollection({
-      name: casesCollectionName,
-      embeddingFunction: localEmbeddingFunction
+      name: casesCollectionName
     });
 
     const queryEmbedding = await getEmbedding(query);
