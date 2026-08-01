@@ -8,7 +8,7 @@ ClearSight gives Nigerian SMBs three things they've never had access to: the abi
 
 ---
 
-## 📖 Table of Contents
+##  Table of Contents
 - [Why ClearSight Exists](#why-clearsight-exists)
 - [Core Features](#core-features)
 - [Architecture & Tech Stack](#architecture--tech-stack)
@@ -20,7 +20,7 @@ ClearSight gives Nigerian SMBs three things they've never had access to: the abi
 
 ---
 
-##<a id="why-clearsight-exists"></a>🌍 Why ClearSight Exists
+<a id="why-clearsight-exists"></a> ## Why ClearSight Exists
 
 A legal system built for the few — we're changing that.
 
@@ -30,7 +30,7 @@ This happens every day across Nigeria because legal counsel costs ₦50,000–�
 
 ---
 
-##<a id="core-features"></a> ✨ Core Features
+<a id="core-features"></a> ## Core Features
 
 - **Draft (Contract Generation)**: Generate NDAs, service agreements, employment letters, and supplier contracts grounded in CAMA 2020 and Nigerian law — in seconds, not days.
 - **Review (AI Clause Analysis)**: Upload any contract, digital or scanned paper. ClearSight flags high-risk clauses in plain English using an **Advocate-Critic AI debate model**. The Advocate finds the commercial upside; the Critic surfaces the legal trap.
@@ -40,7 +40,7 @@ This happens every day across Nigeria because legal counsel costs ₦50,000–�
 
 ---
 
-##<a id="architecture--tech-stack"></a> 🏗 Architecture & Tech Stack
+<a id="architecture--tech-stack"></a> ## Architecture & Tech Stack
 
 ClearSight is built as a modern web application designed for speed, accuracy, and reliability.
 
@@ -53,7 +53,7 @@ ClearSight is built as a modern web application designed for speed, accuracy, an
 
 ---
 
-##<a id="project-structure"></a>📂 Project Structure
+<a id="project-structure"></a> ## Project Structure
 
 ```text
 ClearSight/
@@ -75,7 +75,7 @@ ClearSight/
 
 ---
 
-##<a id="getting-started-local-development"></a> 🚀 Getting Started (Local Development)
+<a id="getting-started-local-development"></a> ## Getting Started (Local Development)
 
 ### Prerequisites
 
@@ -123,7 +123,7 @@ npm run dev
 
 ---
 
-##<a id="usage-guide"></a> 📖 Usage Guide
+<a id="usage-guide"></a>  Usage Guide
 
 Once the application is running locally:
 
@@ -136,7 +136,7 @@ Once the application is running locally:
 
 ---
 
-##<a id="contributing"></a> 🤝 Contributing
+<a id="contributing"></a> ## Contributing
 
 We welcome community contributions! ClearSight is an ambitious project and we need help from developers, legal experts, and designers.
 
