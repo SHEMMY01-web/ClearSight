@@ -6,18 +6,7 @@
       "severity": "HIGH",
       "rule": "Rent increases must be reasonable and subject to mutual agreement. Unilateral increases without notice are generally unenforceable. Courts have held that increases beyond 10-15% per annum without justification are unconscionable.",
       "negotiation_tip": "Negotiate a fixed rent review cap tied to Nigeria's CPI/inflation rate, not landlord discretion. A mutual 90-day notice period is standard.",
-      "red_flags": [
-        "50% increase",
-        "at any time",
-        "without notice",
-        "unilateral",
-        "without prior written notice",
-        "based solely on",
-        "landlord's assessment",
-        "increase the annual rent",
-        "rent review",
-        "increase rent by"
-      ]
+      "red_flags": ["50% increase", "at any time", "without notice", "unilateral", "without prior written notice", "based solely on", "landlord's assessment", "increase the annual rent", "rent review", "increase rent by"]
     },
     {
       "topic": "Structural Repairs",
@@ -25,15 +14,7 @@
       "severity": "HIGH",
       "rule": "The Landlord is responsible for all external, structural, and major repairs. This includes the roof, load-bearing walls, foundation, and external plumbing. A clause shifting this burden to the tenant without compensatory rent reduction is void.",
       "negotiation_tip": "Reject clauses that assign structural repairs to the Tenant. If accepted, negotiate a significant rent reduction or a one-time capital allowance.",
-      "red_flags": [
-        "tenant responsible for roof",
-        "structural repairs",
-        "structural foundation",
-        "external plumbing",
-        "solely responsible for all structural",
-        "waives all rights to claim",
-        "notwithstanding local laws"
-      ]
+      "red_flags": ["tenant responsible for roof", "structural repairs", "structural foundation", "external plumbing", "solely responsible for all structural", "waives all rights to claim", "notwithstanding local laws"]
     },
     {
       "topic": "Notice to Quit",
@@ -41,14 +22,7 @@
       "severity": "MEDIUM",
       "rule": "A yearly tenant is entitled to 6 months' notice to quit. A half-yearly tenant gets 3 months, a quarterly tenant gets 1.5 months, and a monthly tenant gets 1 month. Any clause waiving this statutory right is void and unenforceable.",
       "negotiation_tip": "Ensure the notice period in the contract aligns with the Recovery of Premises Act. Do not sign any clause that says the Landlord can require immediate vacation.",
-      "red_flags": [
-        "immediate eviction",
-        "waives right to notice",
-        "7 days notice",
-        "immediate possession",
-        "forfeit the property",
-        "vacate immediately"
-      ]
+      "red_flags": ["immediate eviction", "waives right to notice", "7 days notice", "immediate possession", "forfeit the property", "vacate immediately"]
     },
     {
       "topic": "Unlawful Eviction",
@@ -56,13 +30,31 @@
       "severity": "HIGH",
       "rule": "Self-help eviction (locking the tenant out, removing belongings) is illegal in Nigeria. The Landlord must obtain a court order. A clause purporting to authorize self-help eviction is void.",
       "negotiation_tip": "Flag any clause that allows the Landlord to 're-enter' the premises without a court order. This is a criminal offense under Nigerian law.",
-      "red_flags": [
-        "re-enter the premises",
-        "retake possession",
-        "remove the tenant's belongings",
-        "landlord may lock",
-        "forfeit lease without court"
-      ]
+      "red_flags": ["re-enter the premises", "retake possession", "remove the tenant's belongings", "landlord may lock", "forfeit lease without court"]
+    },
+    {
+      "topic": "Dilapidations / Excessive Reinstatement",
+      "statute": "Lagos State Tenancy Law 2011 & Common Law",
+      "severity": "MEDIUM",
+      "rule": "A tenant's repair obligation at lease end is limited to 'fair wear and tear' unless they caused actual damage. Clauses requiring the tenant to return premises to 'original condition' or fund full refurbishment go beyond what Nigerian courts will enforce.",
+      "negotiation_tip": "Add 'fair wear and tear excepted' to every repair and reinstatement clause. Commission and attach a schedule of condition at signing.",
+      "red_flags": ["return to original condition", "full reinstatement", "repaint at own cost", "restore to its original state", "tenant shall refurbish", "make good all damage", "dilapidations at tenant's cost", "full redecoration"]
+    },
+    {
+      "topic": "Forfeiture of Security Deposit",
+      "statute": "Lagos State Tenancy Law 2011 & FCCPA 2018",
+      "severity": "HIGH",
+      "rule": "A landlord may only retain the security deposit to the extent of actual, documented damage or unpaid rent. Blanket forfeiture clauses — where the deposit is automatically forfeited on any breach, however minor — are unfair under Nigerian law.",
+      "negotiation_tip": "Insist the deposit refund clause specifies an itemized deduction statement must be provided within 30 days of vacating, with any balance returned promptly. Undocumented forfeitures are challengeable.",
+      "red_flags": ["forfeit the deposit", "deposit shall be forfeited", "non-refundable deposit", "deposit shall not be returned", "landlord may retain the entire deposit", "deposit forfeited in event of breach", "no refund of deposit"]
+    },
+    {
+      "topic": "Subletting / Assignment Prohibition",
+      "statute": "Lagos State Tenancy Law 2011",
+      "severity": "MEDIUM",
+      "rule": "An absolute prohibition on subletting or assignment without landlord consent is common but should not entitle the landlord to withhold consent unreasonably. Consent should not be unreasonably delayed or conditioned on payment of a fee.",
+      "negotiation_tip": "Change 'shall not sublet' to 'shall not sublet without landlord's written consent, such consent not to be unreasonably withheld or delayed.' Remove any subletting premium fee clauses.",
+      "red_flags": ["absolute prohibition on subletting", "may not assign or sublet", "subletting fee", "assignment premium", "landlord's sole discretion to refuse", "withhold consent at will"]
     }
   ],
   "commercial_law": [
@@ -72,33 +64,15 @@
       "severity": "HIGH",
       "rule": "A clause is a void penalty if it imposes a payment on breach disproportionate to the innocent party's loss. Only 'Liquidated Damages' — a genuine pre-estimate of loss — are enforceable. Nigerian courts consistently strike down punitive penalties.",
       "negotiation_tip": "Replace 'penalty' with 'Liquidated Damages' language. Both parties should agree on a reasonable daily rate tied to actual project costs, not a punitive multiplier.",
-      "red_flags": [
-        "penalty",
-        "non-refundable fee",
-        "legal facilitation fee",
-        "punitive",
-        "forfeit all payments",
-        "100% fine",
-        "500,000 fee",
-        "pay a fee before",
-        "dispute fee",
-        "mediation fee"
-      ]
+      "red_flags": ["penalty", "non-refundable fee", "legal facilitation fee", "punitive", "forfeit all payments", "100% fine", "500,000 fee", "pay a fee before", "dispute fee", "mediation fee"]
     },
     {
       "topic": "Unbalanced Liability / Indemnity",
       "statute": "Companies and Allied Matters Act (CAMA) 2020, Section 301",
       "severity": "HIGH",
-      "rule": "Any provision exempting a company director from liability for negligence or breach of duty is void. A one-sided indemnity that only protects the Landlord exposes the Tenant to unlimited risk and is contrary to natural justice principles applied by Nigerian courts.",
-      "negotiation_tip": "Demand mutual indemnity clauses. Any waiver of rights for 'Landlord negligence' must be removed — this is a void provision under CAMA 2020 principles.",
-      "red_flags": [
-        "landlord negligence",
-        "waives all rights to claim damages",
-        "tenant indemnifies",
-        "hold harmless for all claims",
-        "no liability for negligence",
-        "tenant bears all risk"
-      ]
+      "rule": "Any provision exempting a company director from liability for negligence or breach of duty is void. A one-sided indemnity that only protects the stronger party exposes the weaker party to unlimited risk and is contrary to natural justice principles applied by Nigerian courts.",
+      "negotiation_tip": "Demand mutual indemnity clauses. Any waiver of rights for 'supplier negligence' or 'landlord negligence' must be removed — this is a void provision under CAMA 2020 principles.",
+      "red_flags": ["landlord negligence", "waives all rights to claim damages", "tenant indemnifies", "hold harmless for all claims", "no liability for negligence", "tenant bears all risk", "distributor indemnifies", "supplier shall have no liability"]
     },
     {
       "topic": "Intellectual Property Assignment",
@@ -106,41 +80,23 @@
       "severity": "MEDIUM",
       "rule": "Copyright ownership initially vests in the author/creator. For commissioned works, an explicit written assignment is required to transfer full ownership. A vague 'work-for-hire' clause may not transfer copyright under the Nigerian Copyright Act 2022.",
       "negotiation_tip": "Ensure the IP clause explicitly states: (a) what IP is being assigned, (b) that it covers future works created during the contract, and (c) that you retain your pre-existing tools, frameworks, and background IP.",
-      "red_flags": [
-        "retains all rights",
-        "non-exclusive license",
-        "work for hire",
-        "all deliverables shall be owned",
-        "irrevocable license"
-      ]
+      "red_flags": ["retains all rights", "non-exclusive license", "work for hire", "all deliverables shall be owned", "irrevocable license"]
     },
     {
       "topic": "Termination for Convenience",
       "statute": "Standard Nigerian Commercial Practice & Common Law",
       "severity": "MEDIUM",
-      "rule": "Contracts should provide mutual termination rights. A clause allowing only the stronger party (e.g., Landlord or Client) to terminate at will, while locking in the other party, creates an unconscionable imbalance that courts may refuse to enforce.",
+      "rule": "Contracts should provide mutual termination rights. A clause allowing only the stronger party to terminate at will, while locking in the other party, creates an unconscionable imbalance that courts may refuse to enforce.",
       "negotiation_tip": "Insist on a mutual 30-day 'termination for convenience' clause. If the other party terminates early, you should be entitled to pro-rata payment for work done plus a break fee.",
-      "red_flags": [
-        "irrevocable",
-        "may not be terminated",
-        "tenant cannot terminate",
-        "only landlord may terminate",
-        "no right of termination"
-      ]
+      "red_flags": ["irrevocable", "may not be terminated", "tenant cannot terminate", "only landlord may terminate", "no right of termination"]
     },
     {
       "topic": "Jurisdiction & Governing Law",
       "statute": "Nigerian Arbitration and Conciliation Act 2023",
       "severity": "MEDIUM",
-      "rule": "A clause specifying a foreign jurisdiction (e.g., UK, US) for dispute resolution for a contract fully performed in Nigeria is practically unenforceable and extremely costly to litigate. The new Nigerian Arbitration and Conciliation Act 2023 promotes local arbitration.",
+      "rule": "A clause specifying a foreign jurisdiction for dispute resolution for a contract fully performed in Nigeria is practically unenforceable and extremely costly to litigate. The new Nigerian Arbitration and Conciliation Act 2023 promotes local arbitration.",
       "negotiation_tip": "Ensure the governing law is 'Federal Republic of Nigeria' and dispute resolution specifies Lagos Multi-Door Courthouse (LMDC) or Lagos Court of Arbitration (LCA) for cost-effective resolution.",
-      "red_flags": [
-        "governed by the laws of england",
-        "jurisdiction of uk courts",
-        "new york arbitration",
-        "foreign arbitration",
-        "courts of england and wales"
-      ]
+      "red_flags": ["governed by the laws of england", "jurisdiction of uk courts", "new york arbitration", "foreign arbitration", "courts of england and wales"]
     },
     {
       "topic": "Exclusivity / Non-Compete",
@@ -148,14 +104,7 @@
       "severity": "MEDIUM",
       "rule": "An overly broad non-compete clause is unenforceable in Nigeria if it is unreasonable as to geographic scope, time duration, or the activity restricted. Nigerian courts will not enforce restraints that effectively prevent a person from earning a living.",
       "negotiation_tip": "Non-compete clauses should be limited to 6-12 months, within a defined geographic radius, and restricted to only directly competing businesses — not entire industries.",
-      "red_flags": [
-        "non-compete",
-        "shall not engage in any business",
-        "exclusivity clause",
-        "not compete for 5 years",
-        "restraint of trade",
-        "exclusively engaged"
-      ]
+      "red_flags": ["non-compete", "shall not engage in any business", "exclusivity clause", "not compete for 5 years", "restraint of trade", "exclusively engaged"]
     },
     {
       "topic": "Shortfall Penalty / Purchase Minimums",
@@ -163,31 +112,15 @@
       "severity": "HIGH",
       "rule": "A clause imposing mandatory purchase minimums backed by automatic shortfall penalty fees or cascade termination is an illegal penalty clause under Nigerian law unless tied to genuine pre-estimated losses.",
       "negotiation_tip": "Cap shortfall fees to actual documented losses, insert a grace period, and permit shortfall carrying-forward to future quarters.",
-      "red_flags": [
-        "shortfall",
-        "minimum purchase",
-        "minimum order quantity",
-        "shortfall fee",
-        "penalty fee for failure to purchase",
-        "missed purchase minimums",
-        "shortfall penalty"
-      ]
+      "red_flags": ["shortfall", "minimum purchase", "minimum order quantity", "shortfall fee", "penalty fee for failure to purchase", "missed purchase minimums", "shortfall penalty", "genuine pre-estimate of loss", "shortfall amount shall be payable", "failure to meet the minimum"]
     },
     {
       "topic": "Retention of Title / Immediate Forfeiture",
       "statute": "Sale of Goods Law & CAMA 2020",
       "severity": "HIGH",
-      "rule": "Romalpa-style clauses granting immediate forfeiture or repossession of delivered goods upon minor payment default create high risk for distributors and may violate Nigerian equity principles.",
+      "rule": "Romalpa-style clauses granting immediate forfeiture or repossession of delivered goods upon minor payment default create high risk for distributors and may violate Nigerian equity principles. Courts require a reasonable cure period before repossession rights activate.",
       "negotiation_tip": "Insist on written notice of default with a minimum 14-day cure period before repossession or title forfeiture rights trigger.",
-      "red_flags": [
-        "retention of title",
-        "fiduciary bailee",
-        "immediate forfeiture",
-        "forfeiture upon default",
-        "title shall not pass",
-        "repossession upon default",
-        "repossess goods"
-      ]
+      "red_flags": ["retention of title", "fiduciary bailee", "immediate forfeiture", "forfeiture upon default", "title shall not pass", "repossession upon default", "repossess goods", "goods remain the property of the supplier", "title reverts", "bailee of the goods", "hold goods on trust"]
     },
     {
       "topic": "Deemed Acceptance / Renewal by Silence",
@@ -195,15 +128,95 @@
       "severity": "MEDIUM",
       "rule": "Automatic renewal by silence or deemed acceptance of unilateral price changes without explicit affirmative written consent is unfair under Nigerian consumer and commercial protection standards.",
       "negotiation_tip": "Require written notice 30 days prior to any renewal or price adjustment, with explicit opt-out rights.",
-      "red_flags": [
-        "deemed acceptance",
-        "renewal by silence",
-        "deemed to have accepted",
-        "unilateral price",
-        "price variation",
-        "sole discretion to amend price",
-        "automatic renewal unless"
-      ]
+      "red_flags": ["deemed acceptance", "renewal by silence", "deemed to have accepted", "unilateral price", "price variation", "sole discretion to amend price", "automatic renewal unless", "failure to object", "silence shall constitute acceptance", "continued ordering shall be deemed", "unless written notice is given to the contrary"]
+    },
+    {
+      "topic": "Unilateral Price Variation",
+      "statute": "Federal Competition and Consumer Protection Act (FCCPA) 2018 & Nigerian Contract Law",
+      "severity": "HIGH",
+      "rule": "A clause permitting one party to vary the contract price at its sole discretion, with the other party's continued performance treated as acceptance, violates the basic contract principle that variation requires fresh consideration and mutual consent. Nigerian courts and the FCCPA treat such clauses as unfair terms.",
+      "negotiation_tip": "Replace with a fixed pricing schedule for the contract term. If price reviews are needed, require mutual written agreement, minimum 60 days advance notice, and an explicit right to terminate without penalty if the new price is unacceptable.",
+      "red_flags": ["supplier may vary the price", "price may be adjusted at any time", "sole discretion to vary", "revised price list", "new price shall apply", "continued purchase shall constitute acceptance of the new price", "supplier reserves the right to amend prices", "price variation notice", "unilaterally revise", "adjust its prices without prior consent", "price increase shall take effect", "subject to price revision"]
+    },
+    {
+      "topic": "Non-Exclusive Appointment / Unlimited Competing Distributors",
+      "statute": "Nigerian Contract Law & Restraint of Trade Doctrine",
+      "severity": "MEDIUM",
+      "rule": "A distribution agreement granting the supplier unlimited rights to appoint additional distributors in the same territory — without compensation, right of first refusal, or territorial protection — renders the distributorship commercially valueless and may be unconscionable where the distributor has invested significantly in market development.",
+      "negotiation_tip": "Negotiate defined territorial exclusivity, or a right of first refusal before new distributors are appointed, plus compensation for lost market share if the territory is split. At minimum, cap the number of competing distributors the supplier can appoint in your territory.",
+      "red_flags": ["non-exclusive appointment", "supplier may appoint other distributors", "appoint additional distributors", "right to appoint other agents", "appoint any number of", "without obligation to the distributor", "non-exclusive basis", "other distributors in the territory", "further appointments at its discretion", "no exclusive territory", "appoint competing distributors"]
+    },
+    {
+      "topic": "Asymmetric Delivery and Payment Liability",
+      "statute": "Sale of Goods Act (applicable in Nigeria) & Common Law",
+      "severity": "HIGH",
+      "rule": "A clause that exempts the supplier from all liability for late or failed delivery while simultaneously making the distributor's payment obligations 'of the essence' (i.e., time-critical) creates a fundamental and unenforceable imbalance. Both parties' core obligations should carry equivalent consequences for breach.",
+      "negotiation_tip": "Insist on matching time-of-the-essence provisions: if payment timing is of the essence, delivery timing must be equally strict, with liquidated damages for late delivery equivalent to any late-payment interest rate charged to the distributor.",
+      "red_flags": ["supplier shall not be liable for delay", "no liability for late delivery", "delivery dates are estimates only", "time shall be of the essence for payment", "payment obligations are strictly of the essence", "payment is of the essence", "supplier's delivery obligations are indicative", "distributor shall not withhold payment due to delivery delay", "failure to deliver shall not entitle", "payment shall not be conditional on delivery"]
+    },
+    {
+      "topic": "Unilateral Set-Off Rights",
+      "statute": "Nigerian Contract Law & Equity",
+      "severity": "MEDIUM",
+      "rule": "A clause granting one party the unilateral right to set off any amount it claims is owed — against payments otherwise due to the other party, without notice, without agreement, and before the underlying claim is proved — is an unfair term. Nigerian courts require set-off rights to be mutual, disclosed, and limited to liquidated (ascertained) debts.",
+      "negotiation_tip": "Remove unilateral set-off rights or replace with: 'Neither party may exercise set-off without 14 days prior written notice specifying the amounts and basis of the set-off, and only in respect of undisputed, liquidated debts.' Ensure set-off rights are mutual.",
+      "red_flags": ["right to set off", "may set off any amounts", "deduct from any sums payable", "set-off without notice", "deduct any sums owed", "supplier may withhold payment", "apply against any outstanding amounts", "unilateral right to deduct", "offset against monies due", "deduct from amounts payable to the distributor"]
+    },
+    {
+      "topic": "Uncapped / One-Sided Indemnity",
+      "statute": "CAMA 2020 & Nigerian Contract Law",
+      "severity": "HIGH",
+      "rule": "An indemnity clause that is unlimited in scope — covering all losses, liabilities, costs, and third-party claims without any financial cap — creates potentially ruinous exposure for a Nigerian SMB, particularly where the indemnity is one-directional and does not extend to the other party's own negligence or breach.",
+      "negotiation_tip": "Cap all indemnity obligations at the total contract value or the sum of fees paid in the preceding 12 months. Exclude consequential losses, loss of profit, and indirect damages. Ensure the indemnity is mutual — if you indemnify the supplier, the supplier must equally indemnify you.",
+      "red_flags": ["indemnify and hold harmless", "all losses and liabilities", "unlimited indemnity", "indemnity shall not be limited", "including all third party claims", "all costs and expenses whatsoever", "full indemnity", "indemnify on a full indemnity basis", "irrespective of cause", "uncapped liability", "without limit"]
+    },
+    {
+      "topic": "Excessive Interest Rate on Overdue Payments",
+      "statute": "Nigerian Contract Law & Money Lenders Act",
+      "severity": "HIGH",
+      "rule": "Interest rates on overdue commercial invoices exceeding 5% per month (60% per annum) approach money-lending territory and are challengeable as penalties under Nigerian law. Self-serving labels such as 'not a penalty' or 'genuine pre-estimate' do not automatically shield compound interest clauses from judicial scrutiny. Nigerian courts apply the Dunlop Pneumatic Tyre test.",
+      "negotiation_tip": "Replace compounding monthly interest with a simple annual rate not exceeding the CBN Monetary Policy Rate plus 10%. Cap total interest payable at 20-25% of the original invoice value to limit exposure.",
+      "red_flags": ["interest at the rate of", "per month on overdue", "compounding interest", "compound monthly", "79% per annum", "interest shall accrue", "not a penalty clause", "genuine pre-estimate of interest loss", "5% per month", "default interest", "overdue interest shall compound", "interest at 5%"]
+    },
+    {
+      "topic": "Automatic Escalation / Evergreen Contracts",
+      "statute": "FCCPA 2018 & Nigerian Contract Law",
+      "severity": "MEDIUM",
+      "rule": "A contract that automatically renews at a higher price tier or with expanded obligations, without requiring the weaker party's affirmative consent, is an unfair commercial term. Evergreen clauses that reset minimum-purchase obligations on each renewal without an opt-out window are particularly burdensome.",
+      "negotiation_tip": "Insert a minimum 60-day notice window before any auto-renewal date, during which either party can give written notice of non-renewal. Price escalation on renewal must be agreed in writing, not automatic.",
+      "red_flags": ["automatically renewed", "shall renew automatically", "evergreen", "shall continue unless", "renewed on the same terms", "escalated minimum purchase", "renewed at the then-current price list", "automatic renewal", "unless terminated in writing", "rollover clause"]
+    },
+    {
+      "topic": "Unilateral Contract Amendment",
+      "statute": "Nigerian Contract Law (Consideration & Mutuality)",
+      "severity": "HIGH",
+      "rule": "A clause permitting one party to amend, vary, or add to the contract terms at any time, with continued performance by the other party constituting acceptance, lacks the consideration and mutual assent required under Nigerian contract law for valid variation. Such clauses are commonly used to gradually worsen the weaker party's position post-signing.",
+      "negotiation_tip": "Replace with: 'This Agreement may only be amended by a written instrument signed by duly authorized representatives of both parties.' Any 'continued performance equals acceptance' mechanism must be deleted.",
+      "red_flags": ["sole right to amend this agreement", "may vary these terms at any time", "continued use shall constitute acceptance", "amend without prior consent", "reserves the right to modify", "may update the terms", "supplier may amend any provision", "change these terms without notice", "at its sole discretion amend", "terms may be updated unilaterally"]
+    },
+    {
+      "topic": "Broad Force Majeure Favouring Stronger Party",
+      "statute": "Nigerian Contract Law & Common Law",
+      "severity": "MEDIUM",
+      "rule": "A force majeure clause that is drafted broadly to excuse only the supplier/stronger party, or that includes non-genuine events (market fluctuations, currency changes, government policy) as force majeure, allows the stronger party to escape obligations opportunistically. Both parties should benefit equally, and only genuinely unforeseeable events should qualify.",
+      "negotiation_tip": "Ensure force majeure applies equally to both parties. Exclude currency devaluation, price changes, and foreseeable supply issues from the definition. Insert a 30-day maximum duration after which the other party may terminate without penalty.",
+      "red_flags": ["supplier may suspend delivery", "force majeure includes currency fluctuation", "market conditions beyond control", "government regulation", "force majeure event excuses the supplier", "including but not limited to changes in law", "supplier shall not be liable for", "events beyond supplier's control", "force majeure at supplier's determination"]
+    },
+    {
+      "topic": "Waiver of Right to Dispute / Audit",
+      "statute": "Nigerian Contract Law & Evidence Act 2011",
+      "severity": "HIGH",
+      "rule": "A clause preventing the weaker party from auditing accounts, disputing invoices after a short window (e.g., 7 days), or challenging supplier calculations effectively removes access to evidence and remedies. Nigerian courts treat such clauses as unconscionable where they prevent the weaker party from establishing basic facts about the debt.",
+      "negotiation_tip": "Insist on a minimum 30-day invoice dispute window, a right to audit supplier records relevant to the contract at reasonable notice, and a clause that a disputed invoice does not become payable until the dispute is resolved.",
+      "red_flags": ["invoice shall be deemed accepted", "right to dispute an invoice is waived", "no right to audit", "disputes must be raised within 7 days", "failure to dispute within", "invoices are final and binding", "no right to challenge", "accept invoices as conclusive", "shall not query", "deemed correct unless objected to within"]
+    },
+    {
+      "topic": "Exclusion of Consequential Loss (One-Sided)",
+      "statute": "Nigerian Contract Law & Hadley v Baxendale Principles",
+      "severity": "MEDIUM",
+      "rule": "While consequential loss exclusions are common in commercial contracts, a clause that excludes consequential losses for the supplier only — while leaving the distributor/buyer fully exposed to consequential claims — is an unfair and unenforceable asymmetric term. The exclusion must be mutual to be equitable.",
+      "negotiation_tip": "Accept a mutual consequential loss exclusion. Reject any one-sided version. If you are the buyer/distributor, ensure lost profits arising from supply failure are either recoverable or hedged via a capped direct damages floor.",
+      "red_flags": ["supplier excludes all consequential loss", "no liability for loss of profit", "excludes indirect damages", "loss of business opportunity excluded", "no liability for any indirect", "consequential loss is excluded for the supplier only", "supplier shall not be liable for any loss of revenue"]
     }
   ],
   "employment_law": [
@@ -213,14 +226,7 @@
       "severity": "HIGH",
       "rule": "Under the Nigerian Labour Act, a worker is entitled to minimum notice before termination (1 day for daily workers, 1 week for monthly workers, etc). Summary dismissal is only justified for gross misconduct. Contracts cannot lawfully exclude this right.",
       "negotiation_tip": "Ensure your employment contract specifies at least 1-month notice for senior roles, and clearly defines what constitutes 'gross misconduct' to avoid arbitrary termination.",
-      "red_flags": [
-        "terminate without notice",
-        "at-will termination",
-        "immediate dismissal",
-        "no severance",
-        "summary termination",
-        "without cause or notice"
-      ]
+      "red_flags": ["terminate without notice", "at-will termination", "immediate dismissal", "no severance", "summary termination", "without cause or notice"]
     },
     {
       "topic": "Deduction from Wages",
@@ -228,13 +234,47 @@
       "severity": "HIGH",
       "rule": "Deductions from wages are only lawful if authorized by statute, court order, or written agreement with the employee specifying the purpose. Unauthorized deductions constitute a criminal offence under the Labour Act.",
       "negotiation_tip": "Do not sign any clause allowing blanket deductions. Any deduction clause must specify the exact amount, purpose, and your right to dispute.",
-      "red_flags": [
-        "deduct from salary",
-        "withhold wages",
-        "deduction for damages",
-        "training cost clawback",
-        "bonds and deductions"
-      ]
+      "red_flags": ["deduct from salary", "withhold wages", "deduction for damages", "training cost clawback", "bonds and deductions"]
+    },
+    {
+      "topic": "Training Bond / Repayment Clawback",
+      "statute": "Labour Act Cap L1 LFN 2004 & Nigerian Contract Law",
+      "severity": "MEDIUM",
+      "rule": "Training repayment clauses are only enforceable if: (a) the training expenditure was genuine and documented, (b) the repayment amount is proportionate and reduces pro-rata over time, and (c) the employee was given a meaningful opportunity to negotiate before signing. A flat repayment demand regardless of tenure length is a penalty clause.",
+      "negotiation_tip": "Negotiate a declining repayment schedule (e.g., 100% if you leave within 6 months, 50% within 12 months, 0% after 18 months). Insist on seeing the actual training cost receipts before signing any bond.",
+      "red_flags": ["training bond", "repay training costs", "training repayment", "clawback of training fees", "repay all costs if you resign", "full training cost repayment", "bond period", "cost of training shall be recovered"]
+    },
+    {
+      "topic": "Garden Leave / Non-Solicitation",
+      "statute": "Labour Act Cap L1 LFN 2004 & Restraint of Trade Doctrine",
+      "severity": "MEDIUM",
+      "rule": "Garden leave clauses (requiring the employee to stay away from work during notice while remaining employed) and non-solicitation clauses must be reasonable in duration and scope. Nigerian courts will not enforce them if they effectively prevent a person from working in their profession for an unreasonable period.",
+      "negotiation_tip": "Limit garden leave to the actual notice period only. Non-solicitation of clients should be limited to 6 months and restricted to clients you personally dealt with — not the employer's entire client base.",
+      "red_flags": ["garden leave", "non-solicitation", "shall not solicit any client", "shall not approach any employee", "prohibited from working", "must not contact clients", "restricted period", "may not work during notice period", "garden leave period"]
+    },
+    {
+      "topic": "Unilateral Variation of Employment Terms",
+      "statute": "Labour Act Cap L1 LFN 2004",
+      "severity": "HIGH",
+      "rule": "An employer cannot unilaterally vary the fundamental terms of employment (salary, role, location, hours) without the employee's consent. A clause purporting to allow the employer to vary any term at its discretion is void under the Labour Act and equivalent to a repudiatory breach.",
+      "negotiation_tip": "Ensure any variation clause requires written agreement from both parties. The employer's ability to vary role or location should be subject to reasonable notice (minimum 30 days) and your right to terminate with full severance if you cannot reasonably accept the variation.",
+      "red_flags": ["employer may vary your terms", "unilaterally change your role", "transfer you to any location", "alter duties at its discretion", "amend salary at any time", "change your reporting line", "reassign you without consent", "employer may modify conditions of employment", "terms may be varied"]
+    },
+    {
+      "topic": "Excessive Confidentiality / IP Ownership (Employment)",
+      "statute": "Copyright Act 2022 & Labour Act Cap L1 LFN 2004",
+      "severity": "MEDIUM",
+      "rule": "An employment clause assigning all intellectual property created by an employee — including works created in personal time, unrelated to the employer's business — to the employer goes beyond what Nigerian law permits. The Copyright Act 2022 limits employer ownership to works created in the course of employment.",
+      "negotiation_tip": "Limit IP assignment to works created 'in the course of employment and using company resources.' Add an explicit carve-out: 'This clause does not apply to works created entirely in the employee's personal time and unrelated to the company's business.'",
+      "red_flags": ["all inventions shall belong to the employer", "any work created during employment", "including works created outside working hours", "employee assigns all ip", "personal projects shall be company property", "all developments belong to the company", "intellectual property created at any time"]
+    },
+    {
+      "topic": "Probationary Period Abuse",
+      "statute": "Labour Act Cap L1 LFN 2004 & Nigerian Employment Practice",
+      "severity": "MEDIUM",
+      "rule": "A probationary period should typically not exceed 3–6 months. Clauses that extend probation indefinitely, reduce notice entitlements to zero during probation, or deny all statutory benefits during an excessively long probation may be void or challengeable.",
+      "negotiation_tip": "Ensure probation is capped at 3 months (6 months maximum for senior roles), that at least 1-week notice applies even during probation, and that statutory benefits (pension, leave) accrue from the first day of employment.",
+      "red_flags": ["probationary period of 12 months", "probation may be extended indefinitely", "no notice required during probation", "no benefits during probation", "summary dismissal during probation", "probation at employer's discretion", "indefinite probation", "extended probation period"]
     }
   ]
 }
