@@ -403,11 +403,19 @@ async function searchLaw(query) {
       }
 
       // Enforce independent citation gate: distance <= 0.45
-      return hits.filter(h => h.distance <= 0.45);
+      const validHits = hits.filter(h => h.distance <= 0.45);
+      
+      if (validHits.length > 0) {
+        console.log(`[RAG searchLaw] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | topHit: "${validHits[0].citation}" | dist: ${validHits[0].distance.toFixed(3)} | sim: ${(validHits[0].similarity * 100).toFixed(1)}%`);
+      } else if (hits.length > 0) {
+        console.log(`[RAG searchLaw] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | closest hit dist: ${hits[0].distance.toFixed(3)} (failed distance <= 0.45 gate)`);
+      }
+
+      return validHits;
     }
     return [];
   } catch (error) {
-    console.error("RAG Search Error:", error);
+    console.error("RAG Search Error:", error.message || error);
     return [];
   }
 }
@@ -431,7 +439,9 @@ async function searchCases(query) {
     });
 
     if (results && results.metadatas && results.metadatas[0]) {
-      return results.metadatas[0].map(m => m.outcome);
+      const outcomes = results.metadatas[0].map(m => m.outcome);
+      console.log(`[RAG searchCases] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | matchedCases: ${outcomes.length}`);
+      return outcomes;
     }
     return [];
   } catch (error) {
