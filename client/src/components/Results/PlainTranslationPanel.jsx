@@ -2,30 +2,57 @@ import React, { useRef } from 'react';
 import DOMPurify from 'dompurify';
 
 /**
- * Checks if a translated paragraph is semantically related to any flagged clause.
- * Uses a keyword-overlap heuristic (first 60 chars of clause text).
- * @param {string} paragraph - The translated paragraph
- * @param {Array} flaggedClauses - Array of clause objects with { id, text, riskCategory, severity }
- * @returns {{ matched: boolean, clause: object|null }}
+ * Checks if a translated paragraph is semantically related to a specific flagged clause.
+ * Requires section ID match or high-precision domain-specific n-gram overlap.
+ * Filters generic stopwords (shall, supplier, distributor, agreement, etc.) to prevent mis-alignment.
  */
-function findMatchingClause(paragraph, flaggedClauses) {
+const GENERIC_LEGAL_STOPWORDS = new Set([
+  'shall', 'supplier', 'distributor', 'agreement', 'parties', 'section', 'article',
+  'clause', 'provided', 'subject', 'under', 'herein', 'thereof', 'whereof', 'forth',
+  'terms', 'conditions', 'order', 'orders', 'party', 'other', 'first', 'second'
+]);
+
+function findMatchingClause(paragraph, flaggedClauses, matchedClauseIds = new Set()) {
   if (!flaggedClauses || flaggedClauses.length === 0) return { matched: false, clause: null };
 
   const paraLower = paragraph.toLowerCase();
 
+  // 1. Direct section/clause ID match (e.g., "4.1", "5.2", "clause 3")
   for (const clause of flaggedClauses) {
-    // Extract the first 5 significant words from the clause text as fingerprint
-    const words = (clause.text || '')
-      .toLowerCase()
-      .split(/\s+/)
-      .filter(w => w.length > 4)
-      .slice(0, 5);
-
-    const matchCount = words.filter(w => paraLower.includes(w)).length;
-    if (matchCount >= 2) {
+    if (matchedClauseIds.has(clause.id)) continue;
+    const clauseIdClean = (clause.id || '').trim().toLowerCase();
+    if (clauseIdClean && clauseIdClean.length >= 2 && paraLower.includes(clauseIdClean)) {
+      matchedClauseIds.add(clause.id);
       return { matched: true, clause };
     }
   }
+
+  // 2. High-precision domain-specific keyword & n-gram matching
+  for (const clause of flaggedClauses) {
+    if (matchedClauseIds.has(clause.id)) continue;
+    const clauseTextLower = (clause.text || '').toLowerCase();
+
+    // Check exact substring overlap (25+ contiguous characters)
+    const snippet = clauseTextLower.substring(0, 40).replace(/^[0-9\.\(\)\s]+/, '').trim();
+    if (snippet.length >= 20 && paraLower.includes(snippet)) {
+      matchedClauseIds.add(clause.id);
+      return { matched: true, clause };
+    }
+
+    // Filter stopwords and count domain-specific word matches
+    const domainWords = clauseTextLower
+      .split(/[^a-z0-9]+/)
+      .filter(w => w.length > 4 && !GENERIC_LEGAL_STOPWORDS.has(w));
+
+    const uniqueDomainWords = [...new Set(domainWords)].slice(0, 10);
+    const matchCount = uniqueDomainWords.filter(w => paraLower.includes(w)).length;
+
+    if (matchCount >= 3) {
+      matchedClauseIds.add(clause.id);
+      return { matched: true, clause };
+    }
+  }
+
   return { matched: false, clause: null };
 }
 
@@ -66,6 +93,8 @@ const PlainTranslationPanel = ({
 
   const isTruncated = pageStats?.extractionTruncated || pageStats?.translationTruncated || plainTranslation.includes('exceeded 10 pages') || plainTranslation.includes('30,000 characters limit');
 
+  const matchedClauseIds = new Set();
+
   return (
     <div ref={panelRef} className="relative">
 
@@ -90,7 +119,7 @@ const PlainTranslationPanel = ({
       {/* Paragraph-by-paragraph rendering */}
       <div className="space-y-4">
         {paragraphs.map((para, idx) => {
-          const { matched, clause } = findMatchingClause(para, flaggedClauses);
+          const { matched, clause } = findMatchingClause(para, flaggedClauses, matchedClauseIds);
 
           // ── Split-Card: Flagged paragraph ──
           if (matched && clause) {

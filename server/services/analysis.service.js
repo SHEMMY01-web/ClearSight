@@ -65,36 +65,76 @@ function isValidPrecedentSentence(sentence) {
 }
 
 /**
+ * Validates whether a text chunk is a genuine operative contract clause
+ * filters out Table of Contents lines, bare headers, and document metadata.
+ */
+function isValidClauseChunk(chunkText) {
+  if (!chunkText || typeof chunkText !== 'string') return false;
+  const clean = chunkText.trim();
+  if (clean.length < 30) return false;
+
+  // Filter Table of Contents lines & dots lines (e.g. "1.1 Definitions ..... 4", "Page 2 of 15")
+  if (/table of contents/i.test(clean)) return false;
+  if (/\.{4,}/.test(clean)) return false;
+  if (/page\s+\d+\s+of\s+\d+/i.test(clean)) return false;
+  if (/^\s*(?:contents|index|table of clauses)\s*$/i.test(clean)) return false;
+
+  // Filter bare section titles / headers that lack operative contract language
+  // e.g. "5. PRICING, PAYMENT, AND PENALTY INTEREST." without any underlying body text
+  if (clean.length < 140) {
+    const operativeVerbs = /\b(shall|must|agrees?|pays?|payment|terminat\w+|indemnif\w+|liable|liability|rights?|duty|duties|warrants?|repossess\w*|forfeit\w*|deduct\w*|renew\w*|obligat\w+|penalt\w+|incurs?|applies|default|variat\w+|notice|accept\w*|fees?|fine|breach)\b/i;
+    if (!operativeVerbs.test(clean)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
  * Semantically chunks text based on clause and sub-clause structures
  * e.g., "1.", "1.1", "4.2(b)", "Clause 3.3", "(a)"
  */
 function chunkByClauses(text) {
   const clauseRegex = /(?:^|\n)(?=(?:(?:Section|Article|Clause)\s+\d+(?:\.\d+)?(?:\([a-z0-9]+\))?|\d+\.(?:\d+)?(?:\([a-z0-9]+\))?|\([a-z0-9]+\))[\s\t:A-Z])/gi;
   
-  let parts = text.split(clauseRegex).map(p => p.trim()).filter(p => p.length > 10);
+  let rawParts = text.split(clauseRegex).map(p => p.trim()).filter(p => p.length > 10);
 
-  if (parts.length <= 1) {
-    parts = text.split(/\n\s*\n/).map(p => p.trim()).filter(p => p.length > 10);
+  if (rawParts.length <= 1) {
+    rawParts = text.split(/\n\s*\n/).map(p => p.trim()).filter(p => p.length > 10);
   }
 
-  // Secondary fallback for dense unformatted text without double linebreaks: split by period sentence boundaries (~500 chars)
-  if (parts.length <= 1) {
+  // Secondary fallback for dense unformatted text: split by period sentence boundaries (~350-500 chars)
+  if (rawParts.length <= 1) {
     const sentences = text.match(/[^.!?]+[.!?]*/g) || [text];
-    parts = [];
+    rawParts = [];
     let currentChunk = '';
     for (const s of sentences) {
       currentChunk += ' ' + s.trim();
       if (currentChunk.length >= 350) {
-        parts.push(currentChunk.trim());
+        rawParts.push(currentChunk.trim());
         currentChunk = '';
       }
     }
-    if (currentChunk.trim().length > 10) parts.push(currentChunk.trim());
+    if (currentChunk.trim().length > 10) rawParts.push(currentChunk.trim());
   }
 
-  console.log(`[Analysis] Contract text split into ${parts.length} clause chunks for risk scanning.`);
+  // Apply sanity filter: discard TOC lines, bare headers, and duplicate fragments
+  const seenTexts = new Set();
+  const validParts = [];
+  for (const part of rawParts) {
+    if (isValidClauseChunk(part)) {
+      const normalized = part.toLowerCase().replace(/\s+/g, ' ');
+      if (!seenTexts.has(normalized)) {
+        seenTexts.add(normalized);
+        validParts.push(part);
+      }
+    }
+  }
 
-  return parts.map((p, i) => {
+  console.log(`[Analysis] Contract text split into ${validParts.length} valid operative clause chunks (filtered from ${rawParts.length} raw sections).`);
+
+  return validParts.map((p, i) => {
     const firstLine = p.split('\n')[0].trim().substring(0, 60);
     return {
       id: firstLine || `Clause_${i+1}`,
