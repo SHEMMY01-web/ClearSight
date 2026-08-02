@@ -98,12 +98,18 @@ router.post('/', authMiddleware, upload.any(), async (req, res) => {
     // 4. Background Processing
     (async () => {
       try {
+        console.log(`[Upload] Background processing started for job ${jobId} | persona: ${persona} | strategySettings: ${JSON.stringify(strategySettings)}`);
+        
         const { flaggedClauses, plainTranslation, riskStatus, pageStats: finalPageStats } = await chunkAndAnalyze(text, persona, strategySettings, pageStats);
+
+        console.log(`[Upload] chunkAndAnalyze complete | riskStatus: ${riskStatus} | flaggedClauses: ${flaggedClauses.length} | translationLength: ${plainTranslation?.length || 0}`);
 
         const highRisks = flaggedClauses.filter(c => c.severity === 'HIGH').length;
         const score = Math.max(0, 100 - (highRisks * 25) - ((flaggedClauses.length - highRisks) * 10));
 
-        await supabase
+        console.log(`[Upload] Computed score: ${score} | highRisks: ${highRisks} | writing to Supabase...`);
+
+        const { error: updateError } = await supabase
           .from('contracts')
           .update({
             risk_score: score,
@@ -113,6 +119,12 @@ router.post('/', authMiddleware, upload.any(), async (req, res) => {
             strategic_summary: "CAMA 2020 Validated"
           })
           .eq('id', jobId);
+
+        if (updateError) {
+          console.error(`[Upload] Supabase update FAILED for job ${jobId}:`, updateError);
+        } else {
+          console.log(`[Upload] Supabase update SUCCESS for job ${jobId} | riskStatus: ${riskStatus} | flags: ${flaggedClauses.length}`);
+        }
 
       } catch (bgError) {
         console.error('Background processing error:', bgError);

@@ -375,13 +375,22 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
   const chunks = chunkByClauses(fullText);
   const contractType = detectContractType(fullText);
 
+  console.log(`[Analysis] Pipeline started | contractType: ${contractType} | persona: ${persona} | strategySettings: ${JSON.stringify(strategySettings)} | textLength: ${fullText.length}`);
+
   const strategyHeader = buildSystematicHeader(strategySettings);
   const validChunks = chunks.filter(c => c.clauseText.length >= 30).slice(0, MAX_CLAUSES_SCANNED);
 
+  console.log(`[Analysis] ${validChunks.length} valid chunks (>= 30 chars) from ${chunks.length} total chunks`);
+
   // Stage 1: RAG law search for all candidate chunks
   const ragHitsPerChunk = await Promise.all(
-    validChunks.map(c => searchLaw(c.clauseText).catch(() => []))
+    validChunks.map(c => searchLaw(c.clauseText).catch((err) => {
+      console.warn(`[Analysis] RAG searchLaw error for chunk: ${err.message}`);
+      return [];
+    }))
   );
+
+  console.log(`[Analysis] Stage 1 RAG complete | hits per chunk: [${ragHitsPerChunk.map(h => h.length).join(', ')}]`);
 
   // Stage 2: Flagging based on flagConfidence and strategy profile threshold
   const flagged = validChunks
@@ -390,6 +399,8 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
       risk: flagClause(chunk.clauseText, contractType, strategySettings, ragHitsPerChunk[idx])
     }))
     .filter(({ risk }) => risk?.isRisky);
+
+  console.log(`[Analysis] Stage 2 flagging complete | ${flagged.length} clauses flagged from ${validChunks.length} candidates`);
 
   // Stage 3: Full Document Translation & Case Search
   const [translationObj, casesResults] = await Promise.all([
