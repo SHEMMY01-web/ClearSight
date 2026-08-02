@@ -72,8 +72,7 @@ router.post('/', authMiddleware, upload.any(), async (req, res) => {
         analysis_results: [],
         plain_translation: "Processing...",
         risk_status: 'processing',
-        strategic_summary: "Pending",
-        page_stats: pageStats
+        strategic_summary: "Pending"
       })
       .select('id')
       .single();
@@ -111,8 +110,7 @@ router.post('/', authMiddleware, upload.any(), async (req, res) => {
             analysis_results: flaggedClauses,
             plain_translation: plainTranslation,
             risk_status: riskStatus,
-            strategic_summary: "CAMA 2020 Validated",
-            page_stats: finalPageStats
+            strategic_summary: "CAMA 2020 Validated"
           })
           .eq('id', jobId);
 
