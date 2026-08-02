@@ -189,8 +189,11 @@ async function initKnowledgeBase() {
       } // close the outer else block
 
       // ── Load Foresight Cases (JSON) ──
-      const casesPath = path.join(dataDir, 'foresight_vectors_v2.json');
-      if (fs.existsSync(casesPath)) {
+      const v2Path = path.join(dataDir, 'foresight_vectors_v2.json');
+      const v1Path = path.join(dataDir, 'foresight_vectors.json');
+      const casesPath = fs.existsSync(v2Path) ? v2Path : (fs.existsSync(v1Path) ? v1Path : null);
+
+      if (casesPath) {
         let casesCount = 0;
         try {
           const casesColl = await client.getCollection({ name: casesCollectionName });
@@ -198,25 +201,29 @@ async function initKnowledgeBase() {
         } catch (e) { }
 
         if (casesCount === 0) {
-          console.log(`Loading foresight_vectors_v2.json into ChromaDB...`);
+          console.log(`Loading ${path.basename(casesPath)} into ChromaDB collection ${casesCollectionName}...`);
           try { await client.deleteCollection({ name: casesCollectionName }); } catch (e) { }
           const casesCollection = await client.createCollection({ name: casesCollectionName });
           const casesData = JSON.parse(fs.readFileSync(casesPath, 'utf8'));
 
-          const batchSize = 100;
+          const batchSize = 50;
           for (let i = 0; i < casesData.length; i += batchSize) {
             const batch = casesData.slice(i, i + batchSize);
             const ids = batch.map((c, idx) => c.id || `case_${i + idx}`);
-            const texts = batch.map(c => c['Offence Description'] || '');
+            const texts = batch.map(c => c['Offence Description'] || c.summary || 'Legal Dispute');
             const metadatas = batch.map(c => ({ 
-              outcome: c.Outcome, 
-              year: c.Year,
-              category: c.Business_Category,
-              summary: c.Summary 
+              outcome: c.Outcome || 'UNKNOWN', 
+              year: c.Year || 'N/A',
+              category: c.Business_Category || 'General',
+              summary: c.Summary || ''
             }));
 
-            // Extract pre-computed embeddings directly from the JSON
-            const embeddings = batch.map(c => c.embedding);
+            // Extract pre-computed embeddings or generate on the fly
+            let embeddings = batch.map(c => c.embedding);
+            if (embeddings.some(e => !e)) {
+              embeddings = await localEmbeddingFunction.generate(texts);
+            }
+
             await casesCollection.add({
               ids,
               embeddings,
@@ -228,6 +235,8 @@ async function initKnowledgeBase() {
         } else {
           console.log(`✓ ChromaDB cases already loaded (${casesCount} vectors).`);
         }
+      } else {
+        console.warn('⚠️ No foresight_vectors.json file found in server/data/. Cases collection skipped.');
       }
 
       return;
@@ -335,7 +344,11 @@ async function searchCases(query) {
     }
     return [];
   } catch (error) {
-    console.error("Cases Search Error:", error);
+    if (error.name === 'ChromaNotFoundError' || error.message?.includes('not found')) {
+      console.warn(`[RAG] Cases collection '${casesCollectionName}' not found yet in ChromaDB. Falling back to default case stats.`);
+    } else {
+      console.error("Cases Search Error:", error.message || error);
+    }
     return [];
   }
 }
