@@ -53,11 +53,21 @@ function saveCacheToDisk() {
   }
 }
 
+let lastEmbeddingCallTime = 0;
+
 async function getEmbedding(text) {
-  // Check cache first
+  // Check cache first (exact raw string key)
   if (embeddingCache.has(text)) {
     return embeddingCache.get(text);
   }
+
+  // Rate limiter: enforce minimum 650ms spacing between uncached API calls (<= 92 req/min)
+  const now = Date.now();
+  const elapsed = now - lastEmbeddingCallTime;
+  if (elapsed < 650) {
+    await new Promise(r => setTimeout(r, 650 - elapsed));
+  }
+  lastEmbeddingCallTime = Date.now();
 
   try {
     const response = await ai.models.embedContent({
@@ -91,17 +101,13 @@ async function warmupEmbedder() {
   console.log('✓ Embedding model ready.');
 }
 
-// Chroma embedding function wrapper with throttling (max 3 concurrent, 50ms pause)
+// Chroma embedding function wrapper (uses rate-limited getEmbedding)
 const localEmbeddingFunction = {
   generate: async (texts) => {
     const results = [];
-    for (let i = 0; i < texts.length; i += 3) {
-      const batch = texts.slice(i, i + 3);
-      const batchResults = await Promise.all(batch.map(text => getEmbedding(text)));
-      results.push(...batchResults);
-      if (i + 3 < texts.length) {
-        await new Promise(r => setTimeout(r, 60)); // 60ms delay to satisfy 100 req/min rate limit
-      }
+    for (const text of texts) {
+      const emb = await getEmbedding(text);
+      results.push(emb);
     }
     return results;
   }
