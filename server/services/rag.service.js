@@ -59,7 +59,10 @@ function saveCacheToDisk() {
 }
 
 let lastEmbeddingCallTime = 0;
-const MIN_EMBEDDING_INTERVAL_MS = 650; // 650ms spacing guarantees <= 92 req/min strictly under 100 req/min limit
+// CRITICAL RATE-LIMIT CONSTANT — DO NOT REDUCE BELOW 600ms
+// Formula: 60,000 ms / 650 ms = 92.3 req/min (STRICTLY < 100 req/min embed_content free tier limit)
+// Reducing this value will re-trigger Google Gemini API 429 RESOURCE_EXHAUSTED cascades on embedContent.
+const MIN_EMBEDDING_INTERVAL_MS = 650;
 
 async function getEmbedding(text) {
   // Check cache first (exact raw string key)
