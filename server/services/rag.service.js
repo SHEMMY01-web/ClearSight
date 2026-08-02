@@ -59,7 +59,7 @@ function saveCacheToDisk() {
 }
 
 let lastEmbeddingCallTime = 0;
-const MIN_EMBEDDING_INTERVAL_MS = 120; // 120ms spacing (~500 req/min peak), drops 50-chunk latency to ~3s
+const MIN_EMBEDDING_INTERVAL_MS = 650; // 650ms spacing guarantees <= 92 req/min strictly under 100 req/min limit
 
 async function getEmbedding(text) {
   // Check cache first (exact raw string key)
@@ -67,7 +67,7 @@ async function getEmbedding(text) {
     return embeddingCache.get(text);
   }
 
-  // Rate limiter queue: enforce 120ms spacing between uncached API calls
+  // Rate limiter queue: enforce 650ms spacing between uncached API calls
   const now = Date.now();
   const elapsed = now - lastEmbeddingCallTime;
   if (elapsed < MIN_EMBEDDING_INTERVAL_MS) {
