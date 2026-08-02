@@ -39,21 +39,27 @@ try {
   console.warn("Could not load embedding_cache.json from disk:", e.message);
 }
 
+let cacheSaveTimeout = null;
 function saveCacheToDisk() {
-  try {
-    const obj = {};
-    for (const [k, v] of embeddingCache.entries()) {
-      obj[k] = v;
+  if (cacheSaveTimeout) return;
+  cacheSaveTimeout = setTimeout(() => {
+    cacheSaveTimeout = null;
+    try {
+      const obj = {};
+      for (const [k, v] of embeddingCache.entries()) {
+        obj[k] = v;
+      }
+      const dataDir = path.join(__dirname, '../data');
+      if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+      fs.promises.writeFile(cacheFilePath, JSON.stringify(obj, null, 2), 'utf8').catch(() => {});
+    } catch (e) {
+      // Disk write error ignore
     }
-    const dataDir = path.join(__dirname, '../data');
-    if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
-    fs.writeFileSync(cacheFilePath, JSON.stringify(obj, null, 2), 'utf8');
-  } catch (e) {
-    // Disk write error ignore
-  }
+  }, 1000); // 1-second debounce
 }
 
 let lastEmbeddingCallTime = 0;
+const MIN_EMBEDDING_INTERVAL_MS = 120; // 120ms spacing (~500 req/min peak), drops 50-chunk latency to ~3s
 
 async function getEmbedding(text) {
   // Check cache first (exact raw string key)
@@ -61,11 +67,11 @@ async function getEmbedding(text) {
     return embeddingCache.get(text);
   }
 
-  // Rate limiter: enforce minimum 650ms spacing between uncached API calls (<= 92 req/min)
+  // Rate limiter queue: enforce 120ms spacing between uncached API calls
   const now = Date.now();
   const elapsed = now - lastEmbeddingCallTime;
-  if (elapsed < 650) {
-    await new Promise(r => setTimeout(r, 650 - elapsed));
+  if (elapsed < MIN_EMBEDDING_INTERVAL_MS) {
+    await new Promise(r => setTimeout(r, MIN_EMBEDDING_INTERVAL_MS - elapsed));
   }
   lastEmbeddingCallTime = Date.now();
 
