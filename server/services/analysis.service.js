@@ -51,14 +51,28 @@ function isValidPrecedentSentence(sentence) {
 function chunkByClauses(text) {
   const clauseRegex = /(?:^|\n)(?=(?:(?:Section|Article|Clause)\s+\d+(?:\.\d+)?(?:\([a-z0-9]+\))?|\d+\.(?:\d+)?(?:\([a-z0-9]+\))?|\([a-z0-9]+\))[\s\t:A-Z])/gi;
   
-  const parts = text.split(clauseRegex).map(p => p.trim()).filter(p => p.length > 10);
+  let parts = text.split(clauseRegex).map(p => p.trim()).filter(p => p.length > 10);
 
   if (parts.length <= 1) {
-    return text.split(/\n\s*\n/).filter(p => p.trim().length > 10).map((p, i) => ({
-      id: `Paragraph_${i+1}`,
-      clauseText: p.trim()
-    }));
+    parts = text.split(/\n\s*\n/).map(p => p.trim()).filter(p => p.length > 10);
   }
+
+  // Secondary fallback for dense unformatted text without double linebreaks: split by period sentence boundaries (~500 chars)
+  if (parts.length <= 1) {
+    const sentences = text.match(/[^.!?]+[.!?]*/g) || [text];
+    parts = [];
+    let currentChunk = '';
+    for (const s of sentences) {
+      currentChunk += ' ' + s.trim();
+      if (currentChunk.length >= 350) {
+        parts.push(currentChunk.trim());
+        currentChunk = '';
+      }
+    }
+    if (currentChunk.trim().length > 10) parts.push(currentChunk.trim());
+  }
+
+  console.log(`[Analysis] Contract text split into ${parts.length} clause chunks for risk scanning.`);
 
   return parts.map((p, i) => {
     const firstLine = p.split('\n')[0].trim().substring(0, 60);
@@ -205,14 +219,19 @@ function flagClause(clauseText, contractType = null, strategySettings = null, ra
   const matches = getAllMatchingStatutes(cleanText, contractType, allowCrossCategory);
   if (matches.length === 0) return null;
 
-  const ragSimilarityScore = ragHits.length > 0 ? (ragHits[0].similarity || 0.7) : 0.5;
+  // If RAG hits exist, integrate similarity score. If RAG hits are empty (no Chroma hit or network issue),
+  // fallback to patternMatchStrength so exact pattern matches are not starved below threshold.
+  const topRagHit = ragHits.length > 0 ? ragHits[0] : null;
 
   const validMatches = [];
   for (const match of matches) {
     if (threshold === 0.95 && match.severity !== 'HIGH') continue;
 
     const patternMatchStrength = match.patternMatchStrength || 1.0;
+    const ragSimilarityScore = topRagHit ? (topRagHit.similarity || 0.7) : patternMatchStrength;
     const flagConfidence = Number((0.6 * patternMatchStrength + 0.4 * ragSimilarityScore).toFixed(2));
+
+    console.log(`[Analysis] Clause candidate match: "${match.topic}" | pattern: ${patternMatchStrength} | rag: ${ragSimilarityScore} -> flagConfidence: ${flagConfidence} (threshold: ${threshold})`);
 
     if (flagConfidence >= threshold) {
       validMatches.push({
