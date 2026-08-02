@@ -211,6 +211,19 @@ function flagClause(clauseText, contractType = null, strategySettings = null, ra
   const riskAppetite = strategySettings?.riskAppetite || 'balanced';
   const strategicGoal = strategySettings?.strategicGoal || 'liquidity';
 
+  // ARCHITECTURE DECISION: riskAppetite is the SOLE threshold driver.
+  // strategicGoal affects only output framing (advocate/critic tone, foresight scenarios)
+  // — never the detection threshold. This prevents default values from silently
+  // overriding explicit user selections (see commit 4e9283b root-cause fix).
+  //
+  // Threshold map:
+  //   conservative → 0.65  (pattern-only matches pass)
+  //   balanced     → 0.85  (pattern + weak RAG fallback passes at 0.88)
+  //   aggressive   → 0.95  (requires strong RAG vector backing)
+  //
+  // strategicGoal 'protection' is the ONE exception: it can LOWER threshold
+  // (never raise it) and enable cross-category scanning, acting as a safety net.
+  // strategicGoal 'liquidity' intentionally does nothing to the threshold.
   let threshold = 0.85;
   let allowCrossCategory = false;
   if (riskAppetite === 'conservative') {
@@ -219,8 +232,7 @@ function flagClause(clauseText, contractType = null, strategySettings = null, ra
   } else if (riskAppetite === 'aggressive') {
     threshold = 0.95;
   }
-  // strategicGoal modifies behavior within the riskAppetite-set threshold level
-  // 'protection' widens scanning to cross-category matches at conservative threshold
+  // 'protection' can only lower threshold, never raise it
   if (strategicGoal === 'protection' && riskAppetite !== 'aggressive') {
     threshold = Math.min(threshold, 0.65);
     allowCrossCategory = true;

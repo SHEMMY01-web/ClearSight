@@ -12,7 +12,7 @@ const { extractText } = require('../services/extraction.service');
 async function runRegressionTestSuite() {
   console.log('🧪 Starting ClearSight Automated Audit Fixes Regression Test Suite...\n');
   let passedCount = 0;
-  let totalTests = 7;
+  let totalTests = 8;
 
   // -------------------------------------------------------------
   // Test Fixture 1: Prompt Injection Defense
@@ -108,6 +108,32 @@ Clause 3.3: Deemed Acceptance. Continued performance constitutes deemed acceptan
     passedCount++;
   } catch (err) {
     console.error('  ❌ Test Fixture 3 Failed:', err.message);
+  }
+
+  // -------------------------------------------------------------
+  // Test Fixture 3b: Balanced + Liquidity Default Regression Guard
+  // Reproduces the exact production bug (commit 4e9283b): strategicGoal 'liquidity'
+  // (the platform default) must NOT override riskAppetite 'balanced' to threshold 0.95.
+  // A flagConfidence of 0.88 must PASS balanced threshold 0.85, not fail at 0.95.
+  // -------------------------------------------------------------
+  try {
+    console.log('Running Test Fixture 3b: Balanced + Liquidity Default Regression Guard...');
+    const clause53Text = 'Clause 5.3: Penalty Interest. In event of default, a 500,000 fee penalty applies immediately.';
+
+    // This is the EXACT combination every real user gets by default
+    const balancedLiquidityHit = flagClause(clause53Text, null, { riskAppetite: 'balanced', strategicGoal: 'liquidity' }, []);
+    assert.notStrictEqual(balancedLiquidityHit, null, 'Balanced + liquidity (platform default) must flag clause at confidence 0.88 >= threshold 0.85');
+    assert.strictEqual(balancedLiquidityHit.flagConfidence, 0.88, 'flagConfidence must be 0.88 for pattern-only match with RAG fallback');
+    assert.strictEqual(balancedLiquidityHit.isRisky, true, 'isRisky must be true');
+
+    // Also verify balanced + protection doesn't accidentally raise the threshold
+    const balancedProtectionHit = flagClause(clause53Text, null, { riskAppetite: 'balanced', strategicGoal: 'protection' }, []);
+    assert.notStrictEqual(balancedProtectionHit, null, 'Balanced + protection must also flag (protection can only lower threshold, never raise it)');
+
+    console.log(`  ✓ Test Fixture 3b Passed (balanced+liquidity: flagConfidence ${balancedLiquidityHit.flagConfidence} >= 0.85 ✓).`);
+    passedCount++;
+  } catch (err) {
+    console.error('  ❌ Test Fixture 3b Failed:', err.message);
   }
 
   // -------------------------------------------------------------
