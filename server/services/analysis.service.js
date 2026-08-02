@@ -7,6 +7,26 @@ const SYSTEM_PREAMBLE_MARKERS = [
 
 const MAX_CLAUSES_SCANNED = 50;
 
+// Concurrency limiter — caps parallel async operations to avoid overwhelming
+// external services (ChromaDB hosted server returns HTTP 429 at ~10+ concurrent requests).
+// Limits searchLaw/searchCases Promise.all bursts to CHROMA_CONCURRENCY_LIMIT at a time.
+const CHROMA_CONCURRENCY_LIMIT = 5;
+function pLimit(concurrency) {
+  const queue = [];
+  let active = 0;
+  function next() {
+    if (active >= concurrency || queue.length === 0) return;
+    active++;
+    const { fn, resolve, reject } = queue.shift();
+    fn().then(resolve, reject).finally(() => { active--; next(); });
+  }
+  return (fn) => new Promise((resolve, reject) => {
+    queue.push({ fn, resolve, reject });
+    next();
+  });
+}
+const limitChroma = pLimit(CHROMA_CONCURRENCY_LIMIT);
+
 /**
  * Server-side exact-match denylist sanitizer.
  * Removes system prompt preamble lines/blocks from user-facing completion outputs.
@@ -401,11 +421,12 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
   console.log(`[Analysis] ${validChunks.length} valid chunks (>= 30 chars) from ${chunks.length} total chunks`);
 
   // Stage 1: RAG law search for all candidate chunks
+  // Concurrency-limited to CHROMA_CONCURRENCY_LIMIT (5) to prevent ChromaDB HTTP 429 bursts
   const ragHitsPerChunk = await Promise.all(
-    validChunks.map(c => searchLaw(c.clauseText).catch((err) => {
+    validChunks.map(c => limitChroma(() => searchLaw(c.clauseText).catch((err) => {
       console.warn(`[Analysis] RAG searchLaw error for chunk: ${err.message}`);
       return [];
-    }))
+    })))
   );
 
   console.log(`[Analysis] Stage 1 RAG complete | hits per chunk: [${ragHitsPerChunk.map(h => h.length).join(', ')}]`);
@@ -426,7 +447,7 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
       console.warn('[Analysis] Translation failed:', err.message);
       return { fullTranslation: null, pageStats: initialPageStats };
     }),
-    Promise.all(flagged.map(({ chunk }) => searchCases(chunk.clauseText).catch(() => [])))
+    Promise.all(flagged.map(({ chunk }) => limitChroma(() => searchCases(chunk.clauseText).catch(() => []))))
   ]);
 
   const plainTranslation = translationObj.fullTranslation;
