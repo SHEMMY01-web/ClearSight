@@ -278,14 +278,20 @@ async function initKnowledgeBase() {
       if (casesPath) {
         let casesCount = 0;
         try {
-          const casesColl = await client.getCollection({ name: casesCollectionName });
+          const casesColl = await client.getCollection({
+            name: casesCollectionName,
+            embeddingFunction: localEmbeddingFunction
+          });
           casesCount = await casesColl.count();
         } catch (e) { }
 
         if (casesCount === 0) {
           console.log(`Loading ${path.basename(casesPath)} into ChromaDB collection ${casesCollectionName}...`);
           try { await client.deleteCollection({ name: casesCollectionName }); } catch (e) { }
-          const casesCollection = await client.createCollection({ name: casesCollectionName });
+          const casesCollection = await client.createCollection({
+            name: casesCollectionName,
+            embeddingFunction: localEmbeddingFunction
+          });
           const casesData = JSON.parse(fs.readFileSync(casesPath, 'utf8'));
 
           // Pre-compute embeddings ONLY for unique case descriptions (1 batch call total)
