@@ -20,7 +20,7 @@ const casesCollectionName = "nigerian_cases_v2";
 
 const { GoogleGenAI } = require('@google/genai');
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const embeddingModel = 'text-embedding-004';
+const embeddingModel = 'gemini-embedding-001';
 
 // Simple in-memory embedding cache — avoids re-embedding the same text twice
 const embeddingCache = new Map();
