@@ -405,13 +405,13 @@ async function searchLaw(query) {
         });
       }
 
-      // Enforce independent citation gate: distance <= 0.45
-      const validHits = hits.filter(h => h.distance <= 0.45);
+      // Enforce independent citation gate: distance <= 0.58 (similarity >= 0.42)
+      const validHits = hits.filter(h => h.distance <= 0.58);
       
       if (validHits.length > 0) {
         console.log(`[RAG searchLaw] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | topHit: "${validHits[0].citation}" | dist: ${validHits[0].distance.toFixed(3)} | sim: ${(validHits[0].similarity * 100).toFixed(1)}%`);
       } else if (hits.length > 0) {
-        console.log(`[RAG searchLaw] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | closest hit dist: ${hits[0].distance.toFixed(3)} (failed distance <= 0.45 gate)`);
+        console.log(`[RAG searchLaw] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | closest hit dist: ${hits[0].distance.toFixed(3)} (failed distance <= 0.58 gate)`);
       }
 
       return validHits;
@@ -442,9 +442,19 @@ async function searchCases(query) {
     });
 
     if (results && results.metadatas && results.metadatas[0]) {
-      const outcomes = results.metadatas[0].map(m => m.outcome);
-      console.log(`[RAG searchCases] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | matchedCases: ${outcomes.length}`);
-      return outcomes;
+      const distances = results.distances?.[0] || [];
+      const validOutcomes = [];
+
+      for (let i = 0; i < results.metadatas[0].length; i++) {
+        const meta = results.metadatas[0][i];
+        const dist = distances[i] !== undefined ? distances[i] : 0.2;
+        if (dist <= 0.55 && meta.outcome) {
+          validOutcomes.push(meta.outcome);
+        }
+      }
+
+      console.log(`[RAG searchCases] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | matchedCases: ${validOutcomes.length}`);
+      return validOutcomes;
     }
     return [];
   } catch (error) {
