@@ -45,6 +45,7 @@ const PlainTranslationPanel = ({
   flaggedClauses = [],
   riskStatus,
   onJumpToRisks,
+  pageStats = null,
 }) => {
   const panelRef = useRef(null);
 
@@ -62,6 +63,8 @@ const PlainTranslationPanel = ({
     .split(/\n\n+/)
     .map(p => p.trim())
     .filter(p => p.length > 0);
+
+  const isTruncated = pageStats?.extractionTruncated || pageStats?.translationTruncated || plainTranslation.includes('exceeded 10 pages') || plainTranslation.includes('30,000 characters limit');
 
   return (
     <div ref={panelRef} className="relative">
@@ -162,9 +165,10 @@ const PlainTranslationPanel = ({
       </div>
 
       {/* Truncation note */}
-      {plainTranslation.includes('Only the first 10 pages') && (
-        <div className="mt-8 p-4 bg-amber-50 border border-amber-200 text-[11px] font-sans text-amber-700">
-          ⚠️ This document exceeded 10 pages. Only the first 10 pages have been translated. Upload a shorter document or contact us for extended analysis.
+      {isTruncated && (
+        <div className="mt-8 p-4 bg-amber-50 border border-amber-200 text-[11px] font-sans text-amber-800 rounded">
+          ⚠️ <strong>Partial Analysis Notice:</strong> This document exceeded analysis capacity limit (10 pages / 30,000 characters).
+          {pageStats && ` Scanned ${pageStats.analyzedPages} of ${pageStats.totalPages} total pages (translated through page ${pageStats.translatedThroughPage || pageStats.analyzedPages}).`}
         </div>
       )}
     </div>

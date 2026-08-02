@@ -215,7 +215,7 @@ export const generatePDF = (title, content) => {
   doc.save(`${title.toLowerCase().replace(/\s+/g, '_')}.pdf`);
 };
 
-export const exportAnalysisPDF = (analysis) => {
+export const exportAnalysisPDF = (analysis, pageStats = null) => {
   const doc = new jsPDF();
   let y = 45;
   let pageCount = 1;
@@ -250,6 +250,18 @@ export const exportAnalysisPDF = (analysis) => {
   };
 
   drawHeader(doc);
+
+  if (pageStats) {
+    doc.setFillColor(245, 245, 250);
+    doc.setDrawColor(200, 200, 210);
+    doc.rect(20, y, 170, 8, 'F');
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(70, 70, 80);
+    const coverageStr = `ANALYSIS COVERAGE: Scanned ${pageStats.analyzedPages} of ${pageStats.totalPages} pages${pageStats.translationTruncated ? `, translated through page ${pageStats.translatedThroughPage}` : ''}${pageStats.extractionTruncated || pageStats.translationTruncated ? ' (Partial Read)' : ' (Full Read)'}`;
+    doc.text(coverageStr, 25, y + 5.5);
+    y += 12;
+  }
 
   analysis.forEach((clause, index) => {
     // Check for page break

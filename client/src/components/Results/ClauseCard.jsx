@@ -112,7 +112,7 @@ const ClauseCard = ({ clause, index, onFlag, onEscalate, persona }) => {
             <span className="text-[10px] font-bold uppercase tracking-widest text-gold">{clause.riskCategory}</span>
           </div>
           <div className="flex items-center gap-3 text-[9px] font-sans text-gray">
-            <span>Confidence: {clause.confidence}%</span>
+            <span>Confidence: {clause.confidence}% {clause.flagConfidence !== undefined ? `(${clause.flagConfidence})` : ''}</span>
             <span className="text-ink/20">|</span>
             <span className="bg-ink/5 px-2 py-0.5 truncate max-w-[120px]">{clause.id}</span>
           </div>

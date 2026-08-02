@@ -1,19 +1,59 @@
-// Analysis Service (100% Offline)
+// Analysis Service
+const SYSTEM_PREAMBLE_MARKERS = [
+  "SYSTEMATIC CONSTRAINT LAYER",
+  "STRATEGIC PROFILE OVERRIDE",
+  "NIGERIAN LAW BASELINE"
+];
+
+const MAX_CLAUSES_SCANNED = 50;
+
 /**
- * Semantically chunks text based on clause structures
- * e.g., looks for "1. ", "1.1 ", "Section A", etc.
- * @param {string} text 
- * @returns {Array<{ id: string, clauseText: string }>}
+ * Server-side exact-match denylist sanitizer.
+ * Removes system prompt preamble lines/blocks from user-facing completion outputs.
+ */
+function sanitizeUserFacingText(text) {
+  if (!text || typeof text !== 'string') return '';
+  let clean = text;
+  for (const marker of SYSTEM_PREAMBLE_MARKERS) {
+    if (clean.includes(marker)) {
+      const lines = clean.split('\n');
+      clean = lines.filter(l => !SYSTEM_PREAMBLE_MARKERS.some(m => l.includes(m))).join('\n');
+    }
+  }
+  return clean.trim();
+}
+
+/**
+ * Validates legal precedent sentence quality.
+ * Enforces >= 6 words, legal context keywords, and rejects OCR noise/fragments like '4682020 No.'
+ */
+function isValidPrecedentSentence(sentence) {
+  if (!sentence || typeof sentence !== 'string') return false;
+  const clean = sentence.trim();
+  const words = clean.split(/\s+/).filter(w => w.length > 0);
+  if (words.length < 6) return false;
+
+  // Reject garbled OCR noise (e.g., "1. A 4682020 No.", "4682020 No.")
+  if (/^\d+[\s\.\,\-\_]+[A-Z0-9\s]+No\.?$/i.test(clean)) return false;
+  if (/^[\d\s\.\,\-_]+No\.?$/i.test(clean)) return false;
+  if (/\b\d{6,}\s*No\b/i.test(clean)) return false;
+
+  // Legal context keywords requirement
+  const legalKeywords = ['court', 'section', 'act', 'law', 'cama', 'held', 'right', 'duty', 'shall', 'liability', 'contract', 'party', 'tenant', 'landlord', 'employee', 'employer', 'provision', 'precedent'];
+  const lower = clean.toLowerCase();
+  return legalKeywords.some(kw => lower.includes(kw));
+}
+
+/**
+ * Semantically chunks text based on clause and sub-clause structures
+ * e.g., "1.", "1.1", "4.2(b)", "Clause 3.3", "(a)"
  */
 function chunkByClauses(text) {
-  // Match numbered clauses at start of a line, e.g. "1.", "2.", "1.1", or "Section 3", "Article 2"
-  // This handles both "1. TITLE:" and "Section 1" style headings
-  const clauseRegex = /(?:^|\n)(?=(?:(?:Section|Article|Clause)\s+\d+[a-zA-Z]?|\d+\.(?:\d+)?)[\s\t:A-Z])/gi;
+  const clauseRegex = /(?:^|\n)(?=(?:(?:Section|Article|Clause)\s+\d+(?:\.\d+)?(?:\([a-z0-9]+\))?|\d+\.(?:\d+)?(?:\([a-z0-9]+\))?|\([a-z0-9]+\))[\s\t:A-Z])/gi;
   
   const parts = text.split(clauseRegex).map(p => p.trim()).filter(p => p.length > 10);
 
   if (parts.length <= 1) {
-    // Fallback: chunk by double newlines (paragraphs)
     return text.split(/\n\s*\n/).filter(p => p.trim().length > 10).map((p, i) => ({
       id: `Paragraph_${i+1}`,
       clauseText: p.trim()
@@ -21,7 +61,6 @@ function chunkByClauses(text) {
   }
 
   return parts.map((p, i) => {
-    // Use first line as ID (clause heading)
     const firstLine = p.split('\n')[0].trim().substring(0, 60);
     return {
       id: firstLine || `Clause_${i+1}`,
@@ -44,37 +83,21 @@ try {
   console.error("Could not load knowledge_base.json", e);
 }
 
-
-
-/**
- * Detects the primary contract type from the full document text.
- * Used to prevent cross-category KB hallucinations.
- */
 function detectContractType(text) {
   const lower = text.toLowerCase();
   const scores = { tenancy: 0, employment: 0, corporate: 0, ip: 0, arbitration: 0 };
 
-  // Tenancy Keywords
   if (/\b(tenant|landlord|rent|lease|tenancy|premises|occupation of premises)\b/.test(lower)) scores.tenancy += 4;
   if (/\b(lagos|abuja|victoria island|ikeja)\b/.test(lower)) scores.tenancy += 1;
-
-  // Employment Keywords
   if (/\b(employee|employer|salary|wages|dismissal|termination|intern|volunteer|internship|offer letter|probation)\b/.test(lower)) scores.employment += 5;
-  
-  // Corporate Keywords
   if (/\b(director|shareholder|company|board|trustee|trustees|management|cama|memorandum|articles)\b/.test(lower)) scores.corporate += 4;
-
-  // IP Keywords
   if (/\b(intellectual property|copyright|trademark|patent|invention|disclosure)\b/.test(lower)) scores.ip += 4;
-
-  // Arbitration Keywords
   if (/\b(arbitration|mediation|dispute resolution|conciliation)\b/.test(lower)) scores.arbitration += 3;
 
   const topType = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
   return scores[topType] > 0 ? topType : 'general';
 }
 
-// Category → contract type alignment map
 const CATEGORY_TYPE_MAP = {
   tenancy_law: 'tenancy',
   employment_law: 'employment',
@@ -83,34 +106,24 @@ const CATEGORY_TYPE_MAP = {
   arbitration_law: 'arbitration'
 };
 
-/**
- * Finds ALL matching statutes from the knowledge base.
- * Filters cross-category results to prevent hallucination:
- *   — Clauses from the primary contract type always pass.
- *   — Cross-category matches only pass if severity is HIGH.
- */
-function getAllMatchingStatutes(clauseText, contractType = null) {
+function getAllMatchingStatutes(clauseText, contractType = null, allowCrossCategory = false) {
   const lowerText = clauseText.toLowerCase();
   const matches = [];
   for (const category in knowledgeBase) {
     const categoryType = CATEGORY_TYPE_MAP[category];
     const isPrimary = !contractType || !categoryType || categoryType === contractType;
 
-    // Strict Filtering: Skip tenancy laws for employment docs and vice-versa.
-    // commercial_law is always allowed as it contains general contract principles.
-    if (contractType && categoryType && categoryType !== contractType && category !== 'commercial_law') {
+    if (!allowCrossCategory && contractType && categoryType && categoryType !== contractType && category !== 'commercial_law') {
       continue;
     }
 
     for (const law of knowledgeBase[category]) {
       for (const flag of law.red_flags) {
         const flagLower = flag.toLowerCase();
-        // Use word boundary check to avoid partial matches (e.g., "Foundation" organization vs "foundation" building)
         const flagRegex = new RegExp(`\\b${flagLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
         
         if (flagRegex.test(lowerText)) {
-          // Anti-hallucination: skip cross-category matches unless severity is HIGH
-          if (!isPrimary && law.severity !== 'HIGH') continue;
+          if (!allowCrossCategory && !isPrimary && law.severity !== 'HIGH') continue;
           matches.push({
             statute: law.statute,
             rule: law.rule,
@@ -118,7 +131,8 @@ function getAllMatchingStatutes(clauseText, contractType = null) {
             severity: law.severity || 'MEDIUM',
             negotiation_tip: law.negotiation_tip || null,
             matchedFlag: flag,
-            category
+            category,
+            patternMatchStrength: lowerText.includes(flagLower) ? 1.0 : 0.7
           });
           break;
         }
@@ -128,29 +142,28 @@ function getAllMatchingStatutes(clauseText, contractType = null) {
   return matches;
 }
 
-/**
- * From a raw RAG result object {text, citation}, extracts the most relevant sentence.
- */
 function extractBestSentence(ragResult, query) {
   const chunk = ragResult?.text || ragResult || '';
   if (!chunk || chunk.length < 20) return null;
   const sentences = chunk.match(/[^.!?]+[.!?]*/g) || [chunk];
-  if (sentences.length === 1) return chunk.substring(0, 220).trim();
+  if (sentences.length === 1) {
+    const candidate = chunk.substring(0, 220).trim();
+    return isValidPrecedentSentence(candidate) ? candidate : null;
+  }
   const queryWords = new Set(
     query.toLowerCase().split(/\s+/).filter(w => w.length > 4)
   );
-  let best = sentences[0], bestScore = 0;
+  let best = null, bestScore = -1;
   for (const s of sentences) {
+    const trimmed = s.trim();
+    if (!isValidPrecedentSentence(trimmed)) continue;
     let score = 0;
-    for (const w of queryWords) if (s.toLowerCase().includes(w)) score++;
-    if (score > bestScore) { bestScore = score; best = s; }
+    for (const w of queryWords) if (trimmed.toLowerCase().includes(w)) score++;
+    if (score > bestScore) { bestScore = score; best = trimmed; }
   }
-  return best.trim();
+  return best;
 }
 
-/**
- * Maps KB topic to risk category label
- */
 function topicToCategory(topic) {
   const map = {
     'Rent Increase': 'unfair rent increase',
@@ -159,357 +172,255 @@ function topicToCategory(topic) {
     'Penalty Clauses': 'predatory financial terms',
     'Unbalanced Liability / Indemnity': 'unbalanced liability',
     'Intellectual Property Assignment': 'unbalanced liability',
-    'Termination for Convenience': 'predatory financial terms'
+    'Termination for Convenience': 'predatory financial terms',
+    'Shortfall Penalty / Purchase Minimums': 'predatory financial terms',
+    'Retention of Title / Immediate Forfeiture': 'unbalanced liability',
+    'Deemed Acceptance / Renewal by Silence': 'unfair terms'
   };
   return map[topic] || 'unbalanced liability';
 }
 
 /**
- * Primary: KB keyword matching. 100% offline and deterministic.
- * @param {string} clauseText
- * @param {string|null} contractType — detected type to prevent cross-category hallucinations
- * @returns {{ isRisky: boolean, category: string, score: number, statute: string } | null}
+ * Flag clause based on authoritative flagConfidence score and profile threshold:
+ *   flagConfidence = 0.6 * patternMatchStrength + 0.4 * ragSimilarityScore
+ * Profile thresholds:
+ *   conservative / protection: 0.65
+ *   balanced: 0.85
+ *   aggressive / liquidity: 0.95 (HIGH severity only)
  */
-function flagClause(clauseText, contractType = null) {
-  // Fix OCR encoding: â‚¦ → ₦
-  const cleanText = clauseText
-    .replace(/â‚¦/g, '₦')
-    .replace(/Naira /g, '₦'); // normalise any previously over-fixed text
+function flagClause(clauseText, contractType = null, strategySettings = null, ragHits = []) {
+  const cleanText = clauseText.replace(/â‚¦/g, '₦').replace(/Naira /g, '₦');
+  const riskAppetite = strategySettings?.riskAppetite || 'balanced';
+  const strategicGoal = strategySettings?.strategicGoal || 'liquidity';
 
-  // ── JSON KB Keyword Matching (instant, deterministic, hallucination-guarded) ──
-  const matches = getAllMatchingStatutes(cleanText, contractType);
-  if (matches.length > 0) {
-    const topMatch = matches[0];
-    const confidence = topMatch.severity === 'HIGH' ? 0.97 : 0.91;
-    return {
-      isRisky: true,
-      category: topicToCategory(topMatch.topic),
-      score: confidence,
-      statute: `${topMatch.statute}: ${topMatch.rule}`,
-      severity: topMatch.severity,
-      negotiation_tip: topMatch.negotiation_tip,
-      allMatches: matches
-    };
+  let threshold = 0.85;
+  let allowCrossCategory = false;
+  if (riskAppetite === 'conservative' || strategicGoal === 'protection') {
+    threshold = 0.65;
+    allowCrossCategory = true;
+  } else if (riskAppetite === 'aggressive' || strategicGoal === 'liquidity') {
+    threshold = 0.95;
   }
 
-  return null;
+  const matches = getAllMatchingStatutes(cleanText, contractType, allowCrossCategory);
+  if (matches.length === 0) return null;
+
+  const ragSimilarityScore = ragHits.length > 0 ? (ragHits[0].similarity || 0.7) : 0.5;
+
+  const validMatches = [];
+  for (const match of matches) {
+    if (threshold === 0.95 && match.severity !== 'HIGH') continue;
+
+    const patternMatchStrength = match.patternMatchStrength || 1.0;
+    const flagConfidence = Number((0.6 * patternMatchStrength + 0.4 * ragSimilarityScore).toFixed(2));
+
+    if (flagConfidence >= threshold) {
+      validMatches.push({
+        match,
+        flagConfidence,
+        category: topicToCategory(match.topic)
+      });
+    }
+  }
+
+  if (validMatches.length === 0) return null;
+
+  const top = validMatches[0];
+  return {
+    isRisky: true,
+    category: top.category,
+    score: top.flagConfidence,
+    flagConfidence: top.flagConfidence,
+    statute: `${top.match.statute}: ${top.match.rule}`,
+    severity: top.match.severity,
+    negotiation_tip: top.match.negotiation_tip,
+    allMatches: validMatches.map(vm => vm.match)
+  };
 }
 
-/**
- * Dynamically builds the Advocate voice from the clause text and the matched KB topic.
- */
 function buildAdvocate(topMatch) {
   const topic = topMatch?.topic || '';
   const advocateMap = {
-    'Rent Increase': 'This clause is framed to give the Landlord predictable revenue growth and the ability to respond to real estate market conditions. Landlords argue this protects long-term asset value.',
-    'Structural Repairs': 'This clause attempts to shift maintenance responsibility to the party in physical possession of the property daily, arguing they are best placed to spot and manage minor deterioration before it becomes major.',
-    'Notice to Quit': 'The drafting party frames this as an operational necessity — quick repossession may be required for urgent redevelopment, sale, or to address persistent breach.',
-    'Unlawful Eviction': 'This clause is presented as an enforcement mechanism to recover the property efficiently when a tenant breaches their obligations, particularly in cases of rent default.',
-    'Penalty Clauses': 'The drafting party uses this clause to ensure performance accountability and to create a strong financial incentive for the other party to meet deadlines and obligations.',
-    'Unbalanced Liability / Indemnity': 'The drafting party presents this as standard risk allocation — placing liability on the party most able to control or insure against the risk.',
-    'Intellectual Property Assignment': 'The commissioning party argues they should own everything produced during the engagement since they are paying for the work, giving them full commercial freedom.',
-    'Termination for Convenience': 'The stronger party argues this flexibility is necessary to manage business risks, pivot strategy, or exit non-performing relationships without prolonged contractual obligation.',
-    'Jurisdiction & Governing Law': 'The drafting party (often a multinational) defaults to their home jurisdiction for consistency across contracts and access to familiar legal infrastructure.',
-    'Exclusivity / Non-Compete': 'The drafting party argues this protects their legitimate business interests, trade secrets, client relationships, and competitive advantage.',
-    'Wrongful Termination': 'The employer frames this as a necessary operational flexibility to respond quickly to performance issues, business restructuring, or economic downturns.',
-    'Deduction from Wages': 'The employer argues this protects investment in training and equipment, and that recovery of costs from the employee is fair and contractually agreed.'
+    'Rent Increase': 'This clause is framed to give the Landlord predictable revenue growth and the ability to respond to real estate market conditions.',
+    'Structural Repairs': 'This clause attempts to shift maintenance responsibility to the party in physical possession daily.',
+    'Notice to Quit': 'The drafting party frames this as an operational necessity for urgent redevelopment.',
+    'Penalty Clauses': 'The drafting party uses this clause to ensure performance accountability and create financial incentive.',
+    'Shortfall Penalty / Purchase Minimums': 'The supplier uses purchase minimums to secure volume discount commitments and cover baseline manufacturing runs.',
+    'Retention of Title / Immediate Forfeiture': 'The seller includes retention of title to protect unpaid inventory against insolvency risks.',
+    'Deemed Acceptance / Renewal by Silence': 'The service provider uses automatic renewal to prevent service interruption and streamline continuity.',
+    'Unbalanced Liability / Indemnity': 'The drafting party presents this as standard risk allocation.'
   };
-  return advocateMap[topic] || 'This clause is framed to protect the commercial interests and risk exposure of the drafting party under standard business practice.';
+  return advocateMap[topic] || 'This clause is framed to protect commercial interests under standard business practice.';
 }
 
-/**
- * Dynamically builds the Critic voice directly from the KB rule, making it clause-specific.
- */
 function buildCritic(topMatch, riskAppetite = 'balanced') {
   if (!topMatch) {
-    return 'This clause contains potentially unfair terms. A detailed review against applicable Nigerian statutes is strongly advised before signing.';
+    return 'This clause contains potentially unfair terms. Detailed review against Nigerian statutes is advised.';
   }
   const severityPrefix = topMatch.severity === 'HIGH' ? '🚨 HIGH RISK: ' : '⚠️ MEDIUM RISK: ';
   let tone = '';
   if (riskAppetite === 'conservative') {
-    tone = "🛡️ CONSERVATIVE ADVISORY: This clause is considered non-standard and presents a high liability profile that should be rejected or heavily modified to ensure zero exposure.";
+    tone = "🛡️ CONSERVATIVE ADVISORY: This clause presents a high liability profile that should be modified for zero exposure.";
   } else if (riskAppetite === 'aggressive') {
-    tone = "🚀 STRATEGIC NOTE: While this is a risk, it may be acceptable if the commercial upside is high. Ensure you have secondary leverage elsewhere.";
+    tone = "🚀 STRATEGIC NOTE: Acceptable if commercial upside is high; ensure leverage elsewhere.";
   } else {
-    tone = "⚖️ BALANCED VIEW: This clause deviates from industry standards and should be neutralized through negotiation.";
+    tone = "⚖️ BALANCED VIEW: This clause deviates from market standards and should be neutralized in negotiation.";
   }
   
   return `${severityPrefix}${topMatch.rule}\n\n${tone}\n\nApplicable Law: ${topMatch.statute}`;
 }
 
-/**
- * Builds a "Plain English" summary for a small business owner.
- * Dynamically generates text using an LLM, with a hardcoded fallback.
- */
 async function buildPlainEnglish(topMatch, clauseText = null, persona = 'general') {
   if (!topMatch) return null;
-
-  // ── Stage 1: Dynamic LLM Generation (Preferred) ──
   if (clauseText) {
     try {
       const dynamicResult = await generatePlainEnglish(clauseText, topMatch.rule, topMatch.statute, persona);
-      if (dynamicResult) return dynamicResult;
+      if (dynamicResult) return sanitizeUserFacingText(dynamicResult);
     } catch (e) {
-      console.warn("[Analysis] Dynamic Plain English failed, falling back to map.");
+      console.warn("[Analysis] Dynamic Plain English failed, using fallback.");
     }
   }
 
-  // ── Stage 2: Deterministic Fallback ──
   const INTRO_MAP = {
-    'Rent Increase':
-      'The landlord can raise your rent by any amount, at any time, without your agreement.',
-    'Structural Repairs':
-      'This clause tries to make YOU responsible for major building repairs — like fixing the roof or foundation — that the landlord is legally required to handle.',
-    'Notice to Quit':
-      'You could be asked to leave the property with very little notice, even if you have done nothing wrong.',
-    'Unlawful Eviction':
-      'The landlord may be able to physically remove you from the property without going to court first, which is illegal in Nigeria.',
-    'Penalty Clauses':
-      'You could be charged large, automatic fines for minor breaches — many of which Nigerian courts will not enforce.',
-    'Unbalanced Liability / Indemnity':
-      'If anything goes wrong — even something outside your control — you alone will be responsible for paying all costs and damages.',
-    'Intellectual Property Assignment':
-      'Every piece of work you create under this contract — ideas, code, designs, content — immediately becomes their property, not yours.',
-    'Termination for Convenience':
-      'The other party can end this contract at any time, for any reason, without paying you compensation or giving a reason.',
-    'Jurisdiction & Governing Law':
-      'Any dispute must be resolved in a foreign or distant court that you may not be able to afford to travel to.',
-    'Exclusivity / Non-Compete':
-      'After this contract ends, you may be banned from working in your own industry or with your existing clients for years.',
-    'Wrongful Termination':
-      'Your employer can fire you without following the legal process, without warning, and potentially without paying your entitlements.',
-    'Deduction from Wages':
-      'Your employer can take money directly from your salary — without a court order — for reasons you may not have agreed to.'
+    'Rent Increase': 'The landlord can raise your rent by any amount, at any time, without your agreement.',
+    'Structural Repairs': 'This clause tries to make YOU responsible for major building repairs.',
+    'Notice to Quit': 'You could be asked to leave the property with very little notice.',
+    'Penalty Clauses': 'You could be charged large, automatic fines for minor breaches.',
+    'Shortfall Penalty / Purchase Minimums': 'You are forced to pay hefty financial penalties if you fail to buy a strict minimum quota of goods.',
+    'Retention of Title / Immediate Forfeiture': 'The supplier can immediately seize back all delivered goods and forfeit your payments upon any minor default.',
+    'Deemed Acceptance / Renewal by Silence': 'Your silence or failure to object is legally treated as full agreement to contract renewal and price increases.',
+    'Unbalanced Liability / Indemnity': 'If anything goes wrong, you alone will be responsible for paying all costs.'
   };
 
   const intro = INTRO_MAP[topMatch.topic] || 'This clause contains terms that could be unfair or illegal under Nigerian law.';
-  
-  // Return ONLY the advice for Plain English
   return `✅ WHAT THIS MEANS: ${intro}`;
 }
 
-/**
- * Consequence Engine — "Foresight Layer"
- * Predicts real-world consequences for the user in 3–12 months,
- * tailored to their persona (freelancer, founder, market_trader, general).
- */
-/**
- * Consequence Engine — "Foresight Layer"
- * Dynamically predicts consequences using an LLM, with a hardcoded fallback.
- */
 async function buildForesight(topMatch, persona = 'general', historicalOutcomes = [], clauseText = null) {
   if (!topMatch) return null;
-
-  // ── Stage 1: Dynamic LLM Generation (Preferred) ──
   if (clauseText) {
     try {
       const dynamicResult = await generateDynamicForesight(clauseText, topMatch.rule, persona);
       if (dynamicResult) {
-         // Append court data if available
          let statsStr = '';
          if (historicalOutcomes && historicalOutcomes.length > 0) {
            const wins = historicalOutcomes.filter(o => o === 'WON').length;
            const total = historicalOutcomes.length;
            const winRate = Math.round((wins / total) * 100);
-           statsStr = `\n\n📊 Real Court Data: Based on ${total} similar historical appeal cases in Nigerian courts, businesses won only ${winRate}% of the time.`;
+           statsStr = `\n\n📊 Real Court Data: Based on ${total} similar historical cases in Nigerian courts, businesses won ${winRate}% of the time.`;
          }
-         return `${dynamicResult}${statsStr}`;
+         return `${sanitizeUserFacingText(dynamicResult)}${statsStr}`;
       }
     } catch (e) {
-      console.warn("[Analysis] Dynamic Foresight failed, falling back to map.");
+      console.warn("[Analysis] Dynamic Foresight failed, using fallback.");
     }
   }
 
-  // ── Stage 2: Deterministic Fallback ──
   const topic = topMatch.topic;
   const FORESIGHT = {
-    'Rent Increase': {
-      general:      'In 12 months, uncapped rent could increase your costs by ₦500K–₦1M with no legal grounds to object.',
-      freelancer:   'If your workspace rent increases mid-project, your profit margins shrink. Negotiate a rent-freeze tied to your contract duration.',
-      founder:      'Unpredictable rent is a liability on your balance sheet. Investors will flag this as operational risk during due diligence.',
-      market_trader:'A sudden rent hike could exceed your monthly sales margin, forcing relocation costs that wipe out 2–3 months of profit.'
+    'Shortfall Penalty / Purchase Minimums': {
+      general: 'In 6 months, an unexpected drop in retail demand could trigger a ₦2M shortfall penalty fee that drains working capital.'
     },
-    'Structural Repairs': {
-      general:      'You could face unexpected repair bills of ₦200K–₦2M for defects that existed before you moved in.',
-      freelancer:   'A flooded office or broken AC — both your financial loss under this clause. Factor repair risk into your rental budget.',
-      founder:      'Structural defects impacting your office could halt operations. This is an unquantified liability investors will scrutinize.',
-      market_trader:'A burst pipe or damaged stall structure means you pay to fix it — and lose revenue while it is being repaired.'
+    'Retention of Title / Immediate Forfeiture': {
+      general: 'If a payment is delayed by 7 days, the supplier can repossess all warehouse stock, halting your customer deliveries.'
     },
-    'Unbalanced Liability / Indemnity': {
-      general:      'One incident — a client injury, a data breach, a delayed delivery — and you absorb 100% of the cost with no cap.',
-      freelancer:   'A single client claim (e.g., a bug causing data loss) could exceed your entire project fee. Demand a mutual liability cap equal to the contract value.',
-      founder:      'Unlimited indemnity is a red flag for Series A investors. It suggests your legal team did not protect the company\'s downside risk.',
-      market_trader:'If goods are damaged in transit, this clause means you alone pay — even if the courier is at fault. Insist on shared liability.'
-    },
-    'Intellectual Property Assignment': {
-      general:      'Every idea, design, or code you produce under this contract is permanently theirs. You cannot reuse your own work for other clients.',
-      freelancer:   'Scope creep risk: this clause historically leads to clients demanding more work under the same IP umbrella, reducing your effective hourly rate by 30–40% over the engagement.',
-      founder:      'If you ever want to pivot or rebuild your product, you cannot use any of the core IP created under this agreement. It creates a permanent competitive disadvantage.',
-      market_trader:'Any custom branding or product design you create for them — even your own ideas — become their property. Limit the assignment to project-specific deliverables.'
-    },
-    'Termination for Convenience': {
-      general:      'They can end this agreement next month with no compensation, leaving you with no income and no recourse.',
-      freelancer:   'Mid-project terminations with no kill fee are the #1 cause of cash flow crises for Nigerian freelancers. Negotiate a 25–50% kill fee clause.',
-      founder:      'Investors see "termination for convenience" in key supplier or client contracts as a revenue concentration risk. Negotiate minimum commitment periods.',
-      market_trader:'If they cancel your supply order mid-season, you are left with stock you bought on credit. Negotiate a minimum order guarantee or deposit clause.'
-    },
-    'Wrongful Termination': {
-      general:      'You could lose your job tomorrow with no notice pay, gratuity, or right to challenge the decision.',
-      freelancer:   'Abrupt project cancellations without a notice period mean you cannot plan your next engagement. Insist on 4–8 weeks written notice.',
-      founder:      'A co-founder or key employee fired "at will" can become a litigation risk. Ensure termination clauses comply with the Labour Act and your shareholder agreement.',
-      market_trader:'Losing a key staff member overnight during peak trading season can collapse your operations. Require a standard Labour Act notice period.'
-    },
-    'Penalty Clauses': {
-      general:      'Automatic fines for minor delays can accumulate faster than your income, making the contract unprofitable within weeks.',
-      freelancer:   'A 1-day delay triggering a 10% penalty means a 10-day project could cost you your entire fee. Cap penalties at 5% max and tie them to actual damages.',
-      founder:      'Penalty clauses without a cap create an open-ended liability that will appear on your P&L. Insist on a maximum aggregate cap.',
-      market_trader:'A delayed truck could trigger penalties that exceed the profit on the entire delivery. Always negotiate a Force Majeure clause covering road closures and fuel scarcity.'
-    },
-    'Notice to Quit': {
-      general:      'Short notice means you have no time to find alternative premises. Budget for emergency relocation costs of ₦150K–₦500K.',
-      freelancer:   'If your workspace disappears in 30 days, your active client projects are at risk. Negotiate at least 6 months notice as required by the Tenancy Law.',
-      founder:      'Investors will not fund a company that can be evicted in 30 days. Secure a minimum 2-year lease with renewal rights before your next round.',
-      market_trader:'30 days is not enough time to find a new stall, move stock, and retain your customer base. Negotiate a minimum 6-month notice clause.'
-    },
-    'Exclusivity / Non-Compete': {
-      general:      'After this contract ends, you may be legally blocked from your own profession for 1–2 years.',
-      freelancer:   'A broad non-compete could prevent you from taking any client in your industry after this project ends. Limit it to 6 months and direct competitors only.',
-      founder:      'An overly broad non-compete on a co-founder or CTO could destroy your startup if they leave. Courts in Nigeria are unlikely to enforce broad restraints, but litigation is still costly.',
-      market_trader:'If you cannot sell competing products after this contract, you lose your ability to diversify and survive market downturns. Negotiate the narrowest possible scope.'
+    'Deemed Acceptance / Renewal by Silence': {
+      general: 'In 12 months, your contract will automatically renew at a 25% higher rate because you missed the 30-day opt-out window.'
     }
   };
 
-  const insight = FORESIGHT[topic]?.[persona] || FORESIGHT[topic]?.general;
-  if (!insight) return null;
-
-  let statsStr = '';
-  if (historicalOutcomes && historicalOutcomes.length > 0) {
-    const wins = historicalOutcomes.filter(o => o === 'WON').length;
-    const total = historicalOutcomes.length;
-    const winRate = Math.round((wins / total) * 100);
-    statsStr = `\n\n📊 Real Court Data: Based on ${total} similar historical appeal cases in Nigerian courts, businesses won only ${winRate}% of the time.`;
-  }
-
-  return `🔮 Data Foresight [${persona.replace('_', ' ').toUpperCase()}]: ${insight}${statsStr}`;
+  const insight = FORESIGHT[topic]?.[persona] || FORESIGHT[topic]?.general || 'This clause presents long-term cash flow and operational risks.';
+  const safePersona = String(persona || 'general');
+  return `🔮 Data Foresight [${safePersona.replace('_', ' ').toUpperCase()}]: ${insight}`;
 }
 
-/**
- * Systematic Constraint Layer: Grounds AI in Nigerian Legal Standards
- * and Strategy Playbook goals.
- */
 function buildSystematicHeader(strategySettings) {
-  const { riskAppetite, industryContext, strategicGoal } = strategySettings || {
-    riskAppetite: 'balanced',
-    industryContext: 'General Commercial',
-    strategicGoal: 'liquidity'
-  };
+  const riskAppetite = strategySettings?.riskAppetite || 'balanced';
+  const industryContext = strategySettings?.industryContext || 'General Commercial';
+  const strategicGoal = strategySettings?.strategicGoal || 'liquidity';
 
-  const baseline = `
-⚖️ SYSTEMATIC CONSTRAINT LAYER (NIGERIAN LAW BASELINE)
-- All analysis MUST be grounded in the Companies and Allied Matters Act (CAMA 2020) and Evidence Act.
-- Flag any clause deviating from Nigerian 'Reasonableness' tests (e.g., excessive non-competes).
-- If a clause conflicts with mandatory CAMA 2020 provisions, cite it as a 'CRITICAL RISK'.
-`;
-
-  const personalization = `
-🎯 STRATEGIC PROFILE OVERRIDE [${riskAppetite.toUpperCase()} | ${strategicGoal.toUpperCase()}]
-- Industry Focus: ${industryContext.toUpperCase()}.
-- Goal: ${strategicGoal === 'protection' ? 'Prioritize IP retention and absolute liability protection over immediate commercial gains.' : 'Prioritize immediate cash flow and rapid deal execution, identifying only catastrophic risks.'}
-- Appetite: ${riskAppetite === 'conservative' ? 'Flag even minor ambiguities as high risk.' : riskAppetite === 'aggressive' ? 'Only flag deal-breakers; suggest ways to weaponize clauses for growth.' : 'Balance safety with market standards.'}
-`;
-
-  return `${baseline}\n${personalization}\n`;
+  return `⚖️ SYSTEMATIC CONSTRAINT LAYER (NIGERIAN LAW BASELINE)
+- All analysis MUST be grounded in CAMA 2020 and Evidence Act.
+🎯 STRATEGIC PROFILE OVERRIDE [${String(riskAppetite).toUpperCase()} | ${String(strategicGoal).toUpperCase()}]
+- Focus: ${String(industryContext).toUpperCase()}.`;
 }
 
 /**
  * Main pipeline: chunks text, flags risks, runs advocate-critic.
+ * Passes pageStats with updated translation truncation metrics.
  */
-async function chunkAndAnalyze(fullText, persona = 'general', strategySettings = null) {
+async function chunkAndAnalyze(fullText, persona = 'general', strategySettings = null, initialPageStats = null) {
   const t0 = Date.now();
   const chunks = chunkByClauses(fullText);
-
-  // Detect contract type once from the full text — used to prevent hallucinations
   const contractType = detectContractType(fullText);
-  console.log(`[Analysis] Contract type detected: ${contractType}`);
 
-  // Build Systematic Constraint Header
   const strategyHeader = buildSystematicHeader(strategySettings);
+  const validChunks = chunks.filter(c => c.clauseText.length >= 30).slice(0, MAX_CLAUSES_SCANNED);
 
-  // Filter short chunks, cap at 20 clauses for very large contracts
-  const validChunks = chunks.filter(c => c.clauseText.length >= 50).slice(0, 20);
-  console.log(`[Analysis] ${validChunks.length} clauses to scan (from ${chunks.length} chunks)`);
+  // Stage 1: RAG law search for all candidate chunks
+  const ragHitsPerChunk = await Promise.all(
+    validChunks.map(c => searchLaw(c.clauseText).catch(() => []))
+  );
 
-  // ── Stage 1: Instant KB flagging (synchronous, hallucination-guarded) ──
+  // Stage 2: Flagging based on flagConfidence and strategy profile threshold
   const flagged = validChunks
-    .map(chunk => ({ chunk, risk: flagClause(chunk.clauseText, contractType) }))
+    .map((chunk, idx) => ({
+      chunk,
+      risk: flagClause(chunk.clauseText, contractType, strategySettings, ragHitsPerChunk[idx])
+    }))
     .filter(({ risk }) => risk?.isRisky);
 
-  console.log(`[Analysis] KB flagged ${flagged.length} risky clauses in ${Date.now() - t0}ms`);
-
-  // ── Stage 2: Run Translation + RAG + Case Data ALL in parallel ──
-  const t1 = Date.now();
-  const [
-    plainTranslationResult,
-    ragResults,
-    casesResults
-  ] = await Promise.all([
-    // Global Translation Pass (new — runs regardless of risk flags)
-    translateFullDocument(fullText).catch(err => {
-      console.warn('[Analysis] Translation failed, continuing without it:', err.message);
-      return null;
+  // Stage 3: Full Document Translation & Case Search
+  const [translationObj, casesResults] = await Promise.all([
+    translateFullDocument(fullText, initialPageStats).catch(err => {
+      console.warn('[Analysis] Translation failed:', err.message);
+      return { fullTranslation: null, pageStats: initialPageStats };
     }),
-    // Semantic Law Search for each flagged clause
-    Promise.all(flagged.map(({ chunk }) => searchLaw(chunk.clauseText).catch(() => []))),
-    // Historic Case Data for each flagged clause
     Promise.all(flagged.map(({ chunk }) => searchCases(chunk.clauseText).catch(() => [])))
   ]);
-  console.log(`[Analysis] Translation + Semantic Search completed in ${Date.now() - t1}ms`);
 
-  // ── Stage 3: Build the final rich objects (Advocate, Critic, Plain English, Foresight) ──
+  const plainTranslation = translationObj.fullTranslation;
+  const pageStats = translationObj.pageStats || initialPageStats;
+
+  // Stage 4: Build rich clause objects
   const flaggedClauses = await Promise.all(
     flagged.map(async ({ chunk, risk }, idx) => {
-      const ragHits = ragResults[idx] || [];
+      const ragHits = ragHitsPerChunk[validChunks.indexOf(chunk)] || [];
       const caseHits = casesResults[idx] || [];
       const topMatch = risk.allMatches?.[0] || null;
       const riskAppetite = strategySettings?.riskAppetite || 'balanced';
 
-      let advocate = buildAdvocate(topMatch);
-      let critic = buildCritic(topMatch, riskAppetite);
+      let advocate = sanitizeUserFacingText(buildAdvocate(topMatch));
+      let critic = sanitizeUserFacingText(buildCritic(topMatch, riskAppetite));
 
-      // Final contextual refinement based on strategic goal
       if (strategySettings?.strategicGoal === 'protection') {
         critic = `🛡️ PROTECTION FOCUS: ${critic}`;
       } else if (strategySettings?.strategicGoal === 'liquidity') {
         advocate = `💰 CASH-FIRST FOCUS: ${advocate}`;
       }
 
-      // Add RAG results to critic output — best sentence + citation
+      // Add independent RAG precedent citation if clearing distance <= 0.45 and sentence validity
       let ragBestSentence = null;
       let ragCitation = null;
       if (ragHits.length > 0) {
         const precedents = ragHits
           .map(r => ({ sentence: extractBestSentence(r, chunk.clauseText), citation: r.citation }))
-          .filter(p => p.sentence)
-          .filter(p => !topMatch?.rule || !p.sentence.toLowerCase().includes(topMatch.rule.substring(0, 40).toLowerCase()));
+          .filter(p => p.sentence && isValidPrecedentSentence(p.sentence));
+        
         if (precedents.length > 0) {
           ragBestSentence = precedents[0].sentence;
           ragCitation = precedents[0].citation;
           const citationStr = ragCitation ? ` [${ragCitation}]` : '';
-          critic += `\n\n🔍 Legal Precedent${citationStr}:\n${precedents.slice(0, 2).map((p, i) => `${i + 1}. ${p.sentence}`).join('\n')}`;
+          critic += `\n\n🔍 Legal Precedent${citationStr}:\n1. "${ragBestSentence}"`;
         }
       }
 
-      // Add additional matched laws
-      if (risk.allMatches?.length > 1) {
-        const additional = risk.allMatches.slice(1).map(m => `• [${m.severity}] ${m.statute} — ${m.topic}`).join('\n');
-        critic += `\n\n⚖️ Also Triggered:\n${additional}`;
-      }
-
-      // Build Plain English + Foresight
       let plainEnglish = await buildPlainEnglish(topMatch, chunk.clauseText, persona);
-      let foresight = await buildForesight(topMatch, persona, caseHits, chunk.clauseText);
+      plainEnglish = sanitizeUserFacingText(plainEnglish);
 
-      // Technical Analysis (Toggleable in UI)
+      let foresight = await buildForesight(topMatch, persona, caseHits, chunk.clauseText);
+      foresight = sanitizeUserFacingText(foresight);
+
       const technicalAnalysis = {
         statute: topMatch?.statute,
         rule: topMatch?.rule,
@@ -517,31 +428,39 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
         precedent: ragBestSentence,
         constraintLayer: strategyHeader
       };
-      
+
       return {
         id: chunk.id,
         text: chunk.clauseText,
         riskCategory: risk.category,
         severity: risk.severity || 'MEDIUM',
-        confidence: Math.round(risk.score * 100),
+        confidence: Math.round(risk.flagConfidence * 100),
+        flagConfidence: risk.flagConfidence,
         advocate,
         critic,
         plainEnglish,
         foresight,
         technicalAnalysis,
-        negotiation_tip: risk.negotiation_tip || '💡 Request a legal review before signing. Negotiate mutual obligations and cap all financial exposure.'
+        negotiation_tip: risk.negotiation_tip || '💡 Request a legal review before signing.'
       };
     })
   );
 
   const riskStatus = flaggedClauses.length > 0 ? 'flagged' : 'clean';
-  console.log(`[Analysis] Total pipeline: ${Date.now() - t0}ms | Status: ${riskStatus} | ${flaggedClauses.length} flags | Translation: ${plainTranslationResult ? 'OK' : 'skipped'}`);
 
   return {
     flaggedClauses,
-    plainTranslation: plainTranslationResult,
-    riskStatus
+    plainTranslation,
+    riskStatus,
+    pageStats
   };
 }
 
-module.exports = { chunkAndAnalyze };
+module.exports = {
+  chunkAndAnalyze,
+  sanitizeUserFacingText,
+  isValidPrecedentSentence,
+  chunkByClauses,
+  flagClause,
+  SYSTEM_PREAMBLE_MARKERS
+};

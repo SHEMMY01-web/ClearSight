@@ -156,6 +156,54 @@
         "restraint of trade",
         "exclusively engaged"
       ]
+    },
+    {
+      "topic": "Shortfall Penalty / Purchase Minimums",
+      "statute": "Nigerian Commercial Practice & Common Law",
+      "severity": "HIGH",
+      "rule": "A clause imposing mandatory purchase minimums backed by automatic shortfall penalty fees or cascade termination is an illegal penalty clause under Nigerian law unless tied to genuine pre-estimated losses.",
+      "negotiation_tip": "Cap shortfall fees to actual documented losses, insert a grace period, and permit shortfall carrying-forward to future quarters.",
+      "red_flags": [
+        "shortfall",
+        "minimum purchase",
+        "minimum order quantity",
+        "shortfall fee",
+        "penalty fee for failure to purchase",
+        "missed purchase minimums",
+        "shortfall penalty"
+      ]
+    },
+    {
+      "topic": "Retention of Title / Immediate Forfeiture",
+      "statute": "Sale of Goods Law & CAMA 2020",
+      "severity": "HIGH",
+      "rule": "Romalpa-style clauses granting immediate forfeiture or repossession of delivered goods upon minor payment default create high risk for distributors and may violate Nigerian equity principles.",
+      "negotiation_tip": "Insist on written notice of default with a minimum 14-day cure period before repossession or title forfeiture rights trigger.",
+      "red_flags": [
+        "retention of title",
+        "fiduciary bailee",
+        "immediate forfeiture",
+        "forfeiture upon default",
+        "title shall not pass",
+        "repossession upon default",
+        "repossess goods"
+      ]
+    },
+    {
+      "topic": "Deemed Acceptance / Renewal by Silence",
+      "statute": "Federal Competition and Consumer Protection Act (FCCPA) 2018",
+      "severity": "MEDIUM",
+      "rule": "Automatic renewal by silence or deemed acceptance of unilateral price changes without explicit affirmative written consent is unfair under Nigerian consumer and commercial protection standards.",
+      "negotiation_tip": "Require written notice 30 days prior to any renewal or price adjustment, with explicit opt-out rights.",
+      "red_flags": [
+        "deemed acceptance",
+        "renewal by silence",
+        "deemed to have accepted",
+        "unilateral price",
+        "price variation",
+        "sole discretion to amend price",
+        "automatic renewal unless"
+      ]
     }
   ],
   "employment_law": [

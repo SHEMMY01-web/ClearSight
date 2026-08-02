@@ -247,6 +247,26 @@ async function initKnowledgeBase() {
  * Smart Semantic Search against the Nigerian Law knowledge base
  * @param {string} query 
  * @returns {Promise<Array<string>>}
+/**
+ * Maps raw source PDF filenames to canonical legal titles.
+ */
+function cleanSourceCitation(sourceStr = '') {
+  if (!sourceStr) return 'Companies and Allied Matters Act (CAMA 2020)';
+  const clean = sourceStr.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ').trim();
+  if (/cama/i.test(clean)) return 'Companies and Allied Matters Act (CAMA 2020)';
+  if (/labour/i.test(clean)) return 'Labour Act Cap L1 LFN 2004';
+  if (/tenancy/i.test(clean)) return 'Lagos State Tenancy Law 2011';
+  if (/evidence/i.test(clean)) return 'Evidence Act 2011 (Nigeria)';
+  if (/copyright/i.test(clean)) return 'Copyright Act 2022 (Nigeria)';
+  if (/arbitration/i.test(clean)) return 'Arbitration and Mediation Act 2023';
+  return clean || 'Nigerian Statutory Precedent';
+}
+
+/**
+ * Smart Semantic Search against the Nigerian Law knowledge base
+ * Enforces independent citation gate: distance <= 0.45 (similarity >= 0.70)
+ * @param {string} query 
+ * @returns {Promise<Array<{ text: string, distance: number, similarity: number, citation: string, sourceName: string }>>}
  */
 async function searchLaw(query) {
   try {
@@ -256,24 +276,35 @@ async function searchLaw(query) {
     });
 
     const queryEmbedding = await getEmbedding(query);
-    const lowerQuery = query.toLowerCase();
 
     const results = await collection.query({
       queryEmbeddings: [queryEmbedding],
-      nResults: 5 // Increased from 2 to 5 for better cross-referencing and context
+      nResults: 5
     });
 
     if (results && results.documents && results.documents[0]) {
-      // Return enriched results with citation metadata
-      return results.documents[0].map((doc, i) => {
+      const distances = results.distances?.[0] || [];
+      const hits = [];
+
+      for (let i = 0; i < results.documents[0].length; i++) {
+        const doc = results.documents[0][i];
+        const dist = distances[i] !== undefined ? distances[i] : 0.2; // default if mock
         const meta = results.metadatas?.[0]?.[i] || {};
-        const sourceName = (meta.source || '').replace('.pdf', '').replace(/-/g, ' ');
+        const sourceTitle = cleanSourceCitation(meta.source);
         const page = meta.page ? `p.${meta.page}` : '';
-        return {
+        const citation = [sourceTitle, page].filter(Boolean).join(', ');
+
+        hits.push({
           text: doc,
-          citation: [sourceName, page].filter(Boolean).join(', ')
-        };
-      });
+          distance: dist,
+          similarity: Math.max(0, 1 - dist),
+          citation,
+          sourceName: sourceTitle
+        });
+      }
+
+      // Enforce independent citation gate: distance <= 0.45
+      return hits.filter(h => h.distance <= 0.45);
     }
     return [];
   } catch (error) {

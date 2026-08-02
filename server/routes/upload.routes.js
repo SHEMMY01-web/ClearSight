@@ -32,7 +32,7 @@ const upload = multer({
   }
 });
 
-router.post('/', authMiddleware, upload.single('contract'), async (req, res) => {
+router.post('/', authMiddleware, upload.any(), async (req, res) => {
   try {
     const validation = uploadSchema.safeParse(req.body);
     if (!validation.success) {
@@ -42,21 +42,21 @@ router.post('/', authMiddleware, upload.single('contract'), async (req, res) => 
     const { persona, strategySettings: strategySettingsRaw } = validation.data;
     const strategySettings = strategySettingsRaw ? JSON.parse(strategySettingsRaw) : null;
 
-    if (!req.file) {
+    const files = req.files || (req.file ? [req.file] : []);
+    if (files.length === 0) {
       return res.status(400).json({ error: 'No file uploaded.' });
     }
 
-    const { buffer, mimetype, originalname } = req.file;
+    const primaryFile = files[0];
+    const originalname = files.length === 1 ? primaryFile.originalname : `${files.length}_scanned_pages.pdf`;
 
-    // 1. Extract Text
-    const text = await extractText(buffer, mimetype);
+    // 1. Extract Text + Page Stats
+    const { text, pageStats } = await extractText(files.length === 1 ? primaryFile : files);
 
     if (!text || text.trim() === '') {
       return res.status(400).json({ error: 'Could not extract text from the provided file. Please ensure the image is clear.' });
     }
 
-    // Validation: Ensure the image/document actually contains meaningful text
-    // This filters out photos of faces or objects where OCR might extract a few random garbage characters
     const wordCount = (text.match(/\b[a-zA-Z]{3,}\b/g) || []).length;
     if (wordCount < 5) {
       return res.status(400).json({ error: 'This does not appear to be a document. Please upload a clear photo or PDF containing readable text.' });
@@ -72,7 +72,8 @@ router.post('/', authMiddleware, upload.single('contract'), async (req, res) => 
         analysis_results: [],
         plain_translation: "Processing...",
         risk_status: 'processing',
-        strategic_summary: "Pending"
+        strategic_summary: "Pending",
+        page_stats: pageStats
       })
       .select('id')
       .single();
@@ -91,13 +92,14 @@ router.post('/', authMiddleware, upload.single('contract'), async (req, res) => 
       jobId,
       filename: originalname,
       persona,
+      pageStats,
       extractedTextPreview: text.substring(0, 500) + '...'
     });
 
     // 4. Background Processing
     (async () => {
       try {
-        const { flaggedClauses, plainTranslation, riskStatus } = await chunkAndAnalyze(text, persona, strategySettings);
+        const { flaggedClauses, plainTranslation, riskStatus, pageStats: finalPageStats } = await chunkAndAnalyze(text, persona, strategySettings, pageStats);
 
         const highRisks = flaggedClauses.filter(c => c.severity === 'HIGH').length;
         const score = Math.max(0, 100 - (highRisks * 25) - ((flaggedClauses.length - highRisks) * 10));
@@ -109,7 +111,8 @@ router.post('/', authMiddleware, upload.single('contract'), async (req, res) => 
             analysis_results: flaggedClauses,
             plain_translation: plainTranslation,
             risk_status: riskStatus,
-            strategic_summary: "CAMA 2020 Validated"
+            strategic_summary: "CAMA 2020 Validated",
+            page_stats: finalPageStats
           })
           .eq('id', jobId);
 

@@ -43,42 +43,89 @@ async function preprocessImageForOCR(imageBuffer) {
   });
 }
 
+const MAX_PDF_PAGES = 10;
+
 /**
- * Extracts text from a file buffer based on its mimetype.
- * @param {Buffer} buffer 
- * @param {string} mimetype 
- * @returns {Promise<string>}
+ * Extracts text from single/multiple files (PDF or Images).
+ * Returns { text, pageStats } with page-count capping and avgCharsPerPage derivation.
+ * @param {Buffer|Array<Buffer|object>} fileOrFiles - Single file object or array of file objects { buffer, mimetype }
+ * @param {string} [mimetype] - Required if single Buffer is passed
+ * @returns {Promise<{ text: string, pageStats: object }>}
  */
-async function extractText(buffer, mimetype) {
-  if (mimetype === 'application/pdf') {
-    try {
-      // Limit to 20 pages for demo stability
-      const data = await pdfParse(buffer, { max: 20 });
-      let text = data.text;
-      
-      return text;
-    } catch (error) {
-      console.error('PDF Parse Error Details:', error);
-      throw new Error('Failed to parse PDF document: ' + error.message);
+async function extractText(fileOrFiles, mimetype = null) {
+  let text = '';
+  let totalPages = 1;
+  let analyzedPages = 1;
+
+  // Handle multi-file array upload (e.g. multi-image scanned document)
+  if (Array.isArray(fileOrFiles)) {
+    totalPages = fileOrFiles.length;
+    analyzedPages = Math.min(totalPages, MAX_PDF_PAGES);
+    const textSegments = [];
+
+    for (let i = 0; i < analyzedPages; i++) {
+      const item = fileOrFiles[i];
+      const buf = item.buffer || item;
+      const mime = item.mimetype || mimetype || 'image/png';
+
+      if (mime === 'application/pdf') {
+        const data = await pdfParse(buf, { max: MAX_PDF_PAGES });
+        textSegments.push(data.text);
+      } else {
+        const cleanBuf = await preprocessImageForOCR(buf);
+        const res = await Tesseract.recognize(cleanBuf, 'eng');
+        textSegments.push(res.data.text);
+      }
     }
-  } else if (mimetype.startsWith('image/')) {
-    try {
-      // Phase 1: Heavy lifting preprocessing
-      const cleanImageBuffer = await preprocessImageForOCR(buffer);
-      
-      // Phase 2: Perform OCR
-      const result = await Tesseract.recognize(cleanImageBuffer, 'eng');
-      return result.data.text;
-    } catch (error) {
-      console.error('Tesseract Error:', error);
-      throw new Error('Failed to extract text from image.');
-    }
+    text = textSegments.join('\n\n--- Page Break ---\n\n');
   } else {
-    throw new Error('Unsupported file format for extraction.');
+    // Single file upload
+    const buffer = fileOrFiles.buffer || fileOrFiles;
+    const mime = fileOrFiles.mimetype || mimetype;
+
+    if (mime === 'application/pdf') {
+      try {
+        const data = await pdfParse(buffer, { max: MAX_PDF_PAGES });
+        totalPages = data.numpages || 1;
+        analyzedPages = Math.min(totalPages, MAX_PDF_PAGES);
+        text = data.text || '';
+      } catch (error) {
+        console.error('PDF Parse Error Details:', error);
+        throw new Error('Failed to parse PDF document: ' + error.message);
+      }
+    } else if (mime && mime.startsWith('image/')) {
+      try {
+        totalPages = 1;
+        analyzedPages = 1;
+        const cleanImageBuffer = await preprocessImageForOCR(buffer);
+        const result = await Tesseract.recognize(cleanImageBuffer, 'eng');
+        text = result.data.text || '';
+      } catch (error) {
+        console.error('Tesseract Error:', error);
+        throw new Error('Failed to extract text from image.');
+      }
+    } else {
+      throw new Error('Unsupported file format for extraction.');
+    }
   }
+
+  const avgCharsPerPage = Math.max(1, Math.round(text.length / (analyzedPages || 1)));
+
+  const pageStats = {
+    totalPages,
+    analyzedPages,
+    avgCharsPerPage,
+    extractionTruncated: totalPages > analyzedPages,
+    translationTruncated: false,
+    translatedThroughPage: analyzedPages
+  };
+
+  return { text, pageStats };
 }
 
 module.exports = {
-  extractText
+  extractText,
+  MAX_PDF_PAGES
 };
+
 

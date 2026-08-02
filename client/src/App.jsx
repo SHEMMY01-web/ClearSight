@@ -488,7 +488,7 @@ function App() {
                       📄 Download Certificate
                     </button>
                   ) : (
-                    <button onClick={() => exportAnalysisPDF(analysisResult.analysis)} className="btn-primary !py-2 !px-5 whitespace-nowrap">
+                    <button onClick={() => exportAnalysisPDF(analysisResult.analysis, analysisResult.pageStats)} className="btn-primary !py-2 !px-5 whitespace-nowrap">
                       ⬇ Risk Audit PDF
                     </button>
                   )}
@@ -506,6 +506,7 @@ function App() {
               <ResultsBadge
                 riskStatus={analysisResult.riskStatus || (analysisResult.analysis?.length > 0 ? 'flagged' : 'clean')}
                 flagCount={analysisResult.analysis?.length || 0}
+                pageStats={analysisResult.pageStats}
               />
 
               {/* Plain Translation Panel */}
@@ -515,6 +516,7 @@ function App() {
                     plainTranslation={analysisResult.plainTranslation}
                     flaggedClauses={analysisResult.analysis || []}
                     riskStatus={analysisResult.riskStatus || 'clean'}
+                    pageStats={analysisResult.pageStats}
                     onJumpToRisks={() => riskCardsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
                   />
                 </div>
