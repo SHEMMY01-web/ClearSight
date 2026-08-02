@@ -314,7 +314,7 @@ async function buildPlainEnglish(topMatch, clauseText = null, persona = 'general
   };
 
   const intro = INTRO_MAP[topMatch.topic] || 'This clause contains terms that could be unfair or illegal under Nigerian law.';
-  return `✅ WHAT THIS MEANS: ${intro}`;
+  return `✅ WHAT THIS MEANS: ${intro} [Statutory Rule Pattern]`;
 }
 
 async function buildForesight(topMatch, persona = 'general', historicalOutcomes = [], clauseText = null) {
@@ -352,7 +352,7 @@ async function buildForesight(topMatch, persona = 'general', historicalOutcomes 
 
   const insight = FORESIGHT[topic]?.[persona] || FORESIGHT[topic]?.general || 'This clause presents long-term cash flow and operational risks.';
   const safePersona = String(persona || 'general');
-  return `🔮 Data Foresight [${safePersona.replace('_', ' ').toUpperCase()}]: ${insight}`;
+  return `🔮 Data Foresight [${safePersona.replace('_', ' ').toUpperCase()}]: ${insight} [Legal Rule Engine]`;
 }
 
 function buildSystematicHeader(strategySettings) {
