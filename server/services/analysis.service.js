@@ -436,11 +436,23 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
         }
       }
 
-      let plainEnglish = await buildPlainEnglish(topMatch, chunk.clauseText, persona);
-      plainEnglish = sanitizeUserFacingText(plainEnglish);
+      let plainEnglish = null;
+      try {
+        plainEnglish = await buildPlainEnglish(topMatch, chunk.clauseText, persona);
+      } catch (peErr) {
+        console.warn(`[Analysis] buildPlainEnglish failed for chunk ${chunk.id}:`, peErr.message);
+        plainEnglish = `✅ WHAT THIS MEANS: ${topMatch?.rule || 'This clause contains restrictive terms.'}`;
+      }
+      plainEnglish = sanitizeUserFacingText(plainEnglish || `✅ WHAT THIS MEANS: ${topMatch?.rule || 'This clause contains restrictive terms.'}`);
 
-      let foresight = await buildForesight(topMatch, persona, caseHits, chunk.clauseText);
-      foresight = sanitizeUserFacingText(foresight);
+      let foresight = null;
+      try {
+        foresight = await buildForesight(topMatch, persona, caseHits, chunk.clauseText);
+      } catch (fsErr) {
+        console.warn(`[Analysis] buildForesight failed for chunk ${chunk.id}:`, fsErr.message);
+        foresight = `🔮 Data Foresight: This clause presents potential legal and financial obligations under Nigerian commercial practice.`;
+      }
+      foresight = sanitizeUserFacingText(foresight || `🔮 Data Foresight: This clause presents potential legal and financial obligations under Nigerian commercial practice.`);
 
       const technicalAnalysis = {
         statute: topMatch?.statute,

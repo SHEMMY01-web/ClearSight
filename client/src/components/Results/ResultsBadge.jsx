@@ -15,8 +15,32 @@ const ResultsBadge = ({ riskStatus, flagCount = 0, pageStats = null }) => {
     return () => clearTimeout(t);
   }, [riskStatus]);
 
-  const isClean = riskStatus === 'clean';
+  const isFailed = riskStatus === 'failed';
+  const isClean = riskStatus === 'clean' && !isFailed;
   const isTruncated = pageStats?.extractionTruncated || pageStats?.translationTruncated;
+
+  if (isFailed) {
+    return (
+      <div className="w-full flex flex-col gap-3">
+        <div className="w-full flex items-center justify-between gap-4 px-8 py-6 border-l-4 shadow-xl bg-amber-50 border-amber-500">
+          <div className="flex items-center gap-4">
+            <span className="text-4xl" role="img" aria-label="error">⚠️</span>
+            <div>
+              <p className="font-sans font-extrabold text-xl tracking-tight text-amber-900">
+                Analysis Encountered an Issue
+              </p>
+              <p className="font-sans text-xs mt-0.5 text-amber-700">
+                The server could not complete full AI processing (e.g. rate limits or server connection). Retrying may resolve the issue.
+              </p>
+            </div>
+          </div>
+          <div className="shrink-0 text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full border border-amber-400 text-amber-800 bg-amber-100">
+            Processing Incomplete
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full flex flex-col gap-3">

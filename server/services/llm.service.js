@@ -182,6 +182,9 @@ PLAIN ENGLISH TRANSLATION:`;
                             if (result) return result;
                         } catch (e) {
                             console.warn(`[LLM] Chunk translation attempt ${attempt} failed:`, e.message);
+                            if (e.message && (e.message.includes('429') || e.message.includes('RESOURCE_EXHAUSTED'))) {
+                                break; // Stop retrying when quota is exhausted
+                            }
                             if (attempt < 2) await new Promise(r => setTimeout(r, 1000));
                         }
                     }
