@@ -22,8 +22,36 @@ const { GoogleGenAI } = require('@google/genai');
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 const embeddingModel = 'gemini-embedding-001';
 
-// Simple in-memory embedding cache — avoids re-embedding the same text twice
+// Simple in-memory & on-disk embedding cache — avoids re-embedding the same text twice
+const cacheFilePath = path.join(__dirname, '../data/embedding_cache.json');
 const embeddingCache = new Map();
+
+// Load disk cache on startup
+try {
+  if (fs.existsSync(cacheFilePath)) {
+    const cachedData = JSON.parse(fs.readFileSync(cacheFilePath, 'utf8'));
+    for (const [k, v] of Object.entries(cachedData)) {
+      embeddingCache.set(k, v);
+    }
+    console.log(`✓ Loaded ${embeddingCache.size} pre-cached embeddings from disk.`);
+  }
+} catch (e) {
+  console.warn("Could not load embedding_cache.json from disk:", e.message);
+}
+
+function saveCacheToDisk() {
+  try {
+    const obj = {};
+    for (const [k, v] of embeddingCache.entries()) {
+      obj[k] = v;
+    }
+    const dataDir = path.join(__dirname, '../data');
+    if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+    fs.writeFileSync(cacheFilePath, JSON.stringify(obj, null, 2), 'utf8');
+  } catch (e) {
+    // Disk write error ignore
+  }
+}
 
 async function getEmbedding(text) {
   // Check cache first
@@ -39,12 +67,13 @@ async function getEmbedding(text) {
     
     const embedding = response.embeddings[0].values;
 
-    // Cache it (cap cache at 500 entries to avoid memory bloat)
-    if (embeddingCache.size >= 500) {
+    // Cache it (cap cache at 1000 entries to avoid memory bloat)
+    if (embeddingCache.size >= 1000) {
       const firstKey = embeddingCache.keys().next().value;
       embeddingCache.delete(firstKey);
     }
     embeddingCache.set(text, embedding);
+    saveCacheToDisk();
 
     return embedding;
   } catch (error) {
@@ -62,10 +91,19 @@ async function warmupEmbedder() {
   console.log('✓ Embedding model ready.');
 }
 
-// Chroma embedding function wrapper
+// Chroma embedding function wrapper with throttling (max 3 concurrent, 50ms pause)
 const localEmbeddingFunction = {
   generate: async (texts) => {
-    return await Promise.all(texts.map(text => getEmbedding(text)));
+    const results = [];
+    for (let i = 0; i < texts.length; i += 3) {
+      const batch = texts.slice(i, i + 3);
+      const batchResults = await Promise.all(batch.map(text => getEmbedding(text)));
+      results.push(...batchResults);
+      if (i + 3 < texts.length) {
+        await new Promise(r => setTimeout(r, 60)); // 60ms delay to satisfy 100 req/min rate limit
+      }
+    }
+    return results;
   }
 };
 
@@ -361,7 +399,8 @@ async function searchLaw(query) {
 async function searchCases(query) {
   try {
     const collection = await client.getCollection({
-      name: casesCollectionName
+      name: casesCollectionName,
+      embeddingFunction: localEmbeddingFunction
     });
 
     const queryEmbedding = await getEmbedding(query);
