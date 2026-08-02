@@ -184,7 +184,36 @@ async function initKnowledgeBase() {
           }
           console.log('RAG Knowledge Base fully loaded from PDF(s).');
         } else {
-          console.log('No PDFs found in server/data/. Waiting for user to upload PDFs.');
+          console.log('No PDFs found in server/data/. Seeding statutory vector DB from knowledge_base.json...');
+          const kbPath = path.join(__dirname, '../knowledge_base.json');
+          if (fs.existsSync(kbPath)) {
+            const kbData = JSON.parse(fs.readFileSync(kbPath, 'utf8'));
+            const kbDocs = [];
+            const kbMetas = [];
+            const kbIds = [];
+
+            let idCounter = 0;
+            for (const cat in kbData) {
+              for (const law of kbData[cat]) {
+                idCounter++;
+                const docText = `${law.topic}: ${law.rule} Red flags: ${law.red_flags ? law.red_flags.join(', ') : ''}`;
+                kbDocs.push(docText);
+                kbMetas.push({ source: law.statute, topic: law.topic, severity: law.severity || 'MEDIUM' });
+                kbIds.push(`kb_rule_${idCounter}`);
+              }
+            }
+
+            if (kbDocs.length > 0) {
+              const kbEmbeddings = await localEmbeddingFunction.generate(kbDocs);
+              await collection.add({
+                ids: kbIds,
+                embeddings: kbEmbeddings,
+                documents: kbDocs,
+                metadatas: kbMetas
+              });
+              console.log(`  ✓ Seeded ${kbDocs.length} statutory rule vectors into ${collectionName} from knowledge_base.json.`);
+            }
+          }
         }
       } // close the outer else block
 
@@ -206,7 +235,12 @@ async function initKnowledgeBase() {
           const casesCollection = await client.createCollection({ name: casesCollectionName });
           const casesData = JSON.parse(fs.readFileSync(casesPath, 'utf8'));
 
-          const batchSize = 50;
+          // Pre-compute embeddings ONLY for unique case descriptions (1 batch call total)
+          const uniqueTexts = [...new Set(casesData.map(c => c['Offence Description'] || c.summary || 'Legal Dispute'))];
+          const uniqueEmbeddingArray = await localEmbeddingFunction.generate(uniqueTexts);
+          const embeddingMap = new Map(uniqueTexts.map((text, idx) => [text, uniqueEmbeddingArray[idx]]));
+
+          const batchSize = 100;
           for (let i = 0; i < casesData.length; i += batchSize) {
             const batch = casesData.slice(i, i + batchSize);
             const ids = batch.map((c, idx) => c.id || `case_${i + idx}`);
@@ -218,11 +252,8 @@ async function initKnowledgeBase() {
               summary: c.Summary || ''
             }));
 
-            // Extract pre-computed embeddings or generate on the fly
-            let embeddings = batch.map(c => c.embedding);
-            if (embeddings.some(e => !e)) {
-              embeddings = await localEmbeddingFunction.generate(texts);
-            }
+            // Map each record to its unique cached vector embedding
+            const embeddings = texts.map(t => embeddingMap.get(t) || uniqueEmbeddingArray[0]);
 
             await casesCollection.add({
               ids,
@@ -231,7 +262,7 @@ async function initKnowledgeBase() {
               metadatas
             });
           }
-          console.log(`  ✓ ${casesData.length} historic cases embedded into ${casesCollectionName}.`);
+          console.log(`  ✓ ${casesData.length} historic cases embedded into ${casesCollectionName} (using ${uniqueTexts.length} cached vectors).`);
         } else {
           console.log(`✓ ChromaDB cases already loaded (${casesCount} vectors).`);
         }
