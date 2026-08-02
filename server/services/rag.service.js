@@ -370,7 +370,8 @@ function cleanSourceCitation(sourceStr = '') {
  * @param {string} query 
  * @returns {Promise<Array<{ text: string, distance: number, similarity: number, citation: string, sourceName: string }>>}
  */
-async function searchLaw(query) {
+async function searchLaw(query, attempt = 1) {
+  const MAX_RETRIES = 3;
   try {
     const collection = await client.getCollection({
       name: collectionName,
@@ -405,19 +406,34 @@ async function searchLaw(query) {
         });
       }
 
-      // Enforce independent citation gate: distance <= 0.58 (similarity >= 0.42)
-      const validHits = hits.filter(h => h.distance <= 0.58);
+      // Enforce independent citation gate: distance <= 0.45 (similarity >= 0.55)
+      // Do NOT loosen this threshold without verifying matched text is actually relevant.
+      // With a 15-rule fallback corpus, distances cluster 0.50-0.90 — this is expected.
+      // The fix is a richer corpus (PDF ingestion), not a looser gate.
+      const validHits = hits.filter(h => h.distance <= 0.45);
       
       if (validHits.length > 0) {
         console.log(`[RAG searchLaw] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | topHit: "${validHits[0].citation}" | dist: ${validHits[0].distance.toFixed(3)} | sim: ${(validHits[0].similarity * 100).toFixed(1)}%`);
       } else if (hits.length > 0) {
-        console.log(`[RAG searchLaw] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | closest hit dist: ${hits[0].distance.toFixed(3)} (failed distance <= 0.58 gate)`);
+        // Log closest match text + citation even when gate fails — needed to verify quality
+        const closest = hits[0];
+        console.log(`[RAG searchLaw] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | GATE FAIL dist: ${closest.distance.toFixed(3)} | closest citation: "${closest.citation}" | matched text: "${closest.text.substring(0, 80)}..."`);
       }
 
       return validHits;
     }
     return [];
   } catch (error) {
+    // ChromaDB hosted server returns HTTP 429 → ChromaRateLimitError("Rate limit exceeded")
+    // Source: chromadb/src/chroma-fetch.ts:99
+    // This is NOT the Gemini 429 — it's the hosted ChromaDB server's own rate limiter
+    // triggered by concurrent Promise.all query bursts from analysis.service.js
+    if (error.message?.includes('Rate limit exceeded') && attempt <= MAX_RETRIES) {
+      const backoffMs = 1000 * attempt; // 1s, 2s, 3s
+      console.warn(`[RAG searchLaw] ChromaDB 429 rate limit hit (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`);
+      await new Promise(r => setTimeout(r, backoffMs));
+      return searchLaw(query, attempt + 1);
+    }
     console.error("RAG Search Error:", error.message || error);
     return [];
   }
@@ -428,7 +444,8 @@ async function searchLaw(query) {
  * @param {string} query
  * @returns {Promise<Array<string>>} Array of outcomes (e.g. ['WON', 'LOST', ...])
  */
-async function searchCases(query) {
+async function searchCases(query, attempt = 1) {
+  const MAX_RETRIES = 3;
   try {
     const collection = await client.getCollection({
       name: casesCollectionName,
@@ -444,20 +461,31 @@ async function searchCases(query) {
     if (results && results.metadatas && results.metadatas[0]) {
       const distances = results.distances?.[0] || [];
       const validOutcomes = [];
+      let closestDist = Infinity;
 
       for (let i = 0; i < results.metadatas[0].length; i++) {
         const meta = results.metadatas[0][i];
         const dist = distances[i] !== undefined ? distances[i] : 0.2;
+        if (dist < closestDist) closestDist = dist;
         if (dist <= 0.55 && meta.outcome) {
           validOutcomes.push(meta.outcome);
         }
       }
 
-      console.log(`[RAG searchCases] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | matchedCases: ${validOutcomes.length}`);
+      console.log(`[RAG searchCases] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | matchedCases: ${validOutcomes.length}/${results.metadatas[0].length} (closestDist: ${closestDist === Infinity ? 'N/A' : closestDist.toFixed(3)}, gate: <=0.55)`);
       return validOutcomes;
     }
     return [];
   } catch (error) {
+    // ChromaDB hosted server returns HTTP 429 → ChromaRateLimitError("Rate limit exceeded")
+    // Source: chromadb/src/chroma-fetch.ts:99
+    // Retry with exponential backoff instead of failing immediately
+    if (error.message?.includes('Rate limit exceeded') && attempt <= MAX_RETRIES) {
+      const backoffMs = 1000 * attempt; // 1s, 2s, 3s
+      console.warn(`[RAG searchCases] ChromaDB 429 rate limit hit (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`);
+      await new Promise(r => setTimeout(r, backoffMs));
+      return searchCases(query, attempt + 1);
+    }
     if (error.name === 'ChromaNotFoundError' || error.message?.includes('not found')) {
       console.warn(`[RAG] Cases collection '${casesCollectionName}' not found yet in ChromaDB. Falling back to default case stats.`);
     } else {
