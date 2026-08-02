@@ -178,6 +178,10 @@ function extractBestSentence(ragResult, query) {
   return best;
 }
 
+// Named fallback constants for RAG similarity scoring
+const RAG_NO_HIT_FALLBACK_SIMILARITY = 0.70; // Moderate fallback when RAG vector DB returns no hits (exact pattern scores 0.88)
+const RAG_DEFAULT_HIT_SIMILARITY = 0.70;     // Default fallback when RAG hit exists but similarity property is missing
+
 function topicToCategory(topic) {
   const map = {
     'Rent Increase': 'unfair rent increase',
@@ -219,16 +223,14 @@ function flagClause(clauseText, contractType = null, strategySettings = null, ra
   const matches = getAllMatchingStatutes(cleanText, contractType, allowCrossCategory);
   if (matches.length === 0) return null;
 
-  // If RAG hits exist, integrate similarity score. If RAG hits are empty (no Chroma hit or network issue),
-  // fallback to patternMatchStrength so exact pattern matches are not starved below threshold.
-  const topRagHit = ragHits.length > 0 ? ragHits[0] : null;
+  const topRagHit = ragHits && ragHits.length > 0 ? ragHits[0] : null;
 
   const validMatches = [];
   for (const match of matches) {
     if (threshold === 0.95 && match.severity !== 'HIGH') continue;
 
     const patternMatchStrength = match.patternMatchStrength || 1.0;
-    const ragSimilarityScore = topRagHit ? (topRagHit.similarity || 0.7) : patternMatchStrength;
+    const ragSimilarityScore = topRagHit ? (topRagHit.similarity || RAG_DEFAULT_HIT_SIMILARITY) : RAG_NO_HIT_FALLBACK_SIMILARITY;
     const flagConfidence = Number((0.6 * patternMatchStrength + 0.4 * ragSimilarityScore).toFixed(2));
 
     console.log(`[Analysis] Clause candidate match: "${match.topic}" | pattern: ${patternMatchStrength} | rag: ${ragSimilarityScore} -> flagConfidence: ${flagConfidence} (threshold: ${threshold})`);
