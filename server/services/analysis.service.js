@@ -213,11 +213,17 @@ function flagClause(clauseText, contractType = null, strategySettings = null, ra
 
   let threshold = 0.85;
   let allowCrossCategory = false;
-  if (riskAppetite === 'conservative' || strategicGoal === 'protection') {
+  if (riskAppetite === 'conservative') {
     threshold = 0.65;
     allowCrossCategory = true;
-  } else if (riskAppetite === 'aggressive' || strategicGoal === 'liquidity') {
+  } else if (riskAppetite === 'aggressive') {
     threshold = 0.95;
+  }
+  // strategicGoal modifies behavior within the riskAppetite-set threshold level
+  // 'protection' widens scanning to cross-category matches at conservative threshold
+  if (strategicGoal === 'protection' && riskAppetite !== 'aggressive') {
+    threshold = Math.min(threshold, 0.65);
+    allowCrossCategory = true;
   }
 
   const matches = getAllMatchingStatutes(cleanText, contractType, allowCrossCategory);
