@@ -3,21 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const pdf = require('pdf-parse');
 
-const client = new ChromaClient({
-  // Use the host without any 'https://' prefix
-  host: process.env.CHROMA_HOST || 'localhost',
-  port: 443,
-  ssl: true,
-  tenant: process.env.CHROMA_TENANT || 'default_tenant',
-  database: process.env.CHROMA_DATABASE || 'default_database',
-  // The SDK now wants the token directly in a top-level headers object
-  headers: {
-    "X-Chroma-Token": (process.env.CHROMA_API_KEY || '').trim()
-  }
-});
-const collectionName = "nigerian_law_v3"; // Renamed to force re-index with Gemini 768d semantic chunking
-const casesCollectionName = "nigerian_cases_v2";
-
 const { GoogleGenAI } = require('@google/genai');
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 const embeddingModel = 'gemini-embedding-001';
@@ -101,15 +86,6 @@ async function getEmbedding(text) {
   }
 }
 
-/**
- * Pre-loads the embedding model at server startup.
- */
-async function warmupEmbedder() {
-  console.log('⚡ Pre-warming Gemini embedding model...');
-  await getEmbedding('Nigerian contract law clause review');
-  console.log('✓ Embedding model ready.');
-}
-
 // Chroma embedding function wrapper (uses rate-limited getEmbedding)
 const localEmbeddingFunction = {
   generate: async (texts) => {
@@ -121,6 +97,33 @@ const localEmbeddingFunction = {
     return results;
   }
 };
+
+const client = new ChromaClient({
+  // Use the host without any 'https://' prefix
+  host: process.env.CHROMA_HOST || 'localhost',
+  port: 443,
+  ssl: true,
+  tenant: process.env.CHROMA_TENANT || 'default_tenant',
+  database: process.env.CHROMA_DATABASE || 'default_database',
+  headers: {
+    "X-Chroma-Token": (process.env.CHROMA_API_KEY || '').trim()
+  },
+  embeddingFunction: localEmbeddingFunction
+});
+const collectionName = "nigerian_law_v3"; // Renamed to force re-index with Gemini 768d semantic chunking
+const casesCollectionName = "nigerian_cases_v2";
+
+
+/**
+ * Pre-loads the embedding model at server startup.
+ */
+async function warmupEmbedder() {
+  console.log('⚡ Pre-warming Gemini embedding model...');
+  await getEmbedding('Nigerian contract law clause review');
+  console.log('✓ Embedding model ready.');
+}
+
+
 
 /**
  * Step 1: Extract Text from the PDF
