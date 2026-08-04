@@ -319,7 +319,16 @@ function flagClause(clauseText, contractType = null, strategySettings = null, ra
     if (threshold === 0.95 && match.severity !== 'HIGH') continue;
 
     const patternMatchStrength = match.patternMatchStrength || 1.0;
-    const ragSimilarityScore = topRagHit ? (topRagHit.similarity || RAG_DEFAULT_HIT_SIMILARITY) : RAG_NO_HIT_FALLBACK_SIMILARITY;
+    // FIX: A low-similarity RAG hit must NEVER make the confidence WORSE than
+    // having no RAG hits at all. Previously, a RAG hit with similarity 0.50
+    // would produce flagConfidence 0.80 (below balanced threshold 0.85),
+    // while NO RAG hit would produce 0.88 (above threshold). This caused
+    // the 7→1 flag regression: ChromaDB being online and returning weak
+    // matches silently unflagged clauses that would have been flagged if
+    // ChromaDB were offline. The fix: floor the RAG score at the no-hit
+    // fallback value, so RAG can only BOOST confidence, never reduce it.
+    const rawRagSim = topRagHit ? (topRagHit.similarity || RAG_DEFAULT_HIT_SIMILARITY) : RAG_NO_HIT_FALLBACK_SIMILARITY;
+    const ragSimilarityScore = Math.max(rawRagSim, RAG_NO_HIT_FALLBACK_SIMILARITY);
     const flagConfidence = Number((0.6 * patternMatchStrength + 0.4 * ragSimilarityScore).toFixed(2));
 
     console.log(`[Analysis] Clause candidate match: "${match.topic}" | pattern: ${patternMatchStrength} | rag: ${ragSimilarityScore} -> flagConfidence: ${flagConfidence} (threshold: ${threshold})`);
