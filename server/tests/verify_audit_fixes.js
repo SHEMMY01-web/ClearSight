@@ -12,7 +12,7 @@ const { extractText } = require('../services/extraction.service');
 async function runRegressionTestSuite() {
   console.log('🧪 Starting ClearSight Automated Audit Fixes Regression Test Suite...\n');
   let passedCount = 0;
-  let totalTests = 8;
+  let totalTests = 9;
 
   // -------------------------------------------------------------
   // Test Fixture 1: Prompt Injection Defense
@@ -134,6 +134,43 @@ Clause 3.3: Deemed Acceptance. Continued performance constitutes deemed acceptan
     passedCount++;
   } catch (err) {
     console.error('  ❌ Test Fixture 3b Failed:', err.message);
+  }
+
+  // -------------------------------------------------------------
+  // Test Fixture 3c: RAG Similarity Floor — Weak RAG Hit Must Not Unflag
+  // Reproduces the 7→1 flag regression (commit 78ae27a fix): a pattern-matched
+  // clause with a weak but present RAG hit (similarity 0.50) must still be
+  // flagged. Before the fix, RAG sim 0.50 produced flagConfidence 0.80,
+  // which failed the balanced threshold 0.85 — a paradox where having
+  // ChromaDB online was WORSE than having it offline.
+  // -------------------------------------------------------------
+  try {
+    console.log('Running Test Fixture 3c: RAG Similarity Floor — Weak RAG Hit Must Not Unflag...');
+    const penaltyClause = 'Clause 5.3: Penalty Interest. In event of default, a 500,000 fee penalty applies immediately.';
+
+    // Weak RAG hit (similarity 0.50) — before fix, this produced flagConfidence 0.80 < 0.85
+    const weakRagResult = flagClause(penaltyClause, null, { riskAppetite: 'balanced', strategicGoal: 'liquidity' }, [{ similarity: 0.50 }]);
+    assert.notStrictEqual(weakRagResult, null, 'Weak RAG hit (sim 0.50) must NOT unflag a pattern-matched clause');
+    assert.strictEqual(weakRagResult.isRisky, true, 'isRisky must be true even with weak RAG hit');
+    assert.strictEqual(weakRagResult.flagConfidence, 0.88, 'flagConfidence must be floored at 0.88 (not 0.80) when RAG sim is below fallback');
+
+    // Very weak RAG hit (similarity 0.20)
+    const veryWeakRagResult = flagClause(penaltyClause, null, { riskAppetite: 'balanced', strategicGoal: 'liquidity' }, [{ similarity: 0.20 }]);
+    assert.notStrictEqual(veryWeakRagResult, null, 'Very weak RAG hit (sim 0.20) must NOT unflag a pattern-matched clause');
+    assert.strictEqual(veryWeakRagResult.flagConfidence, 0.88, 'flagConfidence must be floored at 0.88 for very weak RAG hits too');
+
+    // No RAG hits (ChromaDB offline) — baseline: must produce identical confidence
+    const noRagResult = flagClause(penaltyClause, null, { riskAppetite: 'balanced', strategicGoal: 'liquidity' }, []);
+    assert.strictEqual(noRagResult.flagConfidence, 0.88, 'No-RAG baseline must also be 0.88');
+
+    // Strong RAG hit — must BOOST above baseline (the floor must not cap upward)
+    const strongRagResult = flagClause(penaltyClause, null, { riskAppetite: 'balanced', strategicGoal: 'liquidity' }, [{ similarity: 0.85 }]);
+    assert.strictEqual(strongRagResult.flagConfidence, 0.94, 'Strong RAG hit (sim 0.85) must boost flagConfidence to 0.94');
+
+    console.log('  ✓ Test Fixture 3c Passed (weak RAG 0.50→0.88, very weak 0.20→0.88, no RAG→0.88, strong RAG 0.85→0.94).');
+    passedCount++;
+  } catch (err) {
+    console.error('  ❌ Test Fixture 3c Failed:', err.message);
   }
 
   // -------------------------------------------------------------
