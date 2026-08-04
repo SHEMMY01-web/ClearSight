@@ -110,7 +110,7 @@ const client = new ChromaClient({
   },
   embeddingFunction: localEmbeddingFunction
 });
-const collectionName = "nigerian_law_v3"; // Renamed to force re-index with Gemini 768d semantic chunking
+const collectionName = "nigerian_law_v4"; // Renamed to force re-index with 132 tagged statutory rule vectors
 const casesCollectionName = "nigerian_cases_v2";
 
 
@@ -254,7 +254,12 @@ async function initKnowledgeBase() {
                 idCounter++;
                 const docText = `${law.topic}: ${law.rule} Red flags: ${law.red_flags ? law.red_flags.join(', ') : ''}`;
                 kbDocs.push(docText);
-                kbMetas.push({ source: law.statute, topic: law.topic, severity: law.severity || 'MEDIUM' });
+                kbMetas.push({ 
+                  source: law.statute, 
+                  topic: law.topic, 
+                  severity: law.severity || 'MEDIUM',
+                  jurisdiction: (law.jurisdiction || ['NG']).join(',')
+                });
                 kbIds.push(`kb_rule_${idCounter}`);
               }
             }
@@ -338,25 +343,21 @@ async function initKnowledgeBase() {
       if (retries === 0) {
         console.error('Failed to initialize ChromaDB after all retries:', error.message);
       } else {
-        console.log(`ChromaDB not ready, retrying in 2s... (${retries} left)`);
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        console.warn(`ChromaDB init failed (${error.message}). Retrying in 2s... (${retries} attempts left)`);
+        await new Promise(res => setTimeout(res, 2000));
       }
     }
   }
 }
 
 /**
- * Smart Semantic Search against the Nigerian Law knowledge base
- * @param {string} query 
- * @returns {Promise<Array<string>>}
-/**
- * Maps raw source PDF filenames to canonical legal titles.
+ * Clean up source citation text for clean badge rendering
  */
-function cleanSourceCitation(sourceStr = '') {
-  if (!sourceStr) return 'Companies and Allied Matters Act (CAMA 2020)';
-  const clean = sourceStr.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ').trim();
-  if (/cama/i.test(clean)) return 'Companies and Allied Matters Act (CAMA 2020)';
-  if (/labour/i.test(clean)) return 'Labour Act Cap L1 LFN 2004';
+function cleanSourceCitation(source) {
+  if (!source) return 'Nigerian Legal Precedent';
+  const clean = source.replace(/\.pdf$/i, '').trim();
+  if (/CAMA/i.test(clean)) return 'CAMA 2020 (Nigeria)';
+  if (/Labour/i.test(clean)) return 'Labour Act Cap L1 (Nigeria)';
   if (/tenancy/i.test(clean)) return 'Lagos State Tenancy Law 2011';
   if (/evidence/i.test(clean)) return 'Evidence Act 2011 (Nigeria)';
   if (/copyright/i.test(clean)) return 'Copyright Act 2022 (Nigeria)';
@@ -366,11 +367,14 @@ function cleanSourceCitation(sourceStr = '') {
 
 /**
  * Smart Semantic Search against the Nigerian Law knowledge base
- * Enforces independent citation gate: distance <= 0.45 (similarity >= 0.70)
+ * Enforces independent citation gate: distance <= 0.65 (similarity >= 0.35)
+ * Supports jurisdiction filtering via allowedJurisdictions parameter
  * @param {string} query 
+ * @param {number} attempt
+ * @param {Array<string>} allowedJurisdictions
  * @returns {Promise<Array<{ text: string, distance: number, similarity: number, citation: string, sourceName: string }>>}
  */
-async function searchLaw(query, attempt = 1) {
+async function searchLaw(query, attempt = 1, allowedJurisdictions = ['NG', 'GLOBAL']) {
   const MAX_RETRIES = 3;
   try {
     const collection = await client.getCollection({
@@ -402,17 +406,21 @@ async function searchLaw(query, attempt = 1) {
           distance: dist,
           similarity: Math.max(0, 1 - dist),
           citation,
-          sourceName: sourceTitle
+          sourceName: sourceTitle,
+          jurisdiction: meta.jurisdiction || 'NG'
         });
       }
 
-      // Enforce independent citation gate: distance <= 0.65 (similarity >= 0.35)
-      // Empirically validated on live contract queries:
-      //   - dist 0.538 → Shortfall Penalty / Purchase Minimums (topically exact)
-      //   - dist 0.604 → Retention of Title / Immediate Forfeiture (topically exact)
-      //   - dist 0.622 → Penalty Clauses (topically exact)
-      // Matches above 0.70 (e.g. 0.798) degrade to generic background noise and remain filtered.
-      const validHits = hits.filter(h => h.distance <= 0.65);
+      // Enforce independent citation gate (distance <= 0.65) and jurisdiction filter
+      const validHits = hits.filter(h => {
+        if (h.distance > 0.65) return false;
+        if (h.jurisdiction && allowedJurisdictions && allowedJurisdictions.length > 0) {
+          const jList = h.jurisdiction.split(',');
+          const matchesJ = jList.some(j => allowedJurisdictions.includes(j) || j === 'GLOBAL');
+          if (!matchesJ) return false;
+        }
+        return true;
+      });
       
       if (validHits.length > 0) {
         console.log(`[RAG searchLaw] Query: "${query.substring(0, 40).replace(/\n/g, ' ')}..." | topHit: "${validHits[0].citation}" | dist: ${validHits[0].distance.toFixed(3)} | sim: ${(validHits[0].similarity * 100).toFixed(1)}%`);

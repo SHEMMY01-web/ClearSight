@@ -180,7 +180,47 @@ const CATEGORY_TYPE_MAP = {
   arbitration_law: 'arbitration'
 };
 
-function getAllMatchingStatutes(clauseText, contractType = null, allowCrossCategory = false) {
+function topicToCategory(topic) {
+  const map = {
+    'Rent Increase': 'unfair rent increase',
+    'Structural Repairs': 'unbalanced liability',
+    'Notice to Quit': 'predatory financial terms',
+    'Unlawful Eviction': 'unbalanced liability',
+    'Dilapidations / Excessive Reinstatement': 'unbalanced liability',
+    'Forfeiture of Security Deposit': 'predatory financial terms',
+    'Subletting / Assignment Prohibition': 'unfair terms',
+    'Penalty Clauses': 'predatory financial terms',
+    'Unbalanced Liability / Indemnity': 'unbalanced liability',
+    'Intellectual Property Assignment': 'unbalanced liability',
+    'Termination for Convenience': 'predatory financial terms',
+    'Jurisdiction & Governing Law': 'unfair terms',
+    'Exclusivity / Non-Compete': 'unfair terms',
+    'Shortfall Penalty / Purchase Minimums': 'predatory financial terms',
+    'Retention of Title / Immediate Forfeiture': 'unbalanced liability',
+    'Deemed Acceptance / Renewal by Silence': 'unfair terms',
+    'Unilateral Price Variation': 'predatory financial terms',
+    'Non-Exclusive Appointment / Unlimited Competing Distributors': 'unfair terms',
+    'Asymmetric Delivery and Payment Liability': 'unbalanced liability',
+    'Unilateral Set-Off Rights': 'predatory financial terms',
+    'Uncapped / One-Sided Indemnity': 'unbalanced liability',
+    'Excessive Interest Rate on Overdue Payments': 'predatory financial terms',
+    'Automatic Escalation / Evergreen Contracts': 'unfair terms',
+    'Unilateral Contract Amendment': 'unfair terms',
+    'Broad Force Majeure Favouring Stronger Party': 'unbalanced liability',
+    'Waiver of Right to Dispute / Audit': 'unfair terms',
+    'Exclusion of Consequential Loss (One-Sided)': 'unbalanced liability',
+    'Wrongful Termination': 'unbalanced liability',
+    'Deduction from Wages': 'predatory financial terms',
+    'Training Bond / Repayment Clawback': 'predatory financial terms',
+    'Garden Leave / Non-Solicitation': 'unfair terms',
+    'Unilateral Variation of Employment Terms': 'unfair terms',
+    'Excessive Confidentiality / IP Ownership (Employment)': 'unbalanced liability',
+    'Probationary Period Abuse': 'unfair terms'
+  };
+  return map[topic] || 'unbalanced liability';
+}
+
+function getAllMatchingStatutes(clauseText, contractType = null, allowCrossCategory = false, targetJurisdictions = ['NG', 'GLOBAL']) {
   const lowerText = clauseText.toLowerCase();
   const matches = [];
   for (const category in knowledgeBase) {
@@ -192,6 +232,12 @@ function getAllMatchingStatutes(clauseText, contractType = null, allowCrossCateg
     }
 
     for (const law of knowledgeBase[category]) {
+      // Jurisdiction Filter: check if law.jurisdiction overlaps with targetJurisdictions
+      if (law.jurisdiction && Array.isArray(law.jurisdiction)) {
+        const matchesJ = law.jurisdiction.some(j => targetJurisdictions.includes(j) || j === 'GLOBAL');
+        if (!matchesJ) continue;
+      }
+
       for (const flag of law.red_flags) {
         const flagLower = flag.toLowerCase();
         const flagRegex = new RegExp(`\\b${flagLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
@@ -242,48 +288,14 @@ function extractBestSentence(ragResult, query) {
 const RAG_NO_HIT_FALLBACK_SIMILARITY = 0.70; // Moderate fallback when RAG vector DB returns no hits (exact pattern scores 0.88)
 const RAG_DEFAULT_HIT_SIMILARITY = 0.70;     // Default fallback when RAG hit exists but similarity property is missing
 
-function topicToCategory(topic) {
-  const map = {
-    'Rent Increase': 'unfair rent increase',
-    'Structural Repairs': 'unbalanced liability',
-    'Notice to Quit': 'predatory financial terms',
-    'Penalty Clauses': 'predatory financial terms',
-    'Unbalanced Liability / Indemnity': 'unbalanced liability',
-    'Intellectual Property Assignment': 'unbalanced liability',
-    'Termination for Convenience': 'predatory financial terms',
-    'Shortfall Penalty / Purchase Minimums': 'predatory financial terms',
-    'Retention of Title / Immediate Forfeiture': 'unbalanced liability',
-    'Deemed Acceptance / Renewal by Silence': 'unfair terms'
-  };
-  return map[topic] || 'unbalanced liability';
-}
-
 /**
- * Flag clause based on authoritative flagConfidence score and profile threshold:
- *   flagConfidence = 0.6 * patternMatchStrength + 0.4 * ragSimilarityScore
- * Profile thresholds:
- *   conservative / protection: 0.65
- *   balanced: 0.85
- *   aggressive / liquidity: 0.95 (HIGH severity only)
+ * Flag clause based on authoritative flagConfidence score and profile threshold
  */
-function flagClause(clauseText, contractType = null, strategySettings = null, ragHits = []) {
+function flagClause(clauseText, contractType = null, strategySettings = null, ragHits = [], targetJurisdictions = ['NG', 'GLOBAL']) {
   const cleanText = clauseText.replace(/â‚¦/g, '₦').replace(/Naira /g, '₦');
   const riskAppetite = strategySettings?.riskAppetite || 'balanced';
   const strategicGoal = strategySettings?.strategicGoal || 'liquidity';
 
-  // ARCHITECTURE DECISION: riskAppetite is the SOLE threshold driver.
-  // strategicGoal affects only output framing (advocate/critic tone, foresight scenarios)
-  // — never the detection threshold. This prevents default values from silently
-  // overriding explicit user selections (see commit 4e9283b root-cause fix).
-  //
-  // Threshold map:
-  //   conservative → 0.65  (pattern-only matches pass)
-  //   balanced     → 0.85  (pattern + weak RAG fallback passes at 0.88)
-  //   aggressive   → 0.95  (requires strong RAG vector backing)
-  //
-  // strategicGoal 'protection' is the ONE exception: it can LOWER threshold
-  // (never raise it) and enable cross-category scanning, acting as a safety net.
-  // strategicGoal 'liquidity' intentionally does nothing to the threshold.
   let threshold = 0.85;
   let allowCrossCategory = false;
   if (riskAppetite === 'conservative') {
@@ -292,13 +304,12 @@ function flagClause(clauseText, contractType = null, strategySettings = null, ra
   } else if (riskAppetite === 'aggressive') {
     threshold = 0.95;
   }
-  // 'protection' can only lower threshold, never raise it
   if (strategicGoal === 'protection' && riskAppetite !== 'aggressive') {
     threshold = Math.min(threshold, 0.65);
     allowCrossCategory = true;
   }
 
-  const matches = getAllMatchingStatutes(cleanText, contractType, allowCrossCategory);
+  const matches = getAllMatchingStatutes(cleanText, contractType, allowCrossCategory, targetJurisdictions);
   if (matches.length === 0) return null;
 
   const topRagHit = ragHits && ragHits.length > 0 ? ragHits[0] : null;
@@ -347,7 +358,10 @@ function buildAdvocate(topMatch) {
     'Shortfall Penalty / Purchase Minimums': 'The supplier uses purchase minimums to secure volume discount commitments and cover baseline manufacturing runs.',
     'Retention of Title / Immediate Forfeiture': 'The seller includes retention of title to protect unpaid inventory against insolvency risks.',
     'Deemed Acceptance / Renewal by Silence': 'The service provider uses automatic renewal to prevent service interruption and streamline continuity.',
-    'Unbalanced Liability / Indemnity': 'The drafting party presents this as standard risk allocation.'
+    'Unbalanced Liability / Indemnity': 'The drafting party presents this as standard risk allocation.',
+    'Unilateral Price Variation': 'The seller uses price variation flexibility to buffer against inflation and raw material supply shifts.',
+    'Excessive Interest Rate on Overdue Payments': 'The creditor uses default interest rates to deter non-payment and offset financing costs.',
+    'Uncapped / One-Sided Indemnity': 'The drafting party seeks full indemnification for all potential third-party operational risks.'
   };
   return advocateMap[topic] || 'This clause is framed to protect commercial interests under standard business practice.';
 }
@@ -388,10 +402,13 @@ async function buildPlainEnglish(topMatch, clauseText = null, persona = 'general
     'Shortfall Penalty / Purchase Minimums': 'You are forced to pay hefty financial penalties if you fail to buy a strict minimum quota of goods.',
     'Retention of Title / Immediate Forfeiture': 'The supplier can immediately seize back all delivered goods and forfeit your payments upon any minor default.',
     'Deemed Acceptance / Renewal by Silence': 'Your silence or failure to object is legally treated as full agreement to contract renewal and price increases.',
-    'Unbalanced Liability / Indemnity': 'If anything goes wrong, you alone will be responsible for paying all costs.'
+    'Unbalanced Liability / Indemnity': 'If anything goes wrong, you alone will be responsible for paying all costs.',
+    'Unilateral Price Variation': 'The supplier can raise contract prices at any time at their sole discretion without your prior consent.',
+    'Excessive Interest Rate on Overdue Payments': 'You are charged punitive, high default interest rates on late payments.',
+    'Uncapped / One-Sided Indemnity': 'You are exposed to unlimited, uncapped financial liability for third-party claims.'
   };
 
-  const intro = INTRO_MAP[topMatch.topic] || 'This clause contains terms that could be unfair or illegal under Nigerian law.';
+  const intro = INTRO_MAP[topMatch.topic] || 'This clause contains terms that could be unfair or illegal under law.';
   return `✅ WHAT THIS MEANS: ${intro} [Statutory Rule Pattern]`;
 }
 
@@ -453,7 +470,11 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
   const chunks = chunkByClauses(fullText);
   const contractType = detectContractType(fullText);
 
-  console.log(`[Analysis] Pipeline started | contractType: ${contractType} | persona: ${persona} | strategySettings: ${JSON.stringify(strategySettings)} | textLength: ${fullText.length}`);
+  const targetJurisdictions = (persona === 'freelancer')
+    ? ['NG', 'GLOBAL', 'US', 'UK', 'CA', 'IN', 'UAE_GULF']
+    : ['NG', 'GLOBAL'];
+
+  console.log(`[Analysis] Pipeline started | contractType: ${contractType} | persona: ${persona} | jurisdictions: ${targetJurisdictions.join(',')} | strategySettings: ${JSON.stringify(strategySettings)} | textLength: ${fullText.length}`);
 
   const strategyHeader = buildSystematicHeader(strategySettings);
   const validChunks = chunks.filter(c => c.clauseText.length >= 30).slice(0, MAX_CLAUSES_SCANNED);
@@ -463,7 +484,7 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
   // Stage 1: RAG law search for all candidate chunks
   // Concurrency-limited to CHROMA_CONCURRENCY_LIMIT (5) to prevent ChromaDB HTTP 429 bursts
   const ragHitsPerChunk = await Promise.all(
-    validChunks.map(c => limitChroma(() => searchLaw(c.clauseText).catch((err) => {
+    validChunks.map(c => limitChroma(() => searchLaw(c.clauseText, 1, targetJurisdictions).catch((err) => {
       console.warn(`[Analysis] RAG searchLaw error for chunk: ${err.message}`);
       return [];
     })))
@@ -475,7 +496,7 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
   const flagged = validChunks
     .map((chunk, idx) => ({
       chunk,
-      risk: flagClause(chunk.clauseText, contractType, strategySettings, ragHitsPerChunk[idx])
+      risk: flagClause(chunk.clauseText, contractType, strategySettings, ragHitsPerChunk[idx], targetJurisdictions)
     }))
     .filter(({ risk }) => risk?.isRisky);
 

@@ -17,6 +17,9 @@
         "increase the annual rent",
         "rent review",
         "increase rent by"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -33,6 +36,9 @@
         "solely responsible for all structural",
         "waives all rights to claim",
         "notwithstanding local laws"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -48,6 +54,9 @@
         "immediate possession",
         "forfeit the property",
         "vacate immediately"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -62,6 +71,9 @@
         "remove the tenant's belongings",
         "landlord may lock",
         "forfeit lease without court"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -79,6 +91,9 @@
         "make good all damage",
         "dilapidations at tenant's cost",
         "full redecoration"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -95,6 +110,9 @@
         "landlord may retain the entire deposit",
         "deposit forfeited in event of breach",
         "no refund of deposit"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -110,6 +128,9 @@
         "assignment premium",
         "landlord's sole discretion to refuse",
         "withhold consent at will"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -128,6 +149,9 @@
         "36 months advance",
         "years rent payable upfront",
         "advance of more than one year"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -147,6 +171,9 @@
         "management fee increase",
         "undisclosed charges",
         "administrative fee"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -167,6 +194,9 @@
         "tenancy registration fee",
         "renewal agency fee",
         "annual agency fee"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -184,6 +214,9 @@
         "landlord reserves the right to enter",
         "unannounced inspection",
         "right to inspect at any time"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -201,6 +234,9 @@
         "landlord's absolute discretion on use",
         "may not use for any other purpose",
         "use shall not be changed without consent"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -217,6 +253,9 @@
         "break right subject to no arrears",
         "tenant may not exercise break if",
         "break clause not available to tenant"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -233,6 +272,9 @@
         "incentive clawback",
         "rent waiver shall be repaid if",
         "early termination triggers repayment of discount"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -253,6 +295,9 @@
         "dollar-denominated rent",
         "rent at cbn rate",
         "foreign exchange equivalent"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -270,10 +315,13 @@
         "facility management company appointed by landlord",
         "cleaning services provided exclusively by",
         "maintenance company designated by landlord"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "West Africa — Ghana Tenancy Overcharging",
+      "topic": "West Africa \u2014 Ghana Tenancy Overcharging",
       "statute": "Rent Act 1963 (Ghana) & Rent Control Act (Amendment) 1986",
       "severity": "HIGH",
       "rule": "Ghana's Rent Act limits advance rent demands to six months for residential properties. Collecting rent in excess of the approved rent, or demanding more than 6 months advance, is a criminal offence in Ghana.",
@@ -287,11 +335,14 @@
         "pay one year in advance",
         "demand above approved rate",
         "landlord claims exemption from rent control"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "West Africa — OHADA Bail Commercial (Commercial Lease) Traps",
-      "statute": "OHADA Uniform Act on General Commercial Law (Acte Uniforme sur le Droit Commercial Général)",
+      "topic": "West Africa \u2014 OHADA Bail Commercial (Commercial Lease) Traps",
+      "statute": "OHADA Uniform Act on General Commercial Law (Acte Uniforme sur le Droit Commercial G\u00e9n\u00e9ral)",
       "severity": "HIGH",
       "rule": "Under OHADA law (applicable across 17 West and Central African francophone states), commercial tenants have a droit au renouvellement (right of renewal) after 3 years. Landlords routinely insert clauses waiving this right or conditioning renewal on payment of a key money (pas-de-porte) equal to several years' rent.",
       "negotiation_tip": "Verify whether the OHADA bail commercial renewal right applies to your lease. Do not waive the right of renewal in advance. Seek advice under the OHADA arbitration framework (CCJA) for disputes.",
@@ -299,16 +350,19 @@
         "renonciation au droit au renouvellement",
         "pas-de-porte",
         "droit de renouvellement exclu",
-        "bail précaire",
-        "résiliation à la volonté du bailleur",
-        "sans indemnité d'éviction",
-        "indemnité d'éviction exclue",
-        "clause résolutoire",
+        "bail pr\u00e9caire",
+        "r\u00e9siliation \u00e0 la volont\u00e9 du bailleur",
+        "sans indemnit\u00e9 d'\u00e9viction",
+        "indemnit\u00e9 d'\u00e9viction exclue",
+        "clause r\u00e9solutoire",
         "bail non renouvelable"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "East Africa — Kenya Business Tenancy Tribunal Bypass",
+      "topic": "East Africa \u2014 Kenya Business Tenancy Tribunal Bypass",
       "statute": "Landlord and Tenant (Shops, Hotels and Catering Establishments) Act, Cap 301 (Kenya)",
       "severity": "HIGH",
       "rule": "In Kenya, commercial tenants of shops, hotels, and catering establishments are protected by the Business Tenancies Act. Landlords may not increase rent or refuse renewal without reference to the Business Premises Rent Tribunal. Clauses waiving Tribunal jurisdiction are void.",
@@ -321,10 +375,13 @@
         "tenant agrees to waive tribunal rights",
         "not subject to cap 301",
         "excluded from rent tribunal jurisdiction"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "South Africa — Lease Trap / Consumer Protection Act Exclusions",
+      "topic": "South Africa \u2014 Lease Trap / Consumer Protection Act Exclusions",
       "statute": "Consumer Protection Act 68 of 2008 (South Africa) & Rental Housing Act 50 of 1999",
       "severity": "HIGH",
       "rule": "South African residential tenants are protected by the Consumer Protection Act (CPA). A landlord may not charge early termination fees exceeding 3 months' rent or demand more than one month's deposit. Clauses attempting to exclude CPA protections are void.",
@@ -338,14 +395,17 @@
         "no right of early termination",
         "excludes rental housing tribunal",
         "flat forfeiture on cancellation"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Europe — UK Commercial Lease — Landlord and Tenant Act 1954",
+      "topic": "Europe \u2014 UK Commercial Lease \u2014 Landlord and Tenant Act 1954",
       "statute": "Landlord and Tenant Act 1954 (UK) & Unfair Contract Terms Act 1977",
       "severity": "MEDIUM",
-      "rule": "UK commercial tenants of business premises have statutory rights of renewal under the LTA 1954 unless the tenancy is properly 'contracted out.' Upward-only rent review clauses — common in UK commercial leases — should be flagged for SMBs as they prevent rent reduction even if market rents fall.",
-      "negotiation_tip": "Check whether the lease is 'inside' or 'outside' the LTA 1954. Resist upward-only rent review clauses — negotiate for upward/downward review or a fixed uplift cap.",
+      "rule": "UK commercial tenants of business premises have statutory rights of renewal under the LTA 1954 unless the tenancy is properly 'contracted out.' Upward-only rent review clauses \u2014 common in UK commercial leases \u2014 should be flagged for SMBs as they prevent rent reduction even if market rents fall.",
+      "negotiation_tip": "Check whether the lease is 'inside' or 'outside' the LTA 1954. Resist upward-only rent review clauses \u2014 negotiate for upward/downward review or a fixed uplift cap.",
       "red_flags": [
         "contracted out of the landlord and tenant act",
         "security of tenure is excluded",
@@ -355,14 +415,17 @@
         "section 38a agreement",
         "waived right to renewal",
         "no statutory renewal"
+      ],
+      "jurisdiction": [
+        "UK"
       ]
     },
     {
-      "topic": "Europe — EU Residential Tenancy Mandatory Notice Periods",
-      "statute": "Various EU Member State laws (BGB §573 Germany; Residential Tenancies Act 2004 Ireland)",
+      "topic": "Europe \u2014 EU Residential Tenancy Mandatory Notice Periods",
+      "statute": "Various EU Member State laws (BGB \u00a7573 Germany; Residential Tenancies Act 2004 Ireland)",
       "severity": "MEDIUM",
       "rule": "EU member states impose protective minimum notice periods for residential eviction. In Germany, landlords must give 3-9 months notice depending on tenure. In Ireland, Part 4 tenancies require up to 224 days notice after 8 years. Notice periods shorter than the statutory minimum are void.",
-      "negotiation_tip": "Check the mandatory minimum notice period in your EU jurisdiction. In Germany, ensure 'Eigenbedarfskündigung' (owner-occupation eviction) requires documentary evidence of genuine need.",
+      "negotiation_tip": "Check the mandatory minimum notice period in your EU jurisdiction. In Germany, ensure 'Eigenbedarfsk\u00fcndigung' (owner-occupation eviction) requires documentary evidence of genuine need.",
       "red_flags": [
         "30 days notice to vacate",
         "immediate notice to quit",
@@ -370,10 +433,13 @@
         "waives right to statutory notice",
         "no right to statutory notice period",
         "terminates with less than statutory notice"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "North America — US Commercial Lease Percentage Rent Trap",
+      "topic": "North America \u2014 US Commercial Lease Percentage Rent Trap",
       "statute": "UCC Article 2 & State-specific Commercial Tenancy Law",
       "severity": "MEDIUM",
       "rule": "US retail leases commonly include a 'percentage rent' clause requiring the tenant to pay a percentage of gross sales over a 'natural breakpoint' as additional rent. Predatory versions set an artificially low breakpoint or compute gross sales to include non-revenue items.",
@@ -388,10 +454,13 @@
         "percentage of gross revenue",
         "additional rent based on sales",
         "gross receipts rent"
+      ],
+      "jurisdiction": [
+        "US"
       ]
     },
     {
-      "topic": "North America — US Triple Net (NNN) Lease Hidden Costs",
+      "topic": "North America \u2014 US Triple Net (NNN) Lease Hidden Costs",
       "statute": "State commercial tenancy law (US, varies by state)",
       "severity": "MEDIUM",
       "rule": "In a triple net lease, predatory versions include capital expenditure items (roof replacement, HVAC systems) in the tenant's maintenance obligations, effectively making the tenant fund major improvements to the landlord's property.",
@@ -407,10 +476,13 @@
         "roof and structure at tenant's cost",
         "capital expenditure at tenant's expense",
         "hvac replacement"
+      ],
+      "jurisdiction": [
+        "US"
       ]
     },
     {
-      "topic": "Asia — Singapore / Hong Kong Stamp Duty Non-Compliance Risk",
+      "topic": "Asia \u2014 Singapore / Hong Kong Stamp Duty Non-Compliance Risk",
       "statute": "Stamp Duties Act (Singapore) & Stamp Duty Ordinance (Hong Kong)",
       "severity": "MEDIUM",
       "rule": "Leases in Singapore and Hong Kong must be stamped within prescribed deadlines (14 days in Singapore; 30 days in Hong Kong). An unstamped lease is inadmissible as evidence in court. Landlords sometimes use stamping delays to trap tenants in undocumented occupancies.",
@@ -424,10 +496,13 @@
         "no obligation to stamp",
         "unstamped agreement",
         "parties agree not to stamp"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Middle East — UAE/GCC Cheque Security Traps",
+      "topic": "Middle East \u2014 UAE/GCC Cheque Security Traps",
       "statute": "UAE Federal Law No. 18 of 1993 (Commercial Transactions) & Bounced Cheques Law",
       "severity": "HIGH",
       "rule": "In the UAE and across much of the GCC, landlords demand post-dated cheques for the full lease term at signing. A bounced cheque in the UAE is a criminal offence, meaning a tenant facing financial difficulty can face criminal prosecution rather than civil eviction. Demanding multiple post-dated cheques as a condition of a tenancy traps tenants in an extreme risk position.",
@@ -441,10 +516,13 @@
         "cheques for full year upfront",
         "landlord holds all cheques",
         "cheques as security deposit"
+      ],
+      "jurisdiction": [
+        "UAE_GULF"
       ]
     },
     {
-      "topic": "India — Commercial Lease Lock-In Period / Rent Escalation",
+      "topic": "India \u2014 Commercial Lease Lock-In Period / Rent Escalation",
       "statute": "Transfer of Property Act 1882 (India) & Rent Control Acts (State-specific)",
       "severity": "MEDIUM",
       "rule": "Indian commercial leases commonly include a 3-5 year lock-in period during which neither party can terminate, and a 15% rent escalation every 3 years ('rent escalation clause'). For SMBs, the lock-in can become ruinous if the business fails to scale as planned, while the 15% triennial escalation compounds significantly over a 9-15 year lease.",
@@ -459,6 +537,9 @@
         "rent revision at 15%",
         "lock-in penalty is remaining term rent",
         "cannot terminate before lock-in expires"
+      ],
+      "jurisdiction": [
+        "IN"
       ]
     }
   ],
@@ -467,7 +548,7 @@
       "topic": "Penalty Clauses",
       "statute": "Nigerian Contract Law (Common Law principles applied by Nigerian courts)",
       "severity": "HIGH",
-      "rule": "A clause is a void penalty if it imposes a payment on breach disproportionate to the innocent party's loss. Only 'Liquidated Damages' — a genuine pre-estimate of loss — are enforceable. Nigerian courts consistently strike down punitive penalties.",
+      "rule": "A clause is a void penalty if it imposes a payment on breach disproportionate to the innocent party's loss. Only 'Liquidated Damages' \u2014 a genuine pre-estimate of loss \u2014 are enforceable. Nigerian courts consistently strike down punitive penalties.",
       "negotiation_tip": "Replace 'penalty' with 'Liquidated Damages' language. Both parties should agree on a reasonable daily rate tied to actual project costs, not a punitive multiplier.",
       "red_flags": [
         "penalty",
@@ -482,6 +563,9 @@
         "penalty sum",
         "penalty interest",
         "punitive damages"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -489,7 +573,7 @@
       "statute": "Companies and Allied Matters Act (CAMA) 2020, Section 301",
       "severity": "HIGH",
       "rule": "Any provision exempting a company director from liability for negligence or breach of duty is void. A one-sided indemnity that only protects the stronger party exposes the weaker party to unlimited risk and is contrary to natural justice principles applied by Nigerian courts.",
-      "negotiation_tip": "Demand mutual indemnity clauses. Any waiver of rights for 'supplier negligence' or 'landlord negligence' must be removed — this is a void provision under CAMA 2020 principles.",
+      "negotiation_tip": "Demand mutual indemnity clauses. Any waiver of rights for 'supplier negligence' or 'landlord negligence' must be removed \u2014 this is a void provision under CAMA 2020 principles.",
       "red_flags": [
         "landlord negligence",
         "waives all rights to claim damages",
@@ -499,6 +583,9 @@
         "tenant bears all risk",
         "distributor indemnifies",
         "supplier shall have no liability"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -518,6 +605,9 @@
         "work made for hire",
         "client owns all rights",
         "company owns all output"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -535,6 +625,9 @@
         "cannot be cancelled",
         "binding and irrevocable",
         "may terminate at any time without liability"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -554,6 +647,9 @@
         "lcia london",
         "courts of new york",
         "laws of the state of delaware"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -561,7 +657,7 @@
       "statute": "Nigerian Contract Law & Restraint of Trade Doctrine",
       "severity": "MEDIUM",
       "rule": "An overly broad non-compete clause is unenforceable in Nigeria if it is unreasonable as to geographic scope, time duration, or the activity restricted. Nigerian courts will not enforce restraints that effectively prevent a person from earning a living.",
-      "negotiation_tip": "Non-compete clauses should be limited to 6-12 months, within a defined geographic radius, and restricted to only directly competing businesses — not entire industries.",
+      "negotiation_tip": "Non-compete clauses should be limited to 6-12 months, within a defined geographic radius, and restricted to only directly competing businesses \u2014 not entire industries.",
       "red_flags": [
         "non-compete",
         "shall not engage in any business",
@@ -572,6 +668,9 @@
         "non-competition agreement",
         "worldwide non-compete",
         "industry-wide restriction"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -593,6 +692,9 @@
         "failure to meet the minimum",
         "volume commitment",
         "purchase target"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -615,6 +717,9 @@
         "hold goods on trust",
         "romalpa clause",
         "title reserved"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -636,6 +741,9 @@
         "continued ordering shall be deemed",
         "unless written notice is given to the contrary",
         "tacit renewal"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -657,13 +765,16 @@
         "adjust its prices without prior consent",
         "price increase shall take effect",
         "subject to price revision"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
       "topic": "Non-Exclusive Appointment / Unlimited Competing Distributors",
       "statute": "Nigerian Contract Law & Restraint of Trade Doctrine",
       "severity": "MEDIUM",
-      "rule": "A distribution agreement granting the supplier unlimited rights to appoint additional distributors in the same territory — without compensation, right of first refusal, or territorial protection — renders the distributorship commercially valueless and may be unconscionable where the distributor has invested significantly in market development.",
+      "rule": "A distribution agreement granting the supplier unlimited rights to appoint additional distributors in the same territory \u2014 without compensation, right of first refusal, or territorial protection \u2014 renders the distributorship commercially valueless and may be unconscionable where the distributor has invested significantly in market development.",
       "negotiation_tip": "Negotiate defined territorial exclusivity, or a right of first refusal before new distributors are appointed, plus compensation for lost market share if the territory is split. At minimum, cap the number of competing distributors the supplier can appoint in your territory.",
       "red_flags": [
         "non-exclusive appointment",
@@ -677,6 +788,9 @@
         "further appointments at its discretion",
         "no exclusive territory",
         "appoint competing distributors"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -696,13 +810,16 @@
         "distributor shall not withhold payment due to delivery delay",
         "failure to deliver shall not entitle",
         "payment shall not be conditional on delivery"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
       "topic": "Unilateral Set-Off Rights",
       "statute": "Nigerian Contract Law & Equity",
       "severity": "MEDIUM",
-      "rule": "A clause granting one party the unilateral right to set off any amount it claims is owed — against payments otherwise due to the other party, without notice, without agreement, and before the underlying claim is proved — is an unfair term. Nigerian courts require set-off rights to be mutual, disclosed, and limited to liquidated (ascertained) debts.",
+      "rule": "A clause granting one party the unilateral right to set off any amount it claims is owed \u2014 against payments otherwise due to the other party, without notice, without agreement, and before the underlying claim is proved \u2014 is an unfair term. Nigerian courts require set-off rights to be mutual, disclosed, and limited to liquidated (ascertained) debts.",
       "negotiation_tip": "Remove unilateral set-off rights or replace with: 'Neither party may exercise set-off without 14 days prior written notice specifying the amounts and basis of the set-off, and only in respect of undisputed, liquidated debts.' Ensure set-off rights are mutual.",
       "red_flags": [
         "right to set off",
@@ -715,13 +832,16 @@
         "unilateral right to deduct",
         "offset against monies due",
         "deduct from amounts payable to the distributor"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
       "topic": "Uncapped / One-Sided Indemnity",
       "statute": "CAMA 2020 & Nigerian Contract Law",
       "severity": "HIGH",
-      "rule": "An indemnity clause that is unlimited in scope — covering all losses, liabilities, costs, and third-party claims without any financial cap — creates potentially ruinous exposure for a Nigerian SMB, particularly where the indemnity is one-directional.",
+      "rule": "An indemnity clause that is unlimited in scope \u2014 covering all losses, liabilities, costs, and third-party claims without any financial cap \u2014 creates potentially ruinous exposure for a Nigerian SMB, particularly where the indemnity is one-directional.",
       "negotiation_tip": "Cap all indemnity obligations at the total contract value or the sum of fees paid in the preceding 12 months. Exclude consequential losses, loss of profit, and indirect damages. Ensure the indemnity is mutual.",
       "red_flags": [
         "indemnify and hold harmless",
@@ -736,6 +856,9 @@
         "uncapped liability",
         "without limit",
         "defend and indemnify"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -759,6 +882,9 @@
         "interest at 5%",
         "monthly interest charge",
         "daily interest rate"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -780,6 +906,9 @@
         "rollover clause",
         "perpetual renewal",
         "auto-renews annually"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -800,6 +929,9 @@
         "at its sole discretion amend",
         "terms may be updated unilaterally",
         "right to revise this agreement"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -820,6 +952,9 @@
         "force majeure at supplier's determination",
         "economic conditions",
         "change in market price"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -841,13 +976,16 @@
         "deemed correct unless objected to within",
         "no audit rights",
         "records not available for inspection"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
       "topic": "Exclusion of Consequential Loss (One-Sided)",
       "statute": "Nigerian Contract Law & Hadley v Baxendale Principles",
       "severity": "MEDIUM",
-      "rule": "While consequential loss exclusions are common in commercial contracts, a clause that excludes consequential losses for the supplier only — while leaving the distributor/buyer fully exposed — is an unfair and unenforceable asymmetric term.",
+      "rule": "While consequential loss exclusions are common in commercial contracts, a clause that excludes consequential losses for the supplier only \u2014 while leaving the distributor/buyer fully exposed \u2014 is an unfair and unenforceable asymmetric term.",
       "negotiation_tip": "Accept a mutual consequential loss exclusion. Reject any one-sided version. If you are the buyer/distributor, ensure lost profits arising from supply failure are either recoverable or hedged via a capped direct damages floor.",
       "red_flags": [
         "supplier excludes all consequential loss",
@@ -859,6 +997,9 @@
         "supplier shall not be liable for any loss of revenue",
         "indirect loss excluded",
         "special damages excluded"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -878,6 +1019,9 @@
         "prepayment with no refund obligation",
         "full payment before work begins",
         "pay in full before commencement"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -896,13 +1040,16 @@
         "no representations made outside this agreement",
         "prior discussions have no legal effect",
         "supersedes all prior negotiations"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
       "topic": "Assignment Without Consent",
       "statute": "Nigerian Contract Law & CAMA 2020",
       "severity": "MEDIUM",
-      "rule": "A clause permitting one party to assign its rights or obligations to a third party without the other party's consent allows material changes in counterparty — including assignment to a less creditworthy or hostile entity — without recourse.",
+      "rule": "A clause permitting one party to assign its rights or obligations to a third party without the other party's consent allows material changes in counterparty \u2014 including assignment to a less creditworthy or hostile entity \u2014 without recourse.",
       "negotiation_tip": "Ensure the contract requires written consent from both parties before any assignment. Add a clause that any assignment to a competitor requires your specific written approval.",
       "red_flags": [
         "may assign this agreement without consent",
@@ -915,6 +1062,9 @@
         "transfer obligations without consent",
         "assignment at sole discretion",
         "freely assignable"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -934,10 +1084,13 @@
         "supplier may disclose to investors",
         "data shared without restriction",
         "information may be shared with group companies"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Liquidated Damages Set Too High — Disguised Penalty",
+      "topic": "Liquidated Damages Set Too High \u2014 Disguised Penalty",
       "statute": "Nigerian Contract Law & Dunlop Pneumatic Tyre Co v New Garage [1915] AC 79",
       "severity": "HIGH",
       "rule": "Even where a clause is labeled 'Liquidated Damages,' it is void as a penalty if the amount is extravagant and unconscionable compared to the greatest loss conceivably resulting from the breach. Nigerian courts apply the Dunlop test and will strike down disguised penalties regardless of the label used.",
@@ -954,6 +1107,9 @@
         "not a penalty but liquidated damages",
         "agreed damages of",
         "pre-agreed sum of"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -974,13 +1130,16 @@
         "prohibited from sourcing elsewhere",
         "mandatory sourcing requirement",
         "approved vendor list mandatory"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Franchise Agreement — Fee Stacking and Royalty Abuse",
+      "topic": "Franchise Agreement \u2014 Fee Stacking and Royalty Abuse",
       "statute": "FCCPA 2018 & Nigerian Contract Law",
       "severity": "HIGH",
-      "rule": "Franchise agreements commonly stack multiple recurring fees — initial franchise fee, royalty, marketing fund contribution, technology fee, training fee, renewal fee — that in aggregate can consume 25-40% of gross revenue. Nigerian SMBs frequently underestimate total cost of ownership because fees are disclosed individually rather than in aggregate.",
+      "rule": "Franchise agreements commonly stack multiple recurring fees \u2014 initial franchise fee, royalty, marketing fund contribution, technology fee, training fee, renewal fee \u2014 that in aggregate can consume 25-40% of gross revenue. Nigerian SMBs frequently underestimate total cost of ownership because fees are disclosed individually rather than in aggregate.",
       "negotiation_tip": "Request a complete fee schedule showing all fees as a percentage of gross revenue and in naira terms at current exchange rates. Model total fees against projected revenue at 50%, 75%, and 100% of target. Negotiate a grace period during which royalties are reduced while the business is in startup phase.",
       "red_flags": [
         "royalty of 8%",
@@ -997,10 +1156,13 @@
         "audit fee payable by franchisee",
         "brand development fund",
         "system fee"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Franchise Agreement — Territory Erosion",
+      "topic": "Franchise Agreement \u2014 Territory Erosion",
       "statute": "Nigerian Contract Law & FCCPA 2018",
       "severity": "HIGH",
       "rule": "Franchise agreements frequently grant a defined territory but reserve the franchisor's right to operate competing outlets through digital channels, alternative formats, or 'test' stores within the same territory. This effectively nullifies territorial protection without triggering any compensation obligation.",
@@ -1016,13 +1178,16 @@
         "no protection for online orders",
         "e-commerce excluded from exclusive territory",
         "ghost kitchen excluded"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Advance Fee Fraud — Contract Activation Fee",
+      "topic": "Advance Fee Fraud \u2014 Contract Activation Fee",
       "statute": "FCCPA 2018 & Advance Fee Fraud and Other Related Offences Act 2006 (Nigeria)",
       "severity": "HIGH",
-      "rule": "A contract requiring payment of an 'activation fee,' 'registration fee,' 'legal documentation fee,' or 'facilitation fee' before any service is rendered — particularly where the payer has no prior relationship with the payee — is a common structure for advance fee fraud in Nigeria. Legitimate contracts do not require upfront fees to 'unlock' service delivery.",
+      "rule": "A contract requiring payment of an 'activation fee,' 'registration fee,' 'legal documentation fee,' or 'facilitation fee' before any service is rendered \u2014 particularly where the payer has no prior relationship with the payee \u2014 is a common structure for advance fee fraud in Nigeria. Legitimate contracts do not require upfront fees to 'unlock' service delivery.",
       "negotiation_tip": "Never pay any fee described as an 'activation fee,' 'contract release fee,' 'tax clearance fee,' 'CBN approval fee,' or 'processing fee' to receive a payment or contract award. Report such demands to the EFCC and FCCPC immediately.",
       "red_flags": [
         "activation fee",
@@ -1039,13 +1204,16 @@
         "administrative fee before contract commencement",
         "fee before disbursement",
         "processing charge"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Agency Agreement — Del Credere / Liability for Customer Default",
+      "topic": "Agency Agreement \u2014 Del Credere / Liability for Customer Default",
       "statute": "Nigerian Contract Law & Commercial Agency Practice",
       "severity": "HIGH",
-      "rule": "A del credere clause holds the agent personally liable if the customer introduced by the agent fails to pay. This turns the agent into a guarantor of customer creditworthiness — an extraordinary and high-risk obligation that is rarely disclosed clearly in agency contracts.",
+      "rule": "A del credere clause holds the agent personally liable if the customer introduced by the agent fails to pay. This turns the agent into a guarantor of customer creditworthiness \u2014 an extraordinary and high-risk obligation that is rarely disclosed clearly in agency contracts.",
       "negotiation_tip": "Refuse all del credere obligations. If unavoidable, ensure it is: (a) limited to a percentage of the outstanding amount only, (b) capped at the commission earned on that transaction, and (c) triggered only after the principal has exhausted all recovery efforts.",
       "red_flags": [
         "del credere",
@@ -1057,10 +1225,13 @@
         "agent warrants customer creditworthiness",
         "agent's commission set off against bad debts",
         "agent liable for non-payment by customer"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Joint Venture — Deadlock and Forced Buy-Out Trap",
+      "topic": "Joint Venture \u2014 Deadlock and Forced Buy-Out Trap",
       "statute": "CAMA 2020 & Nigerian Contract Law",
       "severity": "HIGH",
       "rule": "Joint venture agreements without a mechanism for resolving management deadlock can leave both parties unable to operate the business. A 'shotgun clause' (Russian roulette) where either party can name a price and the other must buy or sell at that price systematically favours the more cash-rich party.",
@@ -1077,10 +1248,13 @@
         "either party may require purchase",
         "deadlock resolution by offer and acceptance",
         "shoot-out clause"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Construction Contract — Unfair Variation Order Regime",
+      "topic": "Construction Contract \u2014 Unfair Variation Order Regime",
       "statute": "Nigerian Construction Industry Practice & Common Law",
       "severity": "HIGH",
       "rule": "Construction contracts commonly give the employer or engineer the right to issue variation orders increasing or decreasing scope, with payment governed by rates the employer determines unilaterally. Clauses that cap the contractor's entitlement to additional payment, deny time extensions for employer-ordered variations, or require the contractor to absorb all cost overruns through a fixed-price clause are predatory.",
@@ -1096,13 +1270,16 @@
         "all variations deemed included",
         "no claim for variations after signing",
         "scope changes at client's discretion"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Construction Contract — Pay-When-Paid / Pay-If-Paid",
+      "topic": "Construction Contract \u2014 Pay-When-Paid / Pay-If-Paid",
       "statute": "Nigerian Contract Law & Common Law",
       "severity": "HIGH",
-      "rule": "A 'pay-when-paid' clause makes a subcontractor's entitlement to payment conditional on the main contractor receiving payment from the employer. A 'pay-if-paid' clause goes further — if the employer never pays, the subcontractor never receives payment regardless of completed work. These clauses create severe cash flow risk for Nigerian construction SMBs.",
+      "rule": "A 'pay-when-paid' clause makes a subcontractor's entitlement to payment conditional on the main contractor receiving payment from the employer. A 'pay-if-paid' clause goes further \u2014 if the employer never pays, the subcontractor never receives payment regardless of completed work. These clauses create severe cash flow risk for Nigerian construction SMBs.",
       "negotiation_tip": "Reject pay-if-paid clauses entirely. For pay-when-paid clauses, negotiate a maximum payment delay (e.g., 60 days after main contractor submits invoice) with a 30-day backstop regardless of upstream payment.",
       "red_flags": [
         "pay when paid",
@@ -1114,13 +1291,16 @@
         "conditional payment",
         "payment dependent on upstream receipt",
         "back-to-back payment"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Debt Collection — Harassment and Third-Party Contact",
+      "topic": "Debt Collection \u2014 Harassment and Third-Party Contact",
       "statute": "Nigeria Data Protection Act 2023 & FCCPA 2018",
       "severity": "HIGH",
-      "rule": "Loan and credit agreements that authorize the lender to contact the borrower's employer, family members, or community on default — or that consent to publication of the borrower's details — constitute unlawful data processing and harassment under the Nigeria Data Protection Act 2023 and CBN's consumer protection framework.",
+      "rule": "Loan and credit agreements that authorize the lender to contact the borrower's employer, family members, or community on default \u2014 or that consent to publication of the borrower's details \u2014 constitute unlawful data processing and harassment under the Nigeria Data Protection Act 2023 and CBN's consumer protection framework.",
       "negotiation_tip": "Strike out any clause authorizing third-party contact or public disclosure of your default. Your credit information may only be shared with licensed credit bureaux under the Credit Reporting Act 2017. File a complaint with NITDA for data protection violations.",
       "red_flags": [
         "may contact your employer",
@@ -1134,10 +1314,13 @@
         "publicize your default",
         "contact family members",
         "share details with guarantors"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Loan Agreement — Predatory Interest and Rollover Traps",
+      "topic": "Loan Agreement \u2014 Predatory Interest and Rollover Traps",
       "statute": "Money Lenders Act Cap M18 LFN 2004 & CBN Consumer Protection Framework",
       "severity": "HIGH",
       "rule": "Loan agreements from non-bank lenders in Nigeria regularly carry interest rates of 10-30% per month, automatic rollover at additional fees if repayment is missed, and early repayment penalties that eliminate any savings from paying early. Such terms collectively amount to predatory lending prohibited under the Money Lenders Act and CBN regulations.",
@@ -1157,10 +1340,13 @@
         "charges on outstanding balance",
         "platform fee",
         "management fee on loan"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Loan Agreement — Phone Contact List and Personal Data as Security",
+      "topic": "Loan Agreement \u2014 Phone Contact List and Personal Data as Security",
       "statute": "Nigeria Data Protection Act 2023 & CBN Digital Lending Guidelines 2022",
       "severity": "HIGH",
       "rule": "Digital lending apps in Nigeria and across Africa that require access to the borrower's phone contact list as a condition of the loan, and threaten to contact those individuals on default, are engaged in unlawful data processing under the Nigeria Data Protection Act 2023. CBN guidelines issued in 2022 explicitly prohibit this practice.",
@@ -1176,13 +1362,16 @@
         "contact access as collateral",
         "access to sms required",
         "gallery access required for loan"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Supply Agreement — Reverse Most Favoured Nation (MFN) Clause",
+      "topic": "Supply Agreement \u2014 Reverse Most Favoured Nation (MFN) Clause",
       "statute": "FCCPA 2018 & Nigerian Contract Law",
       "severity": "MEDIUM",
-      "rule": "An MFN clause requiring the buyer or distributor to guarantee the supplier will always be their lowest-cost source — or requiring the buyer to match any competing supplier's lower price — effectively prevents the buyer from benefiting from market competition. This is the opposite of a legitimate buyer-protective MFN.",
+      "rule": "An MFN clause requiring the buyer or distributor to guarantee the supplier will always be their lowest-cost source \u2014 or requiring the buyer to match any competing supplier's lower price \u2014 effectively prevents the buyer from benefiting from market competition. This is the opposite of a legitimate buyer-protective MFN.",
       "negotiation_tip": "Check which direction the MFN runs. A legitimate MFN benefits the buyer. A reverse MFN benefits the supplier. Reject any reverse-MFN clause that prevents you from sourcing cheaper alternatives.",
       "red_flags": [
         "most favoured nation",
@@ -1195,10 +1384,13 @@
         "shall not purchase at a lower price elsewhere",
         "supplier's mfn rights",
         "favoured supplier obligation"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "SaaS / Technology Contract — Unilateral Feature Removal",
+      "topic": "SaaS / Technology Contract \u2014 Unilateral Feature Removal",
       "statute": "Nigerian Contract Law & FCCPA 2018",
       "severity": "MEDIUM",
       "rule": "SaaS and technology contracts increasingly contain clauses allowing the provider to remove, modify, or deprecate features during the subscription term without compensation or notice. For SMBs dependent on specific functionality, this creates serious operational and financial risk.",
@@ -1214,10 +1406,13 @@
         "product roadmap not guaranteed",
         "features provided as-is",
         "service level not guaranteed"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "SaaS / Technology Contract — Data Portability and Lock-In",
+      "topic": "SaaS / Technology Contract \u2014 Data Portability and Lock-In",
       "statute": "Nigeria Data Protection Act 2023 & FCCPA 2018",
       "severity": "HIGH",
       "rule": "Technology contracts that do not provide for data portability on termination, or that make data export prohibitively expensive or technically complex, effectively lock the customer into the platform. The Nigeria Data Protection Act 2023 recognizes data portability as a data subject right.",
@@ -1234,13 +1429,16 @@
         "no right to extract data",
         "data export chargeable",
         "data held hostage"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
       "topic": "Escrow and Third-Party Account Abuse",
       "statute": "Nigerian Contract Law & CBN Payment System Regulations",
       "severity": "HIGH",
-      "rule": "Contracts requiring payment into a third-party 'escrow' account controlled by the vendor, their solicitor, or an unregulated entity — rather than a regulated escrow or trust account — give the receiving party immediate access to funds with no release mechanism protecting the payer.",
+      "rule": "Contracts requiring payment into a third-party 'escrow' account controlled by the vendor, their solicitor, or an unregulated entity \u2014 rather than a regulated escrow or trust account \u2014 give the receiving party immediate access to funds with no release mechanism protecting the payer.",
       "negotiation_tip": "Never pay into an 'escrow' account that the vendor or their solicitor controls. Legitimate escrow must be held by a regulated financial institution with release triggered by objective completion milestones signed off by both parties.",
       "red_flags": [
         "pay into solicitor's account",
@@ -1253,10 +1451,13 @@
         "funds held by vendor's agent",
         "escrow release at supplier's discretion",
         "unregulated escrow"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Real Estate Purchase — Off-Plan Contract Traps",
+      "topic": "Real Estate Purchase \u2014 Off-Plan Contract Traps",
       "statute": "Land Use Act 1978 & Lagos State Real Estate Regulatory Authority (LASRERA) Act 2021",
       "severity": "HIGH",
       "rule": "Off-plan property purchase contracts in Nigeria routinely omit guaranteed completion dates, allow developers to vary unit specifications without compensation, and include clauses forfeiting the buyer's deposit if the buyer cannot complete due to the developer's own delay. LASRERA in Lagos requires all real estate agents and developers to be registered.",
@@ -1273,10 +1474,13 @@
         "deposit non-refundable if completion delayed",
         "no penalty for developer delay",
         "specifications subject to change"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Government Contract — Vague Scope and Unlimited Change Order Rights",
+      "topic": "Government Contract \u2014 Vague Scope and Unlimited Change Order Rights",
       "statute": "Public Procurement Act 2007 (Nigeria) & Bureau of Public Procurement (BPP) Regulations",
       "severity": "HIGH",
       "rule": "Government contracts in Nigeria commonly define scope of work vaguely and reserve unlimited rights for the procuring entity to vary scope without additional payment. Contractors are often pressured to absorb scope creep under threat of contract termination, in violation of the Public Procurement Act.",
@@ -1292,13 +1496,16 @@
         "contractor bears all additional costs",
         "scope subject to government's determination",
         "nil variation clause"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Government Contract — Delayed Payment / Certificate Withholding",
+      "topic": "Government Contract \u2014 Delayed Payment / Certificate Withholding",
       "statute": "Public Procurement Act 2007 & Nigerian Courts (Recovery of Debts)",
       "severity": "HIGH",
-      "rule": "Government contractors in Nigeria regularly face months or years of delayed payment after completing work. Contracts that make payment conditional on issuance of a certificate at the employer's discretion — without specifying a maximum certification period — give the government entity unchecked power to delay payment indefinitely.",
+      "rule": "Government contractors in Nigeria regularly face months or years of delayed payment after completing work. Contracts that make payment conditional on issuance of a certificate at the employer's discretion \u2014 without specifying a maximum certification period \u2014 give the government entity unchecked power to delay payment indefinitely.",
       "negotiation_tip": "Insist on automatic certification: if the engineer fails to issue a payment certificate within 14 days of application, the amount applied for is deemed certified and payable within 30 days. Include statutory interest on late government payments at CBN MPR plus 5%.",
       "red_flags": [
         "payment subject to certification",
@@ -1311,10 +1518,13 @@
         "payment subject to budget availability",
         "payment when released by treasury",
         "no interest on delayed payments"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Insurance Contract — Blanket Exclusions and Claims Denial",
+      "topic": "Insurance Contract \u2014 Blanket Exclusions and Claims Denial",
       "statute": "Insurance Act 2003 (Nigeria) & NAICOM Consumer Protection Guidelines",
       "severity": "HIGH",
       "rule": "Insurance policies in Nigeria commonly contain blanket exclusions written in small print that effectively negate the core insured risk. Common traps include: prior existing condition exclusions (health); wear and tear exclusions applied to sudden damage (property); warranty breaches voiding the entire policy; claims denial for minor non-disclosure at inception.",
@@ -1332,29 +1542,35 @@
         "claims subject to excess of",
         "policy void on non-disclosure",
         "claims may be declined at insurer's discretion"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "West Africa — OHADA Commercial Contract Protections",
+      "topic": "West Africa \u2014 OHADA Commercial Contract Protections",
       "statute": "OHADA Uniform Act on General Commercial Law (AUDCG) & OHADA Uniform Act on Contract Law",
       "severity": "HIGH",
-      "rule": "Under OHADA law (applicable in 17 West and Central African francophone states including Benin, Burkina Faso, Cameroon, Côte d'Ivoire, DRC, Gabon, Guinea, Mali, Niger, Senegal, Togo), standard-form contracts that create a significant imbalance to the detriment of the weaker party are challengeable. The OHADA arbitration centre (CCJA) provides a regional dispute mechanism superior to domestic courts in many of these states.",
+      "rule": "Under OHADA law (applicable in 17 West and Central African francophone states including Benin, Burkina Faso, Cameroon, C\u00f4te d'Ivoire, DRC, Gabon, Guinea, Mali, Niger, Senegal, Togo), standard-form contracts that create a significant imbalance to the detriment of the weaker party are challengeable. The OHADA arbitration centre (CCJA) provides a regional dispute mechanism superior to domestic courts in many of these states.",
       "negotiation_tip": "In OHADA jurisdictions, invoke the CCJA arbitration clause rather than foreign arbitration. Ensure your contract is governed by OHADA law if dealing across multiple francophone African states. Clauses requiring litigation in the stronger party's home country are practically unenforceable in OHADA states.",
       "red_flags": [
-        "droit applicable: loi française",
+        "droit applicable: loi fran\u00e7aise",
         "juridiction de paris",
         "clause d'arbitrage icc",
         "arbitrage suisse",
         "litiges soumis aux tribunaux de",
-        "droit étranger applicable",
+        "droit \u00e9tranger applicable",
         "clause compromissoire excluant la ccja",
-        "résolution des litiges à l'étranger",
+        "r\u00e9solution des litiges \u00e0 l'\u00e9tranger",
         "loi anglaise applicable",
-        "forum étranger"
+        "forum \u00e9tranger"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "West Africa — Ghana Business Contract Protections",
+      "topic": "West Africa \u2014 Ghana Business Contract Protections",
       "statute": "Ghana Contracts Act 1960 (Act 25) & Companies Act 2019 (Act 992) (Ghana)",
       "severity": "MEDIUM",
       "rule": "Ghanaian contract law requires that contracts are supported by consideration and entered freely without economic duress. Standard-form contracts imposed by the stronger party on a take-it-or-leave-it basis can be challenged for unconscionability under Ghanaian common law. Additionally, under the Companies Act 2019, foreign companies operating in Ghana must be registered with the Registrar General or their contracts may be unenforceable.",
@@ -1368,29 +1584,35 @@
         "company not registered in ghana",
         "icc arbitration in london",
         "governed by laws of cayman islands"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "West Africa — Côte d'Ivoire / Senegal Supply Contract Traps",
-      "statute": "OHADA Uniform Act on Secured Transactions & Code Civil (Côte d'Ivoire/Senegal)",
+      "topic": "West Africa \u2014 C\u00f4te d'Ivoire / Senegal Supply Contract Traps",
+      "statute": "OHADA Uniform Act on Secured Transactions & Code Civil (C\u00f4te d'Ivoire/Senegal)",
       "severity": "HIGH",
-      "rule": "In Côte d'Ivoire and Senegal, supplier contracts commonly include 'clause de réserve de propriété' (retention of title) and 'clause pénale' (penalty clause) provisions that are presumed valid but can be challenged under OHADA law if they create manifestly excessive obligations. Interest rates exceeding the BCEAO (West African Central Bank) usury threshold are also void.",
-      "negotiation_tip": "In francophone West Africa, challenge any penalty clause ('clause pénale') that is manifestly disproportionate by invoking Article 1231 of the Code Civil (as applicable). BCEAO usury rates for commercial lending are published quarterly — verify the contracted rate against the current limit.",
+      "rule": "In C\u00f4te d'Ivoire and Senegal, supplier contracts commonly include 'clause de r\u00e9serve de propri\u00e9t\u00e9' (retention of title) and 'clause p\u00e9nale' (penalty clause) provisions that are presumed valid but can be challenged under OHADA law if they create manifestly excessive obligations. Interest rates exceeding the BCEAO (West African Central Bank) usury threshold are also void.",
+      "negotiation_tip": "In francophone West Africa, challenge any penalty clause ('clause p\u00e9nale') that is manifestly disproportionate by invoking Article 1231 of the Code Civil (as applicable). BCEAO usury rates for commercial lending are published quarterly \u2014 verify the contracted rate against the current limit.",
       "red_flags": [
-        "clause pénale",
-        "réserve de propriété",
-        "taux d'intérêt supérieur",
-        "intérêts au taux de",
-        "pénalité de retard",
-        "indemnité forfaitaire",
-        "clause résolutoire de plein droit",
-        "résiliation de plein droit",
+        "clause p\u00e9nale",
+        "r\u00e9serve de propri\u00e9t\u00e9",
+        "taux d'int\u00e9r\u00eat sup\u00e9rieur",
+        "int\u00e9r\u00eats au taux de",
+        "p\u00e9nalit\u00e9 de retard",
+        "indemnit\u00e9 forfaitaire",
+        "clause r\u00e9solutoire de plein droit",
+        "r\u00e9siliation de plein droit",
         "taux usuraire",
-        "intérêts capitalisés"
+        "int\u00e9r\u00eats capitalis\u00e9s"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "East Africa — Kenya Supply and Distribution Agreement Traps",
+      "topic": "East Africa \u2014 Kenya Supply and Distribution Agreement Traps",
       "statute": "Kenya Law of Contract Act Cap 23 & Competition Act 12 of 2010 (Kenya)",
       "severity": "HIGH",
       "rule": "Kenyan courts have applied common law doctrines to strike down unconscionable contract terms, particularly in distribution agreements. Under Kenya's Competition Act, exclusive dealing and tied selling arrangements that substantially lessen competition are prohibited. The Competition Authority of Kenya (CAK) actively investigates anti-competitive supply agreements.",
@@ -1405,10 +1627,13 @@
         "governing law not kenyan",
         "no right to approach cak",
         "exclusive dealing in kenyan market"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "East Africa — Tanzania and Uganda Contract Enforcement Gaps",
+      "topic": "East Africa \u2014 Tanzania and Uganda Contract Enforcement Gaps",
       "statute": "Tanzania Law of Contract Act Cap 345 & Uganda Contract Act 2010",
       "severity": "MEDIUM",
       "rule": "In Tanzania and Uganda, standard-form contracts prepared by multinational suppliers often specify arbitration in jurisdictions with no nexus to the transaction (e.g., London, Singapore), which are prohibitively expensive for local SMBs to access. Both countries have domestic arbitration centres (Dar es Salaam International Arbitration Centre; CADER in Uganda) that are significantly more accessible.",
@@ -1423,10 +1648,13 @@
         "icc arbitration seat london",
         "swiss arbitration",
         "cost of arbitration borne by claimant only"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "East Africa — Mobile Money Agency Banking Traps (Kenya/Tanzania)",
+      "topic": "East Africa \u2014 Mobile Money Agency Banking Traps (Kenya/Tanzania)",
       "statute": "Kenya Banking Act & CBK Mobile Payments Guidelines; Bank of Tanzania Mobile Payment Regulations",
       "severity": "HIGH",
       "rule": "Mobile money agency agreements in East Africa commonly impose strict float management requirements, transaction liability on the agent for fraudulent transactions processed through the agent's terminal (even without agent negligence), and termination without compensation for float balance or processing fees.",
@@ -1442,13 +1670,16 @@
         "agency may be terminated immediately",
         "all losses at agent's account",
         "float forfeited on termination"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Southern Africa — South Africa B-BBEE Fronting Risk",
+      "topic": "Southern Africa \u2014 South Africa B-BBEE Fronting Risk",
       "statute": "Broad-Based Black Economic Empowerment Act 53 of 2003 & B-BBEE Amendment Act 46 of 2013 (South Africa)",
       "severity": "HIGH",
-      "rule": "In South Africa, B-BBEE fronting — where a contract or company structure creates the appearance of black ownership or control without genuine economic substance — is a criminal offence. Businesses that enter contracts structured as fronting arrangements face penalties including contract cancellation, blacklisting, and criminal prosecution.",
+      "rule": "In South Africa, B-BBEE fronting \u2014 where a contract or company structure creates the appearance of black ownership or control without genuine economic substance \u2014 is a criminal offence. Businesses that enter contracts structured as fronting arrangements face penalties including contract cancellation, blacklisting, and criminal prosecution.",
       "negotiation_tip": "Before entering any B-BBEE structured partnership or supply agreement, obtain independent verification that the ownership structure reflects genuine economic participation. Do not sign any agreement where your role appears to be providing a BEE certificate without real decision-making authority or economic benefit.",
       "red_flags": [
         "black shareholder in name only",
@@ -1462,10 +1693,13 @@
         "bbbee ownership structure unclear",
         "silent partner for compliance purposes",
         "bbbee window dressing"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Southern Africa — Zimbabwe and Zambia FX Control Risk in Contracts",
+      "topic": "Southern Africa \u2014 Zimbabwe and Zambia FX Control Risk in Contracts",
       "statute": "Zimbabwe Gold Currency Act 2023 & Zambia Bank of Zambia Act",
       "severity": "HIGH",
       "rule": "In Zimbabwe, contracts denominated in foreign currencies must comply with legal tender legislation, which has shifted between ZWL, USD, and the gold-backed ZiG currency since 2019. In Zambia, foreign currency payments are subject to Bank of Zambia approval. Contracts that require payment in foreign currency without regulatory approval may be unenforceable or create exchange control violations.",
@@ -1481,27 +1715,33 @@
         "hard currency only",
         "usd-denominated in zambia",
         "no local currency option"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "North Africa — Egypt and Morocco Commercial Contract Traps",
+      "topic": "North Africa \u2014 Egypt and Morocco Commercial Contract Traps",
       "statute": "Egyptian Civil Code (Law 131 of 1948) & Moroccan Code des Obligations et Contrats (DOC)",
       "severity": "MEDIUM",
-      "rule": "In Egypt, the Civil Code allows courts to reduce contractually agreed compensation ('stipulation pénale' / 'شرط الجزاء') if it is disproportionate to actual loss. In Morocco, the Code des Obligations et Contrats similarly allows reduction of excessive penalty clauses. Both jurisdictions recognize duress and unconscionability as grounds for contract avoidance.",
+      "rule": "In Egypt, the Civil Code allows courts to reduce contractually agreed compensation ('stipulation p\u00e9nale' / '\u0634\u0631\u0637 \u0627\u0644\u062c\u0632\u0627\u0621') if it is disproportionate to actual loss. In Morocco, the Code des Obligations et Contrats similarly allows reduction of excessive penalty clauses. Both jurisdictions recognize duress and unconscionability as grounds for contract avoidance.",
       "negotiation_tip": "In Egypt, invoke Article 224 of the Civil Code to request judicial reduction of excessive penalty clauses. In Morocco, challenge excessive penalties under Article 264 of the DOC. Both jurisdictions favour local arbitration over foreign arbitration for domestic commercial disputes.",
       "red_flags": [
-        "شرط الجزاء",
-        "pénalité contractuelle au maroc",
-        "clause pénale égypte",
-        "arbitrage étranger au maroc",
+        "\u0634\u0631\u0637 \u0627\u0644\u062c\u0632\u0627\u0621",
+        "p\u00e9nalit\u00e9 contractuelle au maroc",
+        "clause p\u00e9nale \u00e9gypte",
+        "arbitrage \u00e9tranger au maroc",
         "egyptian disputes in london",
         "governed by foreign law in egypt",
         "excessive liquidated damages egypt",
         "moroccan disputes in paris"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Europe — GDPR Data Processing Agreement Pitfalls",
+      "topic": "Europe \u2014 GDPR Data Processing Agreement Pitfalls",
       "statute": "EU General Data Protection Regulation (GDPR) 2016/679 & UK GDPR (retained EU law)",
       "severity": "HIGH",
       "rule": "Under GDPR, any contract involving the processing of EU/UK personal data must include a compliant Data Processing Agreement (DPA). A contract that gives the data processor unlimited rights to use, sub-process, or retain personal data, or fails to specify data retention limits, breach notification timelines, or deletion obligations, exposes the data controller to fines of up to 4% of global annual turnover.",
@@ -1518,32 +1758,38 @@
         "no dpa required",
         "data processing governed by provider's policy",
         "data shared with group companies without restriction"
+      ],
+      "jurisdiction": [
+        "UK"
       ]
     },
     {
-      "topic": "Europe — UK Unfair Contract Terms in Business Contracts",
+      "topic": "Europe \u2014 UK Unfair Contract Terms in Business Contracts",
       "statute": "Unfair Contract Terms Act 1977 (UK) & Consumer Rights Act 2015",
       "severity": "MEDIUM",
       "rule": "In UK business-to-business contracts, exemption clauses (excluding liability for negligence, breach of contract, or misrepresentation) must satisfy a 'reasonableness test' under the Unfair Contract Terms Act 1977. In consumer contracts, unfair terms under the Consumer Rights Act 2015 are automatically void. Entire agreement clauses cannot exclude liability for fraudulent misrepresentation.",
-      "negotiation_tip": "In UK contracts, challenge any liability exclusion that fails the reasonableness test — particularly those excluding liability for personal injury or death caused by negligence (always void), or those imposing asymmetric limitations (the stronger party limits liability to £1,000 while the weaker party bears unlimited exposure).",
+      "negotiation_tip": "In UK contracts, challenge any liability exclusion that fails the reasonableness test \u2014 particularly those excluding liability for personal injury or death caused by negligence (always void), or those imposing asymmetric limitations (the stronger party limits liability to \u00a31,000 while the weaker party bears unlimited exposure).",
       "red_flags": [
         "liability excluded to the fullest extent permitted by law",
         "no liability for negligence",
-        "entire liability limited to £1",
+        "entire liability limited to \u00a31",
         "liability capped at fees paid in last 30 days",
         "no liability for personal injury",
         "excludes all implied terms",
         "reasonable time excluded",
         "liability excluded for all losses",
         "our liability shall not exceed"
+      ],
+      "jurisdiction": [
+        "UK"
       ]
     },
     {
-      "topic": "Europe — Anti-Assignment of Receivables (UK/EU)",
+      "topic": "Europe \u2014 Anti-Assignment of Receivables (UK/EU)",
       "statute": "Business Contract Terms (Assignment of Receivables) Regulations 2018 (UK) & EU Late Payment Directive 2011/7/EU",
       "severity": "MEDIUM",
       "rule": "Clauses prohibiting assignment of receivables prevent SMBs from using invoice financing, factoring, or receivables discounting to access working capital. In the UK, such clauses in B2B contracts are void under the 2018 Regulations. EU late payment law requires payment within 60 days (30 days for public authorities) in B2B contracts.",
-      "negotiation_tip": "In UK contracts, clauses prohibiting assignment of receivables are void — you retain the right to factor or discount invoices regardless. In EU contracts, challenge payment terms exceeding 60 days as contrary to the Late Payment Directive.",
+      "negotiation_tip": "In UK contracts, clauses prohibiting assignment of receivables are void \u2014 you retain the right to factor or discount invoices regardless. In EU contracts, challenge payment terms exceeding 60 days as contrary to the Late Payment Directive.",
       "red_flags": [
         "no assignment of receivables",
         "invoices may not be assigned",
@@ -1554,10 +1800,13 @@
         "receivables held exclusively by contracting party",
         "payment rights not transferable",
         "no factoring of invoices"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Europe — EU Posted Workers and Secondment Traps",
+      "topic": "Europe \u2014 EU Posted Workers and Secondment Traps",
       "statute": "EU Posted Workers Directive 2018/957/EU & Enforcement Directive 2014/67/EU",
       "severity": "MEDIUM",
       "rule": "Under the EU Posted Workers Directive, workers posted to another EU member state are entitled to the host country's core employment terms (minimum wage, working time limits, health and safety) regardless of which country's law governs the employment contract. Employers posting workers at home-country wages below the host country minimum are in breach.",
@@ -1571,10 +1820,13 @@
         "posting subject to home country salary only",
         "secondee bears all additional tax costs",
         "local labour law excluded during posting"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "North America — US Commercial Contract — At-Will Termination Trap",
+      "topic": "North America \u2014 US Commercial Contract \u2014 At-Will Termination Trap",
       "statute": "UCC Article 2 & State Contract Law (US, varies by state)",
       "severity": "MEDIUM",
       "rule": "US commercial contracts often include 'termination for convenience' rights that allow the stronger party to terminate with minimal notice and no compensation beyond payment for work completed to date. In the context of long-term supply or distribution agreements, this effectively gives the supplier the right to terminate a successful distributor once the market has been established, retaining all market development benefits.",
@@ -1589,10 +1841,13 @@
         "termination payment solely for work completed",
         "no liability on convenience termination",
         "may terminate at any time with 30 days notice"
+      ],
+      "jurisdiction": [
+        "US"
       ]
     },
     {
-      "topic": "North America — US Mandatory Arbitration and Class Action Waiver",
+      "topic": "North America \u2014 US Mandatory Arbitration and Class Action Waiver",
       "statute": "Federal Arbitration Act (US) & State Consumer Protection Laws",
       "severity": "HIGH",
       "rule": "US commercial and consumer contracts routinely include mandatory arbitration clauses that eliminate the right to jury trial and class action lawsuits. While generally enforceable under the Federal Arbitration Act, these clauses have been restricted for sexual harassment and assault claims (2022 federal law), and are prohibited in certain state consumer contracts (California, New Jersey).",
@@ -1608,10 +1863,13 @@
         "binding arbitration clause",
         "waiver of class action rights",
         "no right to court proceedings"
+      ],
+      "jurisdiction": [
+        "US"
       ]
     },
     {
-      "topic": "North America — US and Canada Franchise Disclosure Violations",
+      "topic": "North America \u2014 US and Canada Franchise Disclosure Violations",
       "statute": "FTC Franchise Rule 16 CFR Part 436 (US) & Arthur Wishart Act 2000 (Ontario, Canada)",
       "severity": "HIGH",
       "rule": "In the US, franchisors must provide a Franchise Disclosure Document (FDD) at least 14 days before signing or paying any fee. In Canada (Ontario, Alberta, BC, Manitoba, New Brunswick, Prince Edward Island), disclosure must be provided at least 14 days before signing under equivalent legislation. A franchisor who fails to provide timely disclosure gives the franchisee a right of rescission.",
@@ -1627,13 +1885,17 @@
         "sign now to secure territory",
         "fdd delivery not required in this jurisdiction",
         "no disclosure document"
+      ],
+      "jurisdiction": [
+        "CA",
+        "US"
       ]
     },
     {
-      "topic": "Asia — China VIE Structure and Contractual Control Risk",
+      "topic": "Asia \u2014 China VIE Structure and Contractual Control Risk",
       "statute": "PRC Company Law 2023 & PRC Foreign Investment Law 2019",
       "severity": "HIGH",
-      "rule": "Variable Interest Entity (VIE) structures — common in Chinese tech and media companies — use contractual arrangements rather than direct ownership to give foreign investors economic exposure to Chinese businesses in restricted sectors. These structures are not legally recognized under Chinese law, meaning contracts underpinning VIE structures could be declared void, leaving foreign investors with no enforceable rights to the underlying Chinese business.",
+      "rule": "Variable Interest Entity (VIE) structures \u2014 common in Chinese tech and media companies \u2014 use contractual arrangements rather than direct ownership to give foreign investors economic exposure to Chinese businesses in restricted sectors. These structures are not legally recognized under Chinese law, meaning contracts underpinning VIE structures could be declared void, leaving foreign investors with no enforceable rights to the underlying Chinese business.",
       "negotiation_tip": "Investments in VIE-structured Chinese companies carry inherent legal uncertainty. Ensure your investment agreement includes: (a) explicit acknowledgement of VIE structure risk, (b) representations from the Chinese founders regarding VIE enforceability, and (c) right to withdraw investment at par if the VIE structure is unwound by regulatory action.",
       "red_flags": [
         "variable interest entity",
@@ -1646,10 +1908,13 @@
         "nominee shareholder in prc",
         "foreign ownership restriction bypassed",
         "opco wfoe structure"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Asia — India Commercial Contract Stamp Duty and Registration",
+      "topic": "Asia \u2014 India Commercial Contract Stamp Duty and Registration",
       "statute": "Indian Stamp Act 1899 & Registration Act 1908 (India)",
       "severity": "MEDIUM",
       "rule": "In India, commercial contracts above certain value thresholds must be stamped with appropriate stamp duty (which varies by state) and may require registration under the Registration Act. An insufficiently stamped or unregistered contract that requires registration is inadmissible as evidence in Indian courts. Parties who fail to stamp adequately face penalties of up to 10 times the stamp duty shortfall.",
@@ -1664,10 +1929,13 @@
         "stamp duty avoided",
         "agreement executed without stamping",
         "registration waived by agreement"
+      ],
+      "jurisdiction": [
+        "IN"
       ]
     },
     {
-      "topic": "Asia — Singapore / Hong Kong International Commercial Arbitration",
+      "topic": "Asia \u2014 Singapore / Hong Kong International Commercial Arbitration",
       "statute": "International Arbitration Act 2002 (Singapore) & Arbitration Ordinance Cap 609 (Hong Kong)",
       "severity": "LOW",
       "rule": "Singapore International Arbitration Centre (SIAC) and Hong Kong International Arbitration Centre (HKIAC) are world-class arbitration institutions with strong enforcement frameworks under the New York Convention. However, for African parties, the cost of Singapore or Hong Kong arbitration is prohibitive. African parties should prefer LCIA-accredited African centres, AFSA (South Africa), or NCIA (Kenya) for African disputes.",
@@ -1682,10 +1950,13 @@
         "siac rules apply",
         "hkiac rules apply",
         "costs shared equally in singapore arbitration"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Middle East — UAE/GCC Contract Law Sharia Compliance Risk",
+      "topic": "Middle East \u2014 UAE/GCC Contract Law Sharia Compliance Risk",
       "statute": "UAE Federal Law No. 5 of 1985 (Civil Code) & DIFC Contract Law",
       "severity": "MEDIUM",
       "rule": "Under UAE Federal law, interest on commercial loans and late payment interest in contracts may be void or unenforceable under Sharia-influenced civil law principles, particularly for Muslim parties. Contracts governed by UAE Federal law that include interest provisions may have those provisions severed by UAE courts even if both parties agreed to them. DIFC-governed contracts are exempt from this issue as DIFC applies English common law principles.",
@@ -1700,14 +1971,17 @@
         "interest unenforceable under uae law",
         "no interest recoverable",
         "profit on late payment"
+      ],
+      "jurisdiction": [
+        "UAE_GULF"
       ]
     },
     {
-      "topic": "Middle East — Saudi Arabia Commercial Agency Protection",
+      "topic": "Middle East \u2014 Saudi Arabia Commercial Agency Protection",
       "statute": "Saudi Arabian Commercial Agencies Regulations (Royal Decree M/11 of 1962, amended)",
       "severity": "HIGH",
-      "rule": "Saudi Arabia's Commercial Agencies Law provides strong protections for registered local agents and distributors. A foreign principal who terminates a Saudi commercial agency without cause is liable to pay 'adequate compensation' to the agent, which may include future lost commissions. Non-Saudi companies cannot directly distribute products in Saudi Arabia — they must use a Saudi national agent or registered company.",
-      "negotiation_tip": "In Saudi Arabia, ensure your commercial agency is registered with the Ministry of Commerce. Foreign principals should understand that termination rights are severely restricted — 'termination for convenience' clauses may be overridden by Saudi law. Negotiate specific and objective grounds for termination that will withstand Saudi regulatory scrutiny.",
+      "rule": "Saudi Arabia's Commercial Agencies Law provides strong protections for registered local agents and distributors. A foreign principal who terminates a Saudi commercial agency without cause is liable to pay 'adequate compensation' to the agent, which may include future lost commissions. Non-Saudi companies cannot directly distribute products in Saudi Arabia \u2014 they must use a Saudi national agent or registered company.",
+      "negotiation_tip": "In Saudi Arabia, ensure your commercial agency is registered with the Ministry of Commerce. Foreign principals should understand that termination rights are severely restricted \u2014 'termination for convenience' clauses may be overridden by Saudi law. Negotiate specific and objective grounds for termination that will withstand Saudi regulatory scrutiny.",
       "red_flags": [
         "termination for convenience in saudi",
         "no compensation on termination in ksa",
@@ -1719,45 +1993,54 @@
         "bypassing local agent in ksa",
         "saudi agency not registered",
         "termination at will in saudi arabia"
+      ],
+      "jurisdiction": [
+        "UAE_GULF"
       ]
     },
     {
-      "topic": "Latin America — Brazil Consumer and Commercial Contract Protections",
-      "statute": "Brazilian Consumer Defence Code (CDC) — Law 8078/1990 & Brazilian Civil Code (Law 10406/2002)",
+      "topic": "Latin America \u2014 Brazil Consumer and Commercial Contract Protections",
+      "statute": "Brazilian Consumer Defence Code (CDC) \u2014 Law 8078/1990 & Brazilian Civil Code (Law 10406/2002)",
       "severity": "MEDIUM",
-      "rule": "Brazil's Consumer Defence Code (CDC) is one of the most protective consumer law frameworks globally, applying to any consumer-facing contract. Abusive clauses under the CDC — those that impose disproportionate obligations, limit fundamental rights, or give the supplier unilateral modification rights — are automatically void. Commercial contracts between businesses are governed by the Civil Code, which also allows reduction of excessive penalty clauses.",
+      "rule": "Brazil's Consumer Defence Code (CDC) is one of the most protective consumer law frameworks globally, applying to any consumer-facing contract. Abusive clauses under the CDC \u2014 those that impose disproportionate obligations, limit fundamental rights, or give the supplier unilateral modification rights \u2014 are automatically void. Commercial contracts between businesses are governed by the Civil Code, which also allows reduction of excessive penalty clauses.",
       "negotiation_tip": "In Brazil, challenge any standard-form clause that gives the supplier unilateral modification rights (void under CDC Article 51), excludes statutory warranty rights (void under CDC Article 24), or imposes a penalty exceeding 2% of the outstanding debt (limited by the CDC). Report abusive clauses to PROCON.",
       "red_flags": [
-        "cláusula abusiva brasil",
-        "cdc excluído",
-        "modificação unilateral do contrato",
+        "cl\u00e1usula abusiva brasil",
+        "cdc exclu\u00eddo",
+        "modifica\u00e7\u00e3o unilateral do contrato",
         "multa superior a 2%",
-        "isenção de responsabilidade do fornecedor",
+        "isen\u00e7\u00e3o de responsabilidade do fornecedor",
         "sem direito de arrependimento",
         "prazo de garantia reduzido",
-        "jurisdição estrangeira no brasil",
+        "jurisdi\u00e7\u00e3o estrangeira no brasil",
         "responsabilidade unilateral do consumidor",
-        "foro de eleição unilateral"
+        "foro de elei\u00e7\u00e3o unilateral"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Latin America — Mexico and Colombia Distribution Agreement Risks",
-      "statute": "Mexican Commercial Code (Código de Comercio) & Colombian Commercial Code (Código de Comercio)",
+      "topic": "Latin America \u2014 Mexico and Colombia Distribution Agreement Risks",
+      "statute": "Mexican Commercial Code (C\u00f3digo de Comercio) & Colombian Commercial Code (C\u00f3digo de Comercio)",
       "severity": "MEDIUM",
       "rule": "In Mexico, distribution agreements that create an exclusive distributor can trigger significant compensation rights for the distributor on termination, similar to European commercial agency law, if the distributor developed substantial goodwill. In Colombia, exclusive distribution rights that are terminated without cause may entitle the distributor to compensation for investments made in market development.",
       "negotiation_tip": "In Mexico and Colombia, include clear performance criteria and documented grounds for termination in any exclusive distribution agreement. A 'no-fault termination with notice' clause that defines notice as 6-12 months reduces the risk of compensation claims from departing distributors.",
       "red_flags": [
-        "terminación unilateral del contrato de distribución",
-        "sin indemnización al distribuidor",
-        "exclusividad territorial sin compensación",
-        "terminación sin causa en méxico",
-        "contrato de distribución en colombia sin compensación",
-        "rescisión sin aviso previo",
-        "distribución exclusiva sin protección"
+        "terminaci\u00f3n unilateral del contrato de distribuci\u00f3n",
+        "sin indemnizaci\u00f3n al distribuidor",
+        "exclusividad territorial sin compensaci\u00f3n",
+        "terminaci\u00f3n sin causa en m\u00e9xico",
+        "contrato de distribuci\u00f3n en colombia sin compensaci\u00f3n",
+        "rescisi\u00f3n sin aviso previo",
+        "distribuci\u00f3n exclusiva sin protecci\u00f3n"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Global — Anti-Bribery and Corruption Compliance Clauses",
+      "topic": "Global \u2014 Anti-Bribery and Corruption Compliance Clauses",
       "statute": "Nigerian Corrupt Practices and Other Related Offences Act 2000 & UK Bribery Act 2010 & US FCPA",
       "severity": "HIGH",
       "rule": "Any contract with a clause requiring or enabling facilitation payments, undisclosed commissions, or 'success fees' paid to government officials is void and exposes all parties to criminal liability under Nigeria's ICPC Act, the UK Bribery Act (which has extraterritorial reach), and the US Foreign Corrupt Practices Act. A clause that characterizes facilitation payments as 'customary business practice' does not provide any legal defence.",
@@ -1775,10 +2058,15 @@
         "undisclosed commission",
         "fees to connected parties",
         "payment to expedite approval"
+      ],
+      "jurisdiction": [
+        "NG",
+        "US",
+        "UK"
       ]
     },
     {
-      "topic": "Global — Sanctions and Export Control Compliance Risk",
+      "topic": "Global \u2014 Sanctions and Export Control Compliance Risk",
       "statute": "OFAC Regulations (US) & EU Sanctions Regulations & Nigerian Terrorism Prevention and Prohibition Act 2022",
       "severity": "HIGH",
       "rule": "Contracts with parties subject to US OFAC sanctions, EU sanctions, or UN sanctions lists are void and may expose Nigerian businesses to secondary sanctions even without US nexus. A contract that does not include sanctions compliance representations and termination rights creates a trap: if the counterparty becomes sanctioned mid-contract, the Nigerian party may be unable to perform without violating sanctions laws.",
@@ -1794,14 +2082,17 @@
         "transactions with sanctioned country",
         "no termination for sanctions event",
         "payment to sanctioned jurisdiction"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Global — Standard Form Contracts Imposed Without Negotiation",
+      "topic": "Global \u2014 Standard Form Contracts Imposed Without Negotiation",
       "statute": "FCCPA 2018 (Nigeria) & Various Consumer Protection Laws",
       "severity": "MEDIUM",
       "rule": "Standard-form contracts (take-it-or-leave-it) imposed by the stronger party on the weaker party without any opportunity to negotiate are challenged across multiple jurisdictions under unfair contract terms legislation. Nigerian, UK, EU, South African, and Kenyan law all provide mechanisms to challenge specific unfair terms even in signed standard-form contracts.",
-      "negotiation_tip": "Even when presented with a 'standard contract,' annotate and return a marked-up version — this creates a record that you did not simply accept the standard terms. Courts in multiple jurisdictions give greater weight to negotiated terms than to standard-form boilerplate.",
+      "negotiation_tip": "Even when presented with a 'standard contract,' annotate and return a marked-up version \u2014 this creates a record that you did not simply accept the standard terms. Courts in multiple jurisdictions give greater weight to negotiated terms than to standard-form boilerplate.",
       "red_flags": [
         "standard terms and conditions",
         "not negotiable",
@@ -1814,10 +2105,13 @@
         "non-negotiable standard terms",
         "contract not subject to amendment",
         "accept as presented"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Global — Digital Platform Terms of Service as Contracts",
+      "topic": "Global \u2014 Digital Platform Terms of Service as Contracts",
       "statute": "FCCPA 2018 & Nigeria Data Protection Act 2023 & EU Digital Markets Act 2022",
       "severity": "MEDIUM",
       "rule": "Digital platform terms of service (ToS) are contracts and can be enforced against users and merchants. Platforms commonly include: unilateral termination rights with no compensation, forfeiture of accumulated earnings on account suspension, rights to use user-generated content globally without payment, and mandatory arbitration in foreign jurisdictions. The EU Digital Markets Act 2022 imposes obligations on 'gatekeepers' to offer fair terms.",
@@ -1833,6 +2127,9 @@
         "platform's decision is final and non-appealable",
         "user content licensed to platform royalty-free perpetually",
         "no appeal of account action"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     }
   ],
@@ -1854,6 +2151,9 @@
         "terminate summarily",
         "no right to notice period",
         "dismissed immediately"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -1872,6 +2172,9 @@
         "withhold final salary",
         "salary deduction for losses",
         "recover from wages"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -1891,6 +2194,9 @@
         "cost of training shall be recovered",
         "refund training expenses",
         "training cost recovery"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -1898,7 +2204,7 @@
       "statute": "Labour Act Cap L1 LFN 2004 & Restraint of Trade Doctrine",
       "severity": "MEDIUM",
       "rule": "Garden leave clauses (requiring the employee to stay away from work during notice while remaining employed) and non-solicitation clauses must be reasonable in duration and scope. Nigerian courts will not enforce them if they effectively prevent a person from working in their profession for an unreasonable period.",
-      "negotiation_tip": "Limit garden leave to the actual notice period only. Non-solicitation of clients should be limited to 6 months and restricted to clients you personally dealt with — not the employer's entire client base.",
+      "negotiation_tip": "Limit garden leave to the actual notice period only. Non-solicitation of clients should be limited to 6 months and restricted to clients you personally dealt with \u2014 not the employer's entire client base.",
       "red_flags": [
         "garden leave",
         "non-solicitation",
@@ -1910,6 +2216,9 @@
         "may not work during notice period",
         "garden leave period",
         "paid leave with work restrictions"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -1929,13 +2238,16 @@
         "employer may modify conditions of employment",
         "terms may be varied",
         "employer may change your duties"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
       "topic": "Excessive Confidentiality / IP Ownership in Employment",
       "statute": "Copyright Act 2022 & Labour Act Cap L1 LFN 2004",
       "severity": "MEDIUM",
-      "rule": "An employment clause assigning all intellectual property created by an employee — including works created in personal time, unrelated to the employer's business — to the employer goes beyond what Nigerian law permits. The Copyright Act 2022 limits employer ownership to works created in the course of employment.",
+      "rule": "An employment clause assigning all intellectual property created by an employee \u2014 including works created in personal time, unrelated to the employer's business \u2014 to the employer goes beyond what Nigerian law permits. The Copyright Act 2022 limits employer ownership to works created in the course of employment.",
       "negotiation_tip": "Limit IP assignment to works created 'in the course of employment and using company resources.' Add an explicit carve-out: 'This clause does not apply to works created entirely in the employee's personal time and unrelated to the company's business.'",
       "red_flags": [
         "all inventions shall belong to the employer",
@@ -1947,6 +2259,9 @@
         "intellectual property created at any time",
         "all inventions are employer property",
         "any idea developed is company property"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -1965,6 +2280,9 @@
         "indefinite probation",
         "extended probation period",
         "probation of one year"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -1985,6 +2303,9 @@
         "pension waived",
         "retirement benefits excluded",
         "no rsapfa enrollment"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -2005,6 +2326,9 @@
         "engaged as a vendor not an employee",
         "you provide services as a business",
         "independent consultant"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -2025,6 +2349,9 @@
         "on-call without compensation",
         "flexible hours at employer's discretion with no additional pay",
         "extended hours at flat rate"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -2045,6 +2372,9 @@
         "annual leave is 5 working days",
         "leave encashment not permitted",
         "no holiday carry-over"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -2064,13 +2394,16 @@
         "maternity leave is a privilege not a right",
         "maternity pay at half salary",
         "no breastfeeding break"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
       "topic": "Non-Disparagement / Gagging Clause",
       "statute": "Nigerian Contract Law & Constitution of Nigeria (Freedom of Expression)",
       "severity": "MEDIUM",
-      "rule": "A non-disparagement clause prohibiting an employee from making any negative statement about the employer — including truthful statements about unlawful treatment, workplace conditions, or public interest matters — is an unreasonable restraint on freedom of expression and potentially contrary to whistleblower protections under the Corrupt Practices and Other Related Offences Act.",
+      "rule": "A non-disparagement clause prohibiting an employee from making any negative statement about the employer \u2014 including truthful statements about unlawful treatment, workplace conditions, or public interest matters \u2014 is an unreasonable restraint on freedom of expression and potentially contrary to whistleblower protections under the Corrupt Practices and Other Related Offences Act.",
       "negotiation_tip": "Accept only a mutual, narrow non-disparagement clause limited to false statements of fact and trade secrets. Ensure the clause explicitly excludes truthful statements, regulatory disclosures, court proceedings, and whistleblowing reports to law enforcement.",
       "red_flags": [
         "shall not make any negative statement",
@@ -2084,6 +2417,9 @@
         "gag clause",
         "no right to discuss salary or conditions",
         "prohibited from reviewing employer online"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -2105,6 +2441,9 @@
         "non-compete for 3 years",
         "prohibited from working in the sector",
         "2-year non-compete"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -2124,6 +2463,9 @@
         "payment processed quarterly",
         "salary disbursed when cash flow permits",
         "salary on the 60th day"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -2143,6 +2485,9 @@
         "personal documents held as collateral",
         "passport held by employer",
         "id card retained by company"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -2164,6 +2509,9 @@
         "no minimum hours commitment",
         "temporary worker with no permanency rights",
         "ad hoc basis"
+      ],
+      "jurisdiction": [
+        "GLOBAL"
       ]
     },
     {
@@ -2183,13 +2531,16 @@
         "disclaimer of employer liability for injury",
         "waiver of compensation rights",
         "nsitf contribution excluded"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
       "topic": "Whistleblower Retaliation Clause",
       "statute": "Corrupt Practices and Other Related Offences Act 2000 & Nigerian Labour Act",
       "severity": "HIGH",
-      "rule": "A contract clause that prohibits reporting regulatory violations, fraud, or corrupt practices to government agencies — or that makes continued employment conditional on not reporting — is void as contrary to public policy and the ICPC Act. Retaliation against a whistleblower is itself a criminal offence under Nigerian law.",
+      "rule": "A contract clause that prohibits reporting regulatory violations, fraud, or corrupt practices to government agencies \u2014 or that makes continued employment conditional on not reporting \u2014 is void as contrary to public policy and the ICPC Act. Retaliation against a whistleblower is itself a criminal offence under Nigerian law.",
       "negotiation_tip": "Do not sign any clause that restricts your right to report suspected fraud, corruption, or regulatory violations to ICPC, EFCC, CBN, or other regulators. If you are pressured not to report wrongdoing as a condition of employment or settlement, this itself constitutes obstruction of justice.",
       "red_flags": [
         "shall not report to regulators",
@@ -2202,6 +2553,9 @@
         "must not report to cbn",
         "internal process only",
         "no external reporting"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
@@ -2221,10 +2575,13 @@
         "transferred to subsidiary without consent",
         "employment novated to another company",
         "new contract on secondment"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "West Africa — Ghana Employment Act Protections",
+      "topic": "West Africa \u2014 Ghana Employment Act Protections",
       "statute": "Labour Act 2003 (Act 651) (Ghana) & National Pensions Act 2008 (Act 766) (Ghana)",
       "severity": "HIGH",
       "rule": "Ghana's Labour Act (Act 651) provides: minimum 15 working days annual leave, 3 months paid maternity leave (full pay for first 5 years, 2/3 pay thereafter), minimum notice period of one month for monthly-paid workers, and protection from unfair termination through the National Labour Commission. All employers with 5 or more workers must register with the Social Security and National Insurance Trust (SSNIT).",
@@ -2240,14 +2597,17 @@
         "no ssnit registration",
         "no pension contribution ghana",
         "termination before national labour commission approval"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "East Africa — Kenya Employment Act Minimum Standards",
+      "topic": "East Africa \u2014 Kenya Employment Act Minimum Standards",
       "statute": "Employment Act 2007 (Kenya) & Work Injury Benefits Act 2007 (Kenya)",
       "severity": "HIGH",
       "rule": "Kenya's Employment Act 2007 provides: minimum 21 working days annual leave, 3 months paid maternity leave, 2 weeks paid paternity leave, minimum 28-day notice for termination after one month service, written contract required for all employees, and written reasons for dismissal are mandatory. Unfair dismissal can be referred to the Employment and Labour Relations Court.",
-      "negotiation_tip": "In Kenya, insist on a written contract regardless of employment term. Ensure your contract specifies the NSSF and NHIF contributions. Challenge any dismissal where you were not given a fair hearing before a panel — procedural fairness is a legal requirement under the Employment Act.",
+      "negotiation_tip": "In Kenya, insist on a written contract regardless of employment term. Ensure your contract specifies the NSSF and NHIF contributions. Challenge any dismissal where you were not given a fair hearing before a panel \u2014 procedural fairness is a legal requirement under the Employment Act.",
       "red_flags": [
         "no written contract in kenya",
         "annual leave of 15 days in kenya",
@@ -2259,10 +2619,13 @@
         "no nhif contribution",
         "summary termination without hearing",
         "dismissal without written reasons in kenya"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "East Africa — Tanzania and Uganda Employment Protections",
+      "topic": "East Africa \u2014 Tanzania and Uganda Employment Protections",
       "statute": "Employment and Labour Relations Act 2004 (Tanzania) & Employment Act 2006 (Uganda)",
       "severity": "HIGH",
       "rule": "In Tanzania, the Employment and Labour Relations Act requires minimum 28 days annual leave, 84 days paid maternity leave, and referral of unfair termination to the Commission for Mediation and Arbitration (CMA). In Uganda, the Employment Act 2006 requires minimum 21 days annual leave, 60 days paid maternity leave, and termination with fair reasons and procedure. Employers must register with NSSF in both countries.",
@@ -2278,10 +2641,13 @@
         "summary dismissal in tanzania",
         "termination without fair procedure in uganda",
         "no written contract in tanzania"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Southern Africa — South Africa Unfair Dismissal and Labour Relations",
+      "topic": "Southern Africa \u2014 South Africa Unfair Dismissal and Labour Relations",
       "statute": "Labour Relations Act 66 of 1995 & Employment Equity Act 55 of 1998 (South Africa)",
       "severity": "HIGH",
       "rule": "Under South Africa's Labour Relations Act, every dismissal must be procedurally and substantively fair. An employee may refer an unfair dismissal to the CCMA within 30 days. Employment contracts cannot contract out of LRA protections. The Employment Equity Act prohibits unfair discrimination and requires designated employers to implement equity plans.",
@@ -2297,10 +2663,13 @@
         "no right to appeal dismissal",
         "ccma waived",
         "lra excluded by agreement"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Southern Africa — Zimbabwe and Zambia Labour Protections",
+      "topic": "Southern Africa \u2014 Zimbabwe and Zambia Labour Protections",
       "statute": "Labour Act Cap 28:01 (Zimbabwe) & Employment Code Act 2019 (Zambia)",
       "severity": "HIGH",
       "rule": "In Zimbabwe, the Labour Act requires that retrenchment (redundancy) be approved by the National Employment Council or Labour Court, and employees are entitled to retrenchment packages. In Zambia, the Employment Code Act 2019 provides 30 days minimum notice and retrenchment benefits equal to one month's pay per year of service. Contracts in both countries cannot waive these statutory minimums.",
@@ -2316,14 +2685,17 @@
         "employee waives redundancy rights",
         "retrenchment at employer's sole discretion",
         "no compensation on redundancy"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "Europe — UK Employment Zero-Hours Worker Rights",
+      "topic": "Europe \u2014 UK Employment Zero-Hours Worker Rights",
       "statute": "Employment Rights Act 1996 (UK) & Workers (Predictable Terms and Conditions) Act 2023 (UK)",
       "severity": "MEDIUM",
       "rule": "In the UK, zero-hours workers are 'workers' (not employees) with rights to: national minimum wage, 5.6 weeks paid holiday, rest breaks, and protection from unlawful wage deduction. Exclusivity clauses in zero-hours contracts (requiring the worker to work only for one employer) are unenforceable under the Employment Rights Act 1996. After 26 weeks, workers may request predictable working hours under the 2023 Act.",
-      "negotiation_tip": "UK zero-hours workers: exclusivity clauses are void — you may work for multiple employers. You are entitled to accrue holiday at 12.07% of hours worked. Request a fixed-hours contract after 26 weeks under the Workers (Predictable Terms and Conditions) Act 2023.",
+      "negotiation_tip": "UK zero-hours workers: exclusivity clauses are void \u2014 you may work for multiple employers. You are entitled to accrue holiday at 12.07% of hours worked. Request a fixed-hours contract after 26 weeks under the Workers (Predictable Terms and Conditions) Act 2023.",
       "red_flags": [
         "exclusivity required on zero-hours",
         "may only work for one employer",
@@ -2334,13 +2706,16 @@
         "you may not work elsewhere",
         "zero hours worker has no employment rights",
         "zero hours worker no sick pay"
+      ],
+      "jurisdiction": [
+        "UK"
       ]
     },
     {
-      "topic": "Europe — EU Fixed-Term Contract Renewal Abuse",
+      "topic": "Europe \u2014 EU Fixed-Term Contract Renewal Abuse",
       "statute": "EU Fixed-Term Work Directive 1999/70/EC & Various EU Member State implementing legislation",
       "severity": "MEDIUM",
-      "rule": "EU law prohibits the abusive use of successive fixed-term employment contracts. After a maximum number of renewals or years of service (varying by member state — typically 2-3 renewals or 2-3 years), successive fixed-term contracts must convert to permanent employment. Employers who renew fixed-term contracts repeatedly to avoid permanent employment obligations are in breach of EU law.",
+      "rule": "EU law prohibits the abusive use of successive fixed-term employment contracts. After a maximum number of renewals or years of service (varying by member state \u2014 typically 2-3 renewals or 2-3 years), successive fixed-term contracts must convert to permanent employment. Employers who renew fixed-term contracts repeatedly to avoid permanent employment obligations are in breach of EU law.",
       "negotiation_tip": "In EU jurisdictions, track your total period of fixed-term employment. In Germany, fixed-term contracts cannot exceed 2 years total (with max 3 renewals) without objective justification. In France, fixed-term contracts convert to permanent (CDI) after the maximum fixed-term period. Challenge renewal of a fixed-term contract beyond the statutory maximum as unlawful.",
       "red_flags": [
         "fixed-term contract of 1 year",
@@ -2353,14 +2728,17 @@
         "annual renewal of temporary contract",
         "short-term contract consecutive renewals",
         "project-based indefinitely"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     },
     {
-      "topic": "North America — US Non-Compete and NDA Overreach",
+      "topic": "North America \u2014 US Non-Compete and NDA Overreach",
       "statute": "FTC Non-Compete Rule (2024, under litigation) & State law (varies significantly by state)",
       "severity": "MEDIUM",
       "rule": "The US Federal Trade Commission issued a rule in 2024 banning most employee non-competes (subject to ongoing legal challenges). California, Colorado, Minnesota, and Oklahoma have separately banned employee non-competes entirely by state law. Even in states where non-competes are enforceable, courts blue-pencil (reduce) unreasonable duration, geography, or scope. NDAs that prevent reporting of crimes or regulatory violations are prohibited under the Speak Out Act 2022 for harassment and assault matters.",
-      "negotiation_tip": "In California: any non-compete is void regardless of what it says. In other US states: non-competes must be narrowly tailored, supported by consideration, and reasonable in scope. Do not sign NDAs that purport to prohibit reporting of crimes to law enforcement — these are void under the Speak Out Act for harassment matters and likely void on public policy grounds for other crimes.",
+      "negotiation_tip": "In California: any non-compete is void regardless of what it says. In other US states: non-competes must be narrowly tailored, supported by consideration, and reasonable in scope. Do not sign NDAs that purport to prohibit reporting of crimes to law enforcement \u2014 these are void under the Speak Out Act for harassment matters and likely void on public policy grounds for other crimes.",
       "red_flags": [
         "non-compete in california",
         "worldwide non-compete in us",
@@ -2372,14 +2750,17 @@
         "non-compete for all similar roles",
         "industry-wide us non-compete",
         "nda waiving right to report crimes"
+      ],
+      "jurisdiction": [
+        "US"
       ]
     },
     {
-      "topic": "North America — Canada Provincial Employment Standards",
+      "topic": "North America \u2014 Canada Provincial Employment Standards",
       "statute": "Employment Standards Act 2000 (Ontario) & Canada Labour Code (Federal jurisdiction)",
       "severity": "MEDIUM",
       "rule": "Canadian employment standards vary by province and between federally and provincially regulated sectors. Ontario's ESA 2000 provides: minimum 2 weeks vacation (rising to 3 weeks after 5 years), minimum termination notice of 1-8 weeks (plus severance pay for 5+ years), and limits on hours of work. Contracts cannot provide less than ESA minimums. The duty to accommodate disability and protected grounds is governed by the Ontario Human Rights Code.",
-      "negotiation_tip": "In Canada, identify whether your employer is federally or provincially regulated. Federally regulated employees (banks, telecom, airlines) are covered by the Canada Labour Code, which is generally more protective. Province-specific ESAs set the floor — any contract term below the ESA minimum is automatically void.",
+      "negotiation_tip": "In Canada, identify whether your employer is federally or provincially regulated. Federally regulated employees (banks, telecom, airlines) are covered by the Canada Labour Code, which is generally more protective. Province-specific ESAs set the floor \u2014 any contract term below the ESA minimum is automatically void.",
       "red_flags": [
         "termination with 1 week notice in canada",
         "no severance in canada",
@@ -2391,14 +2772,17 @@
         "below esa standards",
         "termination without notice in canada",
         "no ontario esa compliance"
+      ],
+      "jurisdiction": [
+        "CA"
       ]
     },
     {
-      "topic": "Asia — India Employment Protections and Labour Law Compliance",
+      "topic": "Asia \u2014 India Employment Protections and Labour Law Compliance",
       "statute": "Industrial Disputes Act 1947 (India) & Code on Wages 2019 & Factories Act 1948 (India)",
       "severity": "HIGH",
       "rule": "Indian labour law is split across multiple central and state laws, now being consolidated under four Labour Codes (Wages, IR, Social Security, Occupational Safety). Key protections: minimum wage (state-specific); no termination of workers in establishments with 100+ employees without government approval; gratuity of 15 days pay per year of service after 5 years; 12 days paid casual leave; 26 weeks paid maternity leave. Contracts cannot waive these rights.",
-      "negotiation_tip": "In India, verify the applicable minimum wage for your skill category and state. Gratuity is a statutory entitlement after 5 years of continuous service — do not waive this in any separation agreement. For establishments with 100+ workers, retrenchment without government approval is void.",
+      "negotiation_tip": "In India, verify the applicable minimum wage for your skill category and state. Gratuity is a statutory entitlement after 5 years of continuous service \u2014 do not waive this in any separation agreement. For establishments with 100+ workers, retrenchment without government approval is void.",
       "red_flags": [
         "no gratuity entitlement india",
         "waives gratuity rights",
@@ -2410,14 +2794,17 @@
         "retrenchment without industrial dispute act compliance",
         "no esi contribution india",
         "below statutory minimum wages"
+      ],
+      "jurisdiction": [
+        "IN"
       ]
     },
     {
-      "topic": "Asia — Middle East Domestic Worker Kafala System Traps",
+      "topic": "Asia \u2014 Middle East Domestic Worker Kafala System Traps",
       "statute": "UAE Labour Law Federal Decree No. 33 of 2021 & ILO Convention No. 189 (Domestic Workers)",
       "severity": "HIGH",
-      "rule": "The kafala (sponsorship) system in Gulf countries (UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman) historically tied a migrant worker's legal status to their employer/sponsor, making it practically impossible to change employers or leave the country without the employer's permission. While reforms are underway in Qatar (2020) and UAE (2021) to allow job mobility without employer consent, kafala-adjacent practices persist — including: contract substitution (a different contract substituted on arrival), document confiscation, and exit ban clauses.",
-      "negotiation_tip": "Before accepting Gulf employment: verify the signed contract is in English and Arabic and identical to the contract you will sign on arrival. Confirm the right to change employers after one year without sponsor consent (now legal in UAE and Qatar). Never surrender your passport to an employer — this is illegal across all GCC states. Register any employment dispute with the Ministry of Human Resources (UAE) or ADLSA (Qatar).",
+      "rule": "The kafala (sponsorship) system in Gulf countries (UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman) historically tied a migrant worker's legal status to their employer/sponsor, making it practically impossible to change employers or leave the country without the employer's permission. While reforms are underway in Qatar (2020) and UAE (2021) to allow job mobility without employer consent, kafala-adjacent practices persist \u2014 including: contract substitution (a different contract substituted on arrival), document confiscation, and exit ban clauses.",
+      "negotiation_tip": "Before accepting Gulf employment: verify the signed contract is in English and Arabic and identical to the contract you will sign on arrival. Confirm the right to change employers after one year without sponsor consent (now legal in UAE and Qatar). Never surrender your passport to an employer \u2014 this is illegal across all GCC states. Register any employment dispute with the Ministry of Human Resources (UAE) or ADLSA (Qatar).",
       "red_flags": [
         "passport held by employer",
         "employer holds travel documents",
@@ -2430,13 +2817,17 @@
         "documents surrendered to employer",
         "contract may differ from original offer",
         "contract substitution on arrival"
+      ],
+      "jurisdiction": [
+        "UAE_GULF",
+        "GLOBAL"
       ]
     },
     {
-      "topic": "Global — Migrant Worker Recruitment Fee Exploitation",
+      "topic": "Global \u2014 Migrant Worker Recruitment Fee Exploitation",
       "statute": "ILO Forced Labour Convention 1930 (No. 29) & ILO Protocol 2014 & Nigerian Labour Act",
       "severity": "HIGH",
-      "rule": "The ILO's Employer Pays Principle (EPP) establishes that no worker should pay for their own recruitment. Recruitment fees charged to migrant workers — for visas, flights, medical tests, training, or agent fees — create debt bondage that constitutes a form of forced labour under the ILO Forced Labour Convention. Nigerian recruitment agencies that charge workers for overseas placement fees may violate the Labour Act and trafficking laws.",
+      "rule": "The ILO's Employer Pays Principle (EPP) establishes that no worker should pay for their own recruitment. Recruitment fees charged to migrant workers \u2014 for visas, flights, medical tests, training, or agent fees \u2014 create debt bondage that constitutes a form of forced labour under the ILO Forced Labour Convention. Nigerian recruitment agencies that charge workers for overseas placement fees may violate the Labour Act and trafficking laws.",
       "negotiation_tip": "Legitimate overseas employment never requires the worker to pay a recruitment fee. Report any recruitment agency demanding fees from workers to the National Agency for the Prohibition of Trafficking in Persons (NAPTIP). Verify any overseas job offer through the Nigerian Embassy in the destination country before paying anything.",
       "red_flags": [
         "recruitment fee payable by worker",
@@ -2450,10 +2841,14 @@
         "flight cost deducted from wages",
         "documentation cost charged to employee",
         "mandatory contribution before employment"
+      ],
+      "jurisdiction": [
+        "NG",
+        "GLOBAL"
       ]
     },
     {
-      "topic": "Global — Remote Work / Cross-Border Employment Compliance Risk",
+      "topic": "Global \u2014 Remote Work / Cross-Border Employment Compliance Risk",
       "statute": "Nigerian Labour Act & Various National Tax and Immigration Laws",
       "severity": "MEDIUM",
       "rule": "A Nigerian employee working remotely for a foreign employer, or a foreign employee working remotely from Nigeria, creates complex tax, social security, and immigration compliance issues in both jurisdictions. Many cross-border remote work arrangements are structured to benefit the employer by avoiding Nigerian labour law protections and pension obligations, or the employee by avoiding personal income tax registration in Nigeria.",
@@ -2469,14 +2864,18 @@
         "foreign employer no nigeria registration",
         "cross-border employment no compliance",
         "remote arrangement no written contract"
+      ],
+      "jurisdiction": [
+        "NG",
+        "GLOBAL"
       ]
     },
     {
-      "topic": "Global — Settlement Agreement Coercion and Full and Final Settlement Traps",
+      "topic": "Global \u2014 Settlement Agreement Coercion and Full and Final Settlement Traps",
       "statute": "Nigerian Labour Act & Common Law",
       "severity": "HIGH",
       "rule": "Settlement agreements in which an employee waives all future claims against the employer in exchange for a payment must be entered into voluntarily and with full knowledge of the rights being waived. A settlement agreement signed under duress (e.g., the employee was told to 'sign or be dismissed'), without independent legal advice, or that purports to waive statutory rights (pension, minimum notice, maternity leave) is challengeable.",
-      "negotiation_tip": "Never sign a full and final settlement agreement without: (a) a minimum 7 days to consider it, (b) independent legal advice (which the employer should pay for), and (c) a clear statement of what statutory claims are being waived. Statutory claims that cannot be waived by agreement — such as pension contributions and NSITF claims — should be excluded from any waiver.",
+      "negotiation_tip": "Never sign a full and final settlement agreement without: (a) a minimum 7 days to consider it, (b) independent legal advice (which the employer should pay for), and (c) a clear statement of what statutory claims are being waived. Statutory claims that cannot be waived by agreement \u2014 such as pension contributions and NSITF claims \u2014 should be excluded from any waiver.",
       "red_flags": [
         "full and final settlement",
         "waives all future claims",
@@ -2489,6 +2888,9 @@
         "no right to appeal after signing",
         "settlement agreement must be signed today",
         "release of all claims"
+      ],
+      "jurisdiction": [
+        "NG"
       ]
     }
   ]
