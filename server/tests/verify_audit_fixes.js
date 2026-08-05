@@ -5,6 +5,7 @@ const {
   isValidPrecedentSentence,
   chunkByClauses,
   flagClause,
+  collapseFragmentFlags,
   SYSTEM_PREAMBLE_MARKERS
 } = require('../services/analysis.service');
 const { extractText } = require('../services/extraction.service');
@@ -12,7 +13,7 @@ const { extractText } = require('../services/extraction.service');
 async function runRegressionTestSuite() {
   console.log('🧪 Starting ClearSight Automated Audit Fixes Regression Test Suite...\n');
   let passedCount = 0;
-  let totalTests = 9;
+  let totalTests = 10;
 
   // -------------------------------------------------------------
   // Test Fixture 1: Prompt Injection Defense
@@ -250,6 +251,41 @@ Clause 3.3: Deemed Acceptance. Continued performance constitutes deemed acceptan
     passedCount++;
   } catch (err) {
     console.error('  ❌ Test Fixture 6 Failed:', err.message);
+  }
+
+  // -------------------------------------------------------------
+  // Test Fixture 7: Parent-Clause Flag Collapsing (Fragment Merge Assertion)
+  // -------------------------------------------------------------
+  try {
+    console.log('Running Test Fixture 7: Parent-Clause Flag Collapsing (Fragment Merge Assertion)...');
+    const mockRawFlags = [
+      { chunk: { id: '2.1 The Distributor shall purchase minimum', clauseText: 'text 2.1' }, risk: { category: 'predatory financial terms', score: 0.88, severity: 'HIGH' } },
+      { chunk: { id: '2.2 In event of failure to purchase minimum', clauseText: 'text 2.2' }, risk: { category: 'predatory financial terms', score: 0.88, severity: 'HIGH' } },
+      { chunk: { id: '2.3 Shortfall penalty calculated quarterly', clauseText: 'text 2.3' }, risk: { category: 'predatory financial terms', score: 0.88, severity: 'HIGH' } },
+      { chunk: { id: '3.2 Supplier reserves right to vary prices', clauseText: 'text 3.2' }, risk: { category: 'unfair rent increase', score: 0.88, severity: 'HIGH' } },
+      { chunk: { id: '3.4 Late payment interest 79% per annum', clauseText: 'text 3.4' }, risk: { category: 'predatory financial terms', score: 0.88, severity: 'HIGH' } },
+      { chunk: { id: '5.1 Title shall not pass', clauseText: 'text 5.1' }, risk: { category: 'unbalanced liability', score: 0.88, severity: 'HIGH' } },
+      { chunk: { id: '5.2 Fiduciary bailee status', clauseText: 'text 5.2' }, risk: { category: 'unbalanced liability', score: 0.88, severity: 'HIGH' } },
+      { chunk: { id: '5.4 Payments forfeited upon repossession', clauseText: 'text 5.4' }, risk: { category: 'unbalanced liability', score: 0.88, severity: 'HIGH' } }
+    ];
+
+    const collapsedResults = collapseFragmentFlags(mockRawFlags);
+    assert.strictEqual(collapsedResults.length, 4, '8 raw sub-clause fragments must collapse into exactly 4 parent cards');
+
+    // Assert compound ID formatting
+    const clause2Item = collapsedResults.find(c => c.parentNum === '2');
+    assert.notStrictEqual(clause2Item, undefined, 'Clause 2 parent card must exist');
+    assert.strictEqual(clause2Item.chunk.id.includes('Clause 2'), true, 'Clause 2 ID must contain "Clause 2"');
+    assert.strictEqual(clause2Item.subClauseRefs.length, 3, 'Clause 2 must merge 3 sub-clause references');
+
+    const clause5Item = collapsedResults.find(c => c.parentNum === '5');
+    assert.notStrictEqual(clause5Item, undefined, 'Clause 5 parent card must exist');
+    assert.strictEqual(clause5Item.subClauseRefs.length, 3, 'Clause 5 must merge 3 sub-clause references');
+
+    console.log(`  ✓ Test Fixture 7 Passed (8 raw fragments collapsed into ${collapsedResults.length} parent cards).`);
+    passedCount++;
+  } catch (err) {
+    console.error('  ❌ Test Fixture 7 Failed:', err.message);
   }
 
   // Summary

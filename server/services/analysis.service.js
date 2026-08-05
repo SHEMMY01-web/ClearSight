@@ -471,37 +471,6 @@ function buildSystematicHeader(strategySettings) {
 }
 
 /**
- * Main pipeline: chunks text, flags risks, runs advocate-critic.
- * Passes pageStats with updated translation truncation metrics.
- */
-async function chunkAndAnalyze(fullText, persona = 'general', strategySettings = null, initialPageStats = null) {
-  const t0 = Date.now();
-  const chunks = chunkByClauses(fullText);
-  const contractType = detectContractType(fullText);
-
-  const targetJurisdictions = (persona === 'freelancer')
-    ? ['NG', 'GLOBAL', 'US', 'UK', 'CA', 'IN', 'UAE_GULF']
-    : ['NG', 'GLOBAL'];
-
-  console.log(`[Analysis] Pipeline started | contractType: ${contractType} | persona: ${persona} | jurisdictions: ${targetJurisdictions.join(',')} | strategySettings: ${JSON.stringify(strategySettings)} | textLength: ${fullText.length}`);
-
-  const strategyHeader = buildSystematicHeader(strategySettings);
-  const validChunks = chunks.filter(c => c.clauseText.length >= 30).slice(0, MAX_CLAUSES_SCANNED);
-
-  console.log(`[Analysis] ${validChunks.length} valid chunks (>= 30 chars) from ${chunks.length} total chunks`);
-
-  // Stage 1: RAG law search for all candidate chunks
-  // Concurrency-limited to CHROMA_CONCURRENCY_LIMIT (5) to prevent ChromaDB HTTP 429 bursts
-  const ragHitsPerChunk = await Promise.all(
-    validChunks.map(c => limitChroma(() => searchLaw(c.clauseText, 1, targetJurisdictions).catch((err) => {
-      console.warn(`[Analysis] RAG searchLaw error for chunk: ${err.message}`);
-      return [];
-    })))
-  );
-
-  console.log(`[Analysis] Stage 1 RAG complete | hits per chunk: [${ragHitsPerChunk.map(h => h.length).join(', ')}]`);
-
-/**
  * Extracts parent clause identifier (e.g., "4" from "4.2(b)" or "5" from "5.3")
  */
 function extractParentClauseInfo(chunkId, clauseText) {
@@ -559,7 +528,10 @@ function collapseFragmentFlags(rawFlags) {
     if (item.subClauseRefs.length > 1) {
       const parentLabel = item.parentNum !== 'General' ? `Clause ${item.parentNum}` : 'Clause';
       const uniqueRefs = [...new Set(item.subClauseRefs)];
-      const updatedId = `${parentLabel} (${uniqueRefs.join(', ')})`;
+      // Omit bare parent number (e.g. "3") if specific sub-numbers (e.g. "3.2", "3.4") are present
+      const specificRefs = uniqueRefs.filter(r => r !== item.parentNum);
+      const refsToShow = specificRefs.length > 0 ? specificRefs : uniqueRefs;
+      const updatedId = `${parentLabel} (${refsToShow.join(', ')})`;
       return {
         ...item,
         chunk: {
@@ -574,6 +546,37 @@ function collapseFragmentFlags(rawFlags) {
   console.log(`[Analysis] Collapsed ${rawFlags.length} raw sub-clause flags into ${collapsed.length} distinct parent-clause risk cards.`);
   return collapsed;
 }
+
+/**
+ * Main pipeline: chunks text, flags risks, runs advocate-critic.
+ * Passes pageStats with updated translation truncation metrics.
+ */
+async function chunkAndAnalyze(fullText, persona = 'general', strategySettings = null, initialPageStats = null) {
+  const t0 = Date.now();
+  const chunks = chunkByClauses(fullText);
+  const contractType = detectContractType(fullText);
+
+  const targetJurisdictions = (persona === 'freelancer')
+    ? ['NG', 'GLOBAL', 'US', 'UK', 'CA', 'IN', 'UAE_GULF']
+    : ['NG', 'GLOBAL'];
+
+  console.log(`[Analysis] Pipeline started | contractType: ${contractType} | persona: ${persona} | jurisdictions: ${targetJurisdictions.join(',')} | strategySettings: ${JSON.stringify(strategySettings)} | textLength: ${fullText.length}`);
+
+  const strategyHeader = buildSystematicHeader(strategySettings);
+  const validChunks = chunks.filter(c => c.clauseText.length >= 30).slice(0, MAX_CLAUSES_SCANNED);
+
+  console.log(`[Analysis] ${validChunks.length} valid chunks (>= 30 chars) from ${chunks.length} total chunks`);
+
+  // Stage 1: RAG law search for all candidate chunks
+  // Concurrency-limited to CHROMA_CONCURRENCY_LIMIT (5) to prevent ChromaDB HTTP 429 bursts
+  const ragHitsPerChunk = await Promise.all(
+    validChunks.map(c => limitChroma(() => searchLaw(c.clauseText, 1, targetJurisdictions).catch((err) => {
+      console.warn(`[Analysis] RAG searchLaw error for chunk: ${err.message}`);
+      return [];
+    })))
+  );
+
+  console.log(`[Analysis] Stage 1 RAG complete | hits per chunk: [${ragHitsPerChunk.map(h => h.length).join(', ')}]`);
 
   // Stage 2: Flagging based on flagConfidence and strategy profile threshold
   const rawFlagged = validChunks
@@ -692,5 +695,6 @@ module.exports = {
   isValidPrecedentSentence,
   chunkByClauses,
   flagClause,
+  collapseFragmentFlags,
   SYSTEM_PREAMBLE_MARKERS
 };

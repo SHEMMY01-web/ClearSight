@@ -17,11 +17,16 @@ function findMatchingClause(paragraph, flaggedClauses, matchedClauseIds = new Se
 
   const paraLower = paragraph.toLowerCase();
 
-  // 1. Direct section/clause ID match (e.g., "4.1", "5.2", "clause 3")
+  // 1. Direct section/clause ID match (handles single and compound IDs like "Clause 4 (4.1, 4.2(a))")
   for (const clause of flaggedClauses) {
     if (matchedClauseIds.has(clause.id)) continue;
     const clauseIdClean = (clause.id || '').trim().toLowerCase();
-    if (clauseIdClean && clauseIdClean.length >= 2 && paraLower.includes(clauseIdClean)) {
+    
+    // Extract individual clause numbers from compound string e.g. ["4.1", "4.2"]
+    const numbersInId = clauseIdClean.match(/\b\d+(?:\.\d+)?(?:\([a-z0-9]+\))?/g) || [];
+    const hasDirectMatch = paraLower.includes(clauseIdClean) || numbersInId.some(num => num.length >= 2 && paraLower.includes(num));
+
+    if (clauseIdClean && hasDirectMatch) {
       matchedClauseIds.add(clause.id);
       return { matched: true, clause };
     }
