@@ -501,15 +501,92 @@ async function chunkAndAnalyze(fullText, persona = 'general', strategySettings =
 
   console.log(`[Analysis] Stage 1 RAG complete | hits per chunk: [${ragHitsPerChunk.map(h => h.length).join(', ')}]`);
 
+/**
+ * Extracts parent clause identifier (e.g., "4" from "4.2(b)" or "5" from "5.3")
+ */
+function extractParentClauseInfo(chunkId, clauseText) {
+  if (!chunkId || typeof chunkId !== 'string') return { parentNum: 'General', subRef: 'Clause' };
+  const match = chunkId.match(/^(?:Clause|Section|Article)?\s*(\d+)(?:\.(\d+))?(?:\(([a-z0-9]+)\))?/i);
+  if (match) {
+    const parentNum = match[1];
+    const subNum = match[2] ? `.${match[2]}` : '';
+    const subLetter = match[3] ? `(${match[3]})` : '';
+    const subRef = `${parentNum}${subNum}${subLetter}`;
+    return { parentNum, subRef };
+  }
+  const textMatch = (chunkId + ' ' + (clauseText || '').substring(0, 80)).match(/\b(\d+)\.\d+(?:\(([a-z0-9]+)\))?/);
+  if (textMatch) {
+    return { parentNum: textMatch[1], subRef: textMatch[0] };
+  }
+  return { parentNum: chunkId.substring(0, 30), subRef: chunkId.substring(0, 30) };
+}
+
+/**
+ * Collapses sub-clause fragments sharing the same parent clause and risk category
+ * into a single representative risk card with a combined sub-clause header.
+ */
+function collapseFragmentFlags(rawFlags) {
+  if (!rawFlags || rawFlags.length <= 1) return rawFlags;
+  const collapsedMap = new Map();
+
+  for (const item of rawFlags) {
+    const info = extractParentClauseInfo(item.chunk.id, item.chunk.clauseText);
+    const parentNum = info.parentNum;
+    const category = item.risk.category || 'unbalanced liability';
+    const key = `${parentNum}:${category}`;
+
+    const existing = collapsedMap.get(key);
+    if (!existing) {
+      collapsedMap.set(key, {
+        ...item,
+        parentNum,
+        subClauseRefs: [info.subRef],
+        mergedChunks: [item.chunk]
+      });
+    } else {
+      if (!existing.subClauseRefs.includes(info.subRef)) {
+        existing.subClauseRefs.push(info.subRef);
+      }
+      existing.mergedChunks.push(item.chunk);
+      if (item.risk.score > existing.risk.score || (item.risk.severity === 'HIGH' && existing.risk.severity !== 'HIGH')) {
+        existing.chunk = item.chunk;
+        existing.risk = item.risk;
+      }
+    }
+  }
+
+  const collapsed = Array.from(collapsedMap.values()).map(item => {
+    if (item.subClauseRefs.length > 1) {
+      const parentLabel = item.parentNum !== 'General' ? `Clause ${item.parentNum}` : 'Clause';
+      const uniqueRefs = [...new Set(item.subClauseRefs)];
+      const updatedId = `${parentLabel} (${uniqueRefs.join(', ')})`;
+      return {
+        ...item,
+        chunk: {
+          ...item.chunk,
+          id: updatedId
+        }
+      };
+    }
+    return item;
+  });
+
+  console.log(`[Analysis] Collapsed ${rawFlags.length} raw sub-clause flags into ${collapsed.length} distinct parent-clause risk cards.`);
+  return collapsed;
+}
+
   // Stage 2: Flagging based on flagConfidence and strategy profile threshold
-  const flagged = validChunks
+  const rawFlagged = validChunks
     .map((chunk, idx) => ({
       chunk,
       risk: flagClause(chunk.clauseText, contractType, strategySettings, ragHitsPerChunk[idx], targetJurisdictions)
     }))
     .filter(({ risk }) => risk?.isRisky);
 
-  console.log(`[Analysis] Stage 2 flagging complete | ${flagged.length} clauses flagged from ${validChunks.length} candidates`);
+  console.log(`[Analysis] Stage 2 flagging complete | ${rawFlagged.length} raw clauses flagged from ${validChunks.length} candidates`);
+
+  // Collapse sub-clause fragments under parent clauses before Stage 3/4 generation
+  const flagged = collapseFragmentFlags(rawFlagged);
 
   // Stage 3: Full Document Translation & Case Search
   const [translationObj, casesResults] = await Promise.all([
