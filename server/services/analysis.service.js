@@ -134,10 +134,30 @@ function chunkByClauses(text) {
 
   console.log(`[Analysis] Contract text split into ${validParts.length} valid operative clause chunks (filtered from ${rawParts.length} raw sections).`);
 
+  let currentParentNum = null;
+  let currentSubNum = null;
+
   return validParts.map((p, i) => {
-    const firstLine = p.split('\n')[0].trim().substring(0, 60);
+    const firstLine = p.split('\n')[0].trim();
+    const headerMatch = firstLine.match(/^(?:Clause|Section|Article)?\s*(\d+)(?:\.(\d+))?/i);
+
+    let constructedId = firstLine.substring(0, 60);
+
+    if (headerMatch) {
+      currentParentNum = headerMatch[1];
+      if (headerMatch[2]) {
+        currentSubNum = `${headerMatch[1]}.${headerMatch[2]}`;
+      } else {
+        currentSubNum = headerMatch[1];
+      }
+    } else if (/^\([a-z0-9]+\)/i.test(firstLine) && currentParentNum) {
+      const letterMarker = firstLine.match(/^\([a-z0-9]+\)/i)[0];
+      const prefix = currentSubNum || currentParentNum;
+      constructedId = `${prefix}${letterMarker} ${firstLine.replace(/^\([a-z0-9]+\)\s*/i, '')}`.substring(0, 60);
+    }
+
     return {
-      id: firstLine || `Clause_${i+1}`,
+      id: constructedId || `Clause_${i+1}`,
       clauseText: p
     };
   });
