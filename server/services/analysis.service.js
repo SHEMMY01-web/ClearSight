@@ -82,7 +82,7 @@ function isValidClauseChunk(chunkText) {
   // Filter bare section titles / headers that lack operative contract language
   // e.g. "5. PRICING, PAYMENT, AND PENALTY INTEREST." without any underlying body text
   if (clean.length < 140) {
-    const operativeVerbs = /\b(shall|must|agrees?|pays?|payment|terminat\w+|indemnif\w+|liable|liability|rights?|duty|duties|warrants?|repossess\w*|forfeit\w*|deduct\w*|renew\w*|obligat\w+|penalt\w+|incurs?|applies|default|variat\w+|notice|accept\w*|fees?|fine|breach)\b/i;
+    const operativeVerbs = /\b(shall|must|agrees?|pays?|payment|terminat\w+|indemnif\w+|liable|liabilit\w*|loss\w*|claim\w*|cost\w*|expense\w*|damage\w*|rights?|duty|duties|warrants?|repossess\w*|forfeit\w*|deduct\w*|renew\w*|obligat\w+|penalt\w+|incurs?|applies|default|variat\w+|notice|accept\w*|fees?|fine|breach)\b/i;
     if (!operativeVerbs.test(clean)) {
       return false;
     }
