@@ -716,7 +716,8 @@
         "bailee of the goods",
         "hold goods on trust",
         "romalpa clause",
-        "title reserved"
+        "title reserved",
+        "title shall remain vested"
       ],
       "jurisdiction": [
         "NG"
@@ -1002,7 +1003,10 @@
         "consequential loss is excluded for the supplier only",
         "supplier shall not be liable for any loss of revenue",
         "indirect loss excluded",
-        "special damages excluded"
+        "special damages excluded",
+        "in no event shall supplier be liable",
+        "indirect consequential",
+        "loss of profits"
       ],
       "jurisdiction": [
         "NG"
